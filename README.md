@@ -175,6 +175,7 @@
       font-size: clamp(1.8rem, 5vw, 4.6rem);
       text-shadow: 0 2px 5px rgba(0, 0, 0, 0.38);
       user-select: none;
+      line-height: 1;
     }
 
     .light {
@@ -187,6 +188,7 @@
 
     .white-piece {
       color: #fff8ed;
+      -webkit-text-stroke: 0.8px rgba(93, 64, 42, 0.72);
       text-shadow:
         0 1px 0 rgba(110, 75, 48, 0.78),
         0 3px 8px rgba(0, 0, 0, 0.38);
@@ -194,6 +196,7 @@
 
     .black-piece {
       color: #1d1814;
+      -webkit-text-stroke: 0.55px rgba(255, 248, 237, 0.42);
       text-shadow:
         0 1px 0 rgba(255, 255, 255, 0.2),
         0 3px 7px rgba(0, 0, 0, 0.32);
@@ -592,6 +595,8 @@
       place-items: center;
       aspect-ratio: 1;
       border: 0;
+      padding: 0;
+      appearance: none;
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(1.35rem, 5vw, 3.35rem);
       line-height: 1;
@@ -2357,7 +2362,7 @@
         title: "The Knight's Secret Jump Mission",
         task: "Help the trickster jumper leap from d2 to f3. Select the knight, then click f3.",
         tip: "Knights move in an L shape: two squares one way, then one square sideways.",
-        fen: "8/8/8/8/8/8/3N4/4K3",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPNPPPP/R1BQKBNR",
         from: "d2",
         to: "f3",
         targets: ["f3"],
@@ -2369,7 +2374,7 @@
         title: "The Queen's Superhero Rescue",
         task: "Send the superhero queen from d1 to h5 to capture the attacker.",
         tip: "Queens can move any distance in a straight line or diagonal if the path is clear.",
-        fen: "6k1/8/8/7r/8/8/8/3QK3",
+        fen: "rnbqkbnr/pppppppp/8/7r/8/8/PPPP1PPP/RNBQKBNR",
         from: "d1",
         to: "h5",
         targets: ["h5"],
@@ -2381,7 +2386,7 @@
         title: "The Rook's Castle Wall Patrol",
         task: "Move the castle guardian from a1 to a7 and patrol the open file.",
         tip: "Rooks move straight up, down, left, or right when the lane is open.",
-        fen: "8/8/8/8/8/8/8/R3K3",
+        fen: "rnbqkbnr/1ppppppp/8/8/8/8/1PPPPPPP/RNBQKBNR",
         from: "a1",
         to: "a7",
         targets: ["a7"],
@@ -2393,7 +2398,7 @@
         title: "The Bishop's Hidden Sniper Trail",
         task: "Slide the diagonal sniper from c1 to h6.",
         tip: "Bishops stay on one color and move along diagonals.",
-        fen: "8/8/8/8/8/8/8/2B1K3",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPP1PPPP/RNBQKBNR",
         from: "c1",
         to: "h6",
         targets: ["h6"],
@@ -2405,7 +2410,7 @@
         title: "The Rookie Soldier's Promotion Quest",
         task: "March the rookie soldier from e7 to e8 and reach promotion land.",
         tip: "Pawns move forward one square, and promotion happens on the last rank.",
-        fen: "k7/4P3/8/8/8/8/8/4K3",
+        fen: "k4bnr/ppppPppp/8/8/8/8/PPPP1PPP/RNBQKBNR",
         from: "e7",
         to: "e8",
         targets: ["e8"],
@@ -2417,7 +2422,7 @@
         title: "Protect the Nervous Boss",
         task: "Move the nervous boss from e1 to f1, one safe step away.",
         tip: "Kings move one square and must never walk into danger.",
-        fen: "8/8/8/8/8/8/8/4K3",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK1NR",
         from: "e1",
         to: "f1",
         targets: ["f1"],
@@ -2431,7 +2436,7 @@
         side: "White to move",
         title: "Back-rank mate",
         prompt: "Black's king is trapped by its own pawns. Which move ends the game?",
-        fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1",
+        fen: "r5k1/pppp1ppp/8/8/8/8/PPPP1PPP/4R1K1",
         targets: ["e8"],
         hint: "Look for a rook move that uses the open file and attacks the king from the back rank.",
         answers: [
@@ -2446,7 +2451,7 @@
         side: "White to move",
         title: "Knight fork",
         prompt: "White can attack the black king and queen at the same time.",
-        fen: "8/8/4k3/7q/8/3N4/8/4K3",
+        fen: "r6r/pppp1ppp/4k3/7q/8/3N4/PPPP1PPP/R3K2R",
         targets: ["f4"],
         hint: "The knight wants a square where it checks the king and also points at h5.",
         answers: [
@@ -2461,7 +2466,7 @@
         side: "Black to move",
         title: "Overloaded defender",
         prompt: "White's queen is guarding too much. Find the forcing capture.",
-        fen: "6k1/5ppp/8/2b5/8/6q1/5QPP/6K1",
+        fen: "r5k1/pppp1ppp/8/2b5/8/6q1/PPPP1QPP/R5K1",
         targets: ["f2"],
         hint: "The bishop on c5 quietly protects the square next to White's king.",
         answers: [
@@ -2476,7 +2481,7 @@
         side: "White to move",
         title: "Queen joins the attack",
         prompt: "The bishop already controls the key diagonal. Which queen move finishes the game?",
-        fen: "6kr/5ppp/8/8/2B5/5Q2/6PP/6K1",
+        fen: "r5kr/5ppp/8/8/2B5/5Q2/PPPP2PP/R5K1",
         targets: ["f7"],
         hint: "The queen can capture a pawn next to the king, and the bishop protects that landing square.",
         answers: [
@@ -2491,7 +2496,7 @@
         side: "White to move",
         title: "Capture the pinned queen",
         prompt: "Black's queen is lined up with the king. Which capture wins material with check?",
-        fen: "4k3/3q4/5N2/1B6/8/8/8/4K3",
+        fen: "r3k2r/pppq1ppp/5N2/1B6/8/8/PPPP1PPP/R3K2R",
         targets: ["d7"],
         hint: "Your bishop can take the queen, and your knight protects the bishop afterward.",
         answers: [
@@ -2506,7 +2511,7 @@
         side: "White to move",
         title: "Pawn break with opposition",
         prompt: "Use the king's support to push the pawn and force the black king backward.",
-        fen: "8/8/8/3k4/8/3K4/4P3/8",
+        fen: "r6r/ppp2ppp/8/3k4/8/3K4/PPP1P1PP/R6R",
         targets: ["e4"],
         hint: "The pawn can advance two squares because it is still on its starting square.",
         answers: [
