@@ -708,6 +708,36 @@
       font-weight: 900;
     }
 
+    .book-lines {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .book-lines li {
+      display: grid;
+      gap: 3px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .book-lines code {
+      color: var(--soft);
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.84rem;
+      font-weight: 900;
+      white-space: normal;
+    }
+
+    .book-lines span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
     .mini-board {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
@@ -1757,6 +1787,11 @@
                 <li>Quick castle</li>
                 <li>f7 pressure</li>
               </ul>
+              <ul class="book-lines">
+                <li><code>3...Bc5 4. c3 Nf6</code><span>Giuoco Piano: build the center before attacking.</span></li>
+                <li><code>3...Nf6 4. Ng5</code><span>Two Knights: tactical pressure on f7.</span></li>
+                <li><code>4. b4</code><span>Evans Gambit: trade a pawn for fast activity.</span></li>
+              </ul>
             </div>
           </article>
           <article class="opening-card">
@@ -1770,6 +1805,11 @@
                 <li>Pawn tension</li>
                 <li>Piece harmony</li>
               </ul>
+              <ul class="book-lines">
+                <li><code>2...e6 3. Nc3 Nf6</code><span>Queen's Gambit Declined: solid center and natural development.</span></li>
+                <li><code>2...dxc4 3. e4</code><span>Queen's Gambit Accepted: win back c4 with central control.</span></li>
+                <li><code>2...c6</code><span>Slav Defense: support d5 before developing the bishop.</span></li>
+              </ul>
             </div>
           </article>
           <article class="opening-card">
@@ -1782,6 +1822,137 @@
                 <li>Counterattack</li>
                 <li>Open c-file</li>
                 <li>Sharp play</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>2. Nf3 d6 3. d4 cxd4</code><span>Open Sicilian: immediate central fight.</span></li>
+                <li><code>2. Nf3 Nc6 3. Bb5</code><span>Rossolimo: develop with pressure on c6.</span></li>
+                <li><code>2. c3</code><span>Alapin: build a broad pawn center.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R" aria-label="Ruy Lopez position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 e5 2. Nf3 Nc6 3. Bb5</span>
+              <h3>Ruy Lopez</h3>
+              <p>White develops with pressure on the knight that defends e5, aiming for long-term central control.</p>
+              <ul class="topic-list">
+                <li>Center pressure</li>
+                <li>Slow squeeze</li>
+                <li>Model games</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>3...a6 4. Ba4 Nf6</code><span>Morphy Defense: ask the bishop to choose.</span></li>
+                <li><code>3...Nf6</code><span>Berlin Defense: challenge e4 immediately.</span></li>
+                <li><code>3...a6 4. Bxc6</code><span>Exchange: trade structure for a simpler plan.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR" aria-label="French Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 e6 2. d4 d5</span>
+              <h3>French Defense</h3>
+              <p>Black builds a strong pawn chain and challenges White's center, often attacking from the queenside.</p>
+              <ul class="topic-list">
+                <li>Pawn chain</li>
+                <li>Counterattack</li>
+                <li>Locked center</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>3. e5 c5</code><span>Advance: lock space, then attack the base.</span></li>
+                <li><code>3. Nc3 Bb4</code><span>Winawer: pin the knight and fight e4.</span></li>
+                <li><code>3. Nd2 Nf6</code><span>Tarrasch: flexible development with less pin pressure.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR" aria-label="Caro-Kann Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 c6 2. d4 d5</span>
+              <h3>Caro-Kann Defense</h3>
+              <p>Black supports a central strike with c6, aiming for a sturdy structure and a healthy light-square bishop.</p>
+              <ul class="topic-list">
+                <li>Solid shell</li>
+                <li>Good bishop</li>
+                <li>Endgame friendly</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>3. e5 Bf5</code><span>Advance: develop the bishop before closing in.</span></li>
+                <li><code>3. Nc3 dxe4 4. Nxe4</code><span>Classical: clarify the center.</span></li>
+                <li><code>3. exd5 cxd5</code><span>Exchange: simple structure and easy development.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R" aria-label="London System position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. d4 d5 2. Nf3 Nf6 3. Bf4</span>
+              <h3>London System</h3>
+              <p>White builds a reliable setup with Bf4, e3, c3, and Bd3, focusing on development and safe attacking chances.</p>
+              <ul class="topic-list">
+                <li>System play</li>
+                <li>Easy setup</li>
+                <li>Safe king</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>3...e6 4. e3 Bd6</code><span>Main setup: trade or keep the bishop with h3.</span></li>
+                <li><code>2. Bf4</code><span>Early London: set the bishop first.</span></li>
+                <li><code>3. e3 c5 4. c3</code><span>Solid center against queenside pressure.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqk2r/ppppppbp/5np1/8/2PP4/2N5/PP2PPPP/R1BQKBNR" aria-label="King's Indian Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. d4 Nf6 2. c4 g6 3. Nc3 Bg7</span>
+              <h3>King's Indian Defense</h3>
+              <p>Black lets White take space, then attacks the center with dynamic piece play and kingside pressure.</p>
+              <ul class="topic-list">
+                <li>Fianchetto</li>
+                <li>Counterpunch</li>
+                <li>Kingside attack</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>4. e4 d6 5. Nf3 O-O</code><span>Classical: big center versus kingside counterplay.</span></li>
+                <li><code>4. g3 O-O 5. Bg2</code><span>Fianchetto: quieter pressure on long diagonals.</span></li>
+                <li><code>4. e4 d6 5. f3</code><span>Saemisch: support the center and prepare queenside space.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR" aria-label="Scandinavian Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 d5</span>
+              <h3>Scandinavian Defense</h3>
+              <p>Black immediately attacks e4 and accepts early queen activity in exchange for a direct, easy-to-learn plan.</p>
+              <ul class="topic-list">
+                <li>Direct strike</li>
+                <li>Early queen</li>
+                <li>Clear plan</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>2. exd5 Qxd5 3. Nc3 Qa5</code><span>Main line: queen retreats and Black develops.</span></li>
+                <li><code>2. exd5 Nf6</code><span>Modern: delay queen recapture and develop first.</span></li>
+                <li><code>2. e5</code><span>Advance: keep space but give Black targets.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqk2r/pppp1ppp/4pn2/8/1bPP4/2N5/PP2PPPP/R1BQKBNR" aria-label="Nimzo-Indian Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. d4 Nf6 2. c4 e6 3. Nc3 Bb4</span>
+              <h3>Nimzo-Indian Defense</h3>
+              <p>Black pins the knight and fights for control of e4, often trading structure for active piece play.</p>
+              <ul class="topic-list">
+                <li>Pin pressure</li>
+                <li>e4 control</li>
+                <li>Flexible plans</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>4. e3 O-O</code><span>Rubinstein: simple development and solid center.</span></li>
+                <li><code>4. Qc2</code><span>Classical: protect c3 and keep the bishop pair.</span></li>
+                <li><code>4. a3 Bxc3+ 5. bxc3</code><span>Saemisch: accept doubled pawns for the bishop pair.</span></li>
               </ul>
             </div>
           </article>
