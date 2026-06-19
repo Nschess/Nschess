@@ -179,12 +179,24 @@
 
     .light {
       background: var(--board-light);
-      color: #f7f1e6;
     }
 
     .dark {
       background: var(--board-dark);
-      color: #211a12;
+    }
+
+    .white-piece {
+      color: #fff8ed;
+      text-shadow:
+        0 1px 0 rgba(110, 75, 48, 0.78),
+        0 3px 8px rgba(0, 0, 0, 0.38);
+    }
+
+    .black-piece {
+      color: #1d1814;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.2),
+        0 3px 7px rgba(0, 0, 0, 0.32);
     }
 
     .hero-inner {
@@ -330,6 +342,7 @@
     .section-warm .lesson-card,
     .section-warm .adventure-card,
     .section-warm .mission-card,
+    .section-warm .adventure-play,
     .section-warm .rule-item,
     .section-warm .opening-card,
     .section-warm .notation-card,
@@ -414,6 +427,7 @@
     .lesson-card,
     .adventure-card,
     .mission-card,
+    .adventure-play,
     .rule-item,
     .opening-card,
     .notation-card,
@@ -460,6 +474,7 @@
     .section-warm .lesson-card p,
     .section-warm .adventure-card p,
     .section-warm .mission-card p,
+    .section-warm .adventure-play p,
     .section-warm .rule-item p,
     .section-warm .opening-card p,
     .section-warm .notation-card p,
@@ -544,6 +559,91 @@
       color: #704d13;
       font-size: 0.8rem;
       font-weight: 900;
+    }
+
+    .adventure-play {
+      display: grid;
+      grid-template-columns: minmax(300px, 460px) 1fr;
+      gap: 24px;
+      margin-top: 18px;
+      padding: 22px;
+      align-items: start;
+    }
+
+    .adventure-board-wrap {
+      border: 8px solid #211a12;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #211a12;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .adventure-board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .adventure-square {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 5vw, 3.35rem);
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .adventure-square.selected {
+      outline: 4px solid rgba(231, 182, 93, 0.86);
+      outline-offset: -4px;
+    }
+
+    .adventure-square.source-piece {
+      box-shadow: inset 0 0 0 4px rgba(231, 182, 93, 0.5);
+    }
+
+    .adventure-square.legal-target::after {
+      content: "";
+      position: absolute;
+      width: 34%;
+      height: 34%;
+      border: 3px solid rgba(127, 166, 80, 0.85);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .adventure-panel {
+      min-width: 0;
+    }
+
+    .mission-selector {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .mission-button {
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background: #f7efe2;
+      color: #211a12;
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .mission-button[aria-pressed="true"] {
+      border-color: var(--green);
+      background: #dfeecf;
     }
 
     .rules-grid {
@@ -1012,6 +1112,7 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .adventure-play,
       .puzzle-shell,
       .study-plan {
         grid-template-columns: 1fr;
@@ -1094,6 +1195,7 @@
       .notation-grid,
       .video-grid,
       .video-grid.tier-grid,
+      .mission-selector,
       .puzzle-shell,
       .study-plan,
       .puzzle-stats {
@@ -1430,6 +1532,27 @@
             <h3>&#128081; Protect the Nervous Boss</h3>
             <p>The whole team builds a shield, castles the king away from danger, and checks every move for hidden threats.</p>
           </article>
+        </div>
+
+        <div class="adventure-play" aria-labelledby="adventurePlayTitle">
+          <div class="adventure-board-wrap" aria-label="Playable adventure board">
+            <div class="adventure-board" id="adventureBoard"></div>
+          </div>
+          <div class="adventure-panel">
+            <div class="mission-selector" id="adventureMissionList" aria-label="Adventure mission list"></div>
+            <div class="puzzle-meta">
+              <span class="badge" id="adventureRole">Knight mission</span>
+              <span class="badge" id="adventureMove">White to move</span>
+            </div>
+            <h3 id="adventurePlayTitle">Adventure mission</h3>
+            <p id="adventureTask">Choose a mission to begin.</p>
+            <p class="puzzle-hint" id="adventureTip">Select the glowing character, then click the target square.</p>
+            <p class="feedback" id="adventureFeedback">Start with the knight mission.</p>
+            <div class="puzzle-actions">
+              <button class="button" type="button" id="nextAdventure">Next Mission</button>
+              <button class="button secondary" type="button" id="restartAdventure">Restart Mission</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1876,6 +1999,87 @@
       k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟"
     };
 
+    function pieceColorClass(piece) {
+      if ("♔♕♖♗♘♙".includes(piece)) return "white-piece";
+      if ("♚♛♜♝♞♟".includes(piece)) return "black-piece";
+      return "";
+    }
+
+    const adventureMissions = [
+      {
+        short: "Knight",
+        role: "Knight mission",
+        title: "The Knight's Secret Jump Mission",
+        task: "Help the trickster jumper leap from d2 to f3. Select the knight, then click f3.",
+        tip: "Knights move in an L shape: two squares one way, then one square sideways.",
+        fen: "8/8/8/8/8/8/3N4/4K3",
+        from: "d2",
+        to: "f3",
+        targets: ["f3"],
+        success: "Mission complete. The knight jumped over the crowd and landed on f3."
+      },
+      {
+        short: "Queen",
+        role: "Queen mission",
+        title: "The Queen's Superhero Rescue",
+        task: "Send the superhero queen from d1 to h5 to capture the attacker.",
+        tip: "Queens can move any distance in a straight line or diagonal if the path is clear.",
+        fen: "6k1/8/8/7r/8/8/8/3QK3",
+        from: "d1",
+        to: "h5",
+        targets: ["h5"],
+        success: "Mission complete. The queen raced along the diagonal and removed the attacker."
+      },
+      {
+        short: "Rook",
+        role: "Rook mission",
+        title: "The Rook's Castle Wall Patrol",
+        task: "Move the castle guardian from a1 to a7 and patrol the open file.",
+        tip: "Rooks move straight up, down, left, or right when the lane is open.",
+        fen: "8/8/8/8/8/8/8/R3K3",
+        from: "a1",
+        to: "a7",
+        targets: ["a7"],
+        success: "Mission complete. The rook controlled the whole a-file like a castle hallway."
+      },
+      {
+        short: "Bishop",
+        role: "Bishop mission",
+        title: "The Bishop's Hidden Sniper Trail",
+        task: "Slide the diagonal sniper from c1 to h6.",
+        tip: "Bishops stay on one color and move along diagonals.",
+        fen: "8/8/8/8/8/8/8/2B1K3",
+        from: "c1",
+        to: "h6",
+        targets: ["h6"],
+        success: "Mission complete. The bishop found the long diagonal trail to h6."
+      },
+      {
+        short: "Pawn",
+        role: "Pawn mission",
+        title: "The Rookie Soldier's Promotion Quest",
+        task: "March the rookie soldier from e7 to e8 and reach promotion land.",
+        tip: "Pawns move forward one square, and promotion happens on the last rank.",
+        fen: "k7/4P3/8/8/8/8/8/4K3",
+        from: "e7",
+        to: "e8",
+        targets: ["e8"],
+        success: "Mission complete. The pawn reached the final rank and earned a promotion."
+      },
+      {
+        short: "King",
+        role: "King mission",
+        title: "Protect the Nervous Boss",
+        task: "Move the nervous boss from e1 to f1, one safe step away.",
+        tip: "Kings move one square and must never walk into danger.",
+        fen: "8/8/8/8/8/8/8/4K3",
+        from: "e1",
+        to: "f1",
+        targets: ["f1"],
+        success: "Mission complete. The king took one careful step to safety."
+      }
+    ];
+
     const puzzles = [
       {
         level: "Beginner",
@@ -1973,6 +2177,9 @@
     let activeAnswered = false;
     let streak = 0;
     const solvedPuzzles = new Set();
+    let currentAdventure = 0;
+    let selectedAdventureSquare = "";
+    let adventureBoardState = [];
 
     function buildHeroBoard() {
       const board = document.getElementById("heroBoard");
@@ -1981,6 +2188,8 @@
         const row = Math.floor(index / 8);
         const col = index % 8;
         square.className = `hero-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
+        const colorClass = pieceColorClass(piece);
+        if (colorClass) square.classList.add(colorClass);
         square.textContent = piece;
         board.appendChild(square);
       });
@@ -2009,6 +2218,109 @@
       return `${files[col]}${8 - row}`;
     }
 
+    function squareToIndex(square) {
+      const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
+      const file = files.indexOf(square[0]);
+      const rank = Number(square[1]);
+      return (8 - rank) * 8 + file;
+    }
+
+    function renderAdventureMissionList() {
+      const list = document.getElementById("adventureMissionList");
+      list.innerHTML = "";
+
+      adventureMissions.forEach((mission, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "mission-button";
+        button.textContent = mission.short;
+        button.setAttribute("aria-pressed", String(index === currentAdventure));
+        button.addEventListener("click", () => {
+          currentAdventure = index;
+          renderAdventureMission();
+        });
+        list.appendChild(button);
+      });
+    }
+
+    function renderAdventureBoard() {
+      const mission = adventureMissions[currentAdventure];
+      const board = document.getElementById("adventureBoard");
+      board.innerHTML = "";
+
+      adventureBoardState.forEach((piece, index) => {
+        const row = Math.floor(index / 8);
+        const col = index % 8;
+        const name = squareName(index);
+        const square = document.createElement("button");
+        square.type = "button";
+        square.className = `adventure-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
+
+        const colorClass = pieceColorClass(piece);
+        if (colorClass) square.classList.add(colorClass);
+        if (piece && name === mission.from) square.classList.add("source-piece");
+        if (name === selectedAdventureSquare) square.classList.add("selected");
+        if (mission.targets.includes(name)) square.classList.add("legal-target");
+
+        square.textContent = piece;
+        square.setAttribute("aria-label", `${name}${piece ? ` ${piece}` : ""}`);
+        square.addEventListener("click", () => handleAdventureClick(name));
+        board.appendChild(square);
+      });
+    }
+
+    function renderAdventureMission() {
+      const mission = adventureMissions[currentAdventure];
+      selectedAdventureSquare = "";
+      adventureBoardState = fenToSquares(mission.fen);
+
+      document.getElementById("adventureRole").textContent = mission.role;
+      document.getElementById("adventureMove").textContent = "White to move";
+      document.getElementById("adventurePlayTitle").textContent = mission.title;
+      document.getElementById("adventureTask").textContent = mission.task;
+      document.getElementById("adventureTip").textContent = mission.tip;
+      document.getElementById("adventureFeedback").textContent = "Select the highlighted character piece, then choose the glowing target square.";
+
+      renderAdventureMissionList();
+      renderAdventureBoard();
+    }
+
+    function handleAdventureClick(name) {
+      const mission = adventureMissions[currentAdventure];
+      const fromIndex = squareToIndex(mission.from);
+      const toIndex = squareToIndex(mission.to);
+      const clickedPiece = adventureBoardState[squareToIndex(name)];
+
+      if (!selectedAdventureSquare) {
+        if (name === mission.from && clickedPiece) {
+          selectedAdventureSquare = name;
+          document.getElementById("adventureFeedback").textContent = `Good. Now send the piece to ${mission.to}.`;
+        } else {
+          document.getElementById("adventureFeedback").textContent = `Start with the character on ${mission.from}.`;
+        }
+        renderAdventureBoard();
+        return;
+      }
+
+      if (name === selectedAdventureSquare) {
+        selectedAdventureSquare = "";
+        document.getElementById("adventureFeedback").textContent = "Piece deselected. Choose the character again when ready.";
+        renderAdventureBoard();
+        return;
+      }
+
+      if (name === mission.to) {
+        adventureBoardState[toIndex] = adventureBoardState[fromIndex];
+        adventureBoardState[fromIndex] = "";
+        selectedAdventureSquare = "";
+        document.getElementById("adventureFeedback").textContent = mission.success;
+        renderAdventureBoard();
+        return;
+      }
+
+      document.getElementById("adventureFeedback").textContent = `That is not this mission's square. Try ${mission.to}.`;
+    }
+
     function renderMiniBoards() {
       document.querySelectorAll(".mini-board").forEach((board) => {
         const squares = fenToSquares(board.dataset.fen);
@@ -2018,6 +2330,8 @@
           const col = index % 8;
           const square = document.createElement("span");
           square.className = `mini-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
+          const colorClass = pieceColorClass(piece);
+          if (colorClass) square.classList.add(colorClass);
           square.textContent = piece;
           board.appendChild(square);
         });
@@ -2095,6 +2409,8 @@
         const name = squareName(index);
         square.className = `puzzle-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
         if (puzzle.targets.includes(name)) square.classList.add("target");
+        const colorClass = pieceColorClass(piece);
+        if (colorClass) square.classList.add(colorClass);
         square.textContent = piece;
         square.setAttribute("aria-label", `${name}${piece ? ` ${piece}` : ""}`);
         board.appendChild(square);
@@ -2174,7 +2490,15 @@
       updatePuzzleStats();
     });
 
+    document.getElementById("nextAdventure").addEventListener("click", () => {
+      currentAdventure = (currentAdventure + 1) % adventureMissions.length;
+      renderAdventureMission();
+    });
+
+    document.getElementById("restartAdventure").addEventListener("click", renderAdventureMission);
+
     buildHeroBoard();
+    renderAdventureMission();
     renderMiniBoards();
     renderCoordinates();
     renderPuzzle();
