@@ -2182,115 +2182,178 @@
   </script>
 </body>
 </html>
-<div id="board"></div>
+<!-- Biyaherong Chess Coach Tutorial -->
+<section id="biyaherong-coach" class="coach-section">
+
+    <div class="coach-header">
+        <h2>🚍 Biyaherong Chess Coach</h2>
+        <p>Beginner ➜ Intermediate ➜ Advanced</p>
+    </div>
+
+    <div class="video-grid">
+
+        <!-- Lesson 1 -->
+        <div class="video-card">
+            <h3>♟️ Lesson 1: Chess Basics</h3>
+
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/OCSbzArwB10"
+                    title="Chess Basics"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p>Learn board setup and rules.</p>
+        </div>
+
+        <!-- Lesson 2 -->
+        <div class="video-card">
+            <h3>🐴 Lesson 2: Piece Movement</h3>
+
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/NAIQyoPcjNM"
+                    title="Piece Movement"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p>Master how every piece moves.</p>
+        </div>
+
+        <!-- Lesson 3 -->
+        <div class="video-card">
+            <h3>🎯 Lesson 3: Basic Tactics</h3>
+
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/Ao9iOeK_jvU"
+                    title="Basic Tactics"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p>Forks, Pins, and Skewers.</p>
+        </div>
+
+        <!-- Lesson 4 -->
+        <div class="video-card">
+            <h3>🏰 Lesson 4: Opening Principles</h3>
+
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/mtsabsZ4wG4"
+                    title="Opening Principles"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p>Develop pieces and control center.</p>
+        </div>
+
+        <!-- Lesson 5 -->
+        <div class="video-card">
+            <h3>👑 Lesson 5: Advanced Strategy</h3>
+
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/Esi5jgWEPw4"
+                    title="Advanced Strategy"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <p>Think like a tournament player.</p>
+        </div>
+
+    </div>
+
+</section>
 
 <style>
-#board{
-    display:grid;
-    grid-template-columns:repeat(8,60px);
-    grid-template-rows:repeat(8,60px);
-    border:3px solid #333;
-    width:480px;
-}
 
-.square{
-    width:60px;
-    height:60px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:42px;
-}
-
-.light{
-    background:#f0d9b5;
-}
-
-.dark{
-    background:#b58863;
-}
-
-.white-piece{
+.coach-section{
+    padding:40px 20px;
+    background:#111827;
     color:white;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
 }
 
-.black-piece{
-    color:black;
+.coach-header{
+    text-align:center;
+    margin-bottom:25px;
 }
+
+.coach-header h2{
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+.video-card{
+    background:#1f2937;
+    border-radius:15px;
+    overflow:hidden;
+    padding:15px;
+    transition:.3s;
+}
+
+.video-card:hover{
+    transform:translateY(-4px);
+}
+
+.video-card h3{
+    margin-bottom:10px;
+}
+
+.video-card p{
+    margin-top:10px;
+    color:#d1d5db;
+}
+
+.video-container{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    overflow:hidden;
+    border-radius:12px;
+}
+
+.video-container iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+@media(max-width:768px){
+
+    .video-grid{
+        grid-template-columns:1fr;
+    }
+
+    .coach-header h2{
+        font-size:1.5rem;
+    }
+}
+
 </style>
 
-<script>
-const board = document.getElementById("board");
-
-const position = [
-["♜","♞","♝","♛","♚","♝","♞","♜"],
-["♟","♟","♟","♟","♟","♟","♟","♟"],
-["","","","","","","",""],
-["","","","","","","",""],
-["","","","","","","",""],
-["","","","","","","",""],
-["♙","♙","♙","♙","♙","♙","♙","♙"],
-["♖","♘","♗","♕","♔","♗","♘","♖"]
-];
-
-for(let row=0; row<8; row++){
-    for(let col=0; col<8; col++){
-
-        const square = document.createElement("div");
-
-        square.className =
-            "square " +
-            ((row+col)%2===0 ? "light" : "dark");
-
-        const piece = position[row][col];
-
-        if(piece){
-            square.innerHTML = piece;
-
-            if("♔♕♖♗♘♙".includes(piece)){
-                square.classList.add("white-piece");
-            }else{
-                square.classList.add("black-piece");
-            }
-        }
-
-        board.appendChild(square);
-    }
-}
-</script>
-const puzzle = {
-    whiteKing: "e1",
-    whiteQueen: "d1",
-    blackKing: "g8",
-    blackRook: "a8"
-};
-function isValidSquare(square){
-    return /^[a-h][1-8]$/.test(square);
-}
-for(let row=0; row<8; row++){
-    for(let col=0; col<8; col++){
-        createSquare(row,col);
-    }
-}
-for(let row=0; row<7; row++)
-for(let col=1; col<8; col++)
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
-<img src="pieces/wK.svg">
-<img src="pieces/bK.svg">
-.highlight {
-    box-shadow: inset 0 0 0 4px gold;
-}
-
-.last-move {
-    background-color: rgba(255,255,0,0.4);
-}
-
-.check {
-    background-color: rgba(255,0,0,0.4);
 }
