@@ -2182,3 +2182,115 @@
   </script>
 </body>
 </html>
+<div id="board"></div>
+
+<style>
+#board{
+    display:grid;
+    grid-template-columns:repeat(8,60px);
+    grid-template-rows:repeat(8,60px);
+    border:3px solid #333;
+    width:480px;
+}
+
+.square{
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+}
+
+.light{
+    background:#f0d9b5;
+}
+
+.dark{
+    background:#b58863;
+}
+
+.white-piece{
+    color:white;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
+.black-piece{
+    color:black;
+}
+</style>
+
+<script>
+const board = document.getElementById("board");
+
+const position = [
+["♜","♞","♝","♛","♚","♝","♞","♜"],
+["♟","♟","♟","♟","♟","♟","♟","♟"],
+["","","","","","","",""],
+["","","","","","","",""],
+["","","","","","","",""],
+["","","","","","","",""],
+["♙","♙","♙","♙","♙","♙","♙","♙"],
+["♖","♘","♗","♕","♔","♗","♘","♖"]
+];
+
+for(let row=0; row<8; row++){
+    for(let col=0; col<8; col++){
+
+        const square = document.createElement("div");
+
+        square.className =
+            "square " +
+            ((row+col)%2===0 ? "light" : "dark");
+
+        const piece = position[row][col];
+
+        if(piece){
+            square.innerHTML = piece;
+
+            if("♔♕♖♗♘♙".includes(piece)){
+                square.classList.add("white-piece");
+            }else{
+                square.classList.add("black-piece");
+            }
+        }
+
+        board.appendChild(square);
+    }
+}
+</script>
+const puzzle = {
+    whiteKing: "e1",
+    whiteQueen: "d1",
+    blackKing: "g8",
+    blackRook: "a8"
+};
+function isValidSquare(square){
+    return /^[a-h][1-8]$/.test(square);
+}
+for(let row=0; row<8; row++){
+    for(let col=0; col<8; col++){
+        createSquare(row,col);
+    }
+}
+for(let row=0; row<7; row++)
+for(let col=1; col<8; col++)
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+<img src="pieces/wK.svg">
+<img src="pieces/bK.svg">
+.highlight {
+    box-shadow: inset 0 0 0 4px gold;
+}
+
+.last-move {
+    background-color: rgba(255,255,0,0.4);
+}
+
+.check {
+    background-color: rgba(255,0,0,0.4);
+}
