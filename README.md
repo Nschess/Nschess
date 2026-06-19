@@ -825,6 +825,119 @@
       border: 0;
     }
 
+    .video-thumb {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background-color: #111;
+      background-position: center;
+      background-size: cover;
+      color: var(--text);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-thumb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.58));
+    }
+
+    .play-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border: 2px solid rgba(255, 248, 237, 0.86);
+      border-radius: 50%;
+      background: rgba(32, 29, 26, 0.68);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .play-mark::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 18px solid var(--text);
+    }
+
+    .video-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(18, 15, 12, 0.84);
+      backdrop-filter: blur(10px);
+    }
+
+    .video-modal[hidden] {
+      display: none;
+    }
+
+    .video-modal-panel {
+      width: min(100%, 1040px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #181512;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .video-modal-title {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 900;
+    }
+
+    .video-close {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .video-modal-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-modal-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .video-body {
       padding: 18px;
     }
@@ -1689,7 +1802,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/OCSbzArwB10" title="How To Play Chess: The Ultimate Beginner Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/OCSbzArwB10?rel=0&modestbranding=1&playsinline=1" title="How To Play Chess: The Ultimate Beginner Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 1</span>
@@ -1699,7 +1812,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/IU6k-4rKf-g" title="Learn How to Play Chess for Beginners in Less Than 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/IU6k-4rKf-g?rel=0&modestbranding=1&playsinline=1" title="Learn How to Play Chess for Beginners in Less Than 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 2</span>
@@ -1709,7 +1822,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/8IlJ3v8I4Z8" title="Basic Chess Openings Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/8IlJ3v8I4Z8?rel=0&modestbranding=1&playsinline=1" title="Basic Chess Openings Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 3</span>
@@ -1719,7 +1832,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/I9n8sDRZLZ8" title="Checkmate for chess beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/I9n8sDRZLZ8?rel=0&modestbranding=1&playsinline=1" title="Checkmate for chess beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 4</span>
@@ -1729,7 +1842,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/LPK6_QRJRA0" title="King Opposition: Draw King and Pawn Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/LPK6_QRJRA0?rel=0&modestbranding=1&playsinline=1" title="King Opposition: Draw King and Pawn Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 5</span>
@@ -1748,7 +1861,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/MbMslp2WcI0" title="The Chess Tactics Guide For Beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/MbMslp2WcI0?rel=0&modestbranding=1&playsinline=1" title="The Chess Tactics Guide For Beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 1</span>
@@ -1758,7 +1871,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/9Ga9dP3bvN8" title="How To Calculate In Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/9Ga9dP3bvN8?rel=0&modestbranding=1&playsinline=1" title="How To Calculate In Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 2</span>
@@ -1768,7 +1881,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/yAnNQY2Ac6w" title="Top 5 Pawn Structures You Should Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/yAnNQY2Ac6w?rel=0&modestbranding=1&playsinline=1" title="Top 5 Pawn Structures You Should Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 3</span>
@@ -1778,7 +1891,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kTON84W-b2Q" title="The ONLY Chess Middlegame Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kTON84W-b2Q?rel=0&modestbranding=1&playsinline=1" title="The ONLY Chess Middlegame Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 4</span>
@@ -1788,7 +1901,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/zOvaUJdtYTc" title="EASY Rook Checkmate!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/zOvaUJdtYTc?rel=0&modestbranding=1&playsinline=1" title="EASY Rook Checkmate!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 5</span>
@@ -1807,7 +1920,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/wsOQBe5yBqk" title="Distant and Rectangular Opposition" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/wsOQBe5yBqk?rel=0&modestbranding=1&playsinline=1" title="Distant and Rectangular Opposition" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 1</span>
@@ -1817,7 +1930,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/s8RDioKrLx8" title="The Principle of Positional Imbalances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/s8RDioKrLx8?rel=0&modestbranding=1&playsinline=1" title="The Principle of Positional Imbalances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 2</span>
@@ -1827,7 +1940,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/N6WmHGKLaa8" title="PROPHYLAXIS in Chess. GM Johan Hellsten explains." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/N6WmHGKLaa8?rel=0&modestbranding=1&playsinline=1" title="PROPHYLAXIS in Chess. GM Johan Hellsten explains." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 3</span>
@@ -1837,7 +1950,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/aMIRnzCeD64" title="Lucena Position Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/aMIRnzCeD64?rel=0&modestbranding=1&playsinline=1" title="Lucena Position Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 4</span>
@@ -1847,7 +1960,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/5rEqhhYYOrQ" title="How to Choose Candidate Moves" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/5rEqhhYYOrQ?rel=0&modestbranding=1&playsinline=1" title="How to Choose Candidate Moves" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 5</span>
@@ -1866,7 +1979,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/6IegDENuxU4" title="How To Learn and Study Chess Openings" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/6IegDENuxU4?rel=0&modestbranding=1&playsinline=1" title="How To Learn and Study Chess Openings" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">22:41</span>
@@ -1876,7 +1989,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jfcVjIa1EGM" title="Every Chess Opening Principle Explained In 18 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jfcVjIa1EGM?rel=0&modestbranding=1&playsinline=1" title="Every Chess Opening Principle Explained In 18 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">17:41</span>
@@ -1886,7 +1999,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kURU67G98O8" title="Chess Basics: Opening Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kURU67G98O8?rel=0&modestbranding=1&playsinline=1" title="Chess Basics: Opening Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">8:08</span>
@@ -1896,7 +2009,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nXyJdetptXg" title="35 Vital Chess Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nXyJdetptXg?rel=0&modestbranding=1&playsinline=1" title="35 Vital Chess Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Strategy</span><span class="badge duration">18:51</span>
@@ -1906,7 +2019,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W1gWHIpQNVU" title="All The Chess Tactics You Need To Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W1gWHIpQNVU?rel=0&modestbranding=1&playsinline=1" title="All The Chess Tactics You Need To Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">15:59</span>
@@ -1916,7 +2029,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/hcmMtNqEm4o" title="Chess Strategies - Skewers and Pins" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/hcmMtNqEm4o?rel=0&modestbranding=1&playsinline=1" title="Chess Strategies - Skewers and Pins" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">7:37</span>
@@ -1926,7 +2039,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qMfXy648KIY" title="Chess pins, skewers and forks explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qMfXy648KIY?rel=0&modestbranding=1&playsinline=1" title="Chess pins, skewers and forks explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">11:09</span>
@@ -1936,7 +2049,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/iBZLU1FXhcI" title="6 Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/iBZLU1FXhcI?rel=0&modestbranding=1&playsinline=1" title="6 Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">21:46</span>
@@ -1946,7 +2059,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/spj8bTeZpdk" title="Learn Every Checkmate Pattern in 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/spj8bTeZpdk?rel=0&modestbranding=1&playsinline=1" title="Learn Every Checkmate Pattern in 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">8:09</span>
@@ -1956,7 +2069,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Wjvy_TH1qQs" title="5 Basic Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Wjvy_TH1qQs?rel=0&modestbranding=1&playsinline=1" title="5 Basic Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">11:21</span>
@@ -1966,7 +2079,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Bo93mIhnDz4" title="The Top 23 Checkmate Patterns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Bo93mIhnDz4?rel=0&modestbranding=1&playsinline=1" title="The Top 23 Checkmate Patterns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">22:49</span>
@@ -1976,7 +2089,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uszf3ZRxYMo" title="Top 10 Chess Endgame Principles Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uszf3ZRxYMo?rel=0&modestbranding=1&playsinline=1" title="Top 10 Chess Endgame Principles Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">14:51</span>
@@ -1986,7 +2099,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mCsc24k-Q8M" title="Easy Chess Endgames: King and Pawns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mCsc24k-Q8M?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: King and Pawns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">21:15</span>
@@ -1996,7 +2109,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/JMZJ9P2Hnq0" title="Easy Chess Endgames: Rook and Pawn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/JMZJ9P2Hnq0?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: Rook and Pawn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">23:00</span>
@@ -2006,7 +2119,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/FaYmAoJxjUY" title="15 Rules For The Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/FaYmAoJxjUY?rel=0&modestbranding=1&playsinline=1" title="15 Rules For The Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">22:38</span>
@@ -2016,7 +2129,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nR8ULRlk9HA" title="Rook Endgames Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nR8ULRlk9HA?rel=0&modestbranding=1&playsinline=1" title="Rook Endgames Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">23:32</span>
@@ -2026,7 +2139,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/XZeTKbB_LWg" title="Top 25 Chess Endgame Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/XZeTKbB_LWg?rel=0&modestbranding=1&playsinline=1" title="Top 25 Chess Endgame Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">16:56</span>
@@ -2036,7 +2149,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lYX-VO1ut7U" title="5 Most Common Chess Pawn Structure Mistakes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lYX-VO1ut7U?rel=0&modestbranding=1&playsinline=1" title="5 Most Common Chess Pawn Structure Mistakes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Pawns</span><span class="badge duration">21:06</span>
@@ -2046,7 +2159,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VL9F0xs0yHg" title="6 Rules That Will Make You A Pawn Genius" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VL9F0xs0yHg?rel=0&modestbranding=1&playsinline=1" title="6 Rules That Will Make You A Pawn Genius" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Pawns</span><span class="badge duration">7:37</span>
@@ -2056,7 +2169,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/F98JdnLyUXA" title="The 10 Best Chess Plans For The Middlegame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/F98JdnLyUXA?rel=0&modestbranding=1&playsinline=1" title="The 10 Best Chess Plans For The Middlegame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Middlegame</span><span class="badge duration">13:02</span>
@@ -2196,6 +2309,16 @@
       </div>
     </section>
   </main>
+
+  <div class="video-modal" id="videoModal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+    <div class="video-modal-panel">
+      <div class="video-modal-bar">
+        <p class="video-modal-title" id="videoModalTitle">Chess lesson</p>
+        <button class="video-close" type="button" id="videoClose" aria-label="Close video">×</button>
+      </div>
+      <div class="video-modal-frame" id="videoModalFrame"></div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="wrap">
@@ -2684,6 +2807,65 @@
       });
     }
 
+    function setupVideoTheater() {
+      const modal = document.getElementById("videoModal");
+      const modalTitle = document.getElementById("videoModalTitle");
+      const modalFrame = document.getElementById("videoModalFrame");
+      const closeButton = document.getElementById("videoClose");
+
+      function closeVideo() {
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+        modalFrame.innerHTML = "";
+      }
+
+      function openVideo(src, title) {
+        const separator = src.includes("?") ? "&" : "?";
+        modalTitle.textContent = title;
+        modalFrame.innerHTML = "";
+
+        const player = document.createElement("iframe");
+        player.src = `${src}${separator}autoplay=1`;
+        player.title = title;
+        player.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+        player.allowFullscreen = true;
+        player.referrerPolicy = "strict-origin-when-cross-origin";
+        player.sandbox = "allow-scripts allow-same-origin allow-presentation";
+        modalFrame.appendChild(player);
+
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        closeButton.focus();
+      }
+
+      document.querySelectorAll(".video-frame iframe").forEach((iframe) => {
+        const src = iframe.getAttribute("src");
+        const title = iframe.getAttribute("title") || "Chess lesson";
+        const idMatch = src.match(/embed\/([^?"]+)/);
+        const videoId = idMatch ? idMatch[1] : "";
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "video-thumb";
+        button.setAttribute("aria-label", `Play ${title}`);
+        if (videoId) {
+          button.style.backgroundImage = `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`;
+        }
+        button.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
+        button.addEventListener("click", () => openVideo(src, title));
+
+        iframe.parentElement.replaceChildren(button);
+      });
+
+      closeButton.addEventListener("click", closeVideo);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeVideo();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hidden) closeVideo();
+      });
+    }
+
     document.getElementById("nextPuzzle").addEventListener("click", () => {
       currentPuzzle = (currentPuzzle + 1) % puzzles.length;
       renderPuzzle();
@@ -2725,6 +2907,7 @@
     renderCoordinates();
     renderPuzzle();
     wireTabs();
+    setupVideoTheater();
   </script>
 </body>
 </html>
