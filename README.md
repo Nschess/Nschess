@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chess Ladder - Learn Chess From First Move to Strategy</title>
+  <title>Checkmate Quest - Learn Chess From First Move to Strategy</title>
   <style>
     :root {
       --bg: #201d1a;
@@ -835,6 +835,42 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 
+    .shorts-tier {
+      padding-top: 26px;
+      border-top: 1px solid rgba(255, 248, 237, 0.12);
+    }
+
+    .shorts-grid {
+      align-items: start;
+    }
+
+    .shorts-grid .video-card {
+      background:
+        linear-gradient(180deg, rgba(231, 182, 93, 0.12), rgba(127, 166, 80, 0.08)),
+        var(--card);
+    }
+
+    .shorts-grid .video-frame {
+      aspect-ratio: 9 / 16;
+    }
+
+    .shorts-grid .play-mark {
+      width: 54px;
+      height: 54px;
+    }
+
+    .shorts-grid .video-body {
+      padding: 14px;
+    }
+
+    .shorts-grid .video-body h3 {
+      font-size: 1rem;
+    }
+
+    .shorts-grid .video-body p {
+      font-size: 0.9rem;
+    }
+
     .video-card {
       overflow: hidden;
       transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
@@ -929,6 +965,10 @@
       overflow: hidden;
     }
 
+    .video-modal.is-short .video-modal-panel {
+      width: min(100%, 430px, calc((100vh - 120px) * 9 / 16));
+    }
+
     .video-modal-bar {
       display: flex;
       align-items: center;
@@ -963,6 +1003,10 @@
       position: relative;
       aspect-ratio: 16 / 9;
       background: #000;
+    }
+
+    .video-modal.is-short .video-modal-frame {
+      aspect-ratio: 9 / 16;
     }
 
     .video-modal-frame iframe {
@@ -1393,9 +1437,9 @@
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="Chess Ladder home">
+      <a class="brand" href="#top" aria-label="Checkmate Quest home">
         <span class="brand-mark" aria-hidden="true">♟</span>
-        <span>Chess Ladder</span>
+        <span>Checkmate Quest</span>
       </a>
       <div class="nav-links">
         <a href="#paths">Lessons</a>
@@ -1418,7 +1462,7 @@
       <div class="hero-inner">
         <div class="hero-copy">
           <p class="eyebrow">Lichess-inspired chess tutorial</p>
-          <h1 id="hero-title">Chess Ladder</h1>
+          <h1 id="hero-title">Checkmate Quest</h1>
           <p>Move from legal moves to confident plans with a clean learning path, focused rules, hand-picked videos, and tactical puzzles you can solve right on the board.</p>
           <div class="hero-actions">
             <a class="button" href="#paths">Start Learning</a>
@@ -1967,7 +2011,7 @@
             <p class="section-kicker">Video lessons</p>
             <h2 id="videos-title">Watch the ideas</h2>
           </div>
-          <p class="section-intro">A tiered video library with 35 embedded lessons, including 20 quick tutorials verified under 30 minutes.</p>
+          <p class="section-intro">A tiered video library with 87 embedded lessons, including 52 verified Shorts for fast tactics, traps, openings, mates, and puzzle reps.</p>
         </div>
 
         <div class="video-tier">
@@ -2355,6 +2399,14 @@
             </article>
           </div>
         </div>
+
+        <div class="video-tier shorts-tier">
+          <div class="video-tier-head">
+            <h3>Shorts Sprint</h3>
+            <p>Fifty-two bite-size chess tutorials and puzzle sparks, all checked as embed-ready clips that play inside Checkmate Quest.</p>
+          </div>
+          <div class="video-grid tier-grid shorts-grid" id="shortsGrid" aria-label="YouTube Shorts chess tutorials"></div>
+        </div>
       </div>
     </section>
 
@@ -2498,7 +2550,7 @@
 
   <footer class="footer">
     <div class="wrap">
-      <span>Chess Ladder</span>
+      <span>Checkmate Quest</span>
       <span>Learn the board, spot the pattern, make the plan.</span>
     </div>
   </footer>
@@ -2691,6 +2743,425 @@
           { move: "Kd4", correct: false }
         ],
         feedback: "e4+ works because the white king protects e4. The pawn checks the black king and gains space for the endgame."
+      }
+    ];
+
+    const shortVideos = [
+      {
+        id: "Vnblc4jfJHU",
+        topic: "Mate",
+        duration: "0:25",
+        title: "How to win Chess in 3 moves!",
+        headline: "Three-move mate trap",
+        note: "A quick punishment pattern for slow king defense."
+      },
+      {
+        id: "8Vuwv-aEEXQ",
+        topic: "Mate",
+        duration: "0:16",
+        title: "Checkmate in 6 Moves | Chess Openings and Tricks",
+        headline: "Six-move checkmate",
+        note: "See how early queen pressure can become a forced finish."
+      },
+      {
+        id: "Kor7ai1q6Vk",
+        topic: "Opening",
+        duration: "0:30",
+        title: "4 MOVE CHECKMATE: Best Chess Trap for Beginners",
+        headline: "Wayward queen trap",
+        note: "Learn the classic beginner mate and why f7 is vulnerable."
+      },
+      {
+        id: "CbfkPbGrPgw",
+        topic: "Tactics",
+        duration: "0:17",
+        title: "Chess Tactics You MUST Know!",
+        headline: "Must-know tactic",
+        note: "A fast pattern check for finding forcing moves."
+      },
+      {
+        id: "QQ69f80QxHA",
+        topic: "Tip",
+        duration: "0:41",
+        title: "IMPORTANT Chess Tip",
+        headline: "Important chess habit",
+        note: "A short reminder that keeps your moves purposeful."
+      },
+      {
+        id: "O_8heoqCuFU",
+        topic: "Mate",
+        duration: "0:54",
+        title: "8 moves Checkmate! Queen Sacrifice!",
+        headline: "Queen-sac mate",
+        note: "Watch how sacrifice and tempo combine for checkmate."
+      },
+      {
+        id: "OVsyDJ3hgKM",
+        topic: "Skill",
+        duration: "0:35",
+        title: "Most Important Chess Skill",
+        headline: "Core chess skill",
+        note: "A sharp clip about the skill every improving player needs."
+      },
+      {
+        id: "90uOYlG68bg",
+        topic: "Tactics",
+        duration: "0:47",
+        title: "Once-in-a-Lifetime Chess Tactics",
+        headline: "Rare tactic shot",
+        note: "Train your eye to notice a spectacular forcing idea."
+      },
+      {
+        id: "s9sXXRgfozI",
+        topic: "Opening",
+        duration: "0:27",
+        title: "Beating King's Pawn with a Brilliant Move",
+        headline: "Answer 1. e4",
+        note: "A quick opening idea against the king's pawn."
+      },
+      {
+        id: "_KAc128DlMY",
+        topic: "Strategy",
+        duration: "0:31",
+        title: "The Secret To Chess...",
+        headline: "The chess secret",
+        note: "A compact idea for turning moves into plans."
+      },
+      {
+        id: "6EDYuq6WcRo",
+        topic: "Opening",
+        duration: "0:11",
+        title: "Dutch defence trap",
+        headline: "Dutch trap flash",
+        note: "A fast trap to recognize before the opening gets wild."
+      },
+      {
+        id: "y2tOtMiBL2w",
+        topic: "Mate",
+        duration: "0:35",
+        title: "Checkmate in 7 moves",
+        headline: "Seven-move finish",
+        note: "Follow the forcing checks to a clean early mate."
+      },
+      {
+        id: "uZqud7iFPbs",
+        topic: "Mate",
+        duration: "0:56",
+        title: "WIN AT CHESS In 8 Moves!",
+        headline: "Eight-move win",
+        note: "A quick attacking line for punishing loose development."
+      },
+      {
+        id: "fHtMC-EqYhs",
+        topic: "Tactics",
+        duration: "0:50",
+        title: "How To Calculate and Find Tactics In Chess",
+        headline: "Calculate tactics",
+        note: "A short method for checking forcing moves first."
+      },
+      {
+        id: "_RHaVTAYnTs",
+        topic: "Tactics",
+        duration: "0:13",
+        title: "Brilliant King move | Chess tactics",
+        headline: "Brilliant king move",
+        note: "A tiny tactic that shows the king can be active too."
+      },
+      {
+        id: "p29X57WBTrY",
+        topic: "Opening",
+        duration: "0:33",
+        title: "This Opening will Destroy Your Opponent's Career",
+        headline: "Sharp opening trap",
+        note: "Spot the trap before your opponent walks into it."
+      },
+      {
+        id: "iTR4OBr13bY",
+        topic: "Opening",
+        duration: "0:22",
+        title: "EASY Chess Opening",
+        headline: "Easy opening idea",
+        note: "A simple setup for getting pieces out quickly."
+      },
+      {
+        id: "ai8CRRO-Tzs",
+        topic: "Opening",
+        duration: "0:26",
+        title: "The best opening with black",
+        headline: "Black opening pick",
+        note: "A quick option for fighting back with Black."
+      },
+      {
+        id: "9VFe8wHlB28",
+        topic: "Opening",
+        duration: "0:44",
+        title: "Opening traps and quick checkmate",
+        headline: "Opening trap sprint",
+        note: "Learn a fast gambit-style idea and the mate threat behind it."
+      },
+      {
+        id: "mbZIjNKlxuY",
+        topic: "Opening",
+        duration: "0:50",
+        title: "EASIEST CHESS OPENING",
+        headline: "Easiest opening",
+        note: "A beginner-friendly opening setup with clear first moves."
+      },
+      {
+        id: "qJHUh9h-Q84",
+        topic: "Opening",
+        duration: "1:00",
+        title: "The Best Chess Opening For Beginners?",
+        headline: "Beginner opening pick",
+        note: "A one-minute opening choice for easy development."
+      },
+      {
+        id: "f_UqFFwi_rs",
+        topic: "Opening",
+        duration: "0:27",
+        title: "The Queens Gambit",
+        headline: "Queen's Gambit flash",
+        note: "A quick look at the famous d4 and c4 opening idea."
+      },
+      {
+        id: "OxRWuF0NPyM",
+        topic: "Opening",
+        duration: "0:11",
+        title: "Bird's Opening: Trap Your Opponent Like a Pro",
+        headline: "Bird's Opening trap",
+        note: "A fast trap idea from a less common first move."
+      },
+      {
+        id: "AXRLarjbSgM",
+        topic: "Opening",
+        duration: "0:29",
+        title: "Learn This EASY Chess Trap",
+        headline: "Easy trap pattern",
+        note: "A short opening trap to add to your pattern bank."
+      },
+      {
+        id: "1zw7V1o9K98",
+        topic: "Opening",
+        duration: "0:59",
+        title: "Magnus Carlsen EXPLAINS the BEST CHESS OPENING",
+        headline: "Opening explained",
+        note: "A quick grandmaster take on choosing a playable opening."
+      },
+      {
+        id: "n05fNUA6PQ4",
+        topic: "Opening",
+        duration: "0:15",
+        title: "King's gambit chess trap",
+        headline: "King's Gambit trap",
+        note: "See how a risky gambit can become a fast attack."
+      },
+      {
+        id: "n2ZtFqvoy0w",
+        topic: "Endgame",
+        duration: "1:00",
+        title: "How to Win an Endgame",
+        headline: "Win the endgame",
+        note: "A one-minute reminder for converting a simplified position."
+      },
+      {
+        id: "V09wOvcJJbM",
+        topic: "Endgame",
+        duration: "0:32",
+        title: "What Pawn Promotion Actually Looks Like",
+        headline: "Pawn promotion",
+        note: "Watch the finish line every passed pawn is chasing."
+      },
+      {
+        id: "I30wGxgXFv4",
+        topic: "Endgame",
+        duration: "0:29",
+        title: "The Art of Stalemate!",
+        headline: "Stalemate trick",
+        note: "A quick warning about the draw that saves lost positions."
+      },
+      {
+        id: "jr3GYrJDnVg",
+        topic: "Endgame",
+        duration: "0:37",
+        title: "Endgame Secrets",
+        headline: "Endgame secret",
+        note: "A tiny endgame idea from high-level play."
+      },
+      {
+        id: "dunOMb_XfOg",
+        topic: "Endgame",
+        duration: "0:28",
+        title: "Know This Rook Endgame TRICK To Draw... Or LOSE!",
+        headline: "Rook draw trick",
+        note: "Remember the defensive detail before the rook ending slips."
+      },
+      {
+        id: "AtgEFLJ7jVc",
+        topic: "Mate",
+        duration: "0:41",
+        title: "Checkmate trap every player falls for",
+        headline: "Common mate trap",
+        note: "A practical pattern that catches careless king safety."
+      },
+      {
+        id: "E2biHMcMNR0",
+        topic: "Puzzle",
+        duration: "0:10",
+        title: "Can you solve this simple puzzle?",
+        headline: "Simple puzzle",
+        note: "Pause the board, choose the forcing move, then check the answer."
+      },
+      {
+        id: "y5UzupHULcc",
+        topic: "Puzzle",
+        duration: "0:45",
+        title: "Can You Find The Brilliant Move? Chess Puzzle 84",
+        headline: "Find the brilliant move",
+        note: "A quick puzzle rep for spotting a hidden tactic."
+      },
+      {
+        id: "ylPIQFOqq88",
+        topic: "Endgame",
+        duration: "0:58",
+        title: "3 pawns vs 3 pawns chess puzzle",
+        headline: "Pawn race puzzle",
+        note: "Practice pawn timing in a tiny endgame race."
+      },
+      {
+        id: "SaeOMqoC8Mw",
+        topic: "Mate",
+        duration: "0:14",
+        title: "Win in 3 moves",
+        headline: "Three-move finish",
+        note: "A tiny attacking pattern you can spot from move one."
+      },
+      {
+        id: "BSTiLz4Jfmc",
+        topic: "Puzzle",
+        duration: "0:45",
+        title: "The 3x3 Chess Puzzle That Breaks Your Brain!",
+        headline: "3x3 brain teaser",
+        note: "A compact board puzzle for calculation without clutter."
+      },
+      {
+        id: "jPxusiHa0xw",
+        topic: "Mate",
+        duration: "0:18",
+        title: "Single Knight Checkmate",
+        headline: "Knight mate motif",
+        note: "Spot how a knight can close the final escape square."
+      },
+      {
+        id: "fuSH59tZPO0",
+        topic: "Puzzle",
+        duration: "0:13",
+        title: "Can u Explain? Chess puzzle mate in 2",
+        headline: "Mate-in-two flash",
+        note: "A very fast checkmate puzzle for forcing-move vision."
+      },
+      {
+        id: "N_XDJ0woYHk",
+        topic: "Puzzle",
+        duration: "0:06",
+        title: "Brilliant Chess Mate in 2 Moves",
+        headline: "Mate in two",
+        note: "Six seconds, one target: find the mating pattern."
+      },
+      {
+        id: "QNKgtULOamY",
+        topic: "Puzzle",
+        duration: "0:23",
+        title: "3000 IQ Chess Puzzle",
+        headline: "Tactical puzzle spark",
+        note: "Look for the forcing idea before the reveal lands."
+      },
+      {
+        id: "eUiElJvLo6c",
+        topic: "Puzzle",
+        duration: "0:06",
+        title: "White to move. Mate in 2",
+        headline: "White to move",
+        note: "A lightning mate-in-two rep for pattern recognition."
+      },
+      {
+        id: "yTpNnz3PVSo",
+        topic: "Mate",
+        duration: "0:14",
+        title: "Mate in 4",
+        headline: "Mate in four",
+        note: "Trace the forcing checks until the king runs out of squares."
+      },
+      {
+        id: "-OU3WJyraKQ",
+        topic: "Mate",
+        duration: "0:19",
+        title: "Checkmate in 4 moves!",
+        headline: "Four-move mate",
+        note: "A fast opening finish every beginner should recognize."
+      },
+      {
+        id: "PaZVLsojjG0",
+        topic: "Mate",
+        duration: "0:23",
+        title: "How To Win Chess In 2 Moves",
+        headline: "Two-move lesson",
+        note: "The fastest mate teaches why opening king safety matters."
+      },
+      {
+        id: "0vAozwpZAcI",
+        topic: "Mate",
+        duration: "0:15",
+        title: "Checkmate in 5 Moves: Chess Tricks",
+        headline: "Five-move trick",
+        note: "A quick trick built from checks and weak squares."
+      },
+      {
+        id: "cF8izlNwIIU",
+        topic: "Mate",
+        duration: "0:20",
+        title: "CHECKMATE IN 7",
+        headline: "Checkmate in seven",
+        note: "A rapid mate line for training attack tempo."
+      },
+      {
+        id: "f2xXL537e7I",
+        topic: "Mate",
+        duration: "0:12",
+        title: "How to Checkmate in Just 4 Moves",
+        headline: "Four-move checkmate",
+        note: "See the pattern and the defensive lesson behind it."
+      },
+      {
+        id: "S1s6sqaaCdg",
+        topic: "Mate",
+        duration: "0:09",
+        title: "4 move checkmate",
+        headline: "Quick four-move mate",
+        note: "A tiny version of the classic beginner checkmate."
+      },
+      {
+        id: "xtV_qZ0kDXY",
+        topic: "Mate",
+        duration: "0:19",
+        title: "How to Win Chess in 3 Moves",
+        headline: "Three-move trap",
+        note: "Another fast example of punishing exposed diagonals."
+      },
+      {
+        id: "CdZLO5Wbfyk",
+        topic: "Puzzle",
+        duration: "0:06",
+        title: "1 Move Checkmate",
+        headline: "Mate in one",
+        note: "Instant pattern check: find the only finishing move."
+      },
+      {
+        id: "RO8Glb42K2o",
+        topic: "Mate",
+        duration: "0:14",
+        title: "Checkmate in just 8 moves",
+        headline: "Eight-move beginner trap",
+        note: "A quick checkmate trap to recognize and avoid."
       }
     ];
 
@@ -2983,6 +3454,50 @@
       });
     }
 
+    function renderShortVideos() {
+      const grid = document.getElementById("shortsGrid");
+      if (!grid) return;
+
+      shortVideos.forEach((video, index) => {
+        const card = document.createElement("article");
+        const frame = document.createElement("div");
+        const iframe = document.createElement("iframe");
+        const body = document.createElement("div");
+        const indexBadge = document.createElement("span");
+        const topicBadge = document.createElement("span");
+        const durationBadge = document.createElement("span");
+        const heading = document.createElement("h3");
+        const note = document.createElement("p");
+
+        card.className = "video-card";
+        frame.className = "video-frame";
+        body.className = "video-body";
+        indexBadge.className = "badge";
+        topicBadge.className = "badge";
+        durationBadge.className = "badge duration";
+
+        iframe.loading = "lazy";
+        iframe.src = `https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1&playsinline=1`;
+        iframe.title = video.title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.dataset.format = "short";
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+
+        indexBadge.textContent = `Short ${String(index + 1).padStart(2, "0")}`;
+        topicBadge.textContent = video.topic;
+        durationBadge.textContent = video.duration;
+        heading.textContent = video.headline;
+        note.textContent = video.note;
+
+        frame.appendChild(iframe);
+        body.append(indexBadge, topicBadge, durationBadge, heading, note);
+        card.append(frame, body);
+        grid.appendChild(card);
+      });
+    }
+
     function setupVideoTheater() {
       const modal = document.getElementById("videoModal");
       const modalTitle = document.getElementById("videoModalTitle");
@@ -2992,12 +3507,14 @@
       function closeVideo() {
         modal.hidden = true;
         modal.setAttribute("aria-hidden", "true");
+        modal.classList.remove("is-short");
         modalFrame.innerHTML = "";
       }
 
-      function openVideo(src, title) {
+      function openVideo(src, title, isShort = false) {
         const separator = src.includes("?") ? "&" : "?";
         modalTitle.textContent = title;
+        modal.classList.toggle("is-short", isShort);
         modalFrame.innerHTML = "";
 
         const player = document.createElement("iframe");
@@ -3019,6 +3536,7 @@
         const title = iframe.getAttribute("title") || "Chess lesson";
         const idMatch = src.match(/embed\/([^?"]+)/);
         const videoId = idMatch ? idMatch[1] : "";
+        const isShort = iframe.dataset.format === "short";
         const button = document.createElement("button");
 
         button.type = "button";
@@ -3028,7 +3546,7 @@
           button.style.backgroundImage = `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`;
         }
         button.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
-        button.addEventListener("click", () => openVideo(src, title));
+        button.addEventListener("click", () => openVideo(src, title, isShort));
 
         iframe.parentElement.replaceChildren(button);
       });
@@ -3083,6 +3601,7 @@
     renderCoordinates();
     renderPuzzle();
     wireTabs();
+    renderShortVideos();
     setupVideoTheater();
   </script>
 </body>
