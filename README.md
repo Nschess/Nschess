@@ -3566,6 +3566,21 @@
       let activeVideoButton = null;
       let activeVideoCard = null;
       let activeVideoWasShort = false;
+      let activeVideoEnded = false;
+
+      function buildPlayerSrc(src, isShort) {
+        const url = new URL(src, window.location.href);
+        url.searchParams.set("autoplay", "1");
+
+        if (isShort) {
+          url.searchParams.set("enablejsapi", "1");
+          if (window.location.origin && window.location.origin !== "null") {
+            url.searchParams.set("origin", window.location.origin);
+          }
+        }
+
+        return url.toString();
+      }
 
       function resumeVideoScroll() {
         const nextShortCard = activeVideoWasShort ? activeVideoCard?.nextElementSibling : null;
@@ -3585,6 +3600,27 @@
         }, 80);
       }
 
+      function finishShortVideo() {
+        if (!activeVideoWasShort || activeVideoEnded || modal.hidden) return;
+        activeVideoEnded = true;
+        closeVideo();
+      }
+
+      function listenForShortEnd(player) {
+        const command = JSON.stringify({
+          event: "command",
+          func: "addEventListener",
+          args: ["onStateChange"]
+        });
+
+        function requestStateEvents() {
+          player.contentWindow?.postMessage(command, "*");
+        }
+
+        player.addEventListener("load", requestStateEvents);
+        window.setTimeout(requestStateEvents, 700);
+      }
+
       function closeVideo() {
         const shouldResume = Boolean(activeVideoCard);
         modal.hidden = true;
@@ -3595,21 +3631,22 @@
       }
 
       function openVideo(src, title, isShort = false, trigger = null) {
-        const separator = src.includes("?") ? "&" : "?";
         modalTitle.textContent = title;
         modal.classList.toggle("is-short", isShort);
         modalFrame.innerHTML = "";
         activeVideoButton = trigger;
         activeVideoCard = trigger?.closest(".video-card") || null;
         activeVideoWasShort = isShort;
+        activeVideoEnded = false;
 
         const player = document.createElement("iframe");
-        player.src = `${src}${separator}autoplay=1`;
+        player.src = buildPlayerSrc(src, isShort);
         player.title = title;
         player.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         player.allowFullscreen = true;
         player.referrerPolicy = "strict-origin-when-cross-origin";
         player.sandbox = "allow-scripts allow-same-origin allow-presentation";
+        if (isShort) listenForShortEnd(player);
         modalFrame.appendChild(player);
 
         modal.hidden = false;
@@ -3643,6 +3680,23 @@
       });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !modal.hidden) closeVideo();
+      });
+      window.addEventListener("message", (event) => {
+        if (!activeVideoWasShort || modal.hidden) return;
+        if (typeof event.origin === "string" && !event.origin.includes("youtube")) return;
+
+        let data = event.data;
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data);
+          } catch {
+            return;
+          }
+        }
+
+        const directState = data?.event === "onStateChange" ? data.info : undefined;
+        const deliveryState = data?.event === "infoDelivery" ? data.info?.playerState : undefined;
+        if (directState === 0 || deliveryState === 0) finishShortVideo();
       });
     }
 
