@@ -836,8 +836,49 @@
     }
 
     .shorts-tier {
-      padding-top: 26px;
+      margin-top: 44px;
+      padding-top: 34px;
       border-top: 1px solid rgba(255, 248, 237, 0.12);
+      scroll-margin-top: 92px;
+    }
+
+    .shorts-title-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 248, 237, 0.08);
+    }
+
+    .shorts-title-band .section-kicker {
+      margin-bottom: 6px;
+    }
+
+    .shorts-title-band h3 {
+      margin: 0;
+      font-size: clamp(1.85rem, 4vw, 2.65rem);
+      line-height: 1.05;
+    }
+
+    .shorts-title-band p {
+      max-width: 68ch;
+      margin: 9px 0 0;
+      color: var(--muted);
+    }
+
+    .shorts-count {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(231, 182, 93, 0.42);
+      border-radius: 6px;
+      background: rgba(231, 182, 93, 0.13);
+      color: var(--gold);
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     .shorts-grid {
@@ -848,6 +889,10 @@
       background:
         linear-gradient(180deg, rgba(231, 182, 93, 0.12), rgba(127, 166, 80, 0.08)),
         var(--card);
+    }
+
+    .shorts-grid .video-card {
+      scroll-margin-top: 92px;
     }
 
     .shorts-grid .video-frame {
@@ -880,6 +925,11 @@
       transform: translateY(-3px);
       border-color: rgba(231, 182, 93, 0.45);
       box-shadow: 0 20px 44px rgba(0, 0, 0, 0.24);
+    }
+
+    .video-card.video-resume {
+      border-color: rgba(231, 182, 93, 0.72);
+      box-shadow: 0 22px 48px rgba(231, 182, 93, 0.18);
     }
 
     .video-frame {
@@ -1382,6 +1432,11 @@
         align-items: start;
       }
 
+      .shorts-title-band {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
       .path-tabs {
         width: 100%;
       }
@@ -1447,6 +1502,7 @@
         <a href="#rules">Rules</a>
         <a href="#openings">Openings</a>
         <a href="#videos">Videos</a>
+        <a href="#shorts">Shorts</a>
         <a href="#notation">Notation</a>
         <a href="#puzzles">Puzzles</a>
         <a href="#plan">Study Plan</a>
@@ -2400,10 +2456,14 @@
           </div>
         </div>
 
-        <div class="video-tier shorts-tier">
-          <div class="video-tier-head">
-            <h3>Shorts Sprint</h3>
-            <p>Fifty-two bite-size chess tutorials and puzzle sparks, all checked as embed-ready clips that play inside Checkmate Quest.</p>
+        <div class="video-tier shorts-tier" id="shorts" aria-labelledby="shorts-title">
+          <div class="shorts-title-band">
+            <div>
+              <p class="section-kicker">YouTube Shorts</p>
+              <h3 id="shorts-title">Shorts Sprint</h3>
+              <p>Fifty-two bite-size chess tutorials and puzzle sparks, all checked as embed-ready clips that play inside Checkmate Quest.</p>
+            </div>
+            <span class="shorts-count">52 Shorts</span>
           </div>
           <div class="video-grid tier-grid shorts-grid" id="shortsGrid" aria-label="YouTube Shorts chess tutorials"></div>
         </div>
@@ -3503,19 +3563,45 @@
       const modalTitle = document.getElementById("videoModalTitle");
       const modalFrame = document.getElementById("videoModalFrame");
       const closeButton = document.getElementById("videoClose");
+      let activeVideoButton = null;
+      let activeVideoCard = null;
+      let activeVideoWasShort = false;
+
+      function resumeVideoScroll() {
+        const nextShortCard = activeVideoWasShort ? activeVideoCard?.nextElementSibling : null;
+        const targetCard = nextShortCard || activeVideoCard;
+        const targetButton = targetCard?.querySelector(".video-thumb") || activeVideoButton;
+
+        if (!targetCard) return;
+
+        window.setTimeout(() => {
+          targetCard.scrollIntoView({
+            behavior: "smooth",
+            block: activeVideoWasShort ? "center" : "nearest"
+          });
+          targetCard.classList.add("video-resume");
+          window.setTimeout(() => targetCard.classList.remove("video-resume"), 900);
+          targetButton?.focus({ preventScroll: true });
+        }, 80);
+      }
 
       function closeVideo() {
+        const shouldResume = Boolean(activeVideoCard);
         modal.hidden = true;
         modal.setAttribute("aria-hidden", "true");
         modal.classList.remove("is-short");
         modalFrame.innerHTML = "";
+        if (shouldResume) resumeVideoScroll();
       }
 
-      function openVideo(src, title, isShort = false) {
+      function openVideo(src, title, isShort = false, trigger = null) {
         const separator = src.includes("?") ? "&" : "?";
         modalTitle.textContent = title;
         modal.classList.toggle("is-short", isShort);
         modalFrame.innerHTML = "";
+        activeVideoButton = trigger;
+        activeVideoCard = trigger?.closest(".video-card") || null;
+        activeVideoWasShort = isShort;
 
         const player = document.createElement("iframe");
         player.src = `${src}${separator}autoplay=1`;
@@ -3546,7 +3632,7 @@
           button.style.backgroundImage = `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`;
         }
         button.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
-        button.addEventListener("click", () => openVideo(src, title, isShort));
+        button.addEventListener("click", () => openVideo(src, title, isShort, button));
 
         iframe.parentElement.replaceChildren(button);
       });
