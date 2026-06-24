@@ -881,6 +881,169 @@
       white-space: nowrap;
     }
 
+    .shorts-feed {
+      position: relative;
+      height: calc(100svh - 76px);
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #111;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(231, 182, 93, 0.58) rgba(255, 255, 255, 0.08);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .shorts-feed::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .shorts-feed::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .shorts-feed::-webkit-scrollbar-thumb {
+      background: rgba(231, 182, 93, 0.58);
+      border-radius: 999px;
+    }
+
+    .short-slide {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      height: 100%;
+      padding: 18px;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(231, 182, 93, 0.18), transparent 34%),
+        linear-gradient(180deg, #17130f, #0d0b09);
+      isolation: isolate;
+    }
+
+    .short-slide::before {
+      content: attr(data-level);
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 248, 237, 0.16);
+      border-radius: 6px;
+      background: rgba(17, 15, 13, 0.72);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 900;
+      backdrop-filter: blur(10px);
+    }
+
+    .short-stage {
+      position: relative;
+      width: auto;
+      height: calc(100% - 32px);
+      max-width: calc(100vw - 42px);
+      aspect-ratio: 9 / 16;
+      border: 1px solid rgba(255, 248, 237, 0.16);
+      border-radius: var(--radius);
+      background: #050505;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .short-frame,
+    .short-frame iframe,
+    .short-placeholder {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .short-placeholder {
+      display: grid;
+      place-items: center;
+      background-color: #111;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .short-placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.66));
+    }
+
+    .short-placeholder .play-mark {
+      z-index: 1;
+    }
+
+    .short-meta {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 2;
+      padding: 82px 16px 16px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.84));
+      color: var(--text);
+    }
+
+    .short-meta h4 {
+      margin: 10px 0 6px;
+      font-size: 1.18rem;
+      line-height: 1.16;
+    }
+
+    .short-meta p {
+      margin: 0;
+      color: rgba(255, 248, 237, 0.82);
+      font-size: 0.92rem;
+      line-height: 1.38;
+    }
+
+    .short-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .short-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--soft);
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    .short-pill.creator {
+      color: #a9d1f4;
+      background: rgba(111, 168, 220, 0.18);
+    }
+
+    .short-position {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 2;
+      color: rgba(255, 248, 237, 0.76);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.48);
+    }
+
+    .short-slide.is-active .short-stage {
+      border-color: rgba(231, 182, 93, 0.58);
+      box-shadow: 0 28px 80px rgba(231, 182, 93, 0.16), 0 24px 64px rgba(0, 0, 0, 0.44);
+    }
+
     .shorts-level + .shorts-level {
       margin-top: 30px;
     }
@@ -1486,6 +1649,19 @@
         align-items: start;
       }
 
+      .shorts-feed {
+        height: calc(100svh - 64px);
+      }
+
+      .short-slide {
+        padding: 12px;
+      }
+
+      .short-slide::before {
+        top: 12px;
+        left: 12px;
+      }
+
       .path-tabs {
         width: 100%;
       }
@@ -1521,6 +1697,29 @@
 
       .button {
         width: 100%;
+      }
+
+      .shorts-feed {
+        height: calc(100svh - 58px);
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .short-stage {
+        height: calc(100% - 18px);
+        max-width: calc(100vw - 20px);
+      }
+
+      .short-meta {
+        padding: 76px 13px 13px;
+      }
+
+      .short-meta h4 {
+        font-size: 1.05rem;
+      }
+
+      .short-meta p {
+        font-size: 0.84rem;
       }
 
       .puzzle-shell {
@@ -3803,6 +4002,272 @@
       });
     }
 
+    function renderShortFeed() {
+      const feed = document.getElementById("shortsLevels");
+      if (!feed) return;
+
+      const videoLookup = new Map(shortVideos.map((video) => [video.id, video]));
+      const orderedShorts = [];
+      feed.innerHTML = "";
+      feed.className = "shorts-feed";
+
+      shortLevelGroups.forEach((group) => {
+        const videos = group.ids.map((id) => videoLookup.get(id)).filter(Boolean);
+        videos.forEach((video, levelIndex) => {
+          orderedShorts.push({
+            video,
+            level: group.title,
+            levelTag: group.tag,
+            levelIndex: levelIndex + 1,
+            levelTotal: videos.length
+          });
+        });
+      });
+
+      function createPill(text, extraClass = "") {
+        const pill = document.createElement("span");
+        pill.className = `short-pill${extraClass ? ` ${extraClass}` : ""}`;
+        pill.textContent = text;
+        return pill;
+      }
+
+      orderedShorts.forEach((item, index) => {
+        const { video } = item;
+        const slide = document.createElement("article");
+        const stage = document.createElement("div");
+        const frame = document.createElement("div");
+        const placeholder = document.createElement("div");
+        const position = document.createElement("span");
+        const meta = document.createElement("div");
+        const pills = document.createElement("div");
+        const heading = document.createElement("h4");
+        const note = document.createElement("p");
+
+        slide.className = "short-slide";
+        slide.dataset.index = String(index);
+        slide.dataset.videoId = video.id;
+        slide.dataset.title = video.title;
+        slide.dataset.level = item.level;
+        stage.className = "short-stage";
+        frame.className = "short-frame";
+        placeholder.className = "short-placeholder";
+        position.className = "short-position";
+        meta.className = "short-meta";
+        pills.className = "short-pill-row";
+
+        placeholder.style.backgroundImage = `url("https://i.ytimg.com/vi/${video.id}/hqdefault.jpg")`;
+        placeholder.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
+        position.textContent = `${index + 1} / ${orderedShorts.length}`;
+        pills.append(
+          createPill(`${item.levelTag} ${item.levelIndex}/${item.levelTotal}`),
+          createPill(video.topic),
+          createPill(video.duration)
+        );
+        if (video.creator) pills.appendChild(createPill(video.creator, "creator"));
+        heading.textContent = video.headline;
+        note.textContent = video.note;
+
+        frame.appendChild(placeholder);
+        meta.append(pills, heading, note);
+        stage.append(frame, position, meta);
+        slide.appendChild(stage);
+        feed.appendChild(slide);
+      });
+
+      setupShortsFeed(feed, orderedShorts);
+    }
+
+    function setupShortsFeed(feed, orderedShorts) {
+      const slides = [...feed.querySelectorAll(".short-slide")];
+      let activeIndex = 0;
+      let feedInView = false;
+
+      function buildShortFeedSrc(videoId) {
+        const url = new URL(`https://www.youtube-nocookie.com/embed/${videoId}`);
+        url.searchParams.set("rel", "0");
+        url.searchParams.set("modestbranding", "1");
+        url.searchParams.set("playsinline", "1");
+        url.searchParams.set("enablejsapi", "1");
+        url.searchParams.set("controls", "1");
+        url.searchParams.set("mute", "1");
+
+        if (window.location.origin && window.location.origin !== "null") {
+          url.searchParams.set("origin", window.location.origin);
+        }
+
+        return url.toString();
+      }
+
+      function createPlaceholder(video) {
+        const placeholder = document.createElement("div");
+        placeholder.className = "short-placeholder";
+        placeholder.style.backgroundImage = `url("https://i.ytimg.com/vi/${video.id}/hqdefault.jpg")`;
+        placeholder.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
+        return placeholder;
+      }
+
+      function postPlayerCommand(iframe, func, args = []) {
+        iframe?.contentWindow?.postMessage(JSON.stringify({
+          event: "command",
+          func,
+          args
+        }), "*");
+      }
+
+      function registerStateEvents(iframe) {
+        postPlayerCommand(iframe, "addEventListener", ["onStateChange"]);
+      }
+
+      function ensurePlayer(index) {
+        const slide = slides[index];
+        const item = orderedShorts[index];
+        if (!slide || !item) return null;
+
+        const frame = slide.querySelector(".short-frame");
+        const existing = frame.querySelector("iframe");
+        if (existing) return existing;
+
+        const iframe = document.createElement("iframe");
+        iframe.loading = index <= activeIndex + 1 ? "eager" : "lazy";
+        iframe.src = buildShortFeedSrc(item.video.id);
+        iframe.title = item.video.title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+        iframe.addEventListener("load", () => {
+          registerStateEvents(iframe);
+          postPlayerCommand(iframe, "mute");
+          if (feedInView && index === activeIndex) {
+            window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 180);
+          }
+        });
+
+        frame.replaceChildren(iframe);
+        slide.classList.add("is-loaded");
+        return iframe;
+      }
+
+      function pauseSlide(index) {
+        const iframe = slides[index]?.querySelector(".short-frame iframe");
+        if (iframe) postPlayerCommand(iframe, "pauseVideo");
+      }
+
+      function playSlide(index) {
+        const iframe = ensurePlayer(index);
+        if (!iframe || !feedInView) return;
+
+        postPlayerCommand(iframe, "mute");
+        window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 120);
+      }
+
+      function trimPlayers(index) {
+        slides.forEach((slide, slideIndex) => {
+          const shouldKeep = slideIndex >= index - 1 && slideIndex <= index + 2;
+          const frame = slide.querySelector(".short-frame");
+          const iframe = frame.querySelector("iframe");
+          if (shouldKeep || !iframe) return;
+
+          postPlayerCommand(iframe, "pauseVideo");
+          frame.replaceChildren(createPlaceholder(orderedShorts[slideIndex].video));
+          slide.classList.remove("is-loaded");
+        });
+      }
+
+      function preloadWindow(index) {
+        [index - 1, index, index + 1, index + 2].forEach((candidate) => {
+          if (candidate >= 0 && candidate < slides.length) ensurePlayer(candidate);
+        });
+        trimPlayers(index);
+      }
+
+      function setActive(index) {
+        if (index < 0 || index >= slides.length) return;
+        if (index !== activeIndex) pauseSlide(activeIndex);
+
+        activeIndex = index;
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("is-active", slideIndex === activeIndex);
+        });
+        preloadWindow(activeIndex);
+        playSlide(activeIndex);
+      }
+
+      function scrollToShort(index) {
+        const slide = slides[index];
+        if (!slide) return;
+        feed.scrollTo({
+          top: slide.offsetTop,
+          behavior: "smooth"
+        });
+        setActive(index);
+      }
+
+      const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio < 0.35) {
+            pauseSlide(Number(entry.target.dataset.index));
+          }
+        });
+
+        const strongest = entries
+          .filter((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.62)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (strongest) setActive(Number(strongest.target.dataset.index));
+      }, {
+        root: feed,
+        threshold: [0, 0.35, 0.62, 0.82]
+      });
+
+      const feedObserver = new IntersectionObserver(([entry]) => {
+        feedInView = entry.isIntersecting && entry.intersectionRatio > 0.26;
+        if (feedInView) {
+          playSlide(activeIndex);
+        } else {
+          pauseSlide(activeIndex);
+        }
+      }, {
+        threshold: [0, 0.26, 0.55]
+      });
+
+      slides.forEach((slide) => slideObserver.observe(slide));
+      feedObserver.observe(feed);
+      preloadWindow(0);
+      slides[0]?.classList.add("is-active");
+
+      window.addEventListener("message", (event) => {
+        const iframe = slides
+          .map((slide) => slide.querySelector(".short-frame iframe"))
+          .find((candidate) => candidate?.contentWindow === event.source);
+        if (!iframe) return;
+
+        let data = event.data;
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data);
+          } catch {
+            return;
+          }
+        }
+
+        const directState = data?.event === "onStateChange" ? data.info : undefined;
+        const deliveryState = data?.event === "infoDelivery" ? data.info?.playerState : undefined;
+        const ended = directState === 0 || deliveryState === 0;
+        if (ended && Number(iframe.closest(".short-slide")?.dataset.index) === activeIndex) {
+          scrollToShort(activeIndex + 1);
+        }
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          pauseSlide(activeIndex);
+        } else if (feedInView) {
+          playSlide(activeIndex);
+        }
+      });
+    }
+
     function setupVideoTheater() {
       const modal = document.getElementById("videoModal");
       const modalTitle = document.getElementById("videoModalTitle");
@@ -3988,7 +4453,7 @@
     renderCoordinates();
     renderPuzzle();
     wireTabs();
-    renderShortVideos();
+    renderShortFeed();
     setupVideoTheater();
   </script>
 </body>
