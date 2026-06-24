@@ -881,6 +881,79 @@
       white-space: nowrap;
     }
 
+    .shorts-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px;
+    }
+
+    .shorts-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .shorts-audio-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .shorts-tab,
+    .shorts-sound-toggle {
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 248, 237, 0.14);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .shorts-tab:hover,
+    .shorts-tab:focus-visible,
+    .shorts-sound-toggle:hover,
+    .shorts-sound-toggle:focus-visible {
+      color: var(--text);
+      border-color: rgba(231, 182, 93, 0.4);
+      outline: none;
+    }
+
+    .shorts-tab[aria-selected="true"],
+    .shorts-sound-toggle[aria-pressed="true"] {
+      background: var(--green);
+      border-color: transparent;
+      color: #10150d;
+    }
+
+    .shorts-volume {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 248, 237, 0.14);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+
+    .shorts-volume input {
+      width: 110px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
     .shorts-feed {
       position: relative;
       height: calc(100svh - 76px);
@@ -1644,6 +1717,11 @@
         align-items: start;
       }
 
+      .shorts-toolbar {
+        display: grid;
+        align-items: start;
+      }
+
       .shorts-level-head {
         display: grid;
         align-items: start;
@@ -1697,6 +1775,37 @@
 
       .button {
         width: 100%;
+      }
+
+      .shorts-tabs,
+      .shorts-audio-controls,
+      .shorts-volume,
+      .shorts-sound-toggle {
+        width: 100%;
+      }
+
+      .shorts-audio-controls {
+        justify-content: stretch;
+      }
+
+      .shorts-sound-toggle {
+        flex: 1 1 120px;
+      }
+
+      .shorts-volume {
+        flex: 2 1 180px;
+        justify-content: space-between;
+      }
+
+      .shorts-volume input {
+        flex: 1;
+        width: auto;
+      }
+
+      .shorts-tab {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0 8px;
       }
 
       .shorts-feed {
@@ -2712,6 +2821,20 @@
               <p>Sixty-five bite-size chess tutorials and puzzle sparks, now arranged from beginner to advanced with a Biyaherong Chess Coach mini-track.</p>
             </div>
             <span class="shorts-count">65 Shorts</span>
+          </div>
+          <div class="shorts-toolbar" aria-label="Shorts controls">
+            <div class="shorts-tabs" role="tablist" aria-label="Shorts levels">
+              <button class="shorts-tab" type="button" data-shorts-level="Beginner Shorts" role="tab" aria-selected="true">Beginner</button>
+              <button class="shorts-tab" type="button" data-shorts-level="Intermediate Shorts" role="tab" aria-selected="false">Intermediate</button>
+              <button class="shorts-tab" type="button" data-shorts-level="Advanced Shorts" role="tab" aria-selected="false">Advanced</button>
+            </div>
+            <div class="shorts-audio-controls">
+              <button class="shorts-sound-toggle" id="shortsSoundToggle" type="button" aria-pressed="false" aria-label="Turn Shorts sound on">Sound Off</button>
+              <label class="shorts-volume" for="shortsVolumeRange">
+                <span>Volume</span>
+                <input id="shortsVolumeRange" type="range" min="0" max="100" value="80" />
+              </label>
+            </div>
           </div>
           <div class="shorts-levels" id="shortsLevels" aria-label="YouTube Shorts chess tutorials"></div>
         </div>
@@ -4079,8 +4202,13 @@
 
     function setupShortsFeed(feed, orderedShorts) {
       const slides = [...feed.querySelectorAll(".short-slide")];
+      const levelTabs = [...document.querySelectorAll("[data-shorts-level]")];
+      const soundToggle = document.getElementById("shortsSoundToggle");
+      const volumeRange = document.getElementById("shortsVolumeRange");
       let activeIndex = 0;
       let feedInView = false;
+      let shortsMuted = true;
+      let shortsVolume = Number(volumeRange?.value || 80);
 
       function buildShortFeedSrc(videoId) {
         const url = new URL(`https://www.youtube-nocookie.com/embed/${videoId}`);
@@ -4089,7 +4217,7 @@
         url.searchParams.set("playsinline", "1");
         url.searchParams.set("enablejsapi", "1");
         url.searchParams.set("controls", "1");
-        url.searchParams.set("mute", "1");
+        url.searchParams.set("mute", shortsMuted ? "1" : "0");
 
         if (window.location.origin && window.location.origin !== "null") {
           url.searchParams.set("origin", window.location.origin);
@@ -4118,6 +4246,32 @@
         postPlayerCommand(iframe, "addEventListener", ["onStateChange"]);
       }
 
+      function updateSoundToggle() {
+        if (!soundToggle) return;
+
+        soundToggle.textContent = shortsMuted ? "Sound Off" : "Sound On";
+        soundToggle.setAttribute("aria-pressed", String(!shortsMuted));
+        soundToggle.setAttribute("aria-label", shortsMuted ? "Turn Shorts sound on" : "Turn Shorts sound off");
+        if (volumeRange) volumeRange.setAttribute("aria-valuetext", `${shortsVolume}%`);
+      }
+
+      function applySoundPreference(iframe) {
+        if (!iframe) return;
+
+        postPlayerCommand(iframe, "setVolume", [shortsVolume]);
+        postPlayerCommand(iframe, shortsMuted ? "mute" : "unMute");
+      }
+
+      function applySoundToLoadedPlayers() {
+        slides.forEach((slide) => applySoundPreference(slide.querySelector(".short-frame iframe")));
+      }
+
+      function updateLevelTabs(level) {
+        levelTabs.forEach((tab) => {
+          tab.setAttribute("aria-selected", String(tab.dataset.shortsLevel === level));
+        });
+      }
+
       function ensurePlayer(index) {
         const slide = slides[index];
         const item = orderedShorts[index];
@@ -4137,7 +4291,7 @@
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         iframe.addEventListener("load", () => {
           registerStateEvents(iframe);
-          postPlayerCommand(iframe, "mute");
+          applySoundPreference(iframe);
           if (feedInView && index === activeIndex) {
             window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 180);
           }
@@ -4157,7 +4311,7 @@
         const iframe = ensurePlayer(index);
         if (!iframe || !feedInView) return;
 
-        postPlayerCommand(iframe, "mute");
+        applySoundPreference(iframe);
         window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 120);
       }
 
@@ -4189,6 +4343,7 @@
         slides.forEach((slide, slideIndex) => {
           slide.classList.toggle("is-active", slideIndex === activeIndex);
         });
+        updateLevelTabs(slides[activeIndex]?.dataset.level || "");
         preloadWindow(activeIndex);
         playSlide(activeIndex);
       }
@@ -4235,6 +4390,32 @@
       feedObserver.observe(feed);
       preloadWindow(0);
       slides[0]?.classList.add("is-active");
+      updateSoundToggle();
+      updateLevelTabs(slides[0]?.dataset.level || "");
+
+      levelTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const targetIndex = slides.findIndex((slide) => slide.dataset.level === tab.dataset.shortsLevel);
+          if (targetIndex >= 0) scrollToShort(targetIndex);
+        });
+      });
+
+      soundToggle?.addEventListener("click", () => {
+        shortsMuted = !shortsMuted;
+        if (!shortsMuted && shortsVolume === 0) shortsVolume = 80;
+        if (volumeRange) volumeRange.value = String(shortsVolume);
+        updateSoundToggle();
+        applySoundToLoadedPlayers();
+        playSlide(activeIndex);
+      });
+
+      volumeRange?.addEventListener("input", () => {
+        shortsVolume = Number(volumeRange.value);
+        shortsMuted = shortsVolume === 0;
+        updateSoundToggle();
+        applySoundToLoadedPlayers();
+        if (!shortsMuted) playSlide(activeIndex);
+      });
 
       window.addEventListener("message", (event) => {
         const iframe = slides
