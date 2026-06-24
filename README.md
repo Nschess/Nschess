@@ -881,6 +881,44 @@
       white-space: nowrap;
     }
 
+    .shorts-level + .shorts-level {
+      margin-top: 30px;
+    }
+
+    .shorts-level-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .shorts-level-head h4 {
+      margin: 0;
+      font-size: 1.28rem;
+      line-height: 1.15;
+    }
+
+    .shorts-level-head p {
+      max-width: 62ch;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .shorts-level-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background: rgba(127, 166, 80, 0.17);
+      color: #bce38c;
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
     .shorts-grid {
       align-items: start;
     }
@@ -1079,6 +1117,12 @@
       margin-left: 6px;
       background: rgba(231, 182, 93, 0.18);
       color: var(--gold);
+    }
+
+    .badge.creator {
+      margin-left: 6px;
+      background: rgba(111, 168, 220, 0.16);
+      color: #a9d1f4;
     }
 
     .video-body p {
@@ -1434,6 +1478,11 @@
 
       .shorts-title-band {
         grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .shorts-level-head {
+        display: grid;
         align-items: start;
       }
 
@@ -2067,7 +2116,7 @@
             <p class="section-kicker">Video lessons</p>
             <h2 id="videos-title">Watch the ideas</h2>
           </div>
-          <p class="section-intro">A tiered video library with 87 embedded lessons, including 52 verified Shorts for fast tactics, traps, openings, mates, and puzzle reps.</p>
+          <p class="section-intro">A tiered video library with 100 embedded lessons, including 65 verified Shorts arranged from beginner patterns to advanced tactics.</p>
         </div>
 
         <div class="video-tier">
@@ -2461,11 +2510,11 @@
             <div>
               <p class="section-kicker">YouTube Shorts</p>
               <h3 id="shorts-title">Shorts Sprint</h3>
-              <p>Fifty-two bite-size chess tutorials and puzzle sparks, all checked as embed-ready clips that play inside Checkmate Quest.</p>
+              <p>Sixty-five bite-size chess tutorials and puzzle sparks, now arranged from beginner to advanced with a Biyaherong Chess Coach mini-track.</p>
             </div>
-            <span class="shorts-count">52 Shorts</span>
+            <span class="shorts-count">65 Shorts</span>
           </div>
-          <div class="video-grid tier-grid shorts-grid" id="shortsGrid" aria-label="YouTube Shorts chess tutorials"></div>
+          <div class="shorts-levels" id="shortsLevels" aria-label="YouTube Shorts chess tutorials"></div>
         </div>
       </div>
     </section>
@@ -2850,6 +2899,7 @@
       {
         id: "O_8heoqCuFU",
         topic: "Mate",
+        creator: "Biyaherong",
         duration: "0:54",
         title: "8 moves Checkmate! Queen Sacrifice!",
         headline: "Queen-sac mate",
@@ -3222,6 +3272,164 @@
         title: "Checkmate in just 8 moves",
         headline: "Eight-move beginner trap",
         note: "A quick checkmate trap to recognize and avoid."
+      },
+      {
+        id: "9URyJG68wj4",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "0:37",
+        title: "6 moves Checkmate! Dirty Trick in the Opening!",
+        headline: "Dirty opening mate",
+        note: "A fast Biyaherong trap that teaches early king safety."
+      },
+      {
+        id: "adHrqOu-kS4",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "0:44",
+        title: "5 Moves Checkmate! Queen Sacrifice!",
+        headline: "Five-move queen sac",
+        note: "Use forcing checks to turn a queen sacrifice into mate."
+      },
+      {
+        id: "pv05RJ69R9s",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "0:48",
+        title: "9 moves Checkmate in the Opening!",
+        headline: "Nine-move opening mate",
+        note: "A compact attacking line built around quick development."
+      },
+      {
+        id: "GahxuKy7kRc",
+        topic: "Opening",
+        creator: "Biyaherong",
+        duration: "0:56",
+        title: "WIN FAST USING THIS OPENING TRAP!",
+        headline: "Win-fast trap",
+        note: "A Biyaherong opening trap for punishing careless moves."
+      },
+      {
+        id: "4xBgIx_Rr_Y",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "0:50",
+        title: "5 moves Checkmate Using Queen Sacrifice!",
+        headline: "Queen-sac pattern",
+        note: "Another quick queen sacrifice pattern for attacking vision."
+      },
+      {
+        id: "Rj0fu-k6eWA",
+        topic: "Opening",
+        creator: "Biyaherong",
+        duration: "0:58",
+        title: "Quickest Win in the Caro Kann Opening!",
+        headline: "Caro-Kann quick win",
+        note: "See one fast way the Caro-Kann can go wrong."
+      },
+      {
+        id: "kEqoib0vLn8",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "1:02",
+        title: "7 moves Checkmate after Queen Sacrifice!",
+        headline: "Seven-move queen sac",
+        note: "A sharper sacrifice line for calculating forcing moves."
+      },
+      {
+        id: "AbUagQAAPA4",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "1:02",
+        title: "Queen Sacrifice in the Opening! Force Checkmate!",
+        headline: "Forced queen-sac mate",
+        note: "Study how a sacrifice becomes safe when every reply is forced."
+      },
+      {
+        id: "Bi3mCYm8t9k",
+        topic: "Opening",
+        creator: "Biyaherong",
+        duration: "1:03",
+        title: "Fastest Checkmate in Carokann Opening!",
+        headline: "Caro-Kann mate shot",
+        note: "A Caro-Kann trap for players ready to spot tactical details."
+      },
+      {
+        id: "BI24dtla0TU",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "1:06",
+        title: "QUICK Checkmate! Queen Sacrifice in the Opening!",
+        headline: "Quick queen-sac checkmate",
+        note: "Connect opening tempo, sacrifice, and king exposure."
+      },
+      {
+        id: "zuztuAIHvo4",
+        topic: "Opening",
+        creator: "Biyaherong",
+        duration: "1:17",
+        title: "Easy Win against Kings Gambit!",
+        headline: "King's Gambit answer",
+        note: "A longer Short showing how to meet a sharp gambit."
+      },
+      {
+        id: "46f_wcofIPE",
+        topic: "Mate",
+        creator: "Biyaherong",
+        duration: "1:12",
+        title: "Unexpected Checkmate in the Opening!",
+        headline: "Unexpected opening mate",
+        note: "An advanced-looking mating attack from a quick opening slip."
+      },
+      {
+        id: "B3Jl5kTwQqU",
+        topic: "Endgame",
+        creator: "Biyaherong",
+        duration: "1:06",
+        title: "Amazing Pawn Endgame Finished!",
+        headline: "Pawn endgame finish",
+        note: "A short endgame example for promotion timing and pawn races."
+      }
+    ];
+
+    const shortLevelGroups = [
+      {
+        title: "Beginner Shorts",
+        tag: "Start here",
+        description: "Quick mates, easy openings, simple traps, and first puzzle wins.",
+        ids: [
+          "Vnblc4jfJHU", "8Vuwv-aEEXQ", "Kor7ai1q6Vk", "QQ69f80QxHA",
+          "iTR4OBr13bY", "mbZIjNKlxuY", "qJHUh9h-Q84", "f_UqFFwi_rs",
+          "OxRWuF0NPyM", "n05fNUA6PQ4", "V09wOvcJJbM", "E2biHMcMNR0",
+          "SaeOMqoC8Mw", "-OU3WJyraKQ", "PaZVLsojjG0", "f2xXL537e7I",
+          "S1s6sqaaCdg", "xtV_qZ0kDXY", "CdZLO5Wbfyk", "RO8Glb42K2o",
+          "9URyJG68wj4", "adHrqOu-kS4", "pv05RJ69R9s"
+        ]
+      },
+      {
+        title: "Intermediate Shorts",
+        tag: "Build speed",
+        description: "Tactics, opening traps, endgame saves, and sharper calculation reps.",
+        ids: [
+          "CbfkPbGrPgw", "O_8heoqCuFU", "OVsyDJ3hgKM", "s9sXXRgfozI",
+          "_KAc128DlMY", "6EDYuq6WcRo", "y2tOtMiBL2w", "uZqud7iFPbs",
+          "p29X57WBTrY", "ai8CRRO-Tzs", "9VFe8wHlB28", "AXRLarjbSgM",
+          "n2ZtFqvoy0w", "I30wGxgXFv4", "dunOMb_XfOg", "AtgEFLJ7jVc",
+          "y5UzupHULcc", "ylPIQFOqq88", "jPxusiHa0xw", "fuSH59tZPO0",
+          "N_XDJ0woYHk", "eUiElJvLo6c", "yTpNnz3PVSo", "0vAozwpZAcI",
+          "GahxuKy7kRc", "Rj0fu-k6eWA"
+        ]
+      },
+      {
+        title: "Advanced Shorts",
+        tag: "Sharper ideas",
+        description: "Brilliant tactics, sacrifice lines, advanced traps, and endgame conversion.",
+        ids: [
+          "90uOYlG68bg", "fHtMC-EqYhs", "_RHaVTAYnTs", "1zw7V1o9K98",
+          "jr3GYrJDnVg", "BSTiLz4Jfmc", "QNKgtULOamY", "cF8izlNwIIU",
+          "kEqoib0vLn8", "AbUagQAAPA4", "Bi3mCYm8t9k", "BI24dtla0TU",
+          "zuztuAIHvo4", "46f_wcofIPE", "B3Jl5kTwQqU", "4xBgIx_Rr_Y"
+        ]
       }
     ];
 
@@ -3515,16 +3723,21 @@
     }
 
     function renderShortVideos() {
-      const grid = document.getElementById("shortsGrid");
-      if (!grid) return;
+      const levels = document.getElementById("shortsLevels");
+      if (!levels) return;
 
-      shortVideos.forEach((video, index) => {
+      const videoLookup = new Map(shortVideos.map((video) => [video.id, video]));
+      let runningIndex = 0;
+      levels.innerHTML = "";
+
+      function createShortCard(video) {
         const card = document.createElement("article");
         const frame = document.createElement("div");
         const iframe = document.createElement("iframe");
         const body = document.createElement("div");
         const indexBadge = document.createElement("span");
         const topicBadge = document.createElement("span");
+        const creatorBadge = document.createElement("span");
         const durationBadge = document.createElement("span");
         const heading = document.createElement("h3");
         const note = document.createElement("p");
@@ -3534,6 +3747,7 @@
         body.className = "video-body";
         indexBadge.className = "badge";
         topicBadge.className = "badge";
+        creatorBadge.className = "badge creator";
         durationBadge.className = "badge duration";
 
         iframe.loading = "lazy";
@@ -3545,16 +3759,47 @@
         iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
 
-        indexBadge.textContent = `Short ${String(index + 1).padStart(2, "0")}`;
+        runningIndex += 1;
+        indexBadge.textContent = `Short ${String(runningIndex).padStart(2, "0")}`;
         topicBadge.textContent = video.topic;
+        creatorBadge.textContent = video.creator || "";
         durationBadge.textContent = video.duration;
         heading.textContent = video.headline;
         note.textContent = video.note;
 
         frame.appendChild(iframe);
-        body.append(indexBadge, topicBadge, durationBadge, heading, note);
+        body.append(indexBadge, topicBadge);
+        if (video.creator) body.appendChild(creatorBadge);
+        body.append(durationBadge, heading, note);
         card.append(frame, body);
-        grid.appendChild(card);
+        return card;
+      }
+
+      shortLevelGroups.forEach((group) => {
+        const section = document.createElement("section");
+        const head = document.createElement("div");
+        const copy = document.createElement("div");
+        const title = document.createElement("h4");
+        const description = document.createElement("p");
+        const badge = document.createElement("span");
+        const grid = document.createElement("div");
+        const videos = group.ids.map((id) => videoLookup.get(id)).filter(Boolean);
+
+        section.className = "shorts-level";
+        head.className = "shorts-level-head";
+        badge.className = "shorts-level-badge";
+        grid.className = "video-grid tier-grid shorts-grid";
+
+        title.textContent = group.title;
+        description.textContent = group.description;
+        badge.textContent = `${group.tag} · ${videos.length}`;
+        grid.setAttribute("aria-label", group.title);
+
+        copy.append(title, description);
+        head.append(copy, badge);
+        videos.forEach((video) => grid.appendChild(createShortCard(video)));
+        section.append(head, grid);
+        levels.appendChild(section);
       });
     }
 
@@ -3583,7 +3828,9 @@
       }
 
       function resumeVideoScroll() {
-        const nextShortCard = activeVideoWasShort ? activeVideoCard?.nextElementSibling : null;
+        const shortCards = [...document.querySelectorAll(".shorts-grid .video-card")];
+        const activeShortIndex = shortCards.indexOf(activeVideoCard);
+        const nextShortCard = activeVideoWasShort && activeShortIndex > -1 ? shortCards[activeShortIndex + 1] : null;
         const targetCard = nextShortCard || activeVideoCard;
         const targetButton = targetCard?.querySelector(".video-thumb") || activeVideoButton;
 
