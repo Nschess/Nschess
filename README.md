@@ -957,6 +957,7 @@
     .shorts-feed {
       position: relative;
       height: calc(100svh - 76px);
+      height: calc(100dvh - 76px);
       min-height: 0;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -967,6 +968,8 @@
       scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: rgba(231, 182, 93, 0.58) rgba(255, 255, 255, 0.08);
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -1018,6 +1021,7 @@
       position: relative;
       width: auto;
       height: calc(100% - 32px);
+      max-height: calc(100% - 32px);
       max-width: calc(100vw - 42px);
       aspect-ratio: 9 / 16;
       border: 1px solid rgba(255, 248, 237, 0.16);
@@ -1110,6 +1114,57 @@
       font-size: 0.8rem;
       font-weight: 900;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.48);
+    }
+
+    .short-actions {
+      position: absolute;
+      right: 12px;
+      top: 44px;
+      z-index: 3;
+      display: grid;
+      gap: 8px;
+    }
+
+    .short-fullscreen {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 248, 237, 0.18);
+      border-radius: 6px;
+      background: rgba(17, 15, 13, 0.74);
+      color: var(--text);
+      font-size: 1.08rem;
+      font-weight: 900;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background var(--speed), border-color var(--speed), transform var(--speed);
+    }
+
+    .short-fullscreen:hover,
+    .short-fullscreen:focus-visible {
+      border-color: rgba(231, 182, 93, 0.72);
+      background: rgba(231, 182, 93, 0.22);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .short-stage:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      max-height: none;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .short-stage:-webkit-full-screen {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      max-height: none;
+      border: 0;
+      border-radius: 0;
     }
 
     .short-slide.is-active .short-stage {
@@ -1729,6 +1784,7 @@
 
       .shorts-feed {
         height: calc(100svh - 64px);
+        height: calc(100dvh - 64px);
       }
 
       .short-slide {
@@ -1738,6 +1794,10 @@
       .short-slide::before {
         top: 12px;
         left: 12px;
+        max-width: calc(100% - 118px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .path-tabs {
@@ -1788,6 +1848,11 @@
         justify-content: stretch;
       }
 
+      .shorts-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
       .shorts-sound-toggle {
         flex: 1 1 120px;
       }
@@ -1810,12 +1875,14 @@
 
       .shorts-feed {
         height: calc(100svh - 58px);
+        height: calc(100dvh - 58px);
         border-left: 0;
         border-right: 0;
       }
 
       .short-stage {
         height: calc(100% - 18px);
+        max-height: calc(100% - 18px);
         max-width: calc(100vw - 20px);
       }
 
@@ -1829,6 +1896,29 @@
 
       .short-meta p {
         font-size: 0.84rem;
+      }
+
+      .short-pill {
+        min-height: 24px;
+        padding: 0 7px;
+        font-size: 0.7rem;
+      }
+
+      .short-position {
+        top: 10px;
+        right: 10px;
+        font-size: 0.74rem;
+      }
+
+      .short-actions {
+        top: 38px;
+        right: 10px;
+      }
+
+      .short-fullscreen {
+        width: 34px;
+        height: 34px;
+        font-size: 0.98rem;
       }
 
       .puzzle-shell {
@@ -4161,6 +4251,8 @@
         const frame = document.createElement("div");
         const placeholder = document.createElement("div");
         const position = document.createElement("span");
+        const actions = document.createElement("div");
+        const fullscreenButton = document.createElement("button");
         const meta = document.createElement("div");
         const pills = document.createElement("div");
         const heading = document.createElement("h4");
@@ -4175,6 +4267,12 @@
         frame.className = "short-frame";
         placeholder.className = "short-placeholder";
         position.className = "short-position";
+        actions.className = "short-actions";
+        fullscreenButton.className = "short-fullscreen";
+        fullscreenButton.type = "button";
+        fullscreenButton.textContent = "⛶";
+        fullscreenButton.title = "Fullscreen";
+        fullscreenButton.setAttribute("aria-label", `Open ${video.headline} fullscreen`);
         meta.className = "short-meta";
         pills.className = "short-pill-row";
 
@@ -4191,8 +4289,9 @@
         note.textContent = video.note;
 
         frame.appendChild(placeholder);
+        actions.appendChild(fullscreenButton);
         meta.append(pills, heading, note);
-        stage.append(frame, position, meta);
+        stage.append(frame, position, actions, meta);
         slide.appendChild(stage);
         feed.appendChild(slide);
       });
@@ -4286,6 +4385,7 @@
         iframe.src = buildShortFeedSrc(item.video.id);
         iframe.title = item.video.title;
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+        iframe.allowFullscreen = true;
         iframe.referrerPolicy = "strict-origin-when-cross-origin";
         iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
@@ -4333,6 +4433,33 @@
           if (candidate >= 0 && candidate < slides.length) ensurePlayer(candidate);
         });
         trimPlayers(index);
+      }
+
+      async function requestFullscreenFor(element) {
+        if (!element) return false;
+
+        const request = element.requestFullscreen
+          || element.webkitRequestFullscreen
+          || element.msRequestFullscreen;
+        if (!request) return false;
+
+        try {
+          await request.call(element);
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      async function enterShortFullscreen(button) {
+        const slide = button.closest(".short-slide");
+        const index = Number(slide?.dataset.index);
+        if (Number.isInteger(index)) setActive(index);
+
+        const stage = button.closest(".short-stage");
+        const iframe = stage?.querySelector(".short-frame iframe") || ensurePlayer(index);
+        const openedVideo = await requestFullscreenFor(iframe);
+        if (!openedVideo) await requestFullscreenFor(stage);
       }
 
       function setActive(index) {
@@ -4398,6 +4525,10 @@
           const targetIndex = slides.findIndex((slide) => slide.dataset.level === tab.dataset.shortsLevel);
           if (targetIndex >= 0) scrollToShort(targetIndex);
         });
+      });
+
+      feed.querySelectorAll(".short-fullscreen").forEach((button) => {
+        button.addEventListener("click", () => enterShortFullscreen(button));
       });
 
       soundToggle?.addEventListener("click", () => {
