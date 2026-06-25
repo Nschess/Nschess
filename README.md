@@ -849,7 +849,7 @@
 
     .books-controls {
       display: grid;
-      grid-template-columns: minmax(220px, 1fr) auto auto;
+      grid-template-columns: minmax(220px, 1fr) auto auto auto;
       gap: 12px;
       align-items: end;
     }
@@ -883,6 +883,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .book-category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 235, 0.58);
     }
 
     .book-filter {
@@ -1054,11 +1064,31 @@
       min-width: 0;
     }
 
+    .book-free-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 28px;
+      margin: 8px 0 10px;
+      padding: 0 9px;
+      border: 1px solid rgba(95, 127, 58, 0.22);
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.16);
+      color: #26391a;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
     .book-card h3,
     .book-detail h3 {
       margin-bottom: 8px;
       font-size: 1.18rem;
       line-height: 1.2;
+    }
+
+    .book-detail h4 {
+      margin: 18px 0 8px;
+      font-size: 1rem;
     }
 
     .book-card p {
@@ -1105,6 +1135,232 @@
     .book-detail {
       padding: 24px;
       scroll-margin-top: 86px;
+    }
+
+    .book-reader,
+    .book-admin {
+      border: 1px solid rgba(33, 26, 18, 0.16);
+      border-radius: var(--radius);
+      background: #fff8eb;
+      color: #211a12;
+      box-shadow: 0 18px 40px rgba(82, 55, 25, 0.12);
+    }
+
+    .book-reader[hidden] {
+      display: none;
+    }
+
+    .book-reader {
+      overflow: hidden;
+      scroll-margin-top: 86px;
+    }
+
+    .reader-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+      background: #f7efe2;
+    }
+
+    .reader-title {
+      min-width: 0;
+    }
+
+    .reader-title h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .reader-title p {
+      margin: 4px 0 0;
+      color: #5d5144;
+      font-size: 0.9rem;
+    }
+
+    .reader-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .reader-font-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 10px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .reader-font-control input {
+      width: 96px;
+    }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(190px, 260px) minmax(0, 1fr);
+      min-height: 440px;
+    }
+
+    .reader-toc {
+      padding: 16px;
+      border-right: 1px solid rgba(33, 26, 18, 0.14);
+      background: #fbf1e3;
+    }
+
+    .reader-toc h4,
+    .reader-page h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .reader-toc-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .reader-toc-button {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: 7px;
+      background: #fff8eb;
+      color: #211a12;
+      font: inherit;
+      font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .reader-toc-button[aria-current="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .reader-page {
+      padding: clamp(20px, 4vw, 38px);
+      background: #fffdf6;
+    }
+
+    .reader-page.dark {
+      background: #15120f;
+      color: #f7f1e6;
+    }
+
+    .reader-page.dark p,
+    .reader-page.dark li {
+      color: #d8ccb9;
+    }
+
+    .reader-page p,
+    .reader-page li {
+      color: #3c332a;
+      line-height: 1.75;
+    }
+
+    .reader-page ul {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding-left: 20px;
+    }
+
+    .reader-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .reader-nav .button:disabled {
+      cursor: default;
+      opacity: 0.55;
+      transform: none;
+    }
+
+    .reader-status {
+      min-height: 28px;
+      margin-top: 14px;
+      color: #5d5144;
+      font-weight: 900;
+    }
+
+    .book-admin {
+      padding: 18px;
+    }
+
+    .book-admin summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .book-admin p {
+      margin: 10px 0 16px;
+      color: #5d5144;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .admin-grid label {
+      display: grid;
+      gap: 6px;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .admin-grid input,
+    .admin-grid select,
+    .admin-grid textarea {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 11px;
+      border: 1px solid rgba(33, 26, 18, 0.16);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #211a12;
+      font: inherit;
+    }
+
+    .admin-grid textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .admin-wide {
+      grid-column: 1 / -1;
+    }
+
+    .admin-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .admin-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: #fffdf6;
     }
 
     .book-detail-grid {
@@ -2398,6 +2654,27 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .book-category-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .reader-toolbar,
+      .reader-controls {
+        display: grid;
+        justify-content: stretch;
+      }
+
+      .reader-layout,
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reader-toc {
+        border-right: 0;
+        border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+      }
+
       .shorts-feed {
         height: calc(100svh - 64px);
         height: calc(100dvh - 64px);
@@ -2459,6 +2736,11 @@
       }
 
       .book-actions {
+        display: grid;
+      }
+
+      .reader-nav,
+      .admin-row {
         display: grid;
       }
 
@@ -2602,6 +2884,11 @@
       #plan,
       .footer,
       .books-controls,
+      .book-category-filters,
+      .book-admin,
+      .reader-toolbar,
+      .reader-toc,
+      .reader-nav,
       .book-actions,
       .video-modal {
         display: none !important;
@@ -2635,6 +2922,8 @@
 
       .book-card,
       .book-detail,
+      .book-reader,
+      .reader-page,
       .book-stat,
       .book-verify-note {
         break-inside: avoid;
@@ -2643,6 +2932,10 @@
         border: 1px solid #777 !important;
         background: #fff !important;
         color: #111 !important;
+      }
+
+      .reader-layout {
+        display: block !important;
       }
 
       .book-detail[hidden] {
@@ -3857,7 +4150,7 @@
         <div class="books-shell">
           <div class="book-stats" aria-label="Free chess book library summary">
             <div class="book-stat">
-              <strong>5</strong>
+              <strong>9</strong>
               <span>verified free books</span>
             </div>
             <div class="book-stat">
@@ -3882,14 +4175,79 @@
               <button class="book-filter" type="button" data-book-level="Advanced" aria-pressed="false">Advanced</button>
             </div>
             <button class="button secondary print-button" id="printBooks" type="button">Print</button>
+            <button class="button secondary" id="continueReadingBook" type="button">Continue Reading</button>
+          </div>
+
+          <div class="book-category-filters" role="group" aria-label="Filter chess books by category">
+            <button class="book-filter" type="button" data-book-category="all" aria-pressed="true">All Topics</button>
+            <button class="book-filter" type="button" data-book-category="Openings" aria-pressed="false">Openings</button>
+            <button class="book-filter" type="button" data-book-category="Middlegame" aria-pressed="false">Middlegame</button>
+            <button class="book-filter" type="button" data-book-category="Endgame" aria-pressed="false">Endgame</button>
+            <button class="book-filter" type="button" data-book-category="Tactics" aria-pressed="false">Tactics</button>
+            <button class="book-filter" type="button" data-book-category="Strategy" aria-pressed="false">Strategy</button>
+            <button class="book-filter" type="button" data-book-category="Biographies" aria-pressed="false">Biographies</button>
           </div>
 
           <div class="book-verify-note">
-            <strong>Legal source rule:</strong> every linked book below is public domain in the United States or from a legitimate free-distribution source. Modern Ideas in Chess and Tarrasch's The Game of Chess are on the watchlist until a working legal free source is confirmed.
+            <strong>Free and legal check:</strong> every active book below is free to read or download from Project Gutenberg or Wikimedia Commons and is marked public domain in the United States. Verified June 25, 2026. Modern Ideas in Chess and Tarrasch's The Game of Chess stay on the watchlist until a working legal free source is confirmed.
           </div>
 
           <div class="book-grid" id="bookGrid" aria-live="polite"></div>
+          <article class="book-reader" id="bookReader" hidden aria-live="polite"></article>
           <article class="book-detail" id="bookDetail" hidden aria-live="polite"></article>
+
+          <details class="book-admin" id="bookAdminPanel">
+            <summary>Local admin demo: add and manage sample books</summary>
+            <p>This single-file version stores admin-added books in this browser only. A real upload database needs a backend, authentication, file scanning, and server-side validation.</p>
+            <form id="bookAdminForm">
+              <div class="admin-grid">
+                <label>
+                  Title
+                  <input id="adminTitle" name="title" required maxlength="90" />
+                </label>
+                <label>
+                  Author
+                  <input id="adminAuthor" name="author" required maxlength="90" />
+                </label>
+                <label>
+                  Skill level
+                  <select id="adminLevel" name="level">
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </label>
+                <label>
+                  Main category
+                  <select id="adminCategory" name="category">
+                    <option>Openings</option>
+                    <option>Middlegame</option>
+                    <option>Endgame</option>
+                    <option>Tactics</option>
+                    <option>Strategy</option>
+                    <option>Biographies</option>
+                  </select>
+                </label>
+                <label class="admin-wide">
+                  Public-domain or rights-holder source URL
+                  <input id="adminSource" name="source" required placeholder="https://www.gutenberg.org/ebooks/..." />
+                </label>
+                <label class="admin-wide">
+                  Short beginner-friendly summary
+                  <textarea id="adminSummary" name="summary" required maxlength="360"></textarea>
+                </label>
+                <label class="admin-wide">
+                  Optional local file name
+                  <input id="adminFile" name="file" type="file" accept=".txt,.html,.pdf,.epub" />
+                </label>
+              </div>
+              <div class="book-actions">
+                <button class="button" type="submit">Add Local Book</button>
+                <button class="button secondary" id="clearLocalBooks" type="button">Clear Local Books</button>
+              </div>
+            </form>
+            <div class="admin-list" id="adminBookList" aria-live="polite"></div>
+          </details>
         </div>
       </div>
     </section>
@@ -4324,8 +4682,15 @@
         year: "Publication year not stated in Project Gutenberg record",
         edition: "Project Gutenberg eBook No. 16377",
         level: "Beginner",
+        categories: ["Openings", "Strategy"],
         topics: ["Rules", "Piece movement", "Openings", "Board basics"],
         summary: "A beginner-friendly primer that starts with the board, piece powers, chess terms, rules, and simple opening explanations. Best for a learner who wants the game explained slowly before jumping into tactics.",
+        bestUse: "Read the rules and openings sections first, then play a slow game while naming every legal move.",
+        importantDetails: [
+          "Learn the board, piece movement, and chess terms before memorizing openings.",
+          "Use openings as simple development plans, not as long move lists.",
+          "Return to this book when a rule or special move feels confusing."
+        ],
         printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
         sourceName: "Project Gutenberg",
         sourceUrl: "https://www.gutenberg.org/ebooks/16377",
@@ -4338,8 +4703,15 @@
         year: "1918",
         edition: "Project Gutenberg eBook No. 4913",
         level: "Beginner",
+        categories: ["Tactics", "Strategy"],
         topics: ["Rules", "Tactics", "Strategy", "Illustrative games"],
         summary: "A clear early-20th-century guide that explains rules, tactical ideas, strategy, and model play in plain language. Use the chess chapters for a practical bridge from rules to real decisions.",
+        bestUse: "Skim the rules, then focus on the chess examples that show why forcing moves matter.",
+        importantDetails: [
+          "Rules are only the start; the real goal is finding threats and replies.",
+          "Simple tactics become easier when you ask what each move attacks.",
+          "Model games help beginners copy good habits without overthinking."
+        ],
         printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
         sourceName: "Project Gutenberg",
         sourceUrl: "https://www.gutenberg.org/ebooks/4913",
@@ -4352,8 +4724,15 @@
         year: "1921",
         edition: "Project Gutenberg eBook No. 33870",
         level: "Beginner",
+        categories: ["Openings", "Middlegame", "Endgame", "Strategy"],
         topics: ["Endgames", "Simple mates", "Openings", "Middlegame principles"],
         summary: "Capablanca teaches the basics through direct examples: mating patterns, pawn promotion, elementary endings, opening ideas, and the kind of simple plans that make beginner games easier to understand.",
+        bestUse: "Study one example at a time, then set up a board and replay the idea until it feels obvious.",
+        importantDetails: [
+          "Endgames teach piece coordination faster than memorizing opening traps.",
+          "Simple mates and pawn endings build confidence for finishing won games.",
+          "Capablanca's key lesson is clarity: improve pieces, reduce confusion, and convert."
+        ],
         printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
         sourceName: "Project Gutenberg",
         sourceUrl: "https://www.gutenberg.org/ebooks/33870",
@@ -4366,11 +4745,60 @@
         year: "1915 second edition",
         edition: "Project Gutenberg eBook No. 5614; translated by J. Du Mont",
         level: "Intermediate",
+        categories: ["Openings", "Middlegame", "Endgame", "Strategy"],
         topics: ["Strategy", "Piece activity", "Openings", "Endgames"],
         summary: "A structured strategy course for players who know the rules and want better plans. It connects piece movement, pawn play, opening judgment, middlegame planning, and endgame thinking.",
+        bestUse: "Read the planning sections with your own recent games open, then mark where your pieces had no job.",
+        importantDetails: [
+          "Strategy means improving your worst piece and choosing useful pawn moves.",
+          "Opening moves should connect to a middlegame plan.",
+          "Endgame thinking begins earlier than most beginners expect."
+        ],
         printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
         sourceName: "Project Gutenberg",
         sourceUrl: "https://www.gutenberg.org/ebooks/5614",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "checkmates-for-three-pieces",
+        title: "Checkmates for Three Pieces",
+        author: "William Brett Fishburne",
+        year: "Publication year not stated in Project Gutenberg record",
+        edition: "Project Gutenberg eBook No. 4542",
+        level: "Intermediate",
+        categories: ["Tactics", "Endgame"],
+        topics: ["Checkmate patterns", "Piece coordination", "Endgame tactics", "Calculation"],
+        summary: "A compact pattern book for learning how small groups of pieces finish the king. It is useful when a learner already knows legal moves but misses simple mating nets.",
+        bestUse: "Use it as a puzzle warm-up: name the checking piece, the guard, and the escape squares.",
+        importantDetails: [
+          "Checkmate usually needs one attacking piece and at least one helper.",
+          "Always count the king's escape squares before choosing the final move.",
+          "Small mating patterns make bigger attacks easier to understand."
+        ],
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/4542",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "chess-history-and-reminiscences",
+        title: "Chess History and Reminiscences",
+        author: "H. E. Bird",
+        year: "Publication year not stated in Project Gutenberg record",
+        edition: "Project Gutenberg eBook No. 4902",
+        level: "Intermediate",
+        categories: ["Biographies", "Strategy"],
+        topics: ["Chess history", "Classic players", "Practical lessons", "Game culture"],
+        summary: "A historical and biographical chess read that helps learners see how classic players thought about the game. It is best used for context, inspiration, and memorable strategic ideas.",
+        bestUse: "Read short sections between tactics sessions and write down one practical lesson from each story.",
+        importantDetails: [
+          "Chess history gives names and stories to ideas you already see on the board.",
+          "Classic games often show simple plans more clearly than modern engine-heavy analysis.",
+          "Use the stories as memory hooks, not as a replacement for practice."
+        ],
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/4902",
         legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
       },
       {
@@ -4380,12 +4808,61 @@
         year: "1925 original; 1930 Harcourt, Brace & Co. edition",
         edition: "Wikimedia Commons PDF sourced from Internet Archive",
         level: "Advanced",
+        categories: ["Middlegame", "Strategy"],
         topics: ["Prophylaxis", "Pawn chains", "Blockade", "Positional play"],
         summary: "A classic positional manual for serious learners. Study it after the basics, because the ideas are powerful but abstract: restraint, blockade, overprotection, pawn chains, and long-term piece placement.",
+        bestUse: "Do not read it straight through. Pick one idea, find it in your own game, then move to the next idea.",
+        importantDetails: [
+          "Prophylaxis means asking what your opponent wants before choosing your move.",
+          "Blockades and pawn chains decide where pieces belong.",
+          "Overprotection is useful when a key square controls the whole position."
+        ],
         printableContent: "Wikimedia Commons provides the public-domain PDF record and original file for reading and printing.",
         sourceName: "Wikimedia Commons / Internet Archive",
         sourceUrl: "https://commons.wikimedia.org/wiki/File:My_System.pdf",
         legal: "Wikimedia Commons identifies the 1930 edition as public domain in the United States because it was published before January 1, 1931."
+      },
+      {
+        id: "chess-generalship-vol-1",
+        title: "Chess Generalship, Vol. I. Grand Reconnaissance",
+        author: "Franklin K. Young",
+        year: "Publication year not stated in Project Gutenberg record",
+        edition: "Project Gutenberg eBook No. 55278",
+        level: "Advanced",
+        categories: ["Middlegame", "Strategy"],
+        topics: ["Planning", "Evaluation", "Position reconnaissance", "Strategic discipline"],
+        summary: "An advanced strategic manual with a military-style vocabulary. Use it for the big lesson: before attacking, inspect the whole board and understand the position's weak points.",
+        bestUse: "Read it slowly as a planning checklist, then apply the checklist to one serious game.",
+        importantDetails: [
+          "Good plans begin with reconnaissance: threats, weaknesses, files, diagonals, and king safety.",
+          "Do not attack just because you can; attack when the position gives you targets.",
+          "Evaluation should happen before calculation, then calculation checks whether the plan works."
+        ],
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/55278",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "paul-morphy-exploits-and-triumphs",
+        title: "The Exploits and Triumphs, in Europe, of Paul Morphy, the Chess Champion",
+        author: "Frederick Milnes Edge",
+        year: "Publication year not stated in Project Gutenberg record",
+        edition: "Project Gutenberg eBook No. 34180",
+        level: "Advanced",
+        categories: ["Biographies", "Openings", "Tactics"],
+        topics: ["Paul Morphy", "Classic attacking play", "Open games", "Chess biography"],
+        summary: "A classic account of Paul Morphy's European tour. For learners, the value is seeing rapid development, open lines, initiative, and direct attacks in memorable historical context.",
+        bestUse: "Treat it as attacking inspiration: after each story or game, ask how Morphy developed faster.",
+        importantDetails: [
+          "Morphy's games reward fast development and open lines.",
+          "Attack works best when pieces join together before the queen rushes in.",
+          "Biographical context makes classic tactical patterns easier to remember."
+        ],
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/34180",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
       }
     ];
 
@@ -5348,7 +5825,15 @@
       Intermediate: "Use these after the rules feel natural and you want better plans.",
       Advanced: "Deep classics for positional thinking, structure, and serious review."
     };
+    const bookCategories = ["Openings", "Middlegame", "Endgame", "Tactics", "Strategy", "Biographies"];
+    const bookReaderStorageKey = "checkmateQuest.bookReader.v1";
+    const customBooksStorageKey = "checkmateQuest.localBooks.v1";
     let activeBookLevel = "all";
+    let activeBookCategory = "all";
+    let activeReaderBookId = "";
+    let activeReaderChapter = 0;
+    let readerTheme = "light";
+    let readerFontScale = 1.08;
 
     function buildHeroBoard() {
       const board = document.getElementById("heroBoard");
@@ -5631,6 +6116,43 @@
       });
     }
 
+    function readJsonStorage(key, fallback) {
+      try {
+        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+      } catch {
+        return fallback;
+      }
+    }
+
+    function writeJsonStorage(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Storage can be unavailable in private browsing; the page still works without persistence.
+      }
+    }
+
+    function slugify(value) {
+      return String(value || "book")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 72) || "book";
+    }
+
+    function readCustomBooks() {
+      const books = readJsonStorage(customBooksStorageKey, []);
+      return Array.isArray(books) ? books : [];
+    }
+
+    function saveCustomBooks(books) {
+      writeJsonStorage(customBooksStorageKey, books);
+    }
+
+    function getAllBooks() {
+      return [...freeChessBooks, ...readCustomBooks()];
+    }
+
     function createBookText(tag, className, text) {
       const element = document.createElement(tag);
       if (className) element.className = className;
@@ -5666,11 +6188,18 @@
         book.edition,
         book.level,
         book.summary,
+        book.bestUse,
         book.sourceName,
-        ...book.topics
+        ...(book.categories || []),
+        ...(book.topics || []),
+        ...(book.importantDetails || [])
       ].join(" ").toLowerCase();
 
       return searchable.includes(query);
+    }
+
+    function bookMatchesCategory(book) {
+      return activeBookCategory === "all" || (book.categories || []).includes(activeBookCategory);
     }
 
     function bookCoverLetters(title) {
@@ -5691,20 +6220,28 @@
       const cover = createBookText("span", `book-cover ${book.level.toLowerCase()}`, bookCoverLetters(book.title));
       const copy = document.createElement("div");
       const level = createBookText("span", "badge", book.level);
+      const freeTag = createBookText("span", "book-free-tag", "Free legal source");
       const title = createBookText("h3", "", book.title);
       const summary = createBookText("p", "", book.summary);
       const meta = document.createElement("div");
       const source = createBookText("p", "book-source", `${book.sourceName}: ${book.sourceUrl}`);
       const actions = document.createElement("div");
+      const readButton = createBookText("button", "button", "Read Summary");
       const detailsButton = createBookText("button", "button secondary", "Details");
 
       card.className = "book-card";
+      card.id = `book-${book.id}`;
       card.dataset.bookCard = book.id;
       main.className = "book-card-main";
       top.className = "book-card-top";
       copy.className = "book-card-copy";
       meta.className = "book-meta";
       actions.className = "book-actions";
+      cover.setAttribute("role", "img");
+      cover.setAttribute("aria-label", `${book.title} cover`);
+      readButton.type = "button";
+      readButton.setAttribute("aria-label", `Read summary for ${book.title}`);
+      readButton.addEventListener("click", () => openBookReader(book.id));
       detailsButton.type = "button";
       detailsButton.setAttribute("aria-label", `Show details for ${book.title}`);
       detailsButton.addEventListener("click", () => showBookDetail(book.id));
@@ -5715,17 +6252,17 @@
         createBookText("span", "", `Edition: ${book.edition}`)
       );
 
-      copy.append(level, title, summary);
+      copy.append(level, freeTag, title, summary);
       top.append(cover, copy);
       main.append(top, meta, createBookTopicList(book.topics));
-      actions.append(createBookSourceLink(book, "Download / View"), detailsButton);
+      actions.append(readButton, detailsButton, createBookSourceLink(book, "Source"));
       card.append(main, source, actions);
       return card;
     }
 
     function showBookDetail(bookId, shouldScroll = true) {
       const detail = document.getElementById("bookDetail");
-      const book = freeChessBooks.find((item) => item.id === bookId);
+      const book = getAllBooks().find((item) => item.id === bookId);
       if (!detail || !book) return;
 
       detail.innerHTML = "";
@@ -5739,16 +6276,22 @@
       const title = createBookText("h3", "", book.title);
       const summary = createBookText("p", "", book.summary);
       const metaList = document.createElement("dl");
+      const useHeading = createBookText("h4", "", "Fast use");
+      const useNote = createBookText("p", "", book.bestUse || "Read the summary first, then open the legal source for the full text.");
+      const keyHeading = createBookText("h4", "", "Important details");
       const topicsHeading = createBookText("h4", "", "Topics covered");
       const printHeading = createBookText("h4", "", "Printing note");
       const printNote = createBookText("p", "", book.printableContent);
       const legalHeading = createBookText("h4", "", "Source and rights");
       const legalNote = createBookText("p", "", book.legal);
       const actions = document.createElement("div");
+      const readButton = createBookText("button", "button", "Read Summary");
 
       grid.className = "book-detail-grid";
       metaList.className = "book-detail-list";
       actions.className = "book-actions";
+      readButton.type = "button";
+      readButton.addEventListener("click", () => openBookReader(book.id));
 
       [
         ["Author", book.author],
@@ -5770,12 +6313,25 @@
       sourceValue.appendChild(sourceUrl);
       metaList.append(sourceTerm, sourceValue);
 
-      actions.append(createBookSourceLink(book, "Download / View"), createBookText("button", "button secondary", "Print"));
+      actions.append(readButton, createBookSourceLink(book, "Download / View"), createBookText("button", "button secondary", "Print"));
       actions.lastElementChild.type = "button";
       actions.lastElementChild.addEventListener("click", () => window.print());
 
       metaPanel.append(badge, title, metaList);
-      copyPanel.append(summary, topicsHeading, createBookTopicList(book.topics), printHeading, printNote, legalHeading, legalNote, actions);
+      copyPanel.append(
+        summary,
+        useHeading,
+        useNote,
+        keyHeading,
+        createBookTopicList(book.importantDetails || []),
+        topicsHeading,
+        createBookTopicList(book.topics || []),
+        printHeading,
+        printNote,
+        legalHeading,
+        legalNote,
+        actions
+      );
       grid.append(metaPanel, copyPanel);
       detail.appendChild(grid);
 
@@ -5788,16 +6344,225 @@
       }
     }
 
+    function readBookReaderState() {
+      const fallback = {
+        lastBookId: "",
+        lastChapter: 0,
+        bookmarks: {},
+        theme: "light",
+        fontScale: 1.08
+      };
+      const state = readJsonStorage(bookReaderStorageKey, fallback);
+      return {
+        ...fallback,
+        ...state,
+        bookmarks: state && typeof state.bookmarks === "object" ? state.bookmarks : {}
+      };
+    }
+
+    function saveBookReaderState(partial) {
+      const current = readBookReaderState();
+      writeJsonStorage(bookReaderStorageKey, {
+        ...current,
+        ...partial,
+        fontScale: Number(partial.fontScale ?? current.fontScale) || 1.08
+      });
+    }
+
+    function getBookChapters(book) {
+      return [
+        {
+          title: "Fast summary",
+          intro: book.summary,
+          bullets: book.importantDetails || []
+        },
+        {
+          title: "How to use this book",
+          intro: book.bestUse || "Read the key ideas, then open the legal source when you want the full text.",
+          bullets: [
+            `Skill level: ${book.level}`,
+            `Best topics: ${(book.topics || []).join(", ")}`,
+            `Category: ${(book.categories || []).join(", ")}`
+          ]
+        },
+        {
+          title: "Source and rights",
+          intro: book.legal,
+          bullets: [
+            book.printableContent,
+            `Source: ${book.sourceName}`,
+            book.sourceUrl
+          ]
+        }
+      ];
+    }
+
+    function renderReaderStatus(text) {
+      const status = document.getElementById("readerStatus");
+      if (status) status.textContent = text;
+    }
+
+    function openBookReader(bookId, chapterIndex = null, shouldScroll = true) {
+      const reader = document.getElementById("bookReader");
+      const book = getAllBooks().find((item) => item.id === bookId);
+      if (!reader || !book) return;
+
+      const saved = readBookReaderState();
+      const chapters = getBookChapters(book);
+      const requestedChapter = chapterIndex === null
+        ? (saved.lastBookId === bookId ? Number(saved.lastChapter) || 0 : 0)
+        : Number(chapterIndex);
+
+      activeReaderBookId = bookId;
+      activeReaderChapter = Math.max(0, Math.min(chapters.length - 1, requestedChapter));
+      readerTheme = saved.theme === "dark" ? "dark" : "light";
+      readerFontScale = Math.max(0.95, Math.min(1.45, Number(saved.fontScale) || 1.08));
+      saveBookReaderState({
+        lastBookId: activeReaderBookId,
+        lastChapter: activeReaderChapter,
+        theme: readerTheme,
+        fontScale: readerFontScale
+      });
+
+      renderBookReader();
+      if (window.history?.replaceState) {
+        window.history.replaceState(null, "", `#book-${book.id}`);
+      }
+      if (shouldScroll) {
+        reader.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function renderBookReader() {
+      const reader = document.getElementById("bookReader");
+      const book = getAllBooks().find((item) => item.id === activeReaderBookId);
+      if (!reader || !book) return;
+
+      const chapters = getBookChapters(book);
+      const chapter = chapters[activeReaderChapter] || chapters[0];
+      const state = readBookReaderState();
+      const bookmarkedChapter = state.bookmarks?.[book.id];
+      const isBookmarked = Number(bookmarkedChapter) === activeReaderChapter;
+
+      reader.innerHTML = "";
+      reader.hidden = false;
+      reader.dataset.readerBook = book.id;
+
+      const toolbar = document.createElement("div");
+      const titleWrap = document.createElement("div");
+      const controls = document.createElement("div");
+      const heading = createBookText("h3", "", book.title);
+      const subheading = createBookText("p", "", `${book.author} • Chapter ${activeReaderChapter + 1} of ${chapters.length}`);
+      const themeButton = createBookText("button", "button secondary", readerTheme === "dark" ? "Light Mode" : "Dark Mode");
+      const bookmarkButton = createBookText("button", "button secondary", isBookmarked ? "Bookmarked" : "Bookmark Page");
+      const closeButton = createBookText("button", "button secondary", "Close Reader");
+      const fontLabel = document.createElement("label");
+      const fontRange = document.createElement("input");
+      const layout = document.createElement("div");
+      const toc = document.createElement("aside");
+      const tocTitle = createBookText("h4", "", "Contents");
+      const tocList = document.createElement("div");
+      const page = document.createElement("div");
+      const pageTitle = createBookText("h4", "", chapter.title);
+      const intro = createBookText("p", "", chapter.intro);
+      const bulletList = document.createElement("ul");
+      const nav = document.createElement("div");
+      const previousButton = createBookText("button", "button secondary", "Previous Chapter");
+      const nextButton = createBookText("button", "button", "Next Chapter");
+      const sourceLink = createBookSourceLink(book, "Open Full Source");
+      const status = createBookText("p", "reader-status", "Progress saved.");
+
+      toolbar.className = "reader-toolbar";
+      titleWrap.className = "reader-title";
+      controls.className = "reader-controls";
+      fontLabel.className = "reader-font-control";
+      layout.className = "reader-layout";
+      toc.className = "reader-toc";
+      tocList.className = "reader-toc-list";
+      page.className = `reader-page${readerTheme === "dark" ? " dark" : ""}`;
+      page.style.fontSize = `${readerFontScale}rem`;
+      nav.className = "reader-nav";
+      status.id = "readerStatus";
+
+      themeButton.type = "button";
+      bookmarkButton.type = "button";
+      closeButton.type = "button";
+      previousButton.type = "button";
+      nextButton.type = "button";
+      previousButton.disabled = activeReaderChapter === 0;
+      nextButton.disabled = activeReaderChapter >= chapters.length - 1;
+
+      fontRange.type = "range";
+      fontRange.min = "95";
+      fontRange.max = "145";
+      fontRange.step = "5";
+      fontRange.value = String(Math.round(readerFontScale * 100));
+      fontLabel.append(createBookText("span", "", "Text"), fontRange);
+
+      chapters.forEach((item, index) => {
+        const button = createBookText("button", "reader-toc-button", item.title);
+        button.type = "button";
+        button.setAttribute("aria-current", String(index === activeReaderChapter));
+        button.addEventListener("click", () => openBookReader(book.id, index, false));
+        tocList.appendChild(button);
+      });
+
+      (chapter.bullets || []).forEach((item) => bulletList.appendChild(createBookText("li", "", item)));
+
+      themeButton.addEventListener("click", () => {
+        readerTheme = readerTheme === "dark" ? "light" : "dark";
+        saveBookReaderState({ theme: readerTheme });
+        renderBookReader();
+      });
+
+      fontRange.addEventListener("input", () => {
+        readerFontScale = Number(fontRange.value) / 100;
+        saveBookReaderState({ fontScale: readerFontScale });
+        page.style.fontSize = `${readerFontScale}rem`;
+      });
+
+      bookmarkButton.addEventListener("click", () => {
+        const nextState = readBookReaderState();
+        nextState.bookmarks = nextState.bookmarks || {};
+        nextState.bookmarks[book.id] = activeReaderChapter;
+        writeJsonStorage(bookReaderStorageKey, nextState);
+        bookmarkButton.textContent = "Bookmarked";
+        renderReaderStatus("Bookmark saved. Continue Reading will bring you back here.");
+      });
+
+      closeButton.addEventListener("click", () => {
+        reader.hidden = true;
+      });
+
+      previousButton.addEventListener("click", () => openBookReader(book.id, activeReaderChapter - 1, false));
+      nextButton.addEventListener("click", () => openBookReader(book.id, activeReaderChapter + 1, false));
+
+      titleWrap.append(heading, subheading);
+      controls.append(themeButton, fontLabel, bookmarkButton, closeButton);
+      toolbar.append(titleWrap, controls);
+      toc.append(tocTitle, tocList);
+      nav.append(previousButton, nextButton, sourceLink);
+      page.append(pageTitle, intro, bulletList, nav, status);
+      layout.append(toc, page);
+      reader.append(toolbar, layout);
+    }
+
     function renderBooks() {
       const grid = document.getElementById("bookGrid");
       const searchInput = document.getElementById("bookSearch");
       const detail = document.getElementById("bookDetail");
+      const reader = document.getElementById("bookReader");
       if (!grid || !searchInput) return;
 
+      const allBooks = getAllBooks();
       const query = searchInput.value.trim().toLowerCase();
-      const filteredBooks = freeChessBooks.filter((book) => (
-        (activeBookLevel === "all" || book.level === activeBookLevel) && bookMatchesSearch(book, query)
+      const filteredBooks = allBooks.filter((book) => (
+        (activeBookLevel === "all" || book.level === activeBookLevel)
+        && bookMatchesCategory(book)
+        && bookMatchesSearch(book, query)
       ));
+      const totalStat = document.querySelector("#books .book-stat strong");
+      if (totalStat) totalStat.textContent = String(allBooks.length);
 
       grid.innerHTML = "";
 
@@ -5805,6 +6570,7 @@
         const empty = createBookText("p", "book-empty", "No legal free book matched that search. Try a broader topic like strategy, tactics, endgames, or openings.");
         grid.appendChild(empty);
         if (detail) detail.hidden = true;
+        if (reader) reader.hidden = true;
         return;
       }
 
@@ -5841,10 +6607,110 @@
       }
     }
 
+    function renderAdminBookList() {
+      const list = document.getElementById("adminBookList");
+      if (!list) return;
+
+      const books = readCustomBooks();
+      list.innerHTML = "";
+
+      if (!books.length) {
+        list.appendChild(createBookText("p", "", "No local books yet. Add a verified free source above to test the admin flow."));
+        return;
+      }
+
+      books.forEach((book) => {
+        const row = document.createElement("div");
+        const copy = document.createElement("div");
+        const title = createBookText("strong", "", book.title);
+        const meta = createBookText("span", "", `${book.level} • ${book.author}`);
+        const remove = createBookText("button", "button secondary", "Remove");
+
+        row.className = "admin-row";
+        remove.type = "button";
+        remove.addEventListener("click", () => {
+          saveCustomBooks(readCustomBooks().filter((item) => item.id !== book.id));
+          renderAdminBookList();
+          renderBooks();
+        });
+
+        copy.append(title, document.createElement("br"), meta);
+        row.append(copy, remove);
+        list.appendChild(row);
+      });
+    }
+
+    function setupBookAdmin() {
+      const form = document.getElementById("bookAdminForm");
+      const clearButton = document.getElementById("clearLocalBooks");
+      if (!form) return;
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const title = document.getElementById("adminTitle").value.trim();
+        const author = document.getElementById("adminAuthor").value.trim();
+        const level = document.getElementById("adminLevel").value;
+        const category = document.getElementById("adminCategory").value;
+        const sourceUrl = document.getElementById("adminSource").value.trim();
+        const summary = document.getElementById("adminSummary").value.trim();
+        const fileInput = document.getElementById("adminFile");
+        const fileName = fileInput?.files?.[0]?.name || "";
+
+        if (!title || !author || !summary) return;
+
+        try {
+          const parsed = new URL(sourceUrl);
+          if (!/^https?:$/.test(parsed.protocol)) throw new Error("Only web sources are allowed.");
+        } catch {
+          alert("Please enter a valid public-domain or rights-holder source URL.");
+          return;
+        }
+
+        const customBook = {
+          id: `local-${Date.now()}-${slugify(title)}`,
+          title,
+          author,
+          year: "Local sample",
+          edition: fileName ? `Local admin demo record: ${fileName}` : "Local admin demo record",
+          level,
+          categories: [category],
+          topics: [category, "Local sample", "Reader demo"],
+          summary,
+          bestUse: "Use this local record as a reading shortcut, then verify the source before sharing it publicly.",
+          importantDetails: [
+            "This book was added locally in this browser.",
+            "Verify copyright status before publishing or distributing files.",
+            "Open the source link for the complete book."
+          ],
+          printableContent: "The reader prints this summary and metadata. Print full book content from the verified source.",
+          sourceName: "Local admin sample",
+          sourceUrl,
+          legal: "Local sample only. Confirm this is public domain or legally distributed by the rights holder before publishing."
+        };
+
+        saveCustomBooks([...readCustomBooks(), customBook]);
+        form.reset();
+        renderAdminBookList();
+        renderBooks();
+        openBookReader(customBook.id);
+      });
+
+      clearButton?.addEventListener("click", () => {
+        saveCustomBooks([]);
+        renderAdminBookList();
+        renderBooks();
+      });
+
+      renderAdminBookList();
+    }
+
     function setupBooks() {
       const searchInput = document.getElementById("bookSearch");
       const filterButtons = document.querySelectorAll("[data-book-level]");
+      const categoryButtons = document.querySelectorAll("[data-book-category]");
       const printButton = document.getElementById("printBooks");
+      const continueButton = document.getElementById("continueReadingBook");
       if (!searchInput) return;
 
       searchInput.addEventListener("input", renderBooks);
@@ -5858,8 +6724,32 @@
         });
       });
 
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeBookCategory = button.dataset.bookCategory || "all";
+          categoryButtons.forEach((item) => {
+            item.setAttribute("aria-pressed", String(item === button));
+          });
+          renderBooks();
+        });
+      });
+
       printButton?.addEventListener("click", () => window.print());
+      continueButton?.addEventListener("click", () => {
+        const state = readBookReaderState();
+        const fallbackBook = getAllBooks()[0]?.id || "";
+        const bookId = state.lastBookId || fallbackBook;
+        if (bookId) openBookReader(bookId, Number(state.lastChapter) || 0);
+      });
+      setupBookAdmin();
       renderBooks();
+
+      const hashBookId = window.location.hash.startsWith("#book-")
+        ? window.location.hash.replace("#book-", "")
+        : "";
+      if (hashBookId && getAllBooks().some((book) => book.id === hashBookId)) {
+        openBookReader(hashBookId, null, false);
+      }
     }
 
     function renderShortVideos() {
