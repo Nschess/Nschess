@@ -116,21 +116,82 @@
       gap: 6px;
       flex-wrap: wrap;
       justify-content: flex-end;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.045);
     }
 
     .nav-links a {
-      padding: 8px 10px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 11px;
       border-radius: 6px;
       color: var(--muted);
       font-size: 0.93rem;
-      transition: background 160ms ease, color 160ms ease;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
 
     .nav-links a:hover,
     .nav-links a:focus-visible {
       color: var(--text);
       background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
       outline: none;
+    }
+
+    .nav-links a[aria-current="page"],
+    .nav-links a.is-active-tab {
+      color: #10150d;
+      background: var(--green);
+      box-shadow: 0 8px 20px rgba(127, 166, 80, 0.24);
+    }
+
+    .nav-links::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .nav-links::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+    }
+
+    .nav-links::-webkit-scrollbar-thumb {
+      background: rgba(240, 217, 181, 0.42);
+      border-radius: 999px;
+    }
+
+    .site-panel,
+    #shorts {
+      scroll-margin-top: 88px;
+    }
+
+    body.site-tab-mode .hero {
+      display: none;
+    }
+
+    body.site-tab-mode main > .site-panel:not(.is-active-panel) {
+      display: none;
+    }
+
+    body.site-tab-mode main > .site-panel.is-active-panel {
+      min-height: calc(100svh - 68px);
+      animation: sitePanelIn 220ms ease both;
+    }
+
+    @keyframes sitePanelIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero {
@@ -2966,17 +3027,17 @@
         <span class="brand-mark" aria-hidden="true">♟</span>
         <span>Checkmate Quest</span>
       </a>
-      <div class="nav-links">
-        <a href="#paths">Lessons</a>
-        <a href="#adventures">Adventures</a>
-        <a href="#rules">Rules</a>
-        <a href="#openings">Openings</a>
-        <a href="#videos">Videos</a>
-        <a href="#shorts">Shorts</a>
-        <a href="#books">Books</a>
-        <a href="#notation">Notation</a>
-        <a href="#puzzles">Puzzles</a>
-        <a href="#plan">Study Plan</a>
+      <div class="nav-links" aria-label="Course section tabs">
+        <a href="#paths" data-site-tab="paths" data-site-panel="paths">Lessons</a>
+        <a href="#adventures" data-site-tab="adventures" data-site-panel="adventures">Adventures</a>
+        <a href="#rules" data-site-tab="rules" data-site-panel="rules">Rules</a>
+        <a href="#openings" data-site-tab="openings" data-site-panel="openings">Openings</a>
+        <a href="#videos" data-site-tab="videos" data-site-panel="videos">Videos</a>
+        <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
+        <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
+        <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
+        <a href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
+        <a href="#plan" data-site-tab="plan" data-site-panel="plan">Study Plan</a>
       </div>
     </nav>
   </header>
@@ -6103,6 +6164,142 @@
       });
     }
 
+    function setupSiteTabs() {
+      const panelIds = ["paths", "adventures", "rules", "openings", "videos", "books", "notation", "puzzles", "plan"];
+      const links = [...document.querySelectorAll("[data-site-tab]")];
+      const panels = panelIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      panels.forEach((panel) => {
+        panel.classList.add("site-panel");
+        panel.setAttribute("tabindex", "-1");
+      });
+
+      function getConfigFromHash(hashValue) {
+        const cleanHash = String(hashValue || "").replace(/^#/, "");
+        if (!cleanHash || cleanHash === "top") return null;
+
+        if (cleanHash.startsWith("book-")) {
+          return { tab: "books", panel: "books", focus: cleanHash };
+        }
+
+        if (cleanHash.startsWith("short-")) {
+          return { tab: "shorts", panel: "videos", focus: cleanHash };
+        }
+
+        const link = links.find((item) => item.dataset.siteTab === cleanHash || item.getAttribute("href") === `#${cleanHash}`);
+        if (!link) return null;
+
+        return {
+          tab: link.dataset.siteTab,
+          panel: link.dataset.sitePanel || link.dataset.siteTab,
+          focus: link.dataset.siteFocus || link.dataset.siteTab
+        };
+      }
+
+      function clearActiveTabs() {
+        links.forEach((link) => {
+          link.classList.remove("is-active-tab");
+          link.removeAttribute("aria-current");
+        });
+      }
+
+      function showHome(shouldScroll = false) {
+        document.body.classList.remove("site-tab-mode");
+        clearActiveTabs();
+        panels.forEach((panel) => {
+          panel.classList.remove("is-active-panel");
+          panel.removeAttribute("aria-hidden");
+        });
+
+        if (shouldScroll) {
+          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        }
+      }
+
+      function activateSiteTab(config, shouldScroll = true) {
+        if (!config) {
+          showHome(shouldScroll);
+          return;
+        }
+
+        const panel = document.getElementById(config.panel);
+        const activeLink = links.find((link) => link.dataset.siteTab === config.tab);
+        if (!panel) {
+          showHome(shouldScroll);
+          return;
+        }
+
+        document.body.classList.add("site-tab-mode");
+        panels.forEach((item) => {
+          const isActive = item === panel;
+          item.classList.toggle("is-active-panel", isActive);
+          item.setAttribute("aria-hidden", String(!isActive));
+        });
+
+        clearActiveTabs();
+        if (activeLink) {
+          activeLink.classList.add("is-active-tab");
+          activeLink.setAttribute("aria-current", "page");
+          activeLink.scrollIntoView({
+            behavior: reduceMotion ? "auto" : "smooth",
+            block: "nearest",
+            inline: "center"
+          });
+        }
+
+        if (shouldScroll) {
+          window.requestAnimationFrame(() => {
+            const target = document.getElementById(config.focus) || panel;
+            target.scrollIntoView({
+              behavior: reduceMotion ? "auto" : "smooth",
+              block: "start"
+            });
+            panel.focus({ preventScroll: true });
+          });
+        }
+      }
+
+      function syncTabsFromHash(shouldScroll = false) {
+        const config = getConfigFromHash(window.location.hash);
+        if (config) {
+          activateSiteTab(config, shouldScroll);
+        } else {
+          showHome(shouldScroll && window.location.hash === "#top");
+        }
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        const href = link.getAttribute("href");
+        const isHomeLink = href === "#top";
+        const config = getConfigFromHash(href);
+        if (!config && !isHomeLink) return;
+
+        link.addEventListener("click", (event) => {
+          if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+
+          if (window.history?.pushState) {
+            window.history.pushState(null, "", href);
+          } else {
+            window.location.hash = href;
+          }
+
+          if (isHomeLink) {
+            showHome(true);
+          } else {
+            activateSiteTab(config, true);
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", () => syncTabsFromHash(true));
+      window.addEventListener("popstate", () => syncTabsFromHash(false));
+      syncTabsFromHash(false);
+    }
+
     function wireTabs() {
       const tabs = document.querySelectorAll(".tab-button");
       const panels = ["beginner", "intermediate", "advanced"].map((id) => document.getElementById(id));
@@ -7962,6 +8159,7 @@
     renderCoordinates();
     renderPuzzle();
     wireTabs();
+    setupSiteTabs();
     setupBooks();
     renderShortFeed();
     setupVideoTheater();
