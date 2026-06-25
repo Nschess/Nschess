@@ -2703,7 +2703,7 @@
             <p class="section-kicker">Video lessons</p>
             <h2 id="videos-title">Watch the ideas</h2>
           </div>
-          <p class="section-intro">A tiered video library with 100 embedded lessons, including 65 verified Shorts arranged from beginner patterns to advanced tactics.</p>
+          <p class="section-intro">A tiered video library with 101 embedded lessons, including 66 verified Shorts arranged from beginner patterns to advanced tactics.</p>
         </div>
 
         <div class="video-tier">
@@ -3097,9 +3097,9 @@
             <div>
               <p class="section-kicker">YouTube Shorts</p>
               <h3 id="shorts-title">Shorts Sprint</h3>
-              <p>Sixty-five bite-size chess tutorials and puzzle sparks, with beginner, intermediate, advanced, and a dedicated Biyaherong Chess Coach track.</p>
+              <p>Sixty-six bite-size chess tutorials and puzzle sparks, with beginner, intermediate, advanced, and a dedicated Biyaherong Chess Coach track.</p>
             </div>
-            <span class="shorts-count">65 Shorts</span>
+            <span class="shorts-count">66 Shorts</span>
           </div>
           <div class="shorts-toolbar" aria-label="Shorts controls">
             <div class="shorts-tabs" role="tablist" aria-label="Shorts levels">
@@ -3110,7 +3110,7 @@
             </div>
             <div class="shorts-progress-controls" aria-label="Shorts progress">
               <button class="shorts-resume" id="shortsResumeButton" type="button">Resume</button>
-              <span class="shorts-progress" id="shortsProgress">0/65 Done</span>
+              <span class="shorts-progress" id="shortsProgress">0/66 Done</span>
             </div>
             <div class="shorts-audio-controls">
               <button class="shorts-sound-toggle" id="shortsSoundToggle" type="button" aria-pressed="false" aria-label="Turn Shorts sound on">Sound Off</button>
@@ -3995,6 +3995,15 @@
         title: "Amazing Pawn Endgame Finished!",
         headline: "Pawn endgame finish",
         note: "A short endgame example for promotion timing and pawn races."
+      },
+      {
+        id: "w65DmISackc",
+        topic: "Opening",
+        creator: "Biyaherong",
+        duration: "Short",
+        title: "Biyaherong Chess Coach Short",
+        headline: "Coach opening lesson",
+        note: "A Biyaherong Chess Coach clip added to complete the advanced coach track."
       }
     ];
 
@@ -4009,7 +4018,8 @@
           "OxRWuF0NPyM", "n05fNUA6PQ4", "V09wOvcJJbM", "E2biHMcMNR0",
           "SaeOMqoC8Mw", "-OU3WJyraKQ", "PaZVLsojjG0", "f2xXL537e7I",
           "S1s6sqaaCdg", "xtV_qZ0kDXY", "CdZLO5Wbfyk", "RO8Glb42K2o",
-          "9URyJG68wj4", "adHrqOu-kS4", "pv05RJ69R9s"
+          "O_8heoqCuFU", "9URyJG68wj4", "adHrqOu-kS4", "pv05RJ69R9s",
+          "4xBgIx_Rr_Y"
         ]
       },
       {
@@ -4017,13 +4027,14 @@
         tag: "Build speed",
         description: "Tactics, opening traps, endgame saves, and sharper calculation reps.",
         ids: [
-          "CbfkPbGrPgw", "O_8heoqCuFU", "OVsyDJ3hgKM", "s9sXXRgfozI",
+          "CbfkPbGrPgw", "OVsyDJ3hgKM", "s9sXXRgfozI",
           "_KAc128DlMY", "6EDYuq6WcRo", "y2tOtMiBL2w", "uZqud7iFPbs",
           "p29X57WBTrY", "ai8CRRO-Tzs", "9VFe8wHlB28", "AXRLarjbSgM",
           "n2ZtFqvoy0w", "I30wGxgXFv4", "dunOMb_XfOg", "AtgEFLJ7jVc",
           "y5UzupHULcc", "ylPIQFOqq88", "jPxusiHa0xw", "fuSH59tZPO0",
           "N_XDJ0woYHk", "eUiElJvLo6c", "yTpNnz3PVSo", "0vAozwpZAcI",
-          "GahxuKy7kRc", "Rj0fu-k6eWA"
+          "GahxuKy7kRc", "Rj0fu-k6eWA", "kEqoib0vLn8", "AbUagQAAPA4",
+          "Bi3mCYm8t9k"
         ]
       },
       {
@@ -4033,8 +4044,8 @@
         ids: [
           "90uOYlG68bg", "fHtMC-EqYhs", "_RHaVTAYnTs", "1zw7V1o9K98",
           "jr3GYrJDnVg", "BSTiLz4Jfmc", "QNKgtULOamY", "cF8izlNwIIU",
-          "kEqoib0vLn8", "AbUagQAAPA4", "Bi3mCYm8t9k", "BI24dtla0TU",
-          "zuztuAIHvo4", "46f_wcofIPE", "B3Jl5kTwQqU", "4xBgIx_Rr_Y"
+          "BI24dtla0TU", "zuztuAIHvo4", "46f_wcofIPE", "B3Jl5kTwQqU",
+          "w65DmISackc"
         ]
       }
     ];
