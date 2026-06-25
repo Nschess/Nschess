@@ -357,6 +357,8 @@
     .section-warm .rule-item,
     .section-warm .opening-card,
     .section-warm .notation-card,
+    .section-warm .book-card,
+    .section-warm .book-detail,
     .section-warm .video-card,
     .section-warm .puzzle-shell {
       border-color: rgba(33, 26, 18, 0.16);
@@ -442,6 +444,8 @@
     .rule-item,
     .opening-card,
     .notation-card,
+    .book-card,
+    .book-detail,
     .video-card,
     .puzzle-shell {
       border: 1px solid var(--line);
@@ -489,6 +493,8 @@
     .section-warm .rule-item p,
     .section-warm .opening-card p,
     .section-warm .notation-card p,
+    .section-warm .book-card p,
+    .section-warm .book-detail p,
     .section-warm .video-card p,
     .section-warm .puzzle-info p {
       color: #5d5144;
@@ -802,6 +808,344 @@
       background:
         linear-gradient(135deg, rgba(127, 166, 80, 0.22), rgba(231, 182, 93, 0.14)),
         var(--panel);
+    }
+
+    .books-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .book-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .book-stat {
+      min-height: 88px;
+      padding: 15px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: var(--radius);
+      background: #fff8eb;
+    }
+
+    .book-stat strong,
+    .book-stat span {
+      display: block;
+    }
+
+    .book-stat strong {
+      color: #211a12;
+      font-size: 1.38rem;
+      line-height: 1;
+    }
+
+    .book-stat span {
+      margin-top: 8px;
+      color: #5d5144;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .books-controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .book-search {
+      display: grid;
+      gap: 7px;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .book-search input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #211a12;
+      font: inherit;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .book-search input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(127, 166, 80, 0.18);
+    }
+
+    .book-level-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .book-filter {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid rgba(33, 26, 18, 0.17);
+      border-radius: 7px;
+      background: #f7efe2;
+      color: #211a12;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .book-filter:hover,
+    .book-filter:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--green);
+      outline: none;
+    }
+
+    .book-filter[aria-pressed="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .books-shell .button.secondary {
+      border-color: rgba(33, 26, 18, 0.18);
+      background: rgba(33, 26, 18, 0.06);
+      color: #211a12;
+    }
+
+    .books-shell .button.secondary:hover,
+    .books-shell .button.secondary:focus-visible {
+      background: rgba(33, 26, 18, 0.1);
+    }
+
+    .book-verify-note {
+      padding: 14px 16px;
+      border: 1px solid rgba(127, 166, 80, 0.25);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.12);
+      color: #2c261f;
+    }
+
+    .book-verify-note strong {
+      color: #1f2b16;
+    }
+
+    .book-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .book-level-section {
+      display: grid;
+      gap: 14px;
+    }
+
+    .book-level-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+    }
+
+    .book-level-head h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      line-height: 1.15;
+    }
+
+    .book-level-head p {
+      max-width: 58ch;
+      margin: 6px 0 0;
+      color: #5d5144;
+      font-size: 0.94rem;
+    }
+
+    .book-level-head span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.14);
+      color: var(--green-dark);
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .book-level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .book-card {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 410px;
+      padding: 20px;
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .book-card:hover,
+    .book-card:focus-within {
+      transform: translateY(-3px);
+      border-color: rgba(127, 166, 80, 0.46);
+      box-shadow: 0 22px 46px rgba(82, 55, 25, 0.18);
+    }
+
+    .book-card.is-selected {
+      border-color: rgba(95, 127, 58, 0.72);
+      box-shadow: 0 20px 48px rgba(95, 127, 58, 0.16);
+    }
+
+    .book-card-main {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .book-card-top {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .book-cover {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      aspect-ratio: 3 / 4;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #7fa650, #f0d9b5 72%);
+      color: #211a12;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .book-cover.intermediate {
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #6fa8dc, #f0d9b5 74%);
+    }
+
+    .book-cover.advanced {
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #e7b65d, #b58863 76%);
+    }
+
+    .book-card-copy {
+      min-width: 0;
+    }
+
+    .book-card h3,
+    .book-detail h3 {
+      margin-bottom: 8px;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .book-card p {
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .book-meta {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+      color: #5d5144;
+      font-size: 0.9rem;
+    }
+
+    .book-meta span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 9px;
+      border: 1px solid rgba(33, 26, 18, 0.13);
+      border-radius: 7px;
+      background: rgba(181, 136, 99, 0.1);
+    }
+
+    .book-source {
+      margin-top: 0;
+      color: #5d5144;
+      font-size: 0.82rem;
+      word-break: break-word;
+    }
+
+    .book-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .book-detail[hidden] {
+      display: none;
+    }
+
+    .book-detail {
+      padding: 24px;
+      scroll-margin-top: 86px;
+    }
+
+    .book-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.85fr) minmax(0, 1.15fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .book-detail-list {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 10px 14px;
+      margin: 16px 0 0;
+    }
+
+    .book-detail-list dt {
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .book-detail-list dd {
+      margin: 0;
+      color: #5d5144;
+      word-break: break-word;
+    }
+
+    .book-detail a {
+      color: var(--green-dark);
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .book-empty {
+      grid-column: 1 / -1;
+      padding: 20px;
+      border: 1px dashed rgba(33, 26, 18, 0.22);
+      border-radius: var(--radius);
+      color: #5d5144;
+      background: rgba(255, 248, 235, 0.58);
     }
 
     .video-grid {
@@ -1800,7 +2144,7 @@
 
     .study-plan {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
       align-items: start;
     }
@@ -1815,6 +2159,30 @@
     .plan-panel h3 {
       margin-bottom: 12px;
       font-size: 1.25rem;
+    }
+
+    .plan-panel p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .plan-panel.wide {
+      grid-column: 1 / -1;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .plan-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .plan-meta .badge {
+      background: rgba(127, 166, 80, 0.16);
+      color: #dfeecf;
     }
 
     .plan-list {
@@ -1842,6 +2210,53 @@
       background: rgba(231, 182, 93, 0.16);
       color: var(--gold);
       font-weight: 900;
+    }
+
+    .plan-focus {
+      margin-top: 18px;
+      padding: 13px 14px;
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.1);
+      color: #f3e3c1;
+      font-weight: 800;
+    }
+
+    .weekly-roadmap {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .day-card {
+      min-height: 136px;
+      padding: 14px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .day-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .day-card span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--cream);
+      font-weight: 900;
+    }
+
+    .day-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     .footer {
@@ -1874,6 +2289,7 @@
       .mission-grid,
       .rules-grid,
       .opening-grid,
+      .book-level-grid,
       .notation-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1885,8 +2301,13 @@
 
       .adventure-play,
       .puzzle-shell,
+      .book-detail-grid,
       .study-plan {
         grid-template-columns: 1fr;
+      }
+
+      .weekly-roadmap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .puzzle-board-wrap {
@@ -1963,6 +2384,20 @@
         align-items: start;
       }
 
+      .book-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .books-controls {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .book-level-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .shorts-feed {
         height: calc(100svh - 64px);
         height: calc(100dvh - 64px);
@@ -1996,6 +2431,7 @@
       .mission-grid,
       .rules-grid,
       .opening-grid,
+      .book-level-grid,
       .notation-grid,
       .video-grid,
       .video-grid.tier-grid,
@@ -2014,8 +2450,26 @@
         align-items: stretch;
       }
 
+      .weekly-roadmap {
+        grid-template-columns: 1fr;
+      }
+
       .button {
         width: 100%;
+      }
+
+      .book-actions {
+        display: grid;
+      }
+
+      .book-level-head,
+      .book-card-top {
+        grid-template-columns: 1fr;
+      }
+
+      .book-level-head {
+        display: grid;
+        align-items: start;
       }
 
       .shorts-tabs,
@@ -2123,6 +2577,93 @@
         font-size: 0.86rem;
       }
     }
+
+    @media print {
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #111 !important;
+        font-size: 11pt;
+      }
+
+      .site-header,
+      .hero,
+      #paths,
+      #adventures,
+      #rules,
+      #openings,
+      #videos,
+      #notation,
+      #puzzles,
+      #plan,
+      .footer,
+      .books-controls,
+      .book-actions,
+      .video-modal {
+        display: none !important;
+      }
+
+      main,
+      #books,
+      #books .wrap {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      #books .section-head {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .book-grid {
+        display: block;
+      }
+
+      .book-level-grid,
+      .book-level-section {
+        display: block;
+      }
+
+      .book-card,
+      .book-detail,
+      .book-stat,
+      .book-verify-note {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 0 0 14px;
+        border: 1px solid #777 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      .book-detail[hidden] {
+        display: none !important;
+      }
+
+      .badge,
+      .topic-list li,
+      .book-meta span {
+        border: 1px solid #777 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        font-weight: 400;
+        word-break: break-all;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2139,6 +2680,7 @@
         <a href="#openings">Openings</a>
         <a href="#videos">Videos</a>
         <a href="#shorts">Shorts</a>
+        <a href="#books">Books</a>
         <a href="#notation">Notation</a>
         <a href="#puzzles">Puzzles</a>
         <a href="#plan">Study Plan</a>
@@ -3302,6 +3844,56 @@
       </div>
     </section>
 
+    <section id="books" class="section-warm" aria-labelledby="books-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Free library</p>
+            <h2 id="books-title">Free Chess Books</h2>
+          </div>
+          <p class="section-intro">A legal-only reading shelf with public-domain classics, quick summaries, skill levels, and source links the learner can trust.</p>
+        </div>
+
+        <div class="books-shell">
+          <div class="book-stats" aria-label="Free chess book library summary">
+            <div class="book-stat">
+              <strong>5</strong>
+              <span>verified free books</span>
+            </div>
+            <div class="book-stat">
+              <strong>3</strong>
+              <span>beginner to advanced shelves</span>
+            </div>
+            <div class="book-stat">
+              <strong>0</strong>
+              <span>pirated PDFs linked</span>
+            </div>
+          </div>
+
+          <div class="books-controls" aria-label="Chess book search and filters">
+            <label class="book-search" for="bookSearch">
+              <span>Search by title, author, or topic</span>
+              <input id="bookSearch" type="search" autocomplete="off" placeholder="Try endgames, Capablanca, strategy..." />
+            </label>
+            <div class="book-level-filters" role="group" aria-label="Filter chess books by skill level">
+              <button class="book-filter" type="button" data-book-level="all" aria-pressed="true">All</button>
+              <button class="book-filter" type="button" data-book-level="Beginner" aria-pressed="false">Beginner</button>
+              <button class="book-filter" type="button" data-book-level="Intermediate" aria-pressed="false">Intermediate</button>
+              <button class="book-filter" type="button" data-book-level="Advanced" aria-pressed="false">Advanced</button>
+            </div>
+            <button class="button secondary print-button" id="printBooks" type="button">Print</button>
+          </div>
+
+          <div class="book-verify-note">
+            <strong>Legal source rule:</strong> every linked book below is public domain in the United States or from a legitimate free-distribution source. Modern Ideas in Chess and Tarrasch's The Game of Chess are on the watchlist until a working legal free source is confirmed.
+          </div>
+
+          <div class="book-grid" id="bookGrid" aria-live="polite"></div>
+          <article class="book-detail" id="bookDetail" hidden aria-live="polite"></article>
+        </div>
+      </div>
+    </section>
+
     <section id="notation" class="section-dark" aria-labelledby="notation-title">
       <div class="wrap">
         <div class="section-head">
@@ -3403,26 +3995,112 @@
         <div class="section-head">
           <div>
             <p class="section-kicker">Study rhythm</p>
-            <h2 id="plan-title">A simple weekly plan</h2>
+            <h2 id="plan-title">Fast progress roadmap</h2>
           </div>
-          <p class="section-intro">A steady mix of play, puzzles, review, and endgames beats random marathon sessions.</p>
+          <p class="section-intro">Pick the track that matches your level, train for a short focused block each day, then repeat the weekly rhythm until the goals feel easy.</p>
         </div>
 
         <div class="study-plan">
           <article class="plan-panel">
-            <h3>Three-day loop</h3>
+            <div class="plan-meta">
+              <span class="badge">Beginner</span>
+              <span class="badge">35 min/day</span>
+              <span class="badge">First 30 days</span>
+            </div>
+            <h3>Build board confidence</h3>
+            <p>Goal: stop losing pieces for free, learn basic mates, and finish games with a simple plan.</p>
             <ul class="plan-list">
-              <li><span>1</span><div>Play one slower game and write down the move where the position first felt unclear.</div></li>
-              <li><span>2</span><div>Solve ten tactics by theme, then replay the mistakes until the pattern is automatic.</div></li>
-              <li><span>3</span><div>Study one endgame position and test it from both sides against a board or engine.</div></li>
+              <li><span>1</span><div>Warm up with 5 easy puzzles: mate in one, mate in two, forks, and hanging pieces.</div></li>
+              <li><span>2</span><div>Watch 1 beginner lesson or 3 Shorts, then write one rule you will use today.</div></li>
+              <li><span>3</span><div>Play one 10+5 game. Before every move, ask: is my king safe and is any piece hanging?</div></li>
+              <li><span>4</span><div>Review only one moment: the first blunder or the first move where you felt confused.</div></li>
             </ul>
+            <div class="plan-focus">Level up when you can solve 50 simple puzzles and play 5 games with fewer hanging pieces.</div>
           </article>
           <article class="plan-panel">
-            <h3>Review checklist</h3>
+            <div class="plan-meta">
+              <span class="badge">Intermediate</span>
+              <span class="badge">45 min/day</span>
+              <span class="badge">Build speed</span>
+            </div>
+            <h3>Turn ideas into threats</h3>
+            <p>Goal: calculate cleaner, understand your openings, and turn winning positions into real wins.</p>
             <ul class="plan-list">
-              <li><span>✓</span><div>Was the king safe before launching an attack?</div></li>
-              <li><span>✓</span><div>Did every trade improve the position or solve a concrete problem?</div></li>
-              <li><span>✓</span><div>Were checks, captures, and threats examined before the final move?</div></li>
+              <li><span>1</span><div>Solve 12-15 themed puzzles. Repeat every miss until you can explain the tactic.</div></li>
+              <li><span>2</span><div>Study one opening line plus the idea behind it: center, development, target, or endgame.</div></li>
+              <li><span>3</span><div>Play one 15+10 game or two 10+5 games. Choose moves using checks, captures, and threats.</div></li>
+              <li><span>4</span><div>Review the first mistake after the opening and list three candidate moves you missed.</div></li>
+            </ul>
+            <div class="plan-focus">Level up when you can name the plan in your main openings and finish 75 puzzles in a week.</div>
+          </article>
+          <article class="plan-panel">
+            <div class="plan-meta">
+              <span class="badge">Advanced</span>
+              <span class="badge">55 min/day</span>
+              <span class="badge">Precision</span>
+            </div>
+            <h3>Train like a serious player</h3>
+            <p>Goal: compare candidate moves, respect opponent resources, and convert small advantages.</p>
+            <ul class="plan-list">
+              <li><span>1</span><div>Solve 8-10 hard puzzles without moving pieces. Spend 3-5 minutes before checking.</div></li>
+              <li><span>2</span><div>Study one master-game position or accuracy video. Write the plan, not just the move.</div></li>
+              <li><span>3</span><div>Play one slow game. Annotate your plans, critical moments, and time-pressure decisions.</div></li>
+              <li><span>4</span><div>Drill one endgame from both sides: pawn race, rook activity, opposition, or conversion.</div></li>
+            </ul>
+            <div class="plan-focus">Level up by deeply reviewing 2 games each week and building an opening file with plans.</div>
+          </article>
+          <article class="plan-panel wide">
+            <div class="plan-meta">
+              <span class="badge">Repeat weekly</span>
+              <span class="badge">Fast and simple</span>
+              <span class="badge">No marathon needed</span>
+            </div>
+            <h3>7-day arranger</h3>
+            <p>Use this weekly rhythm with your level card above. Keep sessions short, write one lesson after each day, and repeat the weak day next week.</p>
+            <div class="weekly-roadmap">
+              <div class="day-card">
+                <strong>Day 1</strong>
+                <span>Foundation</span>
+                <p>Watch one lesson, then play one game using only today's main rule.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 2</strong>
+                <span>Tactics</span>
+                <p>Solve by theme. Replay every missed puzzle until the pattern feels automatic.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 3</strong>
+                <span>Slow Game</span>
+                <p>Play one focused game. Afterward, mark the first unclear move and one better plan.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 4</strong>
+                <span>Opening</span>
+                <p>Study one line and one idea. Do not memorize more than you can explain.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 5</strong>
+                <span>Endgame</span>
+                <p>Practice a small ending until you know where the king and pawns belong.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 6</strong>
+                <span>Challenge</span>
+                <p>Take a puzzle test, then play a game where you slow down at critical moments.</p>
+              </div>
+              <div class="day-card">
+                <strong>Day 7</strong>
+                <span>Review</span>
+                <p>Collect your three biggest mistakes, rewatch one matching lesson, and reset.</p>
+              </div>
+            </div>
+          </article>
+          <article class="plan-panel wide">
+            <h3>Daily progress rule</h3>
+            <ul class="plan-list">
+              <li><span>A</span><div>One lesson gives you the idea. One game tests it. One review makes it stick.</div></li>
+              <li><span>B</span><div>If you have only 15 minutes, solve puzzles and review one mistake. Consistency beats a long random session.</div></li>
+              <li><span>C</span><div>Write one sentence after training: today I learned, tomorrow I will watch for, my biggest mistake was.</div></li>
             </ul>
           </article>
         </div>
@@ -3635,6 +4313,79 @@
           { move: "Kd4", correct: false }
         ],
         feedback: "e4+ works because the white king protects e4. The pawn checks the black king and gains space for the endgame."
+      }
+    ];
+
+    const freeChessBooks = [
+      {
+        id: "blue-book-of-chess",
+        title: "The Blue Book of Chess",
+        author: "Howard Staunton",
+        year: "Publication year not stated in Project Gutenberg record",
+        edition: "Project Gutenberg eBook No. 16377",
+        level: "Beginner",
+        topics: ["Rules", "Piece movement", "Openings", "Board basics"],
+        summary: "A beginner-friendly primer that starts with the board, piece powers, chess terms, rules, and simple opening explanations. Best for a learner who wants the game explained slowly before jumping into tactics.",
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/16377",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "chess-and-checkers-way-to-mastership",
+        title: "Chess and Checkers: The Way to Mastership",
+        author: "Edward Lasker",
+        year: "1918",
+        edition: "Project Gutenberg eBook No. 4913",
+        level: "Beginner",
+        topics: ["Rules", "Tactics", "Strategy", "Illustrative games"],
+        summary: "A clear early-20th-century guide that explains rules, tactical ideas, strategy, and model play in plain language. Use the chess chapters for a practical bridge from rules to real decisions.",
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/4913",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "chess-fundamentals",
+        title: "Chess Fundamentals",
+        author: "Jose Raul Capablanca",
+        year: "1921",
+        edition: "Project Gutenberg eBook No. 33870",
+        level: "Beginner",
+        topics: ["Endgames", "Simple mates", "Openings", "Middlegame principles"],
+        summary: "Capablanca teaches the basics through direct examples: mating patterns, pawn promotion, elementary endings, opening ideas, and the kind of simple plans that make beginner games easier to understand.",
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/33870",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "chess-strategy",
+        title: "Chess Strategy",
+        author: "Edward Lasker",
+        year: "1915 second edition",
+        edition: "Project Gutenberg eBook No. 5614; translated by J. Du Mont",
+        level: "Intermediate",
+        topics: ["Strategy", "Piece activity", "Openings", "Endgames"],
+        summary: "A structured strategy course for players who know the rules and want better plans. It connects piece movement, pawn play, opening judgment, middlegame planning, and endgame thinking.",
+        printableContent: "Project Gutenberg provides public-domain reading formats including online HTML, EPUB, Kindle, and plain text.",
+        sourceName: "Project Gutenberg",
+        sourceUrl: "https://www.gutenberg.org/ebooks/5614",
+        legal: "Project Gutenberg lists this eBook as public domain in the USA and free to download."
+      },
+      {
+        id: "my-system",
+        title: "My System",
+        author: "Aron Nimzowitsch; translated by Philip Hereford",
+        year: "1925 original; 1930 Harcourt, Brace & Co. edition",
+        edition: "Wikimedia Commons PDF sourced from Internet Archive",
+        level: "Advanced",
+        topics: ["Prophylaxis", "Pawn chains", "Blockade", "Positional play"],
+        summary: "A classic positional manual for serious learners. Study it after the basics, because the ideas are powerful but abstract: restraint, blockade, overprotection, pawn chains, and long-term piece placement.",
+        printableContent: "Wikimedia Commons provides the public-domain PDF record and original file for reading and printing.",
+        sourceName: "Wikimedia Commons / Internet Archive",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:My_System.pdf",
+        legal: "Wikimedia Commons identifies the 1930 edition as public domain in the United States because it was published before January 1, 1931."
       }
     ];
 
@@ -4591,6 +5342,13 @@
     let currentAdventure = 0;
     let selectedAdventureSquare = "";
     let adventureBoardState = [];
+    const bookLevels = ["Beginner", "Intermediate", "Advanced"];
+    const bookLevelNotes = {
+      Beginner: "Start here for rules, board confidence, simple mates, and first strategy habits.",
+      Intermediate: "Use these after the rules feel natural and you want better plans.",
+      Advanced: "Deep classics for positional thinking, structure, and serious review."
+    };
+    let activeBookLevel = "all";
 
     function buildHeroBoard() {
       const board = document.getElementById("heroBoard");
@@ -4871,6 +5629,237 @@
           panels.forEach((panel) => panel.classList.toggle("hidden", panel.id !== level));
         });
       });
+    }
+
+    function createBookText(tag, className, text) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      element.textContent = text;
+      return element;
+    }
+
+    function createBookTopicList(topics) {
+      const list = document.createElement("ul");
+      list.className = "topic-list";
+      topics.forEach((topic) => {
+        list.appendChild(createBookText("li", "", topic));
+      });
+      return list;
+    }
+
+    function createBookSourceLink(book, label = "View source") {
+      const link = document.createElement("a");
+      link.className = "button";
+      link.href = book.sourceUrl;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = label;
+      return link;
+    }
+
+    function bookMatchesSearch(book, query) {
+      if (!query) return true;
+      const searchable = [
+        book.title,
+        book.author,
+        book.year,
+        book.edition,
+        book.level,
+        book.summary,
+        book.sourceName,
+        ...book.topics
+      ].join(" ").toLowerCase();
+
+      return searchable.includes(query);
+    }
+
+    function bookCoverLetters(title) {
+      const skipWords = new Set(["and", "of", "the", "to", "a"]);
+      const letters = title
+        .split(/\s+/)
+        .filter((word) => word && !skipWords.has(word.toLowerCase()))
+        .slice(0, 2)
+        .map((word) => word[0].toUpperCase());
+
+      return letters.join("") || "CB";
+    }
+
+    function createBookCard(book) {
+      const card = document.createElement("article");
+      const main = document.createElement("div");
+      const top = document.createElement("div");
+      const cover = createBookText("span", `book-cover ${book.level.toLowerCase()}`, bookCoverLetters(book.title));
+      const copy = document.createElement("div");
+      const level = createBookText("span", "badge", book.level);
+      const title = createBookText("h3", "", book.title);
+      const summary = createBookText("p", "", book.summary);
+      const meta = document.createElement("div");
+      const source = createBookText("p", "book-source", `${book.sourceName}: ${book.sourceUrl}`);
+      const actions = document.createElement("div");
+      const detailsButton = createBookText("button", "button secondary", "Details");
+
+      card.className = "book-card";
+      card.dataset.bookCard = book.id;
+      main.className = "book-card-main";
+      top.className = "book-card-top";
+      copy.className = "book-card-copy";
+      meta.className = "book-meta";
+      actions.className = "book-actions";
+      detailsButton.type = "button";
+      detailsButton.setAttribute("aria-label", `Show details for ${book.title}`);
+      detailsButton.addEventListener("click", () => showBookDetail(book.id));
+
+      meta.append(
+        createBookText("span", "", `Author: ${book.author}`),
+        createBookText("span", "", `Year: ${book.year}`),
+        createBookText("span", "", `Edition: ${book.edition}`)
+      );
+
+      copy.append(level, title, summary);
+      top.append(cover, copy);
+      main.append(top, meta, createBookTopicList(book.topics));
+      actions.append(createBookSourceLink(book, "Download / View"), detailsButton);
+      card.append(main, source, actions);
+      return card;
+    }
+
+    function showBookDetail(bookId, shouldScroll = true) {
+      const detail = document.getElementById("bookDetail");
+      const book = freeChessBooks.find((item) => item.id === bookId);
+      if (!detail || !book) return;
+
+      detail.innerHTML = "";
+      detail.hidden = false;
+      detail.dataset.bookId = book.id;
+
+      const grid = document.createElement("div");
+      const metaPanel = document.createElement("div");
+      const copyPanel = document.createElement("div");
+      const badge = createBookText("span", "badge", book.level);
+      const title = createBookText("h3", "", book.title);
+      const summary = createBookText("p", "", book.summary);
+      const metaList = document.createElement("dl");
+      const topicsHeading = createBookText("h4", "", "Topics covered");
+      const printHeading = createBookText("h4", "", "Printing note");
+      const printNote = createBookText("p", "", book.printableContent);
+      const legalHeading = createBookText("h4", "", "Source and rights");
+      const legalNote = createBookText("p", "", book.legal);
+      const actions = document.createElement("div");
+
+      grid.className = "book-detail-grid";
+      metaList.className = "book-detail-list";
+      actions.className = "book-actions";
+
+      [
+        ["Author", book.author],
+        ["Publication year", book.year],
+        ["Edition", book.edition],
+        ["Skill level", book.level],
+        ["Source", book.sourceName]
+      ].forEach(([label, value]) => {
+        metaList.append(createBookText("dt", "", label), createBookText("dd", "", value));
+      });
+
+      const sourceTerm = createBookText("dt", "", "Source URL");
+      const sourceValue = document.createElement("dd");
+      const sourceUrl = document.createElement("a");
+      sourceUrl.href = book.sourceUrl;
+      sourceUrl.target = "_blank";
+      sourceUrl.rel = "noopener";
+      sourceUrl.textContent = book.sourceUrl;
+      sourceValue.appendChild(sourceUrl);
+      metaList.append(sourceTerm, sourceValue);
+
+      actions.append(createBookSourceLink(book, "Download / View"), createBookText("button", "button secondary", "Print"));
+      actions.lastElementChild.type = "button";
+      actions.lastElementChild.addEventListener("click", () => window.print());
+
+      metaPanel.append(badge, title, metaList);
+      copyPanel.append(summary, topicsHeading, createBookTopicList(book.topics), printHeading, printNote, legalHeading, legalNote, actions);
+      grid.append(metaPanel, copyPanel);
+      detail.appendChild(grid);
+
+      document.querySelectorAll("[data-book-card]").forEach((card) => {
+        card.classList.toggle("is-selected", card.dataset.bookCard === book.id);
+      });
+
+      if (shouldScroll) {
+        detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    function renderBooks() {
+      const grid = document.getElementById("bookGrid");
+      const searchInput = document.getElementById("bookSearch");
+      const detail = document.getElementById("bookDetail");
+      if (!grid || !searchInput) return;
+
+      const query = searchInput.value.trim().toLowerCase();
+      const filteredBooks = freeChessBooks.filter((book) => (
+        (activeBookLevel === "all" || book.level === activeBookLevel) && bookMatchesSearch(book, query)
+      ));
+
+      grid.innerHTML = "";
+
+      if (!filteredBooks.length) {
+        const empty = createBookText("p", "book-empty", "No legal free book matched that search. Try a broader topic like strategy, tactics, endgames, or openings.");
+        grid.appendChild(empty);
+        if (detail) detail.hidden = true;
+        return;
+      }
+
+      const levelsToRender = activeBookLevel === "all" ? bookLevels : [activeBookLevel];
+      levelsToRender.forEach((levelName) => {
+        const levelBooks = filteredBooks.filter((book) => book.level === levelName);
+        if (!levelBooks.length) return;
+
+        const section = document.createElement("section");
+        const head = document.createElement("div");
+        const copy = document.createElement("div");
+        const title = createBookText("h3", "", `${levelName} shelf`);
+        const note = createBookText("p", "", bookLevelNotes[levelName] || "");
+        const count = createBookText("span", "", `${levelBooks.length} ${levelBooks.length === 1 ? "book" : "books"}`);
+        const list = document.createElement("div");
+
+        section.className = "book-level-section";
+        head.className = "book-level-head";
+        list.className = "book-level-grid";
+
+        copy.append(title, note);
+        head.append(copy, count);
+        levelBooks.forEach((book) => list.appendChild(createBookCard(book)));
+        section.append(head, list);
+        grid.appendChild(section);
+      });
+
+      const activeDetailId = detail?.dataset.bookId;
+      const shouldRefreshDetail = !activeDetailId || !filteredBooks.some((book) => book.id === activeDetailId);
+      if (shouldRefreshDetail) {
+        showBookDetail(filteredBooks[0].id, false);
+      } else {
+        showBookDetail(activeDetailId, false);
+      }
+    }
+
+    function setupBooks() {
+      const searchInput = document.getElementById("bookSearch");
+      const filterButtons = document.querySelectorAll("[data-book-level]");
+      const printButton = document.getElementById("printBooks");
+      if (!searchInput) return;
+
+      searchInput.addEventListener("input", renderBooks);
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeBookLevel = button.dataset.bookLevel || "all";
+          filterButtons.forEach((item) => {
+            item.setAttribute("aria-pressed", String(item === button));
+          });
+          renderBooks();
+        });
+      });
+
+      printButton?.addEventListener("click", () => window.print());
+      renderBooks();
     }
 
     function renderShortVideos() {
@@ -6083,6 +7072,7 @@
     renderCoordinates();
     renderPuzzle();
     wireTabs();
+    setupBooks();
     renderShortFeed();
     setupVideoTheater();
   </script>
