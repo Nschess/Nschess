@@ -1083,6 +1083,11 @@
       border: 0;
     }
 
+    .short-frame iframe {
+      z-index: 0;
+      background: #050505;
+    }
+
     .short-gesture-layer {
       position: absolute;
       inset: 0;
@@ -1099,6 +1104,10 @@
       background-position: center;
       background-size: cover;
       transform: translateZ(0);
+      z-index: 1;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 180ms ease, visibility 180ms ease;
     }
 
     .short-placeholder::before {
@@ -1108,8 +1117,33 @@
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.66));
     }
 
+    .short-placeholder::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 22%, rgba(255, 248, 237, 0.16) 42%, transparent 62%);
+      opacity: 0;
+      transform: translateX(-120%);
+    }
+
+    .short-slide.is-loading .short-placeholder::after {
+      opacity: 1;
+      animation: shortBufferSweep 1.15s ease-in-out infinite;
+    }
+
     .short-placeholder .play-mark {
-      z-index: 1;
+      z-index: 2;
+    }
+
+    .short-slide.is-loaded .short-placeholder {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @keyframes shortBufferSweep {
+      to {
+        transform: translateX(120%);
+      }
     }
 
     .short-meta {
@@ -1293,6 +1327,21 @@
     .shorts-feed.is-feed-fullscreen .short-slide::before {
       top: 14px;
       left: 14px;
+    }
+
+    .shorts-feed.is-mobile-portrait-fullscreen {
+      height: 100svh;
+      height: 100dvh;
+      overscroll-behavior: none;
+      touch-action: pan-y;
+    }
+
+    .shorts-feed.is-mobile-portrait-fullscreen .short-stage {
+      aspect-ratio: 9 / 16;
+      width: min(100vw, 56.25svh);
+      width: min(100vw, 56.25dvh);
+      height: min(100svh, 177.78vw);
+      height: min(100dvh, 177.78vw);
     }
 
     .short-slide.is-active .short-stage {
@@ -4547,8 +4596,9 @@
       let lastPlayCommandAt = 0;
       const compactShortFeed = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const maxLoadedPlayers = compactShortFeed ? 8 : 10;
-      const trimDelay = compactShortFeed ? 360 : 500;
+      const maxLoadedPlayers = compactShortFeed ? 6 : 7;
+      const trimDelay = compactShortFeed ? 280 : 360;
+      const recentShortIndexes = [];
 
       function normalizeIndex(index) {
         if (!slides.length) return 0;
@@ -4606,6 +4656,7 @@
         url.searchParams.set("playsinline", "1");
         url.searchParams.set("enablejsapi", "1");
         url.searchParams.set("controls", "1");
+        url.searchParams.set("fs", "0");
         url.searchParams.set("mute", shortsMuted ? "1" : "0");
 
         if (window.location.origin && window.location.origin !== "null") {
@@ -4762,32 +4813,48 @@
 
         const iframe = document.createElement("iframe");
         const closeToActive = circularDistance(index, activeIndex) <= 2;
-        iframe.loading = "eager";
+        iframe.loading = priority === "warm" ? "lazy" : "eager";
         iframe.fetchPriority = priority === "active" || closeToActive ? "high" : "low";
         iframe.src = buildShortFeedSrc(item.video.id);
         iframe.title = item.video.title;
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
-        iframe.allowFullscreen = true;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
         iframe.referrerPolicy = "strict-origin-when-cross-origin";
         iframe.dataset.preloadPriority = priority;
-        iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         iframe.addEventListener("load", () => {
           registerStateEvents(iframe);
           applySoundPreference(iframe);
+          slide.classList.remove("is-loading");
+          slide.classList.add("is-loaded");
           if ((feedInView || isShortFeedFullscreen()) && index === activeIndex) {
             window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 100);
           }
         });
 
-        frame.replaceChildren(iframe);
-        slide.classList.add("is-loaded");
+        frame.replaceChildren(createPlaceholder(item.video), iframe);
+        slide.classList.add("is-loading");
+        slide.classList.remove("is-loaded", "is-virtualized");
         return iframe;
       }
 
       function pauseSlide(index) {
         const iframe = slides[index]?.querySelector(".short-frame iframe");
         if (iframe) postPlayerCommand(iframe, "pauseVideo");
+      }
+
+      function releasePlayer(slideIndex) {
+        const slide = slides[slideIndex];
+        const item = orderedShorts[slideIndex];
+        const frame = slide?.querySelector(".short-frame");
+        const iframe = frame?.querySelector("iframe");
+        if (!slide || !item || !frame || !iframe) return;
+
+        postPlayerCommand(iframe, "pauseVideo");
+        postPlayerCommand(iframe, "stopVideo");
+        iframe.src = "about:blank";
+        frame.replaceChildren(createPlaceholder(item.video));
+        slide.classList.remove("is-loaded", "is-loading");
+        slide.classList.add("is-virtualized");
       }
 
       function playSlide(index) {
@@ -4810,24 +4877,29 @@
 
         slides.forEach((slide, slideIndex) => {
           const shouldKeep = keepIndexes.has(slideIndex);
-          const frame = slide.querySelector(".short-frame");
-          const iframe = frame.querySelector("iframe");
+          const iframe = slide.querySelector(".short-frame iframe");
           if (shouldKeep || !iframe) return;
 
-          postPlayerCommand(iframe, "pauseVideo");
-          frame.replaceChildren(createPlaceholder(orderedShorts[slideIndex].video));
-          slide.classList.remove("is-loaded");
+          releasePlayer(slideIndex);
         });
       }
 
       function getPreloadIndexes(index, direction = lastScrollDirection) {
-        const offsets = direction >= 0 ? [-1, 0, 1, 2, 3] : [-3, -2, -1, 0, 1];
+        const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
         return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
       }
 
       function getKeepIndexes(index, direction = lastScrollDirection) {
-        const offsets = direction >= 0 ? [-1, 0, 1, 2, 3] : [-3, -2, -1, 0, 1];
-        return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
+        const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
+        return [...new Set([...offsets.map((offset) => normalizeIndex(index + offset)), ...recentShortIndexes])];
+      }
+
+      function rememberRecentShort(index) {
+        const normalized = normalizeIndex(index);
+        const existing = recentShortIndexes.indexOf(normalized);
+        if (existing >= 0) recentShortIndexes.splice(existing, 1);
+        recentShortIndexes.unshift(normalized);
+        recentShortIndexes.splice(compactShortFeed ? 1 : 2);
       }
 
       function scheduleTrim(index, direction = lastScrollDirection) {
@@ -4885,6 +4957,7 @@
       function syncShortFullscreenState() {
         const active = isShortFeedFullscreen();
         document.body.classList.toggle("short-feed-locked", active);
+        if (!active) feed.classList.remove("is-mobile-portrait-fullscreen");
         updateFullscreenButtons();
 
         if (active) {
@@ -4898,7 +4971,7 @@
 
       async function exitShortFullscreen() {
         if (feed.classList.contains("is-feed-fullscreen")) {
-          feed.classList.remove("is-feed-fullscreen");
+          feed.classList.remove("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
           syncShortFullscreenState();
           return;
         }
@@ -4922,6 +4995,13 @@
 
         ensurePlayer(activeIndex);
         feed.setAttribute("tabindex", "-1");
+
+        if (compactShortFeed) {
+          feed.classList.add("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
+          syncShortFullscreenState();
+          return;
+        }
+
         const openedFeed = await requestFullscreenFor(feed);
 
         if (!openedFeed) {
@@ -5003,11 +5083,11 @@
         if (previousIndex === slides.length - 1 && nextIndex === 0) lastScrollDirection = 1;
         if (previousIndex === 0 && nextIndex === slides.length - 1) lastScrollDirection = -1;
         pauseSlide(previousIndex);
+        rememberRecentShort(previousIndex);
 
         activeIndex = nextIndex;
-        slides.forEach((slide, slideIndex) => {
-          slide.classList.toggle("is-active", slideIndex === activeIndex);
-        });
+        slides[previousIndex]?.classList.remove("is-active");
+        slides[activeIndex]?.classList.add("is-active");
         updateLevelTabs(slides[activeIndex]?.dataset.level || "");
         preloadWindow(activeIndex, lastScrollDirection);
         persistLessonState();
