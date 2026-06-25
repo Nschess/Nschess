@@ -2539,6 +2539,217 @@
       font-weight: 800;
     }
 
+    .daily-trainer {
+      display: grid;
+      gap: 18px;
+    }
+
+    .trainer-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .trainer-head p {
+      max-width: 68ch;
+    }
+
+    .trainer-form {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .trainer-form > label,
+    .trainer-field {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .trainer-form select,
+    .trainer-form input[type="range"] {
+      width: 100%;
+    }
+
+    .trainer-form select {
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid rgba(239, 229, 211, 0.16);
+      border-radius: 7px;
+      background: #211d1a;
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .trainer-form input[type="range"] {
+      accent-color: var(--green);
+    }
+
+    .trainer-wide {
+      grid-column: 1 / -1;
+    }
+
+    .trainer-field {
+      padding: 0;
+      border: 0;
+    }
+
+    .trainer-field legend {
+      padding: 0;
+      color: var(--muted);
+    }
+
+    .trainer-check-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .trainer-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid rgba(239, 229, 211, 0.13);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .trainer-check input {
+      accent-color: var(--green);
+    }
+
+    .trainer-output {
+      display: grid;
+      gap: 14px;
+    }
+
+    .trainer-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .trainer-stat {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .trainer-stat strong {
+      display: block;
+      color: var(--gold);
+      font-size: 1.12rem;
+      line-height: 1.2;
+    }
+
+    .trainer-stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .trainer-progress {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .trainer-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .training-task-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .training-task {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 13px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .training-task.is-complete {
+      border-color: rgba(127, 166, 80, 0.34);
+      background: rgba(127, 166, 80, 0.1);
+    }
+
+    .training-task input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+    }
+
+    .training-task strong,
+    .training-task small {
+      display: block;
+    }
+
+    .training-task small {
+      margin-top: 4px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .training-time {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 9px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.14);
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .trainer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .trainer-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     .weekly-roadmap {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -2625,6 +2836,15 @@
 
       .weekly-roadmap {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainer-form,
+      .trainer-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainer-check-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .puzzle-board-wrap {
@@ -2790,6 +3010,23 @@
 
       .weekly-roadmap {
         grid-template-columns: 1fr;
+      }
+
+      .trainer-head,
+      .trainer-form,
+      .trainer-summary,
+      .trainer-check-grid,
+      .training-task {
+        grid-template-columns: 1fr;
+      }
+
+      .trainer-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .training-time {
+        width: fit-content;
       }
 
       .button {
@@ -4468,6 +4705,60 @@
             </ul>
             <div class="plan-focus">Level up by deeply reviewing 2 games each week and building an opening file with plans.</div>
           </article>
+          <article class="plan-panel wide daily-trainer" id="daily-training" aria-labelledby="daily-training-title">
+            <div class="trainer-head">
+              <div>
+                <div class="plan-meta">
+                  <span class="badge">Personalized</span>
+                  <span class="badge">Saved daily</span>
+                  <span class="badge">No account</span>
+                </div>
+                <h3 id="daily-training-title">Personalized Daily Training</h3>
+                <p>Tell the coach what you need today. The site builds a short plan with puzzles, lessons, games, and review so practice feels clear instead of random.</p>
+              </div>
+              <button class="button secondary" type="button" id="resetTraining">Reset Today</button>
+            </div>
+
+            <form class="trainer-form" id="dailyTrainingForm">
+              <label for="trainingLevel">
+                Level
+                <select id="trainingLevel" name="trainingLevel">
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                </select>
+              </label>
+              <label for="trainingMinutes">
+                Time today: <span id="trainingMinutesLabel">35 min</span>
+                <input id="trainingMinutes" name="trainingMinutes" type="range" min="15" max="60" step="15" value="30" />
+              </label>
+              <label for="trainingGoal">
+                Main goal
+                <select id="trainingGoal" name="trainingGoal">
+                  <option value="balanced">Balanced improvement</option>
+                  <option value="rating">Win more games</option>
+                  <option value="opening">Fix my openings</option>
+                  <option value="tactics">Spot tactics faster</option>
+                  <option value="endgame">Finish winning games</option>
+                </select>
+              </label>
+              <button class="button" type="submit">Build Today</button>
+
+              <fieldset class="trainer-field trainer-wide">
+                <legend>Weak spots to train</legend>
+                <div class="trainer-check-grid">
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="tactics" checked /> Tactics</label>
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="openings" /> Openings</label>
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="endgame" /> Endgame</label>
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="strategy" /> Strategy</label>
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="calculation" /> Calculation</label>
+                  <label class="trainer-check"><input type="checkbox" name="trainingWeakness" value="review" /> Review</label>
+                </div>
+              </fieldset>
+            </form>
+
+            <div class="trainer-output" id="dailyTrainingOutput" aria-live="polite"></div>
+          </article>
           <article class="plan-panel wide">
             <div class="plan-meta">
               <span class="badge">Repeat weekly</span>
@@ -5889,6 +6180,7 @@
     const bookCategories = ["Openings", "Middlegame", "Endgame", "Tactics", "Strategy", "Biographies"];
     const bookReaderStorageKey = "checkmateQuest.bookReader.v1";
     const customBooksStorageKey = "checkmateQuest.localBooks.v1";
+    const dailyTrainingStorageKey = "checkmateQuest.dailyTraining.v1";
     let activeBookLevel = "all";
     let activeBookCategory = "all";
     let activeReaderBookId = "";
@@ -6335,6 +6627,334 @@
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "")
         .slice(0, 72) || "book";
+    }
+
+    function getTodayKey() {
+      const now = new Date();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${now.getFullYear()}-${month}-${day}`;
+    }
+
+    function readDailyTrainingState() {
+      const fallback = {
+        date: getTodayKey(),
+        level: "Beginner",
+        minutes: 30,
+        goal: "balanced",
+        weaknesses: ["tactics"],
+        completed: [],
+        history: []
+      };
+      const saved = readJsonStorage(dailyTrainingStorageKey, fallback);
+      const state = saved && typeof saved === "object" ? saved : {};
+      const nextState = {
+        ...fallback,
+        ...state,
+        completed: Array.isArray(state.completed) ? state.completed : [],
+        history: Array.isArray(state.history) ? state.history : [],
+        weaknesses: Array.isArray(state.weaknesses) && state.weaknesses.length ? state.weaknesses : fallback.weaknesses
+      };
+
+      if (nextState.date !== fallback.date) {
+        nextState.date = fallback.date;
+        nextState.completed = [];
+      }
+
+      return nextState;
+    }
+
+    function saveDailyTrainingState(state) {
+      writeJsonStorage(dailyTrainingStorageKey, {
+        ...readDailyTrainingState(),
+        ...state
+      });
+    }
+
+    function getTrainingFocusBank() {
+      return {
+        tactics: {
+          label: "Tactics",
+          detail: "Solve forcing moves first: checks, captures, threats, then quiet winning moves.",
+          href: "#puzzles",
+          cta: "Open Puzzles"
+        },
+        openings: {
+          label: "Openings",
+          detail: "Review one line, then explain the plan in plain words: center, pieces, king safety, target.",
+          href: "#openings",
+          cta: "Open Openings"
+        },
+        endgame: {
+          label: "Endgame",
+          detail: "Drill one simple ending until you know where the king belongs and which pawn move matters.",
+          href: "#videos",
+          cta: "Watch Endgames"
+        },
+        strategy: {
+          label: "Strategy",
+          detail: "Compare your worst piece, pawn weaknesses, open files, king safety, and the opponent's threat.",
+          href: "#books",
+          cta: "Read Strategy"
+        },
+        calculation: {
+          label: "Calculation",
+          detail: "Pick 2 candidate moves, calculate forcing replies, then choose the line with the clearest result.",
+          href: "#puzzles",
+          cta: "Train Calculation"
+        },
+        review: {
+          label: "Game Review",
+          detail: "Find the first move where the position changed and write the better plan in one sentence.",
+          href: "#notation",
+          cta: "Use Notation"
+        }
+      };
+    }
+
+    function buildDailyTrainingPlan(state) {
+      const level = state.level || "Beginner";
+      const minutes = Math.max(15, Math.min(60, Number(state.minutes) || 30));
+      const goalLabels = {
+        balanced: "Balanced improvement",
+        rating: "Win more games",
+        opening: "Fix my openings",
+        tactics: "Spot tactics faster",
+        endgame: "Finish winning games"
+      };
+      const levelTips = {
+        Beginner: "Keep it simple: safe king, no hanging pieces, basic mates.",
+        Intermediate: "Turn every idea into a threat and review your first serious mistake.",
+        Advanced: "Slow down at critical moments and compare candidate moves before calculating deeply."
+      };
+      const bank = getTrainingFocusBank();
+      const weaknesses = (state.weaknesses || ["tactics"]).filter((item) => bank[item]);
+      const primaryKey = weaknesses[0] || "tactics";
+      const secondaryKey = weaknesses.find((item) => item !== primaryKey) || (state.goal === "endgame" ? "endgame" : "review");
+      const primary = bank[primaryKey];
+      const secondary = bank[secondaryKey] || bank.review;
+      const warmupMinutes = minutes <= 15 ? 3 : minutes <= 30 ? 5 : 8;
+      const focusMinutes = minutes <= 15 ? 5 : minutes <= 30 ? 9 : minutes <= 45 ? 14 : 18;
+      const lessonMinutes = minutes <= 15 ? 4 : minutes <= 30 ? 7 : minutes <= 45 ? 10 : 12;
+      const gameMinutes = minutes <= 15 ? 0 : minutes <= 30 ? 7 : minutes <= 45 ? 10 : 15;
+      const reviewMinutes = Math.max(3, minutes - warmupMinutes - focusMinutes - lessonMinutes - gameMinutes);
+
+      const tasks = [
+        {
+          key: "warmup",
+          title: "Warm-up scan",
+          minutes: warmupMinutes,
+          detail: level === "Beginner"
+            ? "Solve easy patterns and say what every capture attacks."
+            : "Scan for checks, captures, threats, loose pieces, and king danger before moving.",
+          href: "#puzzles",
+          cta: "Open Puzzles"
+        },
+        {
+          key: `focus-${primaryKey}`,
+          title: `${primary.label} focus`,
+          minutes: focusMinutes,
+          detail: primary.detail,
+          href: primary.href,
+          cta: primary.cta
+        },
+        {
+          key: "lesson",
+          title: "One lesson, one rule",
+          minutes: lessonMinutes,
+          detail: state.goal === "opening"
+            ? "Watch or read one opening idea and write the plan before memorizing moves."
+            : "Watch one short lesson, then write one rule you will use in the next game.",
+          href: state.goal === "opening" ? "#openings" : "#videos",
+          cta: state.goal === "opening" ? "Open Openings" : "Open Videos"
+        }
+      ];
+
+      if (gameMinutes > 0) {
+        tasks.push({
+          key: "game",
+          title: "Focused game",
+          minutes: gameMinutes,
+          detail: level === "Advanced"
+            ? "Play slowly and mark every candidate-move decision you were unsure about."
+            : "Play one game using today's rule. Before each move, ask what your opponent threatens.",
+          href: "#plan",
+          cta: "Stay on Plan"
+        });
+      }
+
+      tasks.push({
+        key: `review-${secondaryKey}`,
+        title: `${secondary.label} review`,
+        minutes: reviewMinutes,
+        detail: secondary.detail,
+        href: secondary.href,
+        cta: secondary.cta
+      });
+
+      return {
+        title: `${level} Daily Training`,
+        focus: primary.label,
+        goal: goalLabels[state.goal] || goalLabels.balanced,
+        coachTip: levelTips[level] || levelTips.Beginner,
+        tasks
+      };
+    }
+
+    function syncDailyTrainingForm(state) {
+      const level = document.getElementById("trainingLevel");
+      const minutes = document.getElementById("trainingMinutes");
+      const goal = document.getElementById("trainingGoal");
+      const minutesLabel = document.getElementById("trainingMinutesLabel");
+      if (!level || !minutes || !goal) return;
+
+      level.value = state.level;
+      minutes.value = String(state.minutes);
+      goal.value = state.goal;
+      if (minutesLabel) minutesLabel.textContent = `${state.minutes} min`;
+
+      document.querySelectorAll('[name="trainingWeakness"]').forEach((input) => {
+        input.checked = (state.weaknesses || []).includes(input.value);
+      });
+    }
+
+    function getSelectedTrainingWeaknesses() {
+      const selected = [...document.querySelectorAll('[name="trainingWeakness"]:checked')].map((input) => input.value);
+      return selected.length ? selected : ["tactics"];
+    }
+
+    function renderDailyTraining() {
+      const output = document.getElementById("dailyTrainingOutput");
+      if (!output) return;
+
+      const state = readDailyTrainingState();
+      const plan = buildDailyTrainingPlan(state);
+      const completed = new Set(state.completed || []);
+      const doneCount = plan.tasks.filter((task) => completed.has(task.key)).length;
+      const progress = Math.round((doneCount / plan.tasks.length) * 100);
+
+      output.innerHTML = "";
+
+      const summary = document.createElement("div");
+      const progressBar = document.createElement("div");
+      const taskList = document.createElement("ul");
+      const actions = document.createElement("div");
+      const note = createBookText("p", "trainer-note", "Progress saves on this device. Finish all tasks to mark today as a completed training day.");
+      const actionKeys = new Set();
+
+      summary.className = "trainer-summary";
+      progressBar.className = "trainer-progress";
+      taskList.className = "training-task-list";
+      actions.className = "trainer-actions";
+      progressBar.setAttribute("aria-label", `Training progress ${progress}%`);
+      progressBar.innerHTML = `<span style="width: ${progress}%"></span>`;
+
+      [
+        [plan.title, "Today's track"],
+        [state.minutes + " min", "Training time"],
+        [doneCount + "/" + plan.tasks.length, "Tasks done"],
+        [String((state.history || []).length), "Completed days"]
+      ].forEach(([value, label]) => {
+        const stat = document.createElement("div");
+        stat.className = "trainer-stat";
+        stat.append(createBookText("strong", "", value), createBookText("span", "", label));
+        summary.appendChild(stat);
+      });
+
+      plan.tasks.forEach((task) => {
+        const item = document.createElement("li");
+        const checkbox = document.createElement("input");
+        const copy = document.createElement("div");
+        const title = createBookText("strong", "", task.title);
+        const detail = createBookText("small", "", task.detail);
+        const time = createBookText("span", "training-time", `${task.minutes} min`);
+        const link = document.createElement("a");
+        const isComplete = completed.has(task.key);
+
+        item.className = `training-task${isComplete ? " is-complete" : ""}`;
+        checkbox.type = "checkbox";
+        checkbox.checked = isComplete;
+        checkbox.setAttribute("aria-label", `Mark ${task.title} complete`);
+        checkbox.addEventListener("change", () => {
+          const nextState = readDailyTrainingState();
+          const nextCompleted = new Set(nextState.completed || []);
+          if (checkbox.checked) {
+            nextCompleted.add(task.key);
+          } else {
+            nextCompleted.delete(task.key);
+          }
+
+          const nextHistory = new Set(nextState.history || []);
+          if (nextCompleted.size >= plan.tasks.length) {
+            nextHistory.add(nextState.date);
+          }
+
+          saveDailyTrainingState({
+            completed: [...nextCompleted],
+            history: [...nextHistory]
+          });
+          renderDailyTraining();
+        });
+
+        link.className = "button secondary";
+        link.href = task.href;
+        link.textContent = task.cta;
+
+        copy.append(title, detail);
+        item.append(checkbox, copy, time);
+        taskList.appendChild(item);
+        if (!actionKeys.has(`${task.href}-${task.cta}`)) {
+          actionKeys.add(`${task.href}-${task.cta}`);
+          actions.appendChild(link);
+        }
+      });
+
+      output.append(
+        createBookText("p", "plan-focus", `${plan.goal}: ${plan.coachTip} Main focus today: ${plan.focus}.`),
+        summary,
+        progressBar,
+        taskList,
+        actions,
+        note
+      );
+    }
+
+    function setupDailyTraining() {
+      const form = document.getElementById("dailyTrainingForm");
+      const minutes = document.getElementById("trainingMinutes");
+      const minutesLabel = document.getElementById("trainingMinutesLabel");
+      const resetButton = document.getElementById("resetTraining");
+      if (!form) return;
+
+      const state = readDailyTrainingState();
+      syncDailyTrainingForm(state);
+      renderDailyTraining();
+
+      minutes?.addEventListener("input", () => {
+        if (minutesLabel) minutesLabel.textContent = `${minutes.value} min`;
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const nextState = {
+          date: getTodayKey(),
+          level: document.getElementById("trainingLevel").value,
+          minutes: Number(document.getElementById("trainingMinutes").value) || 30,
+          goal: document.getElementById("trainingGoal").value,
+          weaknesses: getSelectedTrainingWeaknesses(),
+          completed: []
+        };
+
+        saveDailyTrainingState(nextState);
+        syncDailyTrainingForm(readDailyTrainingState());
+        renderDailyTraining();
+      });
+
+      resetButton?.addEventListener("click", () => {
+        const current = readDailyTrainingState();
+        saveDailyTrainingState({ ...current, completed: [] });
+        renderDailyTraining();
+      });
     }
 
     function readCustomBooks() {
@@ -8160,6 +8780,7 @@
     renderPuzzle();
     wireTabs();
     setupSiteTabs();
+    setupDailyTraining();
     setupBooks();
     renderShortFeed();
     setupVideoTheater();
