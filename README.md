@@ -3106,7 +3106,7 @@
               <button class="shorts-tab" type="button" data-shorts-level="Beginner Shorts" role="tab" aria-selected="true">Beginner</button>
               <button class="shorts-tab" type="button" data-shorts-level="Intermediate Shorts" role="tab" aria-selected="false">Intermediate</button>
               <button class="shorts-tab" type="button" data-shorts-level="Advanced Shorts" role="tab" aria-selected="false">Advanced</button>
-              <button class="shorts-tab" type="button" data-shorts-creator="Biyaherong" role="tab" aria-selected="false">Biyaherong</button>
+              <button class="shorts-tab" type="button" data-shorts-creator="Biyaherong" role="tab" aria-selected="false">Biyaherong Coach</button>
             </div>
             <div class="shorts-progress-controls" aria-label="Shorts progress">
               <button class="shorts-resume" id="shortsResumeButton" type="button">Resume</button>
