@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+  <link rel="preconnect" href="https://www.youtube.com" />
+  <link rel="preconnect" href="https://i.ytimg.com" />
+  <link rel="preconnect" href="https://www.google.com" />
   <title>Checkmate Quest - Learn Chess From First Move to Strategy</title>
   <style>
     :root {
@@ -1005,6 +1009,7 @@
       scrollbar-color: rgba(231, 182, 93, 0.58) rgba(255, 255, 255, 0.08);
       overscroll-behavior-y: contain;
       touch-action: pan-y;
+      will-change: scroll-position;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -1029,11 +1034,12 @@
       height: 100%;
       padding: 18px;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
       background:
         radial-gradient(circle at 50% 18%, rgba(231, 182, 93, 0.18), transparent 34%),
         linear-gradient(180deg, #17130f, #0d0b09);
       isolation: isolate;
+      contain: layout paint style;
     }
 
     .short-slide::before {
@@ -1064,6 +1070,7 @@
       background: #050505;
       box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
       overflow: hidden;
+      transform: translateZ(0);
     }
 
     .short-frame,
@@ -1091,6 +1098,7 @@
       background-color: #111;
       background-position: center;
       background-size: cover;
+      transform: translateZ(0);
     }
 
     .short-placeholder::before {
@@ -4530,11 +4538,42 @@
       let shortsMuted = true;
       let shortsVolume = Number(volumeRange?.value || 80);
       let touchStartY = 0;
-      let fullscreenStepLocked = false;
+      let scrollStepLocked = false;
+      let lastScrollTop = feed.scrollTop;
+      let lastScrollDirection = 1;
+      let scrollWarmFrame = 0;
+      let trimTimer = 0;
+      let playTimer = 0;
+      let lastPlayCommandAt = 0;
+      const compactShortFeed = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const maxLoadedPlayers = compactShortFeed ? 8 : 10;
+      const trimDelay = compactShortFeed ? 360 : 500;
 
       function normalizeIndex(index) {
         if (!slides.length) return 0;
         return ((index % slides.length) + slides.length) % slides.length;
+      }
+
+      function clampPhysicalIndex(index) {
+        if (!slides.length) return 0;
+        return Math.max(0, Math.min(slides.length - 1, index));
+      }
+
+      function circularDistance(a, b) {
+        if (!slides.length) return 0;
+
+        const distance = Math.abs(normalizeIndex(a) - normalizeIndex(b));
+        return Math.min(distance, slides.length - distance);
+      }
+
+      function loadedPlayerCount() {
+        return feed.querySelectorAll(".short-frame iframe").length;
+      }
+
+      function getNearestScrollIndex() {
+        const slideHeight = Math.max(feed.clientHeight, 1);
+        return clampPhysicalIndex(Math.round(feed.scrollTop / slideHeight));
       }
 
       function getInitialShortIndex() {
@@ -4711,7 +4750,8 @@
         refreshLessonState();
       }
 
-      function ensurePlayer(index) {
+      function ensurePlayer(index, priority = "warm") {
+        index = normalizeIndex(index);
         const slide = slides[index];
         const item = orderedShorts[index];
         if (!slide || !item) return null;
@@ -4721,19 +4761,22 @@
         if (existing) return existing;
 
         const iframe = document.createElement("iframe");
-        iframe.loading = index <= activeIndex + 1 ? "eager" : "lazy";
+        const closeToActive = circularDistance(index, activeIndex) <= 2;
+        iframe.loading = "eager";
+        iframe.fetchPriority = priority === "active" || closeToActive ? "high" : "low";
         iframe.src = buildShortFeedSrc(item.video.id);
         iframe.title = item.video.title;
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         iframe.allowFullscreen = true;
         iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.dataset.preloadPriority = priority;
         iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         iframe.addEventListener("load", () => {
           registerStateEvents(iframe);
           applySoundPreference(iframe);
-          if (feedInView && index === activeIndex) {
-            window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 180);
+          if ((feedInView || isShortFeedFullscreen()) && index === activeIndex) {
+            window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 100);
           }
         });
 
@@ -4748,15 +4791,22 @@
       }
 
       function playSlide(index) {
-        const iframe = ensurePlayer(index);
+        const targetIndex = normalizeIndex(index);
+        const iframe = ensurePlayer(targetIndex, "active");
         if (!iframe || (!feedInView && !isShortFeedFullscreen())) return;
 
         applySoundPreference(iframe);
-        window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 120);
+        const now = Date.now();
+        if (targetIndex === activeIndex && now - lastPlayCommandAt < 260) return;
+        lastPlayCommandAt = now;
+        window.clearTimeout(playTimer);
+        playTimer = window.setTimeout(() => {
+          if (targetIndex === activeIndex) postPlayerCommand(iframe, "playVideo");
+        }, 80);
       }
 
-      function trimPlayers(index) {
-        const keepIndexes = new Set(getPreloadIndexes(index));
+      function trimPlayers(index, direction = lastScrollDirection) {
+        const keepIndexes = new Set(getKeepIndexes(index, direction));
 
         slides.forEach((slide, slideIndex) => {
           const shouldKeep = keepIndexes.has(slideIndex);
@@ -4770,13 +4820,35 @@
         });
       }
 
-      function getPreloadIndexes(index) {
-        return [...new Set([-1, 0, 1, 2].map((offset) => normalizeIndex(index + offset)))];
+      function getPreloadIndexes(index, direction = lastScrollDirection) {
+        const offsets = direction >= 0 ? [-1, 0, 1, 2, 3] : [-3, -2, -1, 0, 1];
+        return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
       }
 
-      function preloadWindow(index) {
-        getPreloadIndexes(index).forEach((candidate) => ensurePlayer(candidate));
-        trimPlayers(index);
+      function getKeepIndexes(index, direction = lastScrollDirection) {
+        const offsets = direction >= 0 ? [-1, 0, 1, 2, 3] : [-3, -2, -1, 0, 1];
+        return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
+      }
+
+      function scheduleTrim(index, direction = lastScrollDirection) {
+        window.clearTimeout(trimTimer);
+
+        if (loadedPlayerCount() > maxLoadedPlayers) {
+          trimPlayers(index, direction);
+          return;
+        }
+
+        trimTimer = window.setTimeout(() => {
+          trimPlayers(index, direction);
+        }, isShortFeedFullscreen() ? trimDelay + 180 : trimDelay);
+      }
+
+      function preloadWindow(index, direction = lastScrollDirection) {
+        const targetIndex = normalizeIndex(index);
+        getPreloadIndexes(targetIndex, direction).forEach((candidate) => {
+          ensurePlayer(candidate, circularDistance(candidate, targetIndex) <= 2 ? "near" : "warm");
+        });
+        scheduleTrim(targetIndex, direction);
       }
 
       async function requestFullscreenFor(element) {
@@ -4905,28 +4977,39 @@
         return false;
       }
 
-      function stepFullscreenShort(direction) {
-        if (!direction || fullscreenStepLocked) return;
+      function stepShort(direction) {
+        if (!direction || scrollStepLocked) return;
 
-        fullscreenStepLocked = true;
-        scrollToShort(activeIndex + direction, "smooth");
+        scrollStepLocked = true;
+        preloadWindow(activeIndex + direction, direction);
+        scrollToShort(activeIndex + direction, prefersReducedMotion ? "auto" : "smooth");
         window.setTimeout(() => {
-          fullscreenStepLocked = false;
-        }, 620);
+          scrollStepLocked = false;
+        }, compactShortFeed ? 460 : 390);
       }
 
       function setActive(index) {
         if (!slides.length) return;
 
         const nextIndex = normalizeIndex(index);
-        if (nextIndex !== activeIndex) pauseSlide(activeIndex);
+        if (nextIndex === activeIndex) {
+          preloadWindow(activeIndex, lastScrollDirection);
+          playSlide(activeIndex);
+          return;
+        }
+
+        const previousIndex = activeIndex;
+        lastScrollDirection = nextIndex > previousIndex ? 1 : -1;
+        if (previousIndex === slides.length - 1 && nextIndex === 0) lastScrollDirection = 1;
+        if (previousIndex === 0 && nextIndex === slides.length - 1) lastScrollDirection = -1;
+        pauseSlide(previousIndex);
 
         activeIndex = nextIndex;
         slides.forEach((slide, slideIndex) => {
           slide.classList.toggle("is-active", slideIndex === activeIndex);
         });
         updateLevelTabs(slides[activeIndex]?.dataset.level || "");
-        preloadWindow(activeIndex);
+        preloadWindow(activeIndex, lastScrollDirection);
         persistLessonState();
         updateLessonProgress();
         playSlide(activeIndex);
@@ -4936,11 +5019,34 @@
         const targetIndex = normalizeIndex(index);
         const slide = slides[targetIndex];
         if (!slide) return;
+        if (targetIndex !== activeIndex) {
+          lastScrollDirection = targetIndex > activeIndex ? 1 : -1;
+          if (activeIndex === slides.length - 1 && targetIndex === 0) lastScrollDirection = 1;
+          if (activeIndex === 0 && targetIndex === slides.length - 1) lastScrollDirection = -1;
+        }
         feed.scrollTo({
           top: slide.offsetTop,
           behavior
         });
         setActive(targetIndex);
+      }
+
+      function warmFromScrollPosition() {
+        scrollWarmFrame = 0;
+
+        const currentTop = feed.scrollTop;
+        const delta = currentTop - lastScrollTop;
+        if (Math.abs(delta) > 2) {
+          lastScrollDirection = delta > 0 ? 1 : -1;
+        }
+        lastScrollTop = currentTop;
+
+        preloadWindow(getNearestScrollIndex(), lastScrollDirection);
+      }
+
+      function scheduleScrollWarmup() {
+        if (scrollWarmFrame) return;
+        scrollWarmFrame = window.requestAnimationFrame(warmFromScrollPosition);
       }
 
       const slideObserver = new IntersectionObserver((entries) => {
@@ -5012,13 +5118,21 @@
         });
       });
 
+      feed.addEventListener("scroll", scheduleScrollWarmup, { passive: true });
+
       feed.addEventListener("wheel", (event) => {
+        const direction = Math.sign(event.deltaY);
         if (isShortFeedFullscreen()) {
-          const direction = Math.sign(event.deltaY);
           if (Math.abs(event.deltaY) > 8 && direction) {
             event.preventDefault();
-            stepFullscreenShort(direction);
+            stepShort(direction);
           }
+          return;
+        }
+
+        if (!compactShortFeed && Math.abs(event.deltaY) > 18 && direction) {
+          event.preventDefault();
+          stepShort(direction);
           return;
         }
 
@@ -5043,7 +5157,7 @@
         const atTop = feed.scrollTop <= 4;
 
         if (isShortFeedFullscreen() && Math.abs(swipeDistance) > 36) {
-          stepFullscreenShort(swipeDistance > 0 ? 1 : -1);
+          stepShort(swipeDistance > 0 ? 1 : -1);
           return;
         }
 
@@ -5066,10 +5180,10 @@
 
         if (nextKeys.includes(event.key)) {
           event.preventDefault();
-          stepFullscreenShort(1);
+          stepShort(1);
         } else if (previousKeys.includes(event.key)) {
           event.preventDefault();
-          stepFullscreenShort(-1);
+          stepShort(-1);
         } else if (event.key === "Home") {
           event.preventDefault();
           scrollToShort(0);
