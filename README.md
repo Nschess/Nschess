@@ -2703,7 +2703,7 @@
             <p class="section-kicker">Video lessons</p>
             <h2 id="videos-title">Watch the ideas</h2>
           </div>
-          <p class="section-intro">A tiered video library with 101 embedded lessons, including 66 verified Shorts arranged from beginner patterns to advanced tactics.</p>
+          <p class="section-intro">A tiered video library with 116 embedded lessons, including 50 regular tutorials and 66 verified Shorts arranged from beginner patterns to advanced tactics.</p>
         </div>
 
         <div class="video-tier">
@@ -2878,6 +2878,183 @@
                 <span class="badge">Advanced 5</span>
                 <h3>Candidate moves</h3>
                 <p>Refine your move-selection process before calculating deep variations.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="video-tier">
+          <div class="video-tier-head">
+            <h3>Accuracy Masterclass: Beginner</h3>
+            <p>Five regular tutorials for clean rules, piece safety, opening habits, and simple plans.</p>
+          </div>
+          <div class="video-grid tier-grid">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/GQvR_fLkNKo?rel=0&modestbranding=1&playsinline=1" title="Chess Lesson 1: The Chess Pieces and the Board" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Beginner 1</span>
+                <h3>Board and pieces</h3>
+                <p>Start with the exact board setup, piece movement, and legal-move basics.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/AshEhLcPHqU?rel=0&modestbranding=1&playsinline=1" title="Free Chess Course From Beginner To Master Level" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Beginner 2</span>
+                <h3>Complete learning path</h3>
+                <p>A structured course-style lesson that connects rules, tactics, and improvement habits.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/346S2bg8Gjw?rel=0&modestbranding=1&playsinline=1" title="Learn to Play Chess Openings: The Ultimate Beginner's Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Beginner 3</span>
+                <h3>Opening fundamentals</h3>
+                <p>Learn opening rules that prevent early mistakes and make development natural.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/UoFqV1lxA7Q?rel=0&modestbranding=1&playsinline=1" title="3 Basic Opening Strategy Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Beginner 4</span>
+                <h3>Three opening rules</h3>
+                <p>Focus on center control, fast development, and king safety before attacks.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/O_RDwBNWKn8?rel=0&modestbranding=1&playsinline=1" title="Simple Opening Idea Back to Basic Opening Principle" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Beginner 5</span>
+                <h3>Simple opening idea</h3>
+                <p>A practical Biyaherong-style opening lesson for turning basics into moves.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="video-tier">
+          <div class="video-tier-head">
+            <h3>Accuracy Masterclass: Intermediate</h3>
+            <p>Five regular tutorials for sharper tactics, calculation discipline, and practical counterplay.</p>
+          </div>
+          <div class="video-grid tier-grid">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uHXmlOI0VrE?rel=0&modestbranding=1&playsinline=1" title="Every Chess Tactic Explained From Beginner To Advanced" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Intermediate 1</span>
+                <h3>Tactics map</h3>
+                <p>Review the core tactical patterns and learn when each one appears.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/C81vrCD0RcA?rel=0&modestbranding=1&playsinline=1" title="Chess Calculation is Hard Until You Learn These 6 Rules" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Intermediate 2</span>
+                <h3>Six calculation rules</h3>
+                <p>Use forcing moves and candidate moves to calculate without guessing.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kh24tXamy3U?rel=0&modestbranding=1&playsinline=1" title="How to Improve Your Chess Calculation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Intermediate 3</span>
+                <h3>Calculation training</h3>
+                <p>Build a repeatable thinking process for checks, captures, and threats.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/goW1cFHaxtU?rel=0&modestbranding=1&playsinline=1" title="Chess Tips: Creating Counterplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Intermediate 4</span>
+                <h3>Counterplay</h3>
+                <p>Learn how to create active chances instead of defending passively.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Ng1Wj87dWHk?rel=0&modestbranding=1&playsinline=1" title="Calculate and Evaluate Like a Grandmaster" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Intermediate 5</span>
+                <h3>Calculate and evaluate</h3>
+                <p>Compare candidate moves by combining tactical lines with position judgment.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="video-tier">
+          <div class="video-tier-head">
+            <h3>Accuracy Masterclass: Advanced</h3>
+            <p>Five regular tutorials for positional precision, closed positions, and exact endgame play.</p>
+          </div>
+          <div class="video-grid tier-grid">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/h7S9uE3lT0I?rel=0&modestbranding=1&playsinline=1" title="The Only Chess Positional Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Advanced 1</span>
+                <h3>Positional guide</h3>
+                <p>Improve accuracy by reading pawn structure, piece activity, and weak squares.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/NKBbyDDzzmw?rel=0&modestbranding=1&playsinline=1" title="Mastering Positional Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Advanced 2</span>
+                <h3>Master positional play</h3>
+                <p>Use grandmaster-level planning ideas without losing the practical thread.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W_Xkm5v_prI?rel=0&modestbranding=1&playsinline=1" title="Closed Positions Do Not Have to Be Confusing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Advanced 3</span>
+                <h3>Closed positions</h3>
+                <p>Find plans when pawn chains slow the game and tactics are hidden.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mhUoe2JBxco?rel=0&modestbranding=1&playsinline=1" title="Principles of Chess Endgames: King Activity" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Advanced 4</span>
+                <h3>King activity</h3>
+                <p>Turn endgame accuracy into active king placement and clear conversion plans.</p>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/QUqq7wSLE78?rel=0&modestbranding=1&playsinline=1" title="Introduction to Pawn Endgames" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+              </div>
+              <div class="video-body">
+                <span class="badge">Accuracy Advanced 5</span>
+                <h3>Pawn endgames</h3>
+                <p>Study opposition, passed pawns, and tempo details that decide precise endings.</p>
               </div>
             </article>
           </div>
