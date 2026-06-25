@@ -1042,6 +1042,10 @@
       contain: layout paint style;
     }
 
+    .short-slide.is-filtered-out {
+      display: none;
+    }
+
     .short-slide::before {
       content: attr(data-level);
       position: absolute;
@@ -2030,7 +2034,7 @@
 
       .shorts-tabs {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .shorts-progress-controls {
@@ -3093,7 +3097,7 @@
             <div>
               <p class="section-kicker">YouTube Shorts</p>
               <h3 id="shorts-title">Shorts Sprint</h3>
-              <p>Sixty-five bite-size chess tutorials and puzzle sparks, now arranged from beginner to advanced with a Biyaherong Chess Coach mini-track.</p>
+              <p>Sixty-five bite-size chess tutorials and puzzle sparks, with beginner, intermediate, advanced, and a dedicated Biyaherong Chess Coach track.</p>
             </div>
             <span class="shorts-count">65 Shorts</span>
           </div>
@@ -3102,6 +3106,7 @@
               <button class="shorts-tab" type="button" data-shorts-level="Beginner Shorts" role="tab" aria-selected="true">Beginner</button>
               <button class="shorts-tab" type="button" data-shorts-level="Intermediate Shorts" role="tab" aria-selected="false">Intermediate</button>
               <button class="shorts-tab" type="button" data-shorts-level="Advanced Shorts" role="tab" aria-selected="false">Advanced</button>
+              <button class="shorts-tab" type="button" data-shorts-creator="Biyaherong" role="tab" aria-selected="false">Biyaherong</button>
             </div>
             <div class="shorts-progress-controls" aria-label="Shorts progress">
               <button class="shorts-resume" id="shortsResumeButton" type="button">Resume</button>
@@ -4534,6 +4539,7 @@
         slide.dataset.level = item.level;
         slide.dataset.difficulty = item.difficulty;
         slide.dataset.category = item.categoryTags.join(" ");
+        slide.dataset.creator = video.creator || "";
         stage.className = "short-stage";
         frame.className = "short-frame";
         placeholder.className = "short-placeholder";
@@ -4572,7 +4578,7 @@
 
     function setupShortsFeed(feed, orderedShorts) {
       const slides = [...feed.querySelectorAll(".short-slide")];
-      const levelTabs = [...document.querySelectorAll("[data-shorts-level]")];
+      const levelTabs = [...document.querySelectorAll("[data-shorts-level], [data-shorts-creator]")];
       const soundToggle = document.getElementById("shortsSoundToggle");
       const volumeRange = document.getElementById("shortsVolumeRange");
       const resumeButton = document.getElementById("shortsResumeButton");
@@ -4594,6 +4600,7 @@
       let trimTimer = 0;
       let playTimer = 0;
       let lastPlayCommandAt = 0;
+      let activeShortFilter = "all";
       const compactShortFeed = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const maxLoadedPlayers = compactShortFeed ? 6 : 7;
@@ -4621,9 +4628,49 @@
         return feed.querySelectorAll(".short-frame iframe").length;
       }
 
+      function slideMatchesFilter(slide) {
+        return activeShortFilter === "all" || slide.dataset.creator === activeShortFilter;
+      }
+
+      function getNavigableIndexes() {
+        return slides
+          .map((slide, index) => slideMatchesFilter(slide) ? index : -1)
+          .filter((index) => index >= 0);
+      }
+
+      function getNearestNavigableIndex(index, direction = 1) {
+        const navigable = getNavigableIndexes();
+        if (!navigable.length) return normalizeIndex(index);
+
+        const normalized = normalizeIndex(index);
+        if (navigable.includes(normalized)) return normalized;
+
+        const sorted = direction >= 0 ? navigable : [...navigable].reverse();
+        return sorted.find((candidate) => direction >= 0 ? candidate > normalized : candidate < normalized)
+          ?? sorted[0];
+      }
+
+      function getRelativeNavigableIndex(index, direction) {
+        const navigable = getNavigableIndexes();
+        if (!navigable.length) return normalizeIndex(index + direction);
+
+        const normalized = getNearestNavigableIndex(index, direction);
+        const currentPosition = navigable.indexOf(normalized);
+        if (currentPosition < 0) return navigable[0];
+
+        return navigable[(currentPosition + direction + navigable.length) % navigable.length];
+      }
+
       function getNearestScrollIndex() {
-        const slideHeight = Math.max(feed.clientHeight, 1);
-        return clampPhysicalIndex(Math.round(feed.scrollTop / slideHeight));
+        const navigable = getNavigableIndexes();
+        const candidates = navigable.length ? navigable : slides.map((_, index) => index);
+        const currentTop = feed.scrollTop;
+
+        return candidates.reduce((best, candidate) => (
+          Math.abs(slides[candidate].offsetTop - currentTop) < Math.abs(slides[best].offsetTop - currentTop)
+            ? candidate
+            : best
+        ), candidates[0] || 0);
       }
 
       function getInitialShortIndex() {
@@ -4708,7 +4755,19 @@
 
       function updateLevelTabs(level) {
         levelTabs.forEach((tab) => {
-          tab.setAttribute("aria-selected", String(tab.dataset.shortsLevel === level));
+          const selected = activeShortFilter === "all"
+            ? tab.dataset.shortsLevel === level
+            : tab.dataset.shortsCreator === activeShortFilter;
+          tab.setAttribute("aria-selected", String(selected));
+        });
+      }
+
+      function applyShortFilter(filter = "all") {
+        activeShortFilter = filter;
+        slides.forEach((slide, index) => {
+          const visible = slideMatchesFilter(slide);
+          slide.classList.toggle("is-filtered-out", !visible);
+          if (!visible) releasePlayer(index);
         });
       }
 
@@ -4885,11 +4944,25 @@
       }
 
       function getPreloadIndexes(index, direction = lastScrollDirection) {
+        if (activeShortFilter !== "all") {
+          const active = getNearestNavigableIndex(index, direction);
+          return [...new Set([
+            active,
+            getRelativeNavigableIndex(active, direction),
+            getRelativeNavigableIndex(getRelativeNavigableIndex(active, direction), direction),
+            getRelativeNavigableIndex(active, -direction)
+          ])];
+        }
+
         const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
         return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
       }
 
       function getKeepIndexes(index, direction = lastScrollDirection) {
+        if (activeShortFilter !== "all") {
+          return [...new Set([...getPreloadIndexes(index, direction), ...recentShortIndexes])];
+        }
+
         const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
         return [...new Set([...offsets.map((offset) => normalizeIndex(index + offset)), ...recentShortIndexes])];
       }
@@ -5061,8 +5134,11 @@
         if (!direction || scrollStepLocked) return;
 
         scrollStepLocked = true;
-        preloadWindow(activeIndex + direction, direction);
-        scrollToShort(activeIndex + direction, prefersReducedMotion ? "auto" : "smooth");
+        const targetIndex = activeShortFilter === "all"
+          ? activeIndex + direction
+          : getRelativeNavigableIndex(activeIndex, direction);
+        preloadWindow(targetIndex, direction);
+        scrollToShort(targetIndex, prefersReducedMotion ? "auto" : "smooth");
         window.setTimeout(() => {
           scrollStepLocked = false;
         }, compactShortFeed ? 460 : 390);
@@ -5096,7 +5172,7 @@
       }
 
       function scrollToShort(index, behavior = "smooth") {
-        const targetIndex = normalizeIndex(index);
+        const targetIndex = getNearestNavigableIndex(index, lastScrollDirection);
         const slide = slides[targetIndex];
         if (!slide) return;
         if (targetIndex !== activeIndex) {
@@ -5176,8 +5252,17 @@
 
       levelTabs.forEach((tab) => {
         tab.addEventListener("click", () => {
+          if (tab.dataset.shortsCreator) {
+            applyShortFilter(tab.dataset.shortsCreator);
+            const targetIndex = slides.findIndex((slide) => slideMatchesFilter(slide));
+            if (targetIndex >= 0) scrollToShort(targetIndex, "smooth");
+            updateLevelTabs(slides[targetIndex]?.dataset.level || "");
+            return;
+          }
+
+          applyShortFilter("all");
           const targetIndex = slides.findIndex((slide) => slide.dataset.level === tab.dataset.shortsLevel);
-          if (targetIndex >= 0) scrollToShort(targetIndex);
+          if (targetIndex >= 0) scrollToShort(targetIndex, "smooth");
         });
       });
 
