@@ -895,6 +895,14 @@
       gap: 8px;
     }
 
+    .shorts-progress-controls {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .shorts-audio-controls {
       display: inline-flex;
       align-items: center;
@@ -904,7 +912,8 @@
     }
 
     .shorts-tab,
-    .shorts-sound-toggle {
+    .shorts-sound-toggle,
+    .shorts-resume {
       min-height: 38px;
       padding: 0 12px;
       border: 1px solid rgba(255, 248, 237, 0.14);
@@ -921,7 +930,9 @@
     .shorts-tab:hover,
     .shorts-tab:focus-visible,
     .shorts-sound-toggle:hover,
-    .shorts-sound-toggle:focus-visible {
+    .shorts-sound-toggle:focus-visible,
+    .shorts-resume:hover,
+    .shorts-resume:focus-visible {
       color: var(--text);
       border-color: rgba(231, 182, 93, 0.4);
       outline: none;
@@ -932,6 +943,26 @@
       background: var(--green);
       border-color: transparent;
       color: #10150d;
+    }
+
+    .shorts-resume {
+      color: var(--text);
+      background: rgba(231, 182, 93, 0.13);
+      border-color: rgba(231, 182, 93, 0.36);
+    }
+
+    .shorts-progress {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 0.88rem;
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     .shorts-volume {
@@ -1105,6 +1136,16 @@
       background: rgba(111, 168, 220, 0.18);
     }
 
+    .short-pill.difficulty {
+      color: #10150d;
+      background: var(--green);
+    }
+
+    .short-pill.category {
+      color: var(--gold);
+      background: rgba(231, 182, 93, 0.18);
+    }
+
     .short-position {
       position: absolute;
       right: 14px;
@@ -1125,7 +1166,7 @@
       gap: 8px;
     }
 
-    .short-fullscreen {
+    .short-action-button {
       display: grid;
       place-items: center;
       width: 38px;
@@ -1141,12 +1182,34 @@
       transition: background var(--speed), border-color var(--speed), transform var(--speed);
     }
 
-    .short-fullscreen:hover,
-    .short-fullscreen:focus-visible {
+    .short-action-button:hover,
+    .short-action-button:focus-visible {
       border-color: rgba(231, 182, 93, 0.72);
       background: rgba(231, 182, 93, 0.22);
       outline: none;
       transform: translateY(-1px);
+    }
+
+    .short-action-button[aria-pressed="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .short-like[aria-pressed="true"] {
+      background: #e9a0a6;
+      color: #2a090d;
+    }
+
+    .short-bookmark[aria-pressed="true"] {
+      background: var(--gold);
+      color: #251706;
+    }
+
+    .short-share.is-copied {
+      border-color: transparent;
+      background: #a9d1f4;
+      color: #07121c;
     }
 
     .short-stage:fullscreen {
@@ -1838,9 +1901,12 @@
       }
 
       .shorts-tabs,
+      .shorts-progress-controls,
       .shorts-audio-controls,
       .shorts-volume,
-      .shorts-sound-toggle {
+      .shorts-sound-toggle,
+      .shorts-resume,
+      .shorts-progress {
         width: 100%;
       }
 
@@ -1851,6 +1917,11 @@
       .shorts-tabs {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .shorts-progress-controls {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
       }
 
       .shorts-sound-toggle {
@@ -1915,7 +1986,7 @@
         right: 10px;
       }
 
-      .short-fullscreen {
+      .short-action-button {
         width: 34px;
         height: 34px;
         font-size: 0.98rem;
@@ -2918,6 +2989,10 @@
               <button class="shorts-tab" type="button" data-shorts-level="Intermediate Shorts" role="tab" aria-selected="false">Intermediate</button>
               <button class="shorts-tab" type="button" data-shorts-level="Advanced Shorts" role="tab" aria-selected="false">Advanced</button>
             </div>
+            <div class="shorts-progress-controls" aria-label="Shorts progress">
+              <button class="shorts-resume" id="shortsResumeButton" type="button">Resume</button>
+              <span class="shorts-progress" id="shortsProgress">0/65 Done</span>
+            </div>
             <div class="shorts-audio-controls">
               <button class="shorts-sound-toggle" id="shortsSoundToggle" type="button" aria-pressed="false" aria-label="Turn Shorts sound on">Sound Off</button>
               <label class="shorts-volume" for="shortsVolumeRange">
@@ -3845,6 +3920,66 @@
       }
     ];
 
+    const shortLessonStorageKey = "checkmateQuest.shortLessons.v1";
+
+    function readShortLessonState() {
+      const fallback = {
+        completed: [],
+        liked: [],
+        bookmarked: [],
+        lastVideoId: "",
+        lastIndex: 0
+      };
+
+      try {
+        return {
+          ...fallback,
+          ...JSON.parse(localStorage.getItem(shortLessonStorageKey) || "{}")
+        };
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveShortLessonState(state) {
+      const toArray = (value) => value instanceof Set ? [...value] : Array.isArray(value) ? value : [];
+
+      try {
+        localStorage.setItem(shortLessonStorageKey, JSON.stringify({
+          completed: toArray(state.completed),
+          liked: toArray(state.liked),
+          bookmarked: toArray(state.bookmarked),
+          lastVideoId: state.lastVideoId || "",
+          lastIndex: Number.isFinite(state.lastIndex) ? state.lastIndex : 0
+        }));
+      } catch {
+        // Private browsing or file previews can block localStorage; the feed still works without persistence.
+      }
+    }
+
+    function shortDifficultyFromLevel(level) {
+      return (level || "Lesson").replace(/\s+Shorts$/i, "");
+    }
+
+    function shortCategoryTags(video) {
+      const haystack = `${video.topic || ""} ${video.title || ""} ${video.headline || ""} ${video.note || ""}`.toLowerCase();
+      const tags = [video.topic || "Lesson"];
+
+      [
+        [/opening|gambit|sicilian|london|queen|trap/, "Opening"],
+        [/tactic|fork|pin|skewer|sacrifice|combo/, "Tactic"],
+        [/mate|checkmate/, "Checkmate"],
+        [/endgame|pawn race|promotion|rook end/, "Endgame"],
+        [/defense|defence|king safety/, "Defense"],
+        [/calculate|calculation|candidate/, "Calculation"],
+        [/puzzle|find|spot/, "Puzzle"]
+      ].forEach(([pattern, label]) => {
+        if (pattern.test(haystack)) tags.push(label);
+      });
+
+      return [...new Set(tags)].slice(0, 3);
+    }
+
     let currentPuzzle = 0;
     let activeAnswered = false;
     let streak = 0;
@@ -4230,6 +4365,8 @@
           orderedShorts.push({
             video,
             level: group.title,
+            difficulty: shortDifficultyFromLevel(group.title),
+            categoryTags: shortCategoryTags(video),
             levelTag: group.tag,
             levelIndex: levelIndex + 1,
             levelTotal: videos.length
@@ -4244,6 +4381,18 @@
         return pill;
       }
 
+      function createActionButton(action, icon, label, pressed = false) {
+        const button = document.createElement("button");
+        button.className = `short-action-button short-${action}`;
+        button.type = "button";
+        button.dataset.shortAction = action;
+        button.textContent = icon;
+        button.title = label;
+        button.setAttribute("aria-label", label);
+        if (pressed) button.setAttribute("aria-pressed", "false");
+        return button;
+      }
+
       orderedShorts.forEach((item, index) => {
         const { video } = item;
         const slide = document.createElement("article");
@@ -4252,26 +4401,30 @@
         const placeholder = document.createElement("div");
         const position = document.createElement("span");
         const actions = document.createElement("div");
-        const fullscreenButton = document.createElement("button");
+        const fullscreenButton = createActionButton("fullscreen", "\u26F6", "Fullscreen");
+        const completeButton = createActionButton("complete", "\u2713", "Mark lesson completed", true);
+        const likeButton = createActionButton("like", "\u2665", "Like lesson", true);
+        const bookmarkButton = createActionButton("bookmark", "\u2605", "Bookmark lesson", true);
+        const shareButton = createActionButton("share", "\u21AA", "Share lesson");
         const meta = document.createElement("div");
         const pills = document.createElement("div");
         const heading = document.createElement("h4");
         const note = document.createElement("p");
 
         slide.className = "short-slide";
+        slide.id = `short-${video.id}`;
         slide.dataset.index = String(index);
         slide.dataset.videoId = video.id;
         slide.dataset.title = video.title;
         slide.dataset.level = item.level;
+        slide.dataset.difficulty = item.difficulty;
+        slide.dataset.category = item.categoryTags.join(" ");
         stage.className = "short-stage";
         frame.className = "short-frame";
         placeholder.className = "short-placeholder";
         position.className = "short-position";
         actions.className = "short-actions";
-        fullscreenButton.className = "short-fullscreen";
-        fullscreenButton.type = "button";
-        fullscreenButton.textContent = "⛶";
-        fullscreenButton.title = "Fullscreen";
+        fullscreenButton.classList.add("short-fullscreen");
         fullscreenButton.setAttribute("aria-label", `Open ${video.headline} fullscreen`);
         meta.className = "short-meta";
         pills.className = "short-pill-row";
@@ -4280,16 +4433,17 @@
         placeholder.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
         position.textContent = `${index + 1} / ${orderedShorts.length}`;
         pills.append(
+          createPill(item.difficulty, "difficulty"),
           createPill(`${item.levelTag} ${item.levelIndex}/${item.levelTotal}`),
-          createPill(video.topic),
           createPill(video.duration)
         );
+        item.categoryTags.forEach((tag) => pills.appendChild(createPill(tag, "category")));
         if (video.creator) pills.appendChild(createPill(video.creator, "creator"));
         heading.textContent = video.headline;
         note.textContent = video.note;
 
         frame.appendChild(placeholder);
-        actions.appendChild(fullscreenButton);
+        actions.append(fullscreenButton, completeButton, likeButton, bookmarkButton, shareButton);
         meta.append(pills, heading, note);
         stage.append(frame, position, actions, meta);
         slide.appendChild(stage);
@@ -4304,10 +4458,46 @@
       const levelTabs = [...document.querySelectorAll("[data-shorts-level]")];
       const soundToggle = document.getElementById("shortsSoundToggle");
       const volumeRange = document.getElementById("shortsVolumeRange");
-      let activeIndex = 0;
+      const resumeButton = document.getElementById("shortsResumeButton");
+      const progressBadge = document.getElementById("shortsProgress");
+      const storedLessonState = readShortLessonState();
+      const validVideoIds = new Set(slides.map((slide) => slide.dataset.videoId));
+      const completedLessons = new Set((storedLessonState.completed || []).filter((id) => validVideoIds.has(id)));
+      const likedLessons = new Set((storedLessonState.liked || []).filter((id) => validVideoIds.has(id)));
+      const bookmarkedLessons = new Set((storedLessonState.bookmarked || []).filter((id) => validVideoIds.has(id)));
+      let activeIndex = getInitialShortIndex();
       let feedInView = false;
       let shortsMuted = true;
       let shortsVolume = Number(volumeRange?.value || 80);
+      let touchStartY = 0;
+
+      function normalizeIndex(index) {
+        if (!slides.length) return 0;
+        return ((index % slides.length) + slides.length) % slides.length;
+      }
+
+      function getInitialShortIndex() {
+        const hashId = window.location.hash.startsWith("#short-")
+          ? window.location.hash.replace("#short-", "")
+          : "";
+        const hashIndex = slides.findIndex((slide) => slide.dataset.videoId === hashId);
+        if (hashIndex >= 0) return hashIndex;
+
+        const savedIdIndex = slides.findIndex((slide) => slide.dataset.videoId === storedLessonState.lastVideoId);
+        if (savedIdIndex >= 0) return savedIdIndex;
+
+        return normalizeIndex(Number(storedLessonState.lastIndex) || 0);
+      }
+
+      function persistLessonState() {
+        saveShortLessonState({
+          completed: completedLessons,
+          liked: likedLessons,
+          bookmarked: bookmarkedLessons,
+          lastVideoId: slides[activeIndex]?.dataset.videoId || "",
+          lastIndex: activeIndex
+        });
+      }
 
       function buildShortFeedSrc(videoId) {
         const url = new URL(`https://www.youtube-nocookie.com/embed/${videoId}`);
@@ -4371,6 +4561,95 @@
         });
       }
 
+      function updateActionButton(button, active, activeLabel, inactiveLabel) {
+        if (!button) return;
+
+        button.setAttribute("aria-pressed", String(active));
+        button.setAttribute("aria-label", active ? activeLabel : inactiveLabel);
+        button.title = active ? activeLabel : inactiveLabel;
+      }
+
+      function updateSlideLessonState(slide) {
+        const id = slide.dataset.videoId;
+        const title = slide.querySelector(".short-meta h4")?.textContent || slide.dataset.title || "lesson";
+        const completed = completedLessons.has(id);
+        const liked = likedLessons.has(id);
+        const bookmarked = bookmarkedLessons.has(id);
+
+        slide.classList.toggle("is-completed", completed);
+        updateActionButton(
+          slide.querySelector('[data-short-action="complete"]'),
+          completed,
+          `Mark ${title} incomplete`,
+          `Mark ${title} completed`
+        );
+        updateActionButton(
+          slide.querySelector('[data-short-action="like"]'),
+          liked,
+          `Unlike ${title}`,
+          `Like ${title}`
+        );
+        updateActionButton(
+          slide.querySelector('[data-short-action="bookmark"]'),
+          bookmarked,
+          `Remove bookmark from ${title}`,
+          `Bookmark ${title}`
+        );
+      }
+
+      function updateLessonProgress() {
+        if (progressBadge) {
+          progressBadge.textContent = `${completedLessons.size}/${slides.length} Done`;
+        }
+
+        if (resumeButton) {
+          const title = slides[activeIndex]?.querySelector(".short-meta h4")?.textContent || "last lesson";
+          resumeButton.textContent = `Resume ${activeIndex + 1}/${slides.length}`;
+          resumeButton.setAttribute("aria-label", `Resume ${title}`);
+        }
+      }
+
+      function refreshLessonState() {
+        slides.forEach(updateSlideLessonState);
+        updateLessonProgress();
+      }
+
+      function setLessonState(set, id, shouldAdd) {
+        if (shouldAdd) {
+          set.add(id);
+        } else {
+          set.delete(id);
+        }
+      }
+
+      function markLessonCompleted(index, shouldComplete = true) {
+        const slide = slides[normalizeIndex(index)];
+        if (!slide) return;
+
+        setLessonState(completedLessons, slide.dataset.videoId, shouldComplete);
+        persistLessonState();
+        refreshLessonState();
+      }
+
+      function toggleLessonAction(button) {
+        const slide = button.closest(".short-slide");
+        if (!slide) return;
+
+        const id = slide.dataset.videoId;
+        const action = button.dataset.shortAction;
+        const stateMap = {
+          complete: completedLessons,
+          like: likedLessons,
+          bookmark: bookmarkedLessons
+        };
+        const targetSet = stateMap[action];
+        if (!targetSet) return;
+
+        setLessonState(targetSet, id, !targetSet.has(id));
+        persistLessonState();
+        refreshLessonState();
+      }
+
       function ensurePlayer(index) {
         const slide = slides[index];
         const item = orderedShorts[index];
@@ -4416,8 +4695,10 @@
       }
 
       function trimPlayers(index) {
+        const keepIndexes = new Set(getPreloadIndexes(index));
+
         slides.forEach((slide, slideIndex) => {
-          const shouldKeep = slideIndex >= index - 1 && slideIndex <= index + 2;
+          const shouldKeep = keepIndexes.has(slideIndex);
           const frame = slide.querySelector(".short-frame");
           const iframe = frame.querySelector("iframe");
           if (shouldKeep || !iframe) return;
@@ -4428,10 +4709,12 @@
         });
       }
 
+      function getPreloadIndexes(index) {
+        return [...new Set([-1, 0, 1, 2].map((offset) => normalizeIndex(index + offset)))];
+      }
+
       function preloadWindow(index) {
-        [index - 1, index, index + 1, index + 2].forEach((candidate) => {
-          if (candidate >= 0 && candidate < slides.length) ensurePlayer(candidate);
-        });
+        getPreloadIndexes(index).forEach((candidate) => ensurePlayer(candidate));
         trimPlayers(index);
       }
 
@@ -4462,27 +4745,77 @@
         if (!openedVideo) await requestFullscreenFor(stage);
       }
 
-      function setActive(index) {
-        if (index < 0 || index >= slides.length) return;
-        if (index !== activeIndex) pauseSlide(activeIndex);
+      async function shareLesson(button) {
+        const slide = button.closest(".short-slide");
+        const index = normalizeIndex(Number(slide?.dataset.index) || 0);
+        const item = orderedShorts[index];
+        if (!slide || !item) return;
 
-        activeIndex = index;
+        const url = `${window.location.href.split("#")[0]}#${slide.id}`;
+        const payload = {
+          title: item.video.headline,
+          text: item.video.note,
+          url
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(payload);
+          } else if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(`${payload.title} ${payload.url}`);
+          }
+
+          button.classList.add("is-copied");
+          button.setAttribute("aria-label", "Lesson link copied");
+          window.setTimeout(() => {
+            button.classList.remove("is-copied");
+            button.setAttribute("aria-label", `Share ${payload.title}`);
+          }, 1600);
+        } catch {
+          button.classList.remove("is-copied");
+        }
+      }
+
+      function loopFromFeedEdge(direction) {
+        if (direction > 0 && activeIndex === slides.length - 1) {
+          scrollToShort(0);
+          return true;
+        }
+
+        if (direction < 0 && activeIndex === 0) {
+          scrollToShort(slides.length - 1);
+          return true;
+        }
+
+        return false;
+      }
+
+      function setActive(index) {
+        if (!slides.length) return;
+
+        const nextIndex = normalizeIndex(index);
+        if (nextIndex !== activeIndex) pauseSlide(activeIndex);
+
+        activeIndex = nextIndex;
         slides.forEach((slide, slideIndex) => {
           slide.classList.toggle("is-active", slideIndex === activeIndex);
         });
         updateLevelTabs(slides[activeIndex]?.dataset.level || "");
         preloadWindow(activeIndex);
+        persistLessonState();
+        updateLessonProgress();
         playSlide(activeIndex);
       }
 
-      function scrollToShort(index) {
-        const slide = slides[index];
+      function scrollToShort(index, behavior = "smooth") {
+        const targetIndex = normalizeIndex(index);
+        const slide = slides[targetIndex];
         if (!slide) return;
         feed.scrollTo({
           top: slide.offsetTop,
-          behavior: "smooth"
+          behavior
         });
-        setActive(index);
+        setActive(targetIndex);
       }
 
       const slideObserver = new IntersectionObserver((entries) => {
@@ -4515,10 +4848,19 @@
 
       slides.forEach((slide) => slideObserver.observe(slide));
       feedObserver.observe(feed);
-      preloadWindow(0);
-      slides[0]?.classList.add("is-active");
+      preloadWindow(activeIndex);
+      slides[activeIndex]?.classList.add("is-active");
       updateSoundToggle();
-      updateLevelTabs(slides[0]?.dataset.level || "");
+      updateLevelTabs(slides[activeIndex]?.dataset.level || "");
+      refreshLessonState();
+      window.requestAnimationFrame(() => {
+        if (slides[activeIndex]) {
+          feed.scrollTo({
+            top: slides[activeIndex].offsetTop,
+            behavior: "auto"
+          });
+        }
+      });
 
       levelTabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -4527,9 +4869,50 @@
         });
       });
 
-      feed.querySelectorAll(".short-fullscreen").forEach((button) => {
-        button.addEventListener("click", () => enterShortFullscreen(button));
+      resumeButton?.addEventListener("click", () => {
+        scrollToShort(activeIndex);
       });
+
+      feed.querySelectorAll("[data-short-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.dataset.shortAction;
+          if (action === "fullscreen") {
+            enterShortFullscreen(button);
+          } else if (action === "share") {
+            shareLesson(button);
+          } else {
+            toggleLessonAction(button);
+          }
+        });
+      });
+
+      feed.addEventListener("wheel", (event) => {
+        const atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 4;
+        const atTop = feed.scrollTop <= 4;
+        const wantsNextLoop = event.deltaY > 28 && atBottom;
+        const wantsPreviousLoop = event.deltaY < -28 && atTop;
+
+        if ((wantsNextLoop && loopFromFeedEdge(1)) || (wantsPreviousLoop && loopFromFeedEdge(-1))) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+
+      feed.addEventListener("touchstart", (event) => {
+        touchStartY = event.touches[0]?.clientY || 0;
+      }, { passive: true });
+
+      feed.addEventListener("touchend", (event) => {
+        const endY = event.changedTouches[0]?.clientY || touchStartY;
+        const swipeDistance = touchStartY - endY;
+        const atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 4;
+        const atTop = feed.scrollTop <= 4;
+
+        if (swipeDistance > 52 && atBottom) {
+          loopFromFeedEdge(1);
+        } else if (swipeDistance < -52 && atTop) {
+          loopFromFeedEdge(-1);
+        }
+      }, { passive: true });
 
       soundToggle?.addEventListener("click", () => {
         shortsMuted = !shortsMuted;
@@ -4567,6 +4950,7 @@
         const deliveryState = data?.event === "infoDelivery" ? data.info?.playerState : undefined;
         const ended = directState === 0 || deliveryState === 0;
         if (ended && Number(iframe.closest(".short-slide")?.dataset.index) === activeIndex) {
+          markLessonCompleted(activeIndex);
           scrollToShort(activeIndex + 1);
         }
       });
