@@ -41,6 +41,10 @@
       line-height: 1.55;
     }
 
+    body.short-feed-locked {
+      overflow: hidden;
+    }
+
     body::selection {
       background: var(--gold);
       color: #211a12;
@@ -1072,6 +1076,15 @@
       border: 0;
     }
 
+    .short-gesture-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      touch-action: pan-y;
+      background: transparent;
+    }
+
     .short-placeholder {
       display: grid;
       place-items: center;
@@ -1212,22 +1225,66 @@
       color: #07121c;
     }
 
-    .short-stage:fullscreen {
+    .shorts-feed:fullscreen,
+    .shorts-feed:-webkit-full-screen,
+    .shorts-feed.is-feed-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
       width: 100vw;
       height: 100vh;
-      max-width: none;
+      height: 100dvh;
       max-height: none;
       border: 0;
       border-radius: 0;
+      background: #050505;
+      scrollbar-width: none;
     }
 
-    .short-stage:-webkit-full-screen {
-      width: 100vw;
+    .shorts-feed:fullscreen::-webkit-scrollbar,
+    .shorts-feed:-webkit-full-screen::-webkit-scrollbar,
+    .shorts-feed.is-feed-fullscreen::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shorts-feed:fullscreen .short-slide,
+    .shorts-feed:-webkit-full-screen .short-slide,
+    .shorts-feed.is-feed-fullscreen .short-slide {
+      min-height: 100vh;
+      min-height: 100dvh;
       height: 100vh;
-      max-width: none;
-      max-height: none;
+      height: 100dvh;
+      padding: 0;
+      background: #050505;
+    }
+
+    .shorts-feed:fullscreen .short-stage,
+    .shorts-feed:-webkit-full-screen .short-stage,
+    .shorts-feed.is-feed-fullscreen .short-stage {
+      width: min(100vw, 56.25vh);
+      width: min(100vw, 56.25dvh);
+      height: min(100vh, 177.78vw);
+      height: min(100dvh, 177.78vw);
+      max-width: 100vw;
+      max-height: 100vh;
+      max-height: 100dvh;
       border: 0;
       border-radius: 0;
+      box-shadow: none;
+    }
+
+    .shorts-feed:fullscreen .short-gesture-layer,
+    .shorts-feed:-webkit-full-screen .short-gesture-layer,
+    .shorts-feed.is-feed-fullscreen .short-gesture-layer {
+      pointer-events: auto;
+      cursor: grab;
+    }
+
+    .shorts-feed:fullscreen .short-slide::before,
+    .shorts-feed:-webkit-full-screen .short-slide::before,
+    .shorts-feed.is-feed-fullscreen .short-slide::before {
+      top: 14px;
+      left: 14px;
     }
 
     .short-slide.is-active .short-stage {
@@ -4399,6 +4456,7 @@
         const stage = document.createElement("div");
         const frame = document.createElement("div");
         const placeholder = document.createElement("div");
+        const gestureLayer = document.createElement("div");
         const position = document.createElement("span");
         const actions = document.createElement("div");
         const fullscreenButton = createActionButton("fullscreen", "\u26F6", "Fullscreen");
@@ -4422,6 +4480,8 @@
         stage.className = "short-stage";
         frame.className = "short-frame";
         placeholder.className = "short-placeholder";
+        gestureLayer.className = "short-gesture-layer";
+        gestureLayer.setAttribute("aria-hidden", "true");
         position.className = "short-position";
         actions.className = "short-actions";
         fullscreenButton.classList.add("short-fullscreen");
@@ -4445,7 +4505,7 @@
         frame.appendChild(placeholder);
         actions.append(fullscreenButton, completeButton, likeButton, bookmarkButton, shareButton);
         meta.append(pills, heading, note);
-        stage.append(frame, position, actions, meta);
+        stage.append(frame, gestureLayer, position, actions, meta);
         slide.appendChild(stage);
         feed.appendChild(slide);
       });
@@ -4470,6 +4530,7 @@
       let shortsMuted = true;
       let shortsVolume = Number(volumeRange?.value || 80);
       let touchStartY = 0;
+      let fullscreenStepLocked = false;
 
       function normalizeIndex(index) {
         if (!slides.length) return 0;
@@ -4688,7 +4749,7 @@
 
       function playSlide(index) {
         const iframe = ensurePlayer(index);
-        if (!iframe || !feedInView) return;
+        if (!iframe || (!feedInView && !isShortFeedFullscreen())) return;
 
         applySoundPreference(iframe);
         window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 120);
@@ -4734,15 +4795,69 @@
         }
       }
 
+      function isShortFeedFullscreen() {
+        return document.fullscreenElement === feed
+          || document.webkitFullscreenElement === feed
+          || feed.classList.contains("is-feed-fullscreen");
+      }
+
+      function updateFullscreenButtons() {
+        const active = isShortFeedFullscreen();
+        feed.querySelectorAll('[data-short-action="fullscreen"]').forEach((button) => {
+          button.setAttribute("aria-pressed", String(active));
+          button.setAttribute("aria-label", active ? "Exit fullscreen Shorts feed" : "Open Shorts feed fullscreen");
+          button.title = active ? "Exit fullscreen" : "Fullscreen";
+        });
+      }
+
+      function syncShortFullscreenState() {
+        const active = isShortFeedFullscreen();
+        document.body.classList.toggle("short-feed-locked", active);
+        updateFullscreenButtons();
+
+        if (active) {
+          window.requestAnimationFrame(() => {
+            scrollToShort(activeIndex, "auto");
+            feed.focus({ preventScroll: true });
+            playSlide(activeIndex);
+          });
+        }
+      }
+
+      async function exitShortFullscreen() {
+        if (feed.classList.contains("is-feed-fullscreen")) {
+          feed.classList.remove("is-feed-fullscreen");
+          syncShortFullscreenState();
+          return;
+        }
+
+        if (document.fullscreenElement === feed && document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.webkitFullscreenElement === feed && document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+
       async function enterShortFullscreen(button) {
         const slide = button.closest(".short-slide");
         const index = Number(slide?.dataset.index);
         if (Number.isInteger(index)) setActive(index);
 
-        const stage = button.closest(".short-stage");
-        const iframe = stage?.querySelector(".short-frame iframe") || ensurePlayer(index);
-        const openedVideo = await requestFullscreenFor(iframe);
-        if (!openedVideo) await requestFullscreenFor(stage);
+        if (isShortFeedFullscreen()) {
+          exitShortFullscreen();
+          return;
+        }
+
+        ensurePlayer(activeIndex);
+        feed.setAttribute("tabindex", "-1");
+        const openedFeed = await requestFullscreenFor(feed);
+
+        if (!openedFeed) {
+          feed.classList.add("is-feed-fullscreen");
+          syncShortFullscreenState();
+        } else {
+          syncShortFullscreenState();
+        }
       }
 
       async function shareLesson(button) {
@@ -4788,6 +4903,16 @@
         }
 
         return false;
+      }
+
+      function stepFullscreenShort(direction) {
+        if (!direction || fullscreenStepLocked) return;
+
+        fullscreenStepLocked = true;
+        scrollToShort(activeIndex + direction, "smooth");
+        window.setTimeout(() => {
+          fullscreenStepLocked = false;
+        }, 620);
       }
 
       function setActive(index) {
@@ -4853,6 +4978,7 @@
       updateSoundToggle();
       updateLevelTabs(slides[activeIndex]?.dataset.level || "");
       refreshLessonState();
+      updateFullscreenButtons();
       window.requestAnimationFrame(() => {
         if (slides[activeIndex]) {
           feed.scrollTo({
@@ -4887,6 +5013,15 @@
       });
 
       feed.addEventListener("wheel", (event) => {
+        if (isShortFeedFullscreen()) {
+          const direction = Math.sign(event.deltaY);
+          if (Math.abs(event.deltaY) > 8 && direction) {
+            event.preventDefault();
+            stepFullscreenShort(direction);
+          }
+          return;
+        }
+
         const atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 4;
         const atTop = feed.scrollTop <= 4;
         const wantsNextLoop = event.deltaY > 28 && atBottom;
@@ -4907,12 +5042,45 @@
         const atBottom = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 4;
         const atTop = feed.scrollTop <= 4;
 
+        if (isShortFeedFullscreen() && Math.abs(swipeDistance) > 36) {
+          stepFullscreenShort(swipeDistance > 0 ? 1 : -1);
+          return;
+        }
+
         if (swipeDistance > 52 && atBottom) {
           loopFromFeedEdge(1);
         } else if (swipeDistance < -52 && atTop) {
           loopFromFeedEdge(-1);
         }
       }, { passive: true });
+
+      ["fullscreenchange", "webkitfullscreenchange"].forEach((eventName) => {
+        document.addEventListener(eventName, syncShortFullscreenState);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!isShortFeedFullscreen()) return;
+
+        const nextKeys = ["ArrowDown", "PageDown", " ", "Spacebar"];
+        const previousKeys = ["ArrowUp", "PageUp"];
+
+        if (nextKeys.includes(event.key)) {
+          event.preventDefault();
+          stepFullscreenShort(1);
+        } else if (previousKeys.includes(event.key)) {
+          event.preventDefault();
+          stepFullscreenShort(-1);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          scrollToShort(0);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          scrollToShort(slides.length - 1);
+        } else if (event.key === "Escape" && feed.classList.contains("is-feed-fullscreen")) {
+          event.preventDefault();
+          exitShortFullscreen();
+        }
+      });
 
       soundToggle?.addEventListener("click", () => {
         shortsMuted = !shortsMuted;
@@ -4951,7 +5119,9 @@
         const ended = directState === 0 || deliveryState === 0;
         if (ended && Number(iframe.closest(".short-slide")?.dataset.index) === activeIndex) {
           markLessonCompleted(activeIndex);
-          scrollToShort(activeIndex + 1);
+          window.setTimeout(() => {
+            scrollToShort(activeIndex + 1);
+          }, isShortFeedFullscreen() ? 260 : 120);
         }
       });
 
