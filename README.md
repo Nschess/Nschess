@@ -2703,7 +2703,7 @@
             <p class="section-kicker">Video lessons</p>
             <h2 id="videos-title">Watch the ideas</h2>
           </div>
-          <p class="section-intro">A tiered video library with 116 embedded lessons, including 50 regular tutorials and 66 verified Shorts arranged from beginner patterns to advanced tactics.</p>
+          <p class="section-intro">A tiered video library with 152 embedded lessons, including 50 regular tutorials and 102 verified Shorts arranged from beginner patterns to advanced tactics.</p>
         </div>
 
         <div class="video-tier">
@@ -3274,9 +3274,9 @@
             <div>
               <p class="section-kicker">YouTube Shorts</p>
               <h3 id="shorts-title">Shorts Sprint</h3>
-              <p>Sixty-six bite-size chess tutorials and puzzle sparks, with beginner, intermediate, advanced, and a dedicated Biyaherong Chess Coach track.</p>
+              <p>102 bite-size chess tutorials and puzzle sparks, with beginner, intermediate, advanced, and a dedicated Biyaherong Chess Coach track.</p>
             </div>
-            <span class="shorts-count">66 Shorts</span>
+            <span class="shorts-count">102 Shorts</span>
           </div>
           <div class="shorts-toolbar" aria-label="Shorts controls">
             <div class="shorts-tabs" role="tablist" aria-label="Shorts levels">
@@ -3287,7 +3287,7 @@
             </div>
             <div class="shorts-progress-controls" aria-label="Shorts progress">
               <button class="shorts-resume" id="shortsResumeButton" type="button">Resume</button>
-              <span class="shorts-progress" id="shortsProgress">0/66 Done</span>
+              <span class="shorts-progress" id="shortsProgress">0/102 Done</span>
             </div>
             <div class="shorts-audio-controls">
               <button class="shorts-sound-toggle" id="shortsSoundToggle" type="button" aria-pressed="false" aria-label="Turn Shorts sound on">Sound Off</button>
@@ -4181,6 +4181,294 @@
         title: "Biyaherong Chess Coach Short",
         headline: "Coach opening lesson",
         note: "A Biyaherong Chess Coach clip added to complete the advanced coach track."
+      },
+      {
+        id: "Um4s2urqVJY",
+        topic: "Mate",
+        duration: "Short",
+        title: "Checkmate in 3 Moves",
+        headline: "Three-move checkmate lesson",
+        note: "A beginner-friendly mate pattern for winning fast when the king is exposed."
+      },
+      {
+        id: "UrUnUtbFP54",
+        topic: "Basics",
+        duration: "Short",
+        title: "How to Play Chess in a Minute",
+        headline: "One-minute chess basics",
+        note: "A quick rules refresher for new players learning the board."
+      },
+      {
+        id: "VXJNTGv4F4o",
+        topic: "Basics",
+        duration: "Short",
+        title: "Names of Chess Pieces",
+        headline: "Piece names and roles",
+        note: "A fast beginner clip for recognizing each piece before learning plans."
+      },
+      {
+        id: "uFNTQAFjai8",
+        topic: "Tip",
+        duration: "Short",
+        title: "Win Every Chess Game With This Simple Trick",
+        headline: "Simple beginner trick",
+        note: "A short idea that shows how one threat can guide the next move."
+      },
+      {
+        id: "4E9drlZ0Vns",
+        topic: "Mate",
+        duration: "Short",
+        title: "How to Win Chess in 2 Moves",
+        headline: "Two-move mate warning",
+        note: "Learn the fastest mate and the defensive habit that prevents it."
+      },
+      {
+        id: "Lltl5nQmiN8",
+        topic: "Opening",
+        duration: "Short",
+        title: "Learn the Caro-Kann in 1 Minute",
+        headline: "Caro-Kann starter",
+        note: "A compact opening intro for meeting 1. e4 with a solid setup."
+      },
+      {
+        id: "qQ1-0EJmQvg",
+        topic: "Opening",
+        duration: "Short",
+        title: "Chess Tricks for Black Against e4",
+        headline: "Black response to e4",
+        note: "A simple opening trick to watch for when White starts with the king pawn."
+      },
+      {
+        id: "7lr9wWEvbcA",
+        topic: "Opening",
+        duration: "Short",
+        title: "Aggressive Chess Opening",
+        headline: "Aggressive opening idea",
+        note: "A quick look at how opening activity can create early pressure."
+      },
+      {
+        id: "u3NaExzBL6w",
+        topic: "Tip",
+        duration: "Short",
+        title: "How to Get Better at Chess",
+        headline: "Better chess habit",
+        note: "A short improvement reminder for choosing more purposeful moves."
+      },
+      {
+        id: "5t9fziJGCcg",
+        topic: "Mate",
+        duration: "Short",
+        title: "Mate in 10 Moves",
+        headline: "Ten-move mate path",
+        note: "Follow the attacking pattern and see how small threats stack up."
+      },
+      {
+        id: "n51jOpVhI-k",
+        topic: "Tactics",
+        duration: "Short",
+        title: "Two Brilliant Chess Moves",
+        headline: "Two-move tactic spark",
+        note: "A quick tactical example for spotting brilliant forcing ideas."
+      },
+      {
+        id: "wi-5TDLAN-o",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "Can You Solve This Simple Puzzle?",
+        headline: "Simple puzzle test",
+        note: "Pause, calculate the forcing move, then compare your answer."
+      },
+      {
+        id: "p0iwRDssQhI",
+        topic: "Mate",
+        duration: "Short",
+        title: "Win in 5 Moves",
+        headline: "Five-move queen sacrifice",
+        note: "A fast queen-sacrifice attack that teaches forcing checks."
+      },
+      {
+        id: "xyx-AEH18Zs",
+        topic: "Opening",
+        duration: "Short",
+        title: "King Burger Checkmate Trap",
+        headline: "Opening mate trap",
+        note: "A named trap lesson for punishing loose king safety."
+      },
+      {
+        id: "baLYalPxhmI",
+        topic: "Tactics",
+        duration: "Short",
+        title: "Stop This Chess Trick",
+        headline: "Trick defense",
+        note: "Learn the warning signs before a common trick lands."
+      },
+      {
+        id: "gAw6F-WaJaY",
+        topic: "Opening",
+        duration: "Short",
+        title: "Tennison Gambit",
+        headline: "Tennison Gambit idea",
+        note: "A gambit pattern that shows how tempo and tactics connect."
+      },
+      {
+        id: "kLbvupI26-A",
+        topic: "Opening",
+        duration: "Short",
+        title: "Easy Chess Trap",
+        headline: "Easy opening trap",
+        note: "A practical trap for learning how early mistakes get punished."
+      },
+      {
+        id: "4b2hs1PUcww",
+        topic: "Mate",
+        duration: "Short",
+        title: "Checkmate in 5 Moves Using an Opening Trap",
+        headline: "Five-move opening trap",
+        note: "A short mating line that turns opening pressure into checkmate."
+      },
+      {
+        id: "9XZqUGBWass",
+        topic: "Opening",
+        duration: "Short",
+        title: "First Trap Magnus Fell For",
+        headline: "Famous trap lesson",
+        note: "Study a sharp trap idea and why even strong players must respect tactics."
+      },
+      {
+        id: "Mdd1uSRzmZU",
+        topic: "Opening",
+        duration: "Short",
+        title: "High Success Rate Trap",
+        headline: "Reliable trap pattern",
+        note: "A compact opening trap lesson for spotting a common mistake."
+      },
+      {
+        id: "U2KFhsWMEP4",
+        topic: "Opening",
+        duration: "Short",
+        title: "Beating the Queen's Gambit",
+        headline: "Queen's Gambit tactic",
+        note: "A quick opening tactic for meeting the Queen's Gambit."
+      },
+      {
+        id: "O7xcKga2hZk",
+        topic: "Mate",
+        duration: "Short",
+        title: "Checkmate in 6: Latvian Gambit",
+        headline: "Latvian Gambit mate",
+        note: "A six-move attacking line from a sharp gambit setup."
+      },
+      {
+        id: "-SGMZEftNf0",
+        topic: "Opening",
+        duration: "Short",
+        title: "Mate in 6 Moves: Budapest Trap",
+        headline: "Budapest trap",
+        note: "A tactical opening lesson for using development with tempo."
+      },
+      {
+        id: "cN4Xpz5yHSQ",
+        topic: "Opening",
+        duration: "Short",
+        title: "Fried Liver Counter Attack",
+        headline: "Fried Liver counter",
+        note: "Learn a counter-trap idea against one of the most famous beginner attacks."
+      },
+      {
+        id: "K28CuIQVB-U",
+        topic: "Endgame",
+        duration: "Short",
+        title: "Checkmate With Two Bishops",
+        headline: "Two-bishop mate",
+        note: "A compact endgame lesson on coordinating both bishops with the king."
+      },
+      {
+        id: "-UZPXzwt3QI",
+        topic: "Endgame",
+        duration: "Short",
+        title: "Chess Endgame Trick You Must Know",
+        headline: "Must-know endgame trick",
+        note: "A practical endgame idea for saving or converting a close position."
+      },
+      {
+        id: "BJThK1rAT-0",
+        topic: "Endgame",
+        duration: "Short",
+        title: "Crazy Endgame Sacrifices",
+        headline: "Endgame sacrifice idea",
+        note: "A reminder that precise endgames can still contain tactical shots."
+      },
+      {
+        id: "cl_Ur0wQ6Og",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "Brilliant Sacrifice",
+        headline: "Find the sacrifice",
+        note: "Calculate the forcing line before choosing the brilliant move."
+      },
+      {
+        id: "QCXGvgCQXjU",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "How Fast Can You Solve This Puzzle?",
+        headline: "Speed puzzle",
+        note: "A quick puzzle rep for training pattern recognition under time pressure."
+      },
+      {
+        id: "6ohv0VmtZz4",
+        topic: "Tactics",
+        duration: "Short",
+        title: "Chess Puzzle Tactics",
+        headline: "Tactical puzzle",
+        note: "Look for checks, captures, and threats before the answer appears."
+      },
+      {
+        id: "oSvOUXIwbxE",
+        topic: "Mate",
+        duration: "Short",
+        title: "Mate in 1",
+        headline: "Mate-in-one test",
+        note: "An instant checkmate pattern for sharpening board vision."
+      },
+      {
+        id: "zO4LFNqzZyQ",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "The Final Blow",
+        headline: "Final blow tactic",
+        note: "Find the move that turns pressure into a decisive finish."
+      },
+      {
+        id: "2J_Q6eA-WzY",
+        topic: "Opening",
+        duration: "Short",
+        title: "Trap to Destroy the Queen's Opening",
+        headline: "Queen's opening trap",
+        note: "An advanced trap idea against an early queen-side setup."
+      },
+      {
+        id: "jwER-v5Q1-M",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "The Hardest Easy Chess Puzzle",
+        headline: "Hard easy puzzle",
+        note: "A tricky-looking puzzle where the simple forcing move matters."
+      },
+      {
+        id: "UQiZzPIsljE",
+        topic: "Mate",
+        duration: "Short",
+        title: "White Sacrifices Everything for Mate",
+        headline: "Sacrifice for mate",
+        note: "An attacking lesson in giving material back only when the line is forced."
+      },
+      {
+        id: "OlPnnnuPuDk",
+        topic: "Puzzle",
+        duration: "Short",
+        title: "Do Not Play the Obvious Move",
+        headline: "Avoid the obvious move",
+        note: "A calculation puzzle that rewards checking the candidate moves first."
       }
     ];
 
@@ -4196,7 +4484,10 @@
           "SaeOMqoC8Mw", "-OU3WJyraKQ", "PaZVLsojjG0", "f2xXL537e7I",
           "S1s6sqaaCdg", "xtV_qZ0kDXY", "CdZLO5Wbfyk", "RO8Glb42K2o",
           "O_8heoqCuFU", "9URyJG68wj4", "adHrqOu-kS4", "pv05RJ69R9s",
-          "4xBgIx_Rr_Y"
+          "4xBgIx_Rr_Y", "Um4s2urqVJY", "UrUnUtbFP54", "VXJNTGv4F4o",
+          "uFNTQAFjai8", "4E9drlZ0Vns", "Lltl5nQmiN8", "qQ1-0EJmQvg",
+          "7lr9wWEvbcA", "u3NaExzBL6w", "5t9fziJGCcg", "n51jOpVhI-k",
+          "wi-5TDLAN-o"
         ]
       },
       {
@@ -4211,7 +4502,10 @@
           "y5UzupHULcc", "ylPIQFOqq88", "jPxusiHa0xw", "fuSH59tZPO0",
           "N_XDJ0woYHk", "eUiElJvLo6c", "yTpNnz3PVSo", "0vAozwpZAcI",
           "GahxuKy7kRc", "Rj0fu-k6eWA", "kEqoib0vLn8", "AbUagQAAPA4",
-          "Bi3mCYm8t9k"
+          "Bi3mCYm8t9k", "p0iwRDssQhI", "xyx-AEH18Zs", "baLYalPxhmI",
+          "gAw6F-WaJaY", "kLbvupI26-A", "4b2hs1PUcww", "9XZqUGBWass",
+          "Mdd1uSRzmZU", "U2KFhsWMEP4", "O7xcKga2hZk", "-SGMZEftNf0",
+          "cN4Xpz5yHSQ"
         ]
       },
       {
@@ -4222,7 +4516,10 @@
           "90uOYlG68bg", "fHtMC-EqYhs", "_RHaVTAYnTs", "1zw7V1o9K98",
           "jr3GYrJDnVg", "BSTiLz4Jfmc", "QNKgtULOamY", "cF8izlNwIIU",
           "BI24dtla0TU", "zuztuAIHvo4", "46f_wcofIPE", "B3Jl5kTwQqU",
-          "w65DmISackc"
+          "w65DmISackc", "K28CuIQVB-U", "-UZPXzwt3QI", "BJThK1rAT-0",
+          "cl_Ur0wQ6Og", "QCXGvgCQXjU", "6ohv0VmtZz4", "oSvOUXIwbxE",
+          "zO4LFNqzZyQ", "2J_Q6eA-WzY", "jwER-v5Q1-M", "UQiZzPIsljE",
+          "OlPnnnuPuDk"
         ]
       }
     ];
