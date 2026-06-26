@@ -8947,3 +8947,26 @@
   </script>
 </body>
 </html>
+    .daily-puzzle-badge {
+      background: rgba(231, 182, 93, 0.22);
+      color: #704d13;
+    }
+                  <span class="badge daily-puzzle-badge" id="dailyPuzzleBadge">Today</span>
+                  <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
+        function getDailyPuzzleIndex() {
+      const today = new Date();
+      const key = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+      return Math.floor(key / 86400000) % puzzles.length;
+    }
+
+    function renderDailyPuzzleMeta() {
+      const badge = document.getElementById("dailyPuzzleBadge");
+      if (!badge) return;
+
+      badge.textContent = currentPuzzle === getDailyPuzzleIndex() ? "Today's puzzle" : "Practice puzzle";
+    }
+          renderDailyPuzzleMeta();
+         document.getElementById("dailyPuzzle").addEventListener("click", () => {
+      currentPuzzle = getDailyPuzzleIndex();
+      renderPuzzle();
+    });     
