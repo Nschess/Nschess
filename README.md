@@ -1665,12 +1665,11 @@
       overflow-y: auto;
       overflow-x: hidden;
       scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(231, 182, 93, 0.58) rgba(255, 255, 255, 0.08);
       overscroll-behavior-y: contain;
       touch-action: pan-y;
-      will-change: scroll-position;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -1701,6 +1700,9 @@
         linear-gradient(180deg, #17130f, #0d0b09);
       isolation: isolate;
       contain: layout paint style;
+      content-visibility: auto;
+      contain-intrinsic-size: 100vh;
+      contain-intrinsic-size: 100dvh;
     }
 
     .short-slide.is-filtered-out {
@@ -1946,6 +1948,9 @@
       border-radius: 0;
       background: #050505;
       scrollbar-width: none;
+      scroll-snap-type: y mandatory;
+      overscroll-behavior: none;
+      touch-action: pan-y;
     }
 
     .shorts-feed:fullscreen::-webkit-scrollbar,
@@ -1984,7 +1989,16 @@
     .shorts-feed:-webkit-full-screen .short-gesture-layer,
     .shorts-feed.is-feed-fullscreen .short-gesture-layer {
       pointer-events: auto;
-      cursor: grab;
+      cursor: pointer;
+    }
+
+    .shorts-feed:fullscreen .short-slide::before,
+    .shorts-feed:-webkit-full-screen .short-slide::before,
+    .shorts-feed.is-feed-fullscreen .short-slide::before,
+    .shorts-feed:fullscreen .short-action-button,
+    .shorts-feed:-webkit-full-screen .short-action-button,
+    .shorts-feed.is-feed-fullscreen .short-action-button {
+      backdrop-filter: none;
     }
 
     .shorts-feed:fullscreen .short-slide::before,
@@ -2131,6 +2145,14 @@
       color: var(--text);
       cursor: pointer;
       overflow: hidden;
+    }
+
+    .video-thumb.is-thumb-loading {
+      background:
+        linear-gradient(105deg, transparent 20%, rgba(255, 248, 237, 0.12) 42%, transparent 64%),
+        #111;
+      background-size: 220% 100%, auto;
+      animation: shortBufferSweep 1.2s ease-in-out infinite;
     }
 
     .video-thumb::before {
@@ -7779,13 +7801,19 @@
       let lastScrollDirection = 1;
       let scrollWarmFrame = 0;
       let trimTimer = 0;
+      let preloadTimer = 0;
+      let preloadRunId = 0;
       let playTimer = 0;
       let lastPlayCommandAt = 0;
+      let playerLoadSeq = 0;
+      let fastScrollingUntil = 0;
       let activeShortFilter = "all";
       const compactShortFeed = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const maxLoadedPlayers = compactShortFeed ? 6 : 7;
-      const trimDelay = compactShortFeed ? 280 : 360;
+      const maxLoadedPlayers = compactShortFeed ? 3 : 4;
+      const trimDelay = compactShortFeed ? 120 : 160;
+      const preloadDelay = compactShortFeed ? 170 : 120;
+      const scrollStepDelay = compactShortFeed ? 220 : 170;
       const recentShortIndexes = [];
 
       function normalizeIndex(index) {
@@ -8052,20 +8080,28 @@
         if (existing) return existing;
 
         const iframe = document.createElement("iframe");
-        const closeToActive = circularDistance(index, activeIndex) <= 2;
+        const loadId = String(++playerLoadSeq);
+        const closeToActive = circularDistance(index, activeIndex) <= 1;
+        slide.dataset.loadId = loadId;
+        iframe.dataset.loadId = loadId;
         iframe.loading = priority === "warm" ? "lazy" : "eager";
         iframe.fetchPriority = priority === "active" || closeToActive ? "high" : "low";
         iframe.src = buildShortFeedSrc(item.video.id);
         iframe.title = item.video.title;
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+        iframe.allowFullscreen = true;
         iframe.referrerPolicy = "strict-origin-when-cross-origin";
         iframe.dataset.preloadPriority = priority;
+        iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         iframe.addEventListener("load", () => {
+          if (!iframe.isConnected || slide.dataset.loadId !== loadId) return;
+
           registerStateEvents(iframe);
           applySoundPreference(iframe);
           slide.classList.remove("is-loading");
           slide.classList.add("is-loaded");
+          slide.dataset.playerState = "loaded";
           if ((feedInView || isShortFeedFullscreen()) && index === activeIndex) {
             window.setTimeout(() => postPlayerCommand(iframe, "playVideo"), 100);
           }
@@ -8079,7 +8115,10 @@
 
       function pauseSlide(index) {
         const iframe = slides[index]?.querySelector(".short-frame iframe");
-        if (iframe) postPlayerCommand(iframe, "pauseVideo");
+        if (iframe) {
+          postPlayerCommand(iframe, "pauseVideo");
+          slides[index].dataset.playerState = "2";
+        }
       }
 
       function releasePlayer(slideIndex) {
@@ -8091,6 +8130,8 @@
 
         postPlayerCommand(iframe, "pauseVideo");
         postPlayerCommand(iframe, "stopVideo");
+        delete slide.dataset.loadId;
+        delete slide.dataset.playerState;
         iframe.src = "about:blank";
         frame.replaceChildren(createPlaceholder(item.video));
         slide.classList.remove("is-loaded", "is-loading");
@@ -8108,8 +8149,29 @@
         lastPlayCommandAt = now;
         window.clearTimeout(playTimer);
         playTimer = window.setTimeout(() => {
-          if (targetIndex === activeIndex) postPlayerCommand(iframe, "playVideo");
+          if (targetIndex === activeIndex) {
+            postPlayerCommand(iframe, "playVideo");
+            slides[targetIndex].dataset.playerState = "1";
+          }
         }, 80);
+      }
+
+      function toggleSlidePlayback(index = activeIndex) {
+        const targetIndex = normalizeIndex(index);
+        const slide = slides[targetIndex];
+        const iframe = ensurePlayer(targetIndex, "active");
+        if (!slide || !iframe) return;
+
+        if (targetIndex !== activeIndex) {
+          setActive(targetIndex);
+          return;
+        }
+
+        if (slide.dataset.playerState === "1") {
+          pauseSlide(targetIndex);
+        } else {
+          playSlide(targetIndex);
+        }
       }
 
       function trimPlayers(index, direction = lastScrollDirection) {
@@ -8125,27 +8187,27 @@
       }
 
       function getPreloadIndexes(index, direction = lastScrollDirection) {
+        const active = activeShortFilter === "all"
+          ? normalizeIndex(index)
+          : getNearestNavigableIndex(index, direction);
+
         if (activeShortFilter !== "all") {
-          const active = getNearestNavigableIndex(index, direction);
-          return [...new Set([
-            active,
-            getRelativeNavigableIndex(active, direction),
-            getRelativeNavigableIndex(getRelativeNavigableIndex(active, direction), direction),
-            getRelativeNavigableIndex(active, -direction)
-          ])];
+          const nextOne = getRelativeNavigableIndex(active, direction);
+          const nextTwo = getRelativeNavigableIndex(nextOne, direction);
+          const previousOne = getRelativeNavigableIndex(active, -direction);
+          return compactShortFeed
+            ? [...new Set([active, nextOne, previousOne])]
+            : [...new Set([active, nextOne, nextTwo, previousOne])];
         }
 
-        const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
-        return [...new Set(offsets.map((offset) => normalizeIndex(index + offset)))];
+        const offsets = compactShortFeed
+          ? [0, direction, -direction]
+          : [0, direction, direction * 2, -direction];
+        return [...new Set(offsets.map((offset) => normalizeIndex(active + offset)))];
       }
 
       function getKeepIndexes(index, direction = lastScrollDirection) {
-        if (activeShortFilter !== "all") {
-          return [...new Set([...getPreloadIndexes(index, direction), ...recentShortIndexes])];
-        }
-
-        const offsets = direction >= 0 ? [-1, 0, 1, 2] : [-2, -1, 0, 1];
-        return [...new Set([...offsets.map((offset) => normalizeIndex(index + offset)), ...recentShortIndexes])];
+        return [...new Set([...getPreloadIndexes(index, direction), ...recentShortIndexes])];
       }
 
       function rememberRecentShort(index) {
@@ -8166,15 +8228,32 @@
 
         trimTimer = window.setTimeout(() => {
           trimPlayers(index, direction);
-        }, isShortFeedFullscreen() ? trimDelay + 180 : trimDelay);
+        }, Date.now() < fastScrollingUntil ? 0 : trimDelay);
       }
 
       function preloadWindow(index, direction = lastScrollDirection) {
         const targetIndex = normalizeIndex(index);
-        getPreloadIndexes(targetIndex, direction).forEach((candidate) => {
-          ensurePlayer(candidate, circularDistance(candidate, targetIndex) <= 2 ? "near" : "warm");
-        });
+        const runId = ++preloadRunId;
+        const preloadIndexes = getPreloadIndexes(targetIndex, direction);
+        const immediateIndex = activeShortFilter === "all"
+          ? targetIndex
+          : getNearestNavigableIndex(targetIndex, direction);
+
+        window.clearTimeout(preloadTimer);
+        ensurePlayer(immediateIndex, immediateIndex === activeIndex ? "active" : "near");
         scheduleTrim(targetIndex, direction);
+
+        if (Date.now() < fastScrollingUntil) return;
+
+        preloadTimer = window.setTimeout(() => {
+          if (runId !== preloadRunId || Date.now() < fastScrollingUntil) return;
+
+          preloadIndexes
+            .filter((candidate) => candidate !== immediateIndex)
+            .slice(0, compactShortFeed ? 1 : 2)
+            .forEach((candidate) => ensurePlayer(candidate, "warm"));
+          scheduleTrim(targetIndex, direction);
+        }, preloadDelay);
       }
 
       async function requestFullscreenFor(element) {
@@ -8186,10 +8265,31 @@
         if (!request) return false;
 
         try {
-          await request.call(element);
+          if (element.requestFullscreen) {
+            await element.requestFullscreen({ navigationUI: "hide" });
+          } else {
+            await request.call(element);
+          }
           return true;
         } catch {
           return false;
+        }
+      }
+
+      function lockPortraitIfPossible() {
+        try {
+          const lock = screen.orientation?.lock?.("portrait");
+          if (lock?.catch) lock.catch(() => {});
+        } catch {
+          // Orientation locking is optional; the 9:16 layout still stays vertical.
+        }
+      }
+
+      function unlockPortraitIfPossible() {
+        try {
+          screen.orientation?.unlock?.();
+        } catch {
+          // Some browsers do not expose orientation unlock.
         }
       }
 
@@ -8211,10 +8311,17 @@
       function syncShortFullscreenState() {
         const active = isShortFeedFullscreen();
         document.body.classList.toggle("short-feed-locked", active);
-        if (!active) feed.classList.remove("is-mobile-portrait-fullscreen");
+        if (!active) {
+          feed.classList.remove("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
+          unlockPortraitIfPossible();
+        }
         updateFullscreenButtons();
 
         if (active) {
+          if (compactShortFeed) {
+            feed.classList.add("is-mobile-portrait-fullscreen");
+            lockPortraitIfPossible();
+          }
           window.requestAnimationFrame(() => {
             scrollToShort(activeIndex, "auto");
             feed.focus({ preventScroll: true });
@@ -8224,16 +8331,19 @@
       }
 
       async function exitShortFullscreen() {
-        if (feed.classList.contains("is-feed-fullscreen")) {
-          feed.classList.remove("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
-          syncShortFullscreenState();
-          return;
-        }
+        const nativeFullscreen = document.fullscreenElement === feed || document.webkitFullscreenElement === feed;
 
         if (document.fullscreenElement === feed && document.exitFullscreen) {
           await document.exitFullscreen();
         } else if (document.webkitFullscreenElement === feed && document.webkitExitFullscreen) {
           document.webkitExitFullscreen();
+        }
+
+        if (!nativeFullscreen || feed.classList.contains("is-feed-fullscreen")) {
+          feed.classList.remove("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
+          syncShortFullscreenState();
+        } else {
+          window.setTimeout(syncShortFullscreenState, 120);
         }
       }
 
@@ -8250,18 +8360,14 @@
         ensurePlayer(activeIndex);
         feed.setAttribute("tabindex", "-1");
 
-        if (compactShortFeed) {
-          feed.classList.add("is-feed-fullscreen", "is-mobile-portrait-fullscreen");
-          syncShortFullscreenState();
-          return;
-        }
-
         const openedFeed = await requestFullscreenFor(feed);
 
         if (!openedFeed) {
           feed.classList.add("is-feed-fullscreen");
+          if (compactShortFeed) feed.classList.add("is-mobile-portrait-fullscreen");
           syncShortFullscreenState();
         } else {
+          if (compactShortFeed) feed.classList.add("is-mobile-portrait-fullscreen");
           syncShortFullscreenState();
         }
       }
@@ -8322,7 +8428,7 @@
         scrollToShort(targetIndex, prefersReducedMotion ? "auto" : "smooth");
         window.setTimeout(() => {
           scrollStepLocked = false;
-        }, compactShortFeed ? 460 : 390);
+        }, scrollStepDelay);
       }
 
       function setActive(index) {
@@ -8373,10 +8479,19 @@
 
         const currentTop = feed.scrollTop;
         const delta = currentTop - lastScrollTop;
+        const fastDelta = Math.abs(delta) > Math.max(80, feed.clientHeight * 0.38);
         if (Math.abs(delta) > 2) {
           lastScrollDirection = delta > 0 ? 1 : -1;
         }
         lastScrollTop = currentTop;
+
+        if (fastDelta) {
+          fastScrollingUntil = Date.now() + 260;
+          const nearestIndex = getNearestScrollIndex();
+          ensurePlayer(nearestIndex, "active");
+          scheduleTrim(nearestIndex, lastScrollDirection);
+          return;
+        }
 
         preloadWindow(getNearestScrollIndex(), lastScrollDirection);
       }
@@ -8464,6 +8579,15 @@
         });
       });
 
+      feed.querySelectorAll(".short-gesture-layer").forEach((layer) => {
+        layer.addEventListener("click", (event) => {
+          if (!isShortFeedFullscreen()) return;
+          event.preventDefault();
+          const slide = layer.closest(".short-slide");
+          toggleSlidePlayback(Number(slide?.dataset.index) || activeIndex);
+        });
+      });
+
       feed.addEventListener("scroll", scheduleScrollWarmup, { passive: true });
 
       feed.addEventListener("wheel", (event) => {
@@ -8473,12 +8597,6 @@
             event.preventDefault();
             stepShort(direction);
           }
-          return;
-        }
-
-        if (!compactShortFeed && Math.abs(event.deltaY) > 18 && direction) {
-          event.preventDefault();
-          stepShort(direction);
           return;
         }
 
@@ -8576,6 +8694,11 @@
 
         const directState = data?.event === "onStateChange" ? data.info : undefined;
         const deliveryState = data?.event === "infoDelivery" ? data.info?.playerState : undefined;
+        const playerState = directState ?? deliveryState;
+        const owningSlide = iframe.closest(".short-slide");
+        if (typeof playerState === "number" && owningSlide) {
+          owningSlide.dataset.playerState = String(playerState);
+        }
         const ended = directState === 0 || deliveryState === 0;
         if (ended && Number(iframe.closest(".short-slide")?.dataset.index) === activeIndex) {
           markLessonCompleted(activeIndex);
@@ -8701,16 +8824,40 @@
         const button = document.createElement("button");
 
         button.type = "button";
-        button.className = "video-thumb";
+        button.className = "video-thumb is-thumb-loading";
         button.setAttribute("aria-label", `Play ${title}`);
         if (videoId) {
-          button.style.backgroundImage = `url("https://i.ytimg.com/vi/${videoId}/hqdefault.jpg")`;
+          button.dataset.thumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
         }
         button.innerHTML = '<span class="play-mark" aria-hidden="true"></span>';
         button.addEventListener("click", () => openVideo(src, title, isShort, button));
 
         iframe.parentElement.replaceChildren(button);
       });
+
+      const loadThumbnail = (button) => {
+        if (!button?.dataset.thumbnail) return;
+        button.style.backgroundImage = `url("${button.dataset.thumbnail}")`;
+        button.classList.remove("is-thumb-loading");
+        delete button.dataset.thumbnail;
+      };
+
+      const thumbs = [...document.querySelectorAll(".video-thumb")];
+      if ("IntersectionObserver" in window) {
+        const thumbObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            loadThumbnail(entry.target);
+            thumbObserver.unobserve(entry.target);
+          });
+        }, {
+          rootMargin: "700px 0px"
+        });
+
+        thumbs.forEach((button) => thumbObserver.observe(button));
+      } else {
+        thumbs.forEach(loadThumbnail);
+      }
 
       closeButton.addEventListener("click", closeVideo);
       modal.addEventListener("click", (event) => {
