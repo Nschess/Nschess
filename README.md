@@ -520,6 +520,175 @@
       padding: 20px;
     }
 
+    .gentle-start {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.25fr);
+      gap: 20px;
+      margin: 0 0 26px;
+      padding: 22px;
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(127, 166, 80, 0.16), rgba(111, 168, 220, 0.09)),
+        var(--panel);
+      box-shadow: 0 20px 46px rgba(0, 0, 0, 0.18);
+    }
+
+    .gentle-copy h3,
+    .gentle-output h4 {
+      margin-bottom: 10px;
+      font-size: 1.34rem;
+      line-height: 1.18;
+    }
+
+    .gentle-copy p,
+    .gentle-output p {
+      color: var(--muted);
+    }
+
+    .gentle-badges,
+    .gentle-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .gentle-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 248, 237, 0.13);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .gentle-checklist {
+      display: grid;
+      gap: 9px;
+      margin: 16px 0 18px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .gentle-checklist li {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .gentle-checklist span {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.15);
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .gentle-coach {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .gentle-form {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .gentle-form label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 900;
+    }
+
+    .gentle-form select {
+      min-height: 42px;
+      padding: 0 11px;
+      border: 1px solid rgba(255, 248, 237, 0.15);
+      border-radius: 7px;
+      background: #211d1a;
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .gentle-output {
+      display: grid;
+      gap: 12px;
+      min-height: 220px;
+      padding: 16px;
+      border: 1px solid rgba(127, 166, 80, 0.2);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.08);
+    }
+
+    .gentle-task-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .gentle-task {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 58px;
+      padding: 10px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .gentle-task input {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--green);
+    }
+
+    .gentle-task.is-done {
+      border-color: rgba(127, 166, 80, 0.34);
+      background: rgba(127, 166, 80, 0.12);
+    }
+
+    .gentle-task strong,
+    .gentle-task small {
+      display: block;
+    }
+
+    .gentle-task small {
+      margin-top: 3px;
+      color: var(--muted);
+      line-height: 1.42;
+    }
+
+    .gentle-time {
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
     .lesson-number {
       display: grid;
       place-items: center;
@@ -2349,6 +2518,16 @@
       margin-bottom: 16px;
     }
 
+    .daily-puzzle-badge {
+      background: rgba(231, 182, 93, 0.22);
+      color: #704d13;
+    }
+
+    .puzzle-plan-selector {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -2852,11 +3031,16 @@
       .adventure-play,
       .puzzle-shell,
       .book-detail-grid,
-      .study-plan {
+      .study-plan,
+      .gentle-start {
         grid-template-columns: 1fr;
       }
 
       .weekly-roadmap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gentle-form {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -3038,13 +3222,23 @@
       .trainer-form,
       .trainer-summary,
       .trainer-check-grid,
-      .training-task {
+      .training-task,
+      .gentle-form,
+      .gentle-task {
         grid-template-columns: 1fr;
       }
 
       .trainer-head {
         display: grid;
         align-items: start;
+      }
+
+      .gentle-start {
+        padding: 16px;
+      }
+
+      .gentle-task .button {
+        width: 100%;
       }
 
       .training-time {
@@ -3342,6 +3536,60 @@
           </div>
           <p class="section-intro">Each path builds one practical layer at a time: first the board, then tactics, then strategic decisions that hold up in real games.</p>
         </div>
+
+        <aside class="gentle-start" id="gentleStart" aria-labelledby="gentleStartTitle">
+          <div class="gentle-copy">
+            <div class="gentle-badges" aria-label="Beginner friendly promises">
+              <span class="gentle-badge">No pressure</span>
+              <span class="gentle-badge">Tiny wins</span>
+              <span class="gentle-badge">Fun first</span>
+            </div>
+            <h3 id="gentleStartTitle">Gentle Start Coach</h3>
+            <p>New players do not need to study everything at once. Pick your mood, get a tiny quest, and stop when you finish it. A good day can be just one clear idea.</p>
+            <ul class="gentle-checklist">
+              <li><span>1</span><strong>Learn one idea, not ten.</strong></li>
+              <li><span>2</span><strong>Play or solve once to feel it.</strong></li>
+              <li><span>3</span><strong>Celebrate the mistake you understood.</strong></li>
+            </ul>
+            <div class="gentle-actions">
+              <a class="button secondary" href="#adventures">Try Adventures</a>
+              <a class="button secondary" href="#puzzles">Solve One Puzzle</a>
+            </div>
+          </div>
+
+          <div class="gentle-coach">
+            <form class="gentle-form" id="gentleStartForm">
+              <label for="gentleMood">
+                Today I feel
+                <select id="gentleMood" name="gentleMood">
+                  <option value="new">Brand new</option>
+                  <option value="blunders">I keep losing pieces</option>
+                  <option value="fun">I want a fun challenge</option>
+                  <option value="opening">Openings confuse me</option>
+                </select>
+              </label>
+              <label for="gentleMinutes">
+                Time
+                <select id="gentleMinutes" name="gentleMinutes">
+                  <option value="8">8 minutes</option>
+                  <option value="12" selected>12 minutes</option>
+                  <option value="18">18 minutes</option>
+                  <option value="25">25 minutes</option>
+                </select>
+              </label>
+              <label for="gentleEnergy">
+                Energy
+                <select id="gentleEnergy" name="gentleEnergy">
+                  <option value="calm">Calm</option>
+                  <option value="normal" selected>Normal</option>
+                  <option value="spark">Excited</option>
+                </select>
+              </label>
+              <button class="button" type="submit">Make Mini Quest</button>
+            </form>
+            <div class="gentle-output" id="gentleQuestOutput" aria-live="polite"></div>
+          </div>
+        </aside>
 
         <div class="path-tabs" role="tablist" aria-label="Lesson levels">
           <button class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="beginner" id="tab-beginner" data-level="beginner">Beginner</button>
@@ -4634,6 +4882,13 @@
             <div class="puzzle-meta">
               <span class="badge" id="puzzleLevel">Beginner</span>
               <span class="badge" id="puzzleSide">White to move</span>
+              <span class="badge daily-puzzle-badge" id="dailyPuzzleBadge">Today</span>
+            </div>
+            <div class="mission-selector puzzle-plan-selector" role="group" aria-label="Study plan puzzle track">
+              <button class="mission-button" type="button" data-puzzle-plan="all" aria-pressed="true">All</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Beginner" aria-pressed="false">Beginner</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Intermediate" aria-pressed="false">Intermediate</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Advanced" aria-pressed="false">Advanced</button>
             </div>
             <div class="puzzle-stats" aria-label="Puzzle progress">
               <div class="stat-pill">
@@ -4658,6 +4913,7 @@
             <div class="answers" id="answers"></div>
             <p class="feedback" id="feedback">Choose the strongest move.</p>
             <div class="puzzle-actions">
+              <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
               <button class="button secondary" type="button" id="hintPuzzle">Hint</button>
               <button class="button secondary" type="button" id="revealPuzzle">Reveal</button>
               <button class="button" type="button" id="nextPuzzle">Next Puzzle</button>
@@ -5045,6 +5301,291 @@
           { move: "Kd4", correct: false }
         ],
         feedback: "e4+ works because the white king protects e4. The pawn checks the black king and gains space for the endgame."
+      },
+      {
+        level: "Beginner",
+        side: "White to move",
+        title: "Scholar's finish",
+        prompt: "The queen and bishop are aimed at f7. Which move is checkmate?",
+        fen: "rnb1kbnr/pppp1ppp/8/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR",
+        targets: ["f7"],
+        hint: "The bishop on c4 protects the queen when she lands beside the king.",
+        answers: [
+          { move: "Qxf7#", correct: true },
+          { move: "Qxf7+", correct: false },
+          { move: "Bb5", correct: false }
+        ],
+        feedback: "Qxf7# works because the queen attacks the king and the bishop protects f7."
+      },
+      {
+        level: "Beginner",
+        side: "White to move",
+        title: "Rook lift mate",
+        prompt: "Black's king has no safe square. Find the clean mate.",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/R5K1",
+        targets: ["a8"],
+        hint: "Use the rook to attack along the back rank.",
+        answers: [
+          { move: "Ra8#", correct: true },
+          { move: "Kf2", correct: false },
+          { move: "Ra7", correct: false }
+        ],
+        feedback: "Ra8# traps the king on g8. The rook controls the rank and the pawns block escape."
+      },
+      {
+        level: "Intermediate",
+        side: "Black to move",
+        title: "Queen and bishop battery",
+        prompt: "White's king is exposed on g1. Which queen move ends it?",
+        fen: "6k1/5ppp/8/2b5/8/6q1/5PPP/6K1",
+        targets: ["f2"],
+        hint: "The bishop guards f2, so the queen can move there with force.",
+        answers: [
+          { move: "Qxf2#", correct: true },
+          { move: "Qg4", correct: false },
+          { move: "Bxf2+", correct: false }
+        ],
+        feedback: "Qxf2# is mate because the bishop on c5 protects the queen and the king has no capture or flight square."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Remove the defender",
+        prompt: "The knight is pinned and the king is boxed in. Which capture finishes the attack?",
+        fen: "6k1/5ppp/8/8/2B5/5Q2/5PPP/6K1",
+        targets: ["f7"],
+        hint: "The queen can capture on f7 with bishop support.",
+        answers: [
+          { move: "Qxf7#", correct: true },
+          { move: "Bxf7+", correct: false },
+          { move: "Qd5", correct: false }
+        ],
+        feedback: "Qxf7# combines queen pressure with bishop protection. Black cannot take the queen or escape."
+      },
+      {
+        level: "Advanced",
+        side: "White to move",
+        title: "Quiet back-rank killer",
+        prompt: "The direct check is available, but only one rook move is mate.",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1",
+        targets: ["e8"],
+        hint: "Put the rook on the back rank where it cuts every escape.",
+        answers: [
+          { move: "Re8#", correct: true },
+          { move: "Re7", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Re8# controls the eighth rank while Black's own pawns trap the king."
+      },
+      {
+        level: "Advanced",
+        side: "Black to move",
+        title: "Corner net",
+        prompt: "White's king is stuck in the corner. Find the forcing queen move.",
+        fen: "6k1/5ppp/8/8/8/8/5qPP/7K",
+        targets: ["f1"],
+        hint: "The queen can attack from f1 and cover the escape squares.",
+        answers: [
+          { move: "Qf1#", correct: true },
+          { move: "Qxg2+", correct: false },
+          { move: "Qe1+", correct: false }
+        ],
+        feedback: "Qf1# seals the corner. The king cannot capture the queen or move away from check."
+      },
+      {
+        level: "Beginner",
+        side: "White to move",
+        title: "Loose queen",
+        prompt: "A black queen is undefended. Which move wins it with check?",
+        fen: "4k3/8/8/8/8/8/4q3/4R1K1",
+        targets: ["e2"],
+        hint: "Use the rook on the open file.",
+        answers: [
+          { move: "Rxe2+", correct: true },
+          { move: "Re8+", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rxe2+ removes the hanging queen and keeps the move forcing with check."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Fork warm-up",
+        prompt: "The knight can check the king and attack the queen.",
+        fen: "4k3/8/5N2/7q/8/8/8/4K3",
+        targets: ["g8"],
+        hint: "Look for a knight check that also points at h6 or h4.",
+        answers: [
+          { move: "Ng8+", correct: true },
+          { move: "Nd7", correct: false },
+          { move: "Nh7", correct: false }
+        ],
+        feedback: "Ng8+ checks the king first. After the king moves, White can collect the queen."
+      },
+      {
+        level: "Intermediate",
+        side: "Black to move",
+        title: "Pinned defender",
+        prompt: "White's queen is tied to king safety. Find the forcing capture.",
+        fen: "6k1/5ppp/8/2b5/8/5q2/5QPP/6K1",
+        targets: ["f2"],
+        hint: "The bishop and queen are already working on the same square.",
+        answers: [
+          { move: "Qxf2+", correct: true },
+          { move: "Qg4", correct: false },
+          { move: "Bxf2+", correct: false }
+        ],
+        feedback: "Qxf2+ removes the defender and keeps White's king under direct pressure."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Candidate checks",
+        prompt: "Use checks, captures, and threats. Which check wins the queen?",
+        fen: "4k3/3q1ppp/5N2/1B6/8/8/5PPP/6K1",
+        targets: ["d7"],
+        hint: "The bishop can take the queen because the knight protects the landing square.",
+        answers: [
+          { move: "Bxd7+", correct: true },
+          { move: "Nxd7", correct: false },
+          { move: "Bf1", correct: false }
+        ],
+        feedback: "Bxd7+ is the forcing candidate: it wins the queen and checks the king."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Back-rank theme",
+        prompt: "The king is boxed in by pawns. Which rook move uses the open file?",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1",
+        targets: ["e8"],
+        hint: "Move the rook to the eighth rank.",
+        answers: [
+          { move: "Re8#", correct: true },
+          { move: "Re7", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Re8# turns the open file into a mating net."
+      },
+      {
+        level: "Intermediate",
+        side: "Black to move",
+        title: "Battery strike",
+        prompt: "The bishop guards the target. Which queen capture is strongest?",
+        fen: "6k1/5ppp/8/2b5/8/6q1/5PPP/5RK1",
+        targets: ["f2"],
+        hint: "Capture the defender next to the king.",
+        answers: [
+          { move: "Qxf2+", correct: true },
+          { move: "Qg4", correct: false },
+          { move: "Bxf2+", correct: false }
+        ],
+        feedback: "Qxf2+ uses the bishop's protection and forces White to answer the attack."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Hanging piece check",
+        prompt: "A loose piece can be taken with tempo. Find the forcing capture.",
+        fen: "4k3/8/8/8/4b3/8/8/4R1K1",
+        targets: ["e4"],
+        hint: "Use the rook to take the loose bishop.",
+        answers: [
+          { move: "Rxe4+", correct: true },
+          { move: "Re8+", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rxe4+ wins material while keeping the initiative."
+      },
+      {
+        level: "Intermediate",
+        side: "White to move",
+        title: "Threat first",
+        prompt: "Choose the move that creates a direct mate threat.",
+        fen: "6k1/5ppp/8/8/2B5/5Q2/5PPP/6K1",
+        targets: ["a8"],
+        hint: "The queen can join the bishop on a long diagonal.",
+        answers: [
+          { move: "Qa8+", correct: true },
+          { move: "Qxf7+", correct: false },
+          { move: "Bc4", correct: false }
+        ],
+        feedback: "Qa8+ uses the diagonal battery and forces Black to solve an immediate king problem."
+      },
+      {
+        level: "Intermediate",
+        side: "Black to move",
+        title: "Count the guards",
+        prompt: "White's f-pawn is pinned. Which capture keeps the attack alive?",
+        fen: "6k1/5ppp/8/2b5/8/5q2/5PPP/4R1K1",
+        targets: ["f2"],
+        hint: "The queen can capture because the bishop controls f2.",
+        answers: [
+          { move: "Qxf2+", correct: true },
+          { move: "Bxf2+", correct: false },
+          { move: "Qg4", correct: false }
+        ],
+        feedback: "Qxf2+ works because the target is guarded and the king has to respond."
+      },
+      {
+        level: "Advanced",
+        side: "White to move",
+        title: "Deep back-rank check",
+        prompt: "Compare candidate rook checks. Which one gives Black no useful defense?",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/2R3K1",
+        targets: ["c8"],
+        hint: "Use the farthest back-rank square available to the rook.",
+        answers: [
+          { move: "Rc8#", correct: true },
+          { move: "Rc7", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rc8# cuts the whole rank and leaves the boxed-in king with no escape."
+      },
+      {
+        level: "Advanced",
+        side: "Black to move",
+        title: "Deflection finish",
+        prompt: "White's rook is the only defender. Which queen move overloads it?",
+        fen: "6k1/5ppp/8/2b5/8/5q2/5PPP/4R1K1",
+        targets: ["f2"],
+        hint: "Force the king to face a protected queen capture.",
+        answers: [
+          { move: "Qxf2+", correct: true },
+          { move: "Bxf2+", correct: false },
+          { move: "Qg4", correct: false }
+        ],
+        feedback: "Qxf2+ deflects the defense because the queen is protected and the check is forcing."
+      },
+      {
+        level: "Advanced",
+        side: "White to move",
+        title: "Promotion race",
+        prompt: "Use the king's support to make the pawn break decisive.",
+        fen: "8/4k3/8/3P4/3K4/8/8/8",
+        targets: ["d6"],
+        hint: "Advance with check and force the king backward.",
+        answers: [
+          { move: "d6+", correct: true },
+          { move: "Kc5", correct: false },
+          { move: "Ke4", correct: false }
+        ],
+        feedback: "d6+ gains a tempo in the pawn race and pushes the defender away."
+      },
+      {
+        level: "Advanced",
+        side: "White to move",
+        title: "Calculate before capture",
+        prompt: "The tempting capture is not enough. Which forcing move starts the finish?",
+        fen: "6k1/5ppp/8/8/2B5/5Q2/5PPP/4R1K1",
+        targets: ["e8"],
+        hint: "Start with the rook check, then the bishop and queen cover escape squares.",
+        answers: [
+          { move: "Re8+", correct: true },
+          { move: "Qxf7+", correct: false },
+          { move: "Bxf7+", correct: false }
+        ],
+        feedback: "Re8+ is the strongest forcing candidate because it limits the king before any capture."
       }
     ];
 
@@ -6186,10 +6727,18 @@
       return [...new Set(tags)].slice(0, 3);
     }
 
-    let currentPuzzle = 0;
+    const puzzleStorageKey = "checkmateQuest.puzzles.v1";
+    const puzzlePlanLevels = ["Beginner", "Intermediate", "Advanced"];
+    const savedPuzzleState = readPuzzleState();
+    let currentPuzzle = Math.max(0, Math.min(puzzles.length - 1, Number(savedPuzzleState.currentPuzzle) || 0));
+    let activePuzzlePlan = puzzlePlanLevels.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
+    if (activePuzzlePlan !== "all" && puzzles[currentPuzzle]?.level !== activePuzzlePlan) {
+      currentPuzzle = puzzles.findIndex((puzzle) => puzzle.level === activePuzzlePlan);
+      if (currentPuzzle < 0) currentPuzzle = 0;
+    }
     let activeAnswered = false;
-    let streak = 0;
-    const solvedPuzzles = new Set();
+    let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
+    const solvedPuzzles = new Set((savedPuzzleState.solved || []).map(Number).filter((index) => index >= 0 && index < puzzles.length));
     let currentAdventure = 0;
     let selectedAdventureSquare = "";
     let adventureBoardState = [];
@@ -6203,6 +6752,7 @@
     const bookReaderStorageKey = "checkmateQuest.bookReader.v1";
     const customBooksStorageKey = "checkmateQuest.localBooks.v1";
     const dailyTrainingStorageKey = "checkmateQuest.dailyTraining.v1";
+    const gentleStartStorageKey = "checkmateQuest.gentleStart.v1";
     let activeBookLevel = "all";
     let activeBookCategory = "all";
     let activeReaderBookId = "";
@@ -6367,11 +6917,75 @@
       });
     }
 
+    function getActivePuzzleIndexes() {
+      return puzzles
+        .map((puzzle, index) => activePuzzlePlan === "all" || puzzle.level === activePuzzlePlan ? index : -1)
+        .filter((index) => index >= 0);
+    }
+
+    function getNextPuzzleIndex(direction = 1) {
+      const indexes = getActivePuzzleIndexes();
+      const currentPosition = Math.max(0, indexes.indexOf(currentPuzzle));
+      if (!indexes.length) return 0;
+
+      return indexes[(currentPosition + direction + indexes.length) % indexes.length];
+    }
+
+    function renderPuzzlePlanButtons() {
+      document.querySelectorAll("[data-puzzle-plan]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.puzzlePlan === activePuzzlePlan));
+      });
+    }
+
+    function setPuzzlePlan(plan) {
+      activePuzzlePlan = puzzlePlanLevels.includes(plan) ? plan : "all";
+      const indexes = getActivePuzzleIndexes();
+      if (!indexes.includes(currentPuzzle)) {
+        currentPuzzle = indexes.find((index) => !solvedPuzzles.has(index)) ?? indexes[0] ?? 0;
+      }
+      renderPuzzle();
+    }
+
     function updatePuzzleStats() {
-      document.getElementById("puzzleCounter").textContent = `${currentPuzzle + 1} / ${puzzles.length}`;
-      document.getElementById("puzzleSolved").textContent = solvedPuzzles.size;
+      const indexes = getActivePuzzleIndexes();
+      const solvedInPlan = indexes.filter((index) => solvedPuzzles.has(index)).length;
+      const total = indexes.length || puzzles.length;
+      const currentPosition = Math.max(0, indexes.indexOf(currentPuzzle));
+
+      document.getElementById("puzzleCounter").textContent = `${currentPosition + 1} / ${total}`;
+      document.getElementById("puzzleSolved").textContent = activePuzzlePlan === "all" ? solvedPuzzles.size : solvedInPlan;
       document.getElementById("puzzleStreak").textContent = streak;
-      document.getElementById("puzzleProgress").style.width = `${(solvedPuzzles.size / puzzles.length) * 100}%`;
+      document.getElementById("puzzleProgress").style.width = `${((activePuzzlePlan === "all" ? solvedPuzzles.size : solvedInPlan) / total) * 100}%`;
+      renderPuzzlePlanButtons();
+      savePuzzleState();
+    }
+
+    function readPuzzleState() {
+      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0 };
+      const state = readJsonStorage(puzzleStorageKey, fallback);
+      return state && typeof state === "object" ? { ...fallback, ...state } : fallback;
+    }
+
+    function savePuzzleState() {
+      writeJsonStorage(puzzleStorageKey, {
+        activePlan: activePuzzlePlan,
+        currentPuzzle,
+        solved: [...solvedPuzzles],
+        streak
+      });
+    }
+
+    function getDailyPuzzleIndex() {
+      const today = new Date();
+      const key = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+      return Math.floor(key / 86400000) % puzzles.length;
+    }
+
+    function renderDailyPuzzleMeta() {
+      const badge = document.getElementById("dailyPuzzleBadge");
+      if (!badge) return;
+
+      badge.textContent = currentPuzzle === getDailyPuzzleIndex() ? "Today's puzzle" : "Practice puzzle";
     }
 
     function lockAnswers(selectedButton, selectedWasCorrect) {
@@ -6411,6 +7025,11 @@
     }
 
     function renderPuzzle() {
+      const indexes = getActivePuzzleIndexes();
+      if (indexes.length && !indexes.includes(currentPuzzle)) {
+        currentPuzzle = indexes[0];
+      }
+
       const puzzle = puzzles[currentPuzzle];
       const board = document.getElementById("puzzleBoard");
       const answers = document.getElementById("answers");
@@ -6429,6 +7048,7 @@
       document.getElementById("hintPuzzle").disabled = false;
       document.getElementById("revealPuzzle").disabled = false;
       updatePuzzleStats();
+      renderDailyPuzzleMeta();
 
       board.innerHTML = "";
       squares.forEach((piece, index) => {
@@ -6997,6 +7617,187 @@
       if (className) element.className = className;
       element.textContent = text;
       return element;
+    }
+
+    function readGentleStartState() {
+      const fallback = {
+        date: getTodayKey(),
+        mood: "new",
+        minutes: 12,
+        energy: "normal",
+        completed: []
+      };
+      const saved = readJsonStorage(gentleStartStorageKey, fallback);
+      const state = saved && typeof saved === "object" ? saved : {};
+      const nextState = {
+        ...fallback,
+        ...state,
+        minutes: Number(state.minutes) || fallback.minutes,
+        completed: Array.isArray(state.completed) ? state.completed : []
+      };
+
+      if (nextState.date !== fallback.date) {
+        nextState.date = fallback.date;
+        nextState.completed = [];
+      }
+
+      return nextState;
+    }
+
+    function saveGentleStartState(partial) {
+      writeJsonStorage(gentleStartStorageKey, {
+        ...readGentleStartState(),
+        ...partial
+      });
+    }
+
+    function buildGentleQuest(state) {
+      const minutes = Math.max(8, Math.min(25, Number(state.minutes) || 12));
+      const warmup = minutes <= 8 ? 2 : 3;
+      const learn = minutes <= 12 ? 4 : minutes <= 18 ? 6 : 8;
+      const play = Math.max(2, minutes - warmup - learn);
+      const moodPlans = {
+        new: {
+          title: "First move confidence",
+          note: "Today is only about recognizing the board and making one legal move feel easy.",
+          tasks: [
+            ["Board hello", "Open Rules and read piece movement slowly.", "#rules", "Rules"],
+            ["Character move", "Try one Adventure mission and notice the piece pattern.", "#adventures", "Adventures"],
+            ["Tiny finish", "Solve one beginner puzzle or just read the hint.", "#puzzles", "Puzzle"]
+          ]
+        },
+        blunders: {
+          title: "Stop one hanging piece",
+          note: "You do not need perfect chess. Just catch one piece before it gets lost.",
+          tasks: [
+            ["Blunder check", "Before each move ask: is my king safe, is my piece attacked, what do they threaten?", "#rules", "Safety"],
+            ["Pattern pop", "Solve one fork or hanging-piece puzzle.", "#puzzles", "Puzzle"],
+            ["One sentence", "Write the mistake you understood in Notation.", "#notation", "Review"]
+          ]
+        },
+        fun: {
+          title: "Fun challenge sprint",
+          note: "Keep it playful. Short, bright, and done before it feels heavy.",
+          tasks: [
+            ["Watch one spark", "Open Shorts and watch one quick idea.", "#shorts", "Shorts"],
+            ["Play the mission", "Try an Adventure like a story level.", "#adventures", "Adventure"],
+            ["Finish happy", "Mark one thing you can now recognize faster.", "#plan", "Plan"]
+          ]
+        },
+        opening: {
+          title: "Opening without memorizing",
+          note: "The goal is not long lines. The goal is knowing what your pieces are trying to do.",
+          tasks: [
+            ["One rule", "Read one opening card and say the plan out loud.", "#openings", "Openings"],
+            ["One clip", "Watch one beginner opening video or Short.", "#videos", "Video"],
+            ["One game idea", "Play with only three goals: center, pieces, castle.", "#plan", "Plan"]
+          ]
+        }
+      };
+      const energyNotes = {
+        calm: "Use calm mode: pause often and stop as soon as the idea is clear.",
+        normal: "Use steady mode: finish the three steps, then take the win.",
+        spark: "Use spark mode: add one extra puzzle only if you still feel fresh."
+      };
+      const plan = moodPlans[state.mood] || moodPlans.new;
+      const times = [warmup, learn, play];
+
+      return {
+        ...plan,
+        energyNote: energyNotes[state.energy] || energyNotes.normal,
+        tasks: plan.tasks.map(([title, detail, href, cta], index) => ({
+          key: `${state.mood}-${index}`,
+          title,
+          detail,
+          href,
+          cta,
+          minutes: times[index]
+        }))
+      };
+    }
+
+    function syncGentleStartForm(state) {
+      const mood = document.getElementById("gentleMood");
+      const minutes = document.getElementById("gentleMinutes");
+      const energy = document.getElementById("gentleEnergy");
+      if (!mood || !minutes || !energy) return;
+
+      mood.value = state.mood;
+      minutes.value = String(state.minutes);
+      energy.value = state.energy;
+    }
+
+    function renderGentleStart() {
+      const output = document.getElementById("gentleQuestOutput");
+      if (!output) return;
+
+      const state = readGentleStartState();
+      const quest = buildGentleQuest(state);
+      const completed = new Set(state.completed || []);
+      output.innerHTML = "";
+
+      const heading = createBookText("h4", "", quest.title);
+      const note = createBookText("p", "", `${quest.note} ${quest.energyNote}`);
+      const list = document.createElement("ul");
+      const doneCount = quest.tasks.filter((task) => completed.has(task.key)).length;
+      const progress = createBookText("p", "trainer-note", `${doneCount}/${quest.tasks.length} tiny wins finished today. No rush.`);
+
+      list.className = "gentle-task-list";
+      quest.tasks.forEach((task) => {
+        const item = document.createElement("li");
+        const checkbox = document.createElement("input");
+        const copy = document.createElement("div");
+        const title = createBookText("strong", "", task.title);
+        const detail = createBookText("small", "", task.detail);
+        const link = document.createElement("a");
+        const time = createBookText("span", "gentle-time", `${task.minutes} min`);
+        const isDone = completed.has(task.key);
+
+        item.className = `gentle-task${isDone ? " is-done" : ""}`;
+        checkbox.type = "checkbox";
+        checkbox.checked = isDone;
+        checkbox.setAttribute("aria-label", `Mark ${task.title} done`);
+        checkbox.addEventListener("change", () => {
+          const nextState = readGentleStartState();
+          const nextCompleted = new Set(nextState.completed || []);
+          if (checkbox.checked) {
+            nextCompleted.add(task.key);
+          } else {
+            nextCompleted.delete(task.key);
+          }
+          saveGentleStartState({ completed: [...nextCompleted] });
+          renderGentleStart();
+        });
+
+        link.className = "button secondary";
+        link.href = task.href;
+        link.textContent = task.cta;
+        copy.append(title, detail);
+        item.append(checkbox, copy, time, link);
+        list.appendChild(item);
+      });
+
+      output.append(heading, note, list, progress);
+    }
+
+    function setupGentleStart() {
+      const form = document.getElementById("gentleStartForm");
+      if (!form) return;
+
+      syncGentleStartForm(readGentleStartState());
+      renderGentleStart();
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        saveGentleStartState({
+          date: getTodayKey(),
+          mood: document.getElementById("gentleMood").value,
+          minutes: Number(document.getElementById("gentleMinutes").value) || 12,
+          energy: document.getElementById("gentleEnergy").value,
+          completed: []
+        });
+        renderGentleStart();
+      });
     }
 
     function createBookTopicList(topics) {
@@ -7808,6 +8609,7 @@
       let playerLoadSeq = 0;
       let fastScrollingUntil = 0;
       let activeShortFilter = "all";
+      let activeShortLevelFilter = "";
       const compactShortFeed = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const maxLoadedPlayers = compactShortFeed ? 4 : 5;
@@ -7837,8 +8639,16 @@
         return feed.querySelectorAll(".short-frame iframe").length;
       }
 
+      function hasActiveShortFilter() {
+        return activeShortFilter !== "all" || Boolean(activeShortLevelFilter);
+      }
+
       function slideMatchesFilter(slide) {
-        return activeShortFilter === "all" || slide.dataset.creator === activeShortFilter;
+        if (activeShortFilter !== "all") {
+          return slide.dataset.creator === activeShortFilter;
+        }
+
+        return !activeShortLevelFilter || slide.dataset.level === activeShortLevelFilter;
       }
 
       function getNavigableIndexes() {
@@ -7914,7 +8724,7 @@
         url.searchParams.set("controls", "1");
         url.searchParams.set("fs", "0");
         url.searchParams.set("autoplay", "1");
-        url.searchParams.set("mute", shortsMuted ? "1" : "0");
+        url.searchParams.set("mute", "1");
 
         if (window.location.origin && window.location.origin !== "null") {
           url.searchParams.set("origin", window.location.origin);
@@ -7952,28 +8762,31 @@
         if (volumeRange) volumeRange.setAttribute("aria-valuetext", `${shortsVolume}%`);
       }
 
-      function applySoundPreference(iframe) {
+      function applySoundPreference(iframe, shouldUnmute = false) {
         if (!iframe) return;
 
         postPlayerCommand(iframe, "setVolume", [shortsVolume]);
-        postPlayerCommand(iframe, shortsMuted ? "mute" : "unMute");
+        postPlayerCommand(iframe, shouldUnmute ? "unMute" : "mute");
       }
 
       function applySoundToLoadedPlayers() {
-        slides.forEach((slide) => applySoundPreference(slide.querySelector(".short-frame iframe")));
+        slides.forEach((slide, index) => {
+          applySoundPreference(slide.querySelector(".short-frame iframe"), !shortsMuted && index === activeIndex);
+        });
       }
 
       function updateLevelTabs(level) {
         levelTabs.forEach((tab) => {
-          const selected = activeShortFilter === "all"
-            ? tab.dataset.shortsLevel === level
-            : tab.dataset.shortsCreator === activeShortFilter;
+          const selected = activeShortFilter !== "all"
+            ? tab.dataset.shortsCreator === activeShortFilter
+            : tab.dataset.shortsLevel === (activeShortLevelFilter || level);
           tab.setAttribute("aria-selected", String(selected));
         });
       }
 
-      function applyShortFilter(filter = "all") {
+      function applyShortFilter(filter = "all", level = "") {
         activeShortFilter = filter;
+        activeShortLevelFilter = filter === "all" ? level : "";
         slides.forEach((slide, index) => {
           const visible = slideMatchesFilter(slide);
           slide.classList.toggle("is-filtered-out", !visible);
@@ -8099,7 +8912,7 @@
           if (!iframe.isConnected || slide.dataset.loadId !== loadId) return;
 
           registerStateEvents(iframe);
-          applySoundPreference(iframe);
+          applySoundPreference(iframe, !shortsMuted && index === activeIndex);
           slide.classList.remove("is-loading");
           slide.classList.add("is-loaded");
           slide.dataset.playerState = "loaded";
@@ -8117,6 +8930,7 @@
       function pauseSlide(index) {
         const iframe = slides[index]?.querySelector(".short-frame iframe");
         if (iframe) {
+          applySoundPreference(iframe, false);
           postPlayerCommand(iframe, "pauseVideo");
           slides[index].dataset.playerState = "2";
         }
@@ -8144,7 +8958,7 @@
         const iframe = ensurePlayer(targetIndex, "active");
         if (!iframe || (!feedInView && !isShortFeedFullscreen())) return;
 
-        applySoundPreference(iframe);
+        applySoundToLoadedPlayers();
         const now = Date.now();
         if (targetIndex === activeIndex && now - lastPlayCommandAt < 90) return;
         lastPlayCommandAt = now;
@@ -8188,11 +9002,11 @@
       }
 
       function getPreloadIndexes(index, direction = lastScrollDirection) {
-        const active = activeShortFilter === "all"
-          ? normalizeIndex(index)
-          : getNearestNavigableIndex(index, direction);
+        const active = hasActiveShortFilter()
+          ? getNearestNavigableIndex(index, direction)
+          : normalizeIndex(index);
 
-        if (activeShortFilter !== "all") {
+        if (hasActiveShortFilter()) {
           const nextOne = getRelativeNavigableIndex(active, direction);
           const nextTwo = getRelativeNavigableIndex(nextOne, direction);
           const previousOne = getRelativeNavigableIndex(active, -direction);
@@ -8236,9 +9050,9 @@
         const targetIndex = normalizeIndex(index);
         const runId = ++preloadRunId;
         const preloadIndexes = getPreloadIndexes(targetIndex, direction);
-        const immediateIndex = activeShortFilter === "all"
-          ? targetIndex
-          : getNearestNavigableIndex(targetIndex, direction);
+        const immediateIndex = hasActiveShortFilter()
+          ? getNearestNavigableIndex(targetIndex, direction)
+          : targetIndex;
 
         window.clearTimeout(preloadTimer);
         ensurePlayer(immediateIndex, immediateIndex === activeIndex ? "active" : "near");
@@ -8429,9 +9243,9 @@
         if (!direction || scrollStepLocked) return;
 
         scrollStepLocked = true;
-        const targetIndex = activeShortFilter === "all"
-          ? activeIndex + direction
-          : getRelativeNavigableIndex(activeIndex, direction);
+        const targetIndex = hasActiveShortFilter()
+          ? getRelativeNavigableIndex(activeIndex, direction)
+          : activeIndex + direction;
         preloadWindow(targetIndex, direction);
         scrollToShort(targetIndex, "auto");
         window.setTimeout(() => {
@@ -8544,6 +9358,7 @@
 
       slides.forEach((slide) => slideObserver.observe(slide));
       feedObserver.observe(feed);
+      applyShortFilter("all", slides[activeIndex]?.dataset.level || "");
       preloadWindow(activeIndex);
       slides[activeIndex]?.classList.add("is-active");
       updateSoundToggle();
@@ -8569,8 +9384,8 @@
             return;
           }
 
-          applyShortFilter("all");
-          const targetIndex = slides.findIndex((slide) => slide.dataset.level === tab.dataset.shortsLevel);
+          applyShortFilter("all", tab.dataset.shortsLevel);
+          const targetIndex = slides.findIndex((slide) => slideMatchesFilter(slide));
           if (targetIndex >= 0) scrollToShort(targetIndex, "smooth");
         });
       });
@@ -8899,7 +9714,17 @@
     }
 
     document.getElementById("nextPuzzle").addEventListener("click", () => {
-      currentPuzzle = (currentPuzzle + 1) % puzzles.length;
+      currentPuzzle = getNextPuzzleIndex();
+      renderPuzzle();
+    });
+
+    document.querySelectorAll("[data-puzzle-plan]").forEach((button) => {
+      button.addEventListener("click", () => setPuzzlePlan(button.dataset.puzzlePlan));
+    });
+
+    document.getElementById("dailyPuzzle").addEventListener("click", () => {
+      activePuzzlePlan = "all";
+      currentPuzzle = getDailyPuzzleIndex();
       renderPuzzle();
     });
 
@@ -8940,6 +9765,7 @@
     renderPuzzle();
     wireTabs();
     setupSiteTabs();
+    setupGentleStart();
     setupDailyTraining();
     setupBooks();
     renderShortFeed();
@@ -8947,26 +9773,3 @@
   </script>
 </body>
 </html>
-    .daily-puzzle-badge {
-      background: rgba(231, 182, 93, 0.22);
-      color: #704d13;
-    }
-                  <span class="badge daily-puzzle-badge" id="dailyPuzzleBadge">Today</span>
-                  <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
-        function getDailyPuzzleIndex() {
-      const today = new Date();
-      const key = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-      return Math.floor(key / 86400000) % puzzles.length;
-    }
-
-    function renderDailyPuzzleMeta() {
-      const badge = document.getElementById("dailyPuzzleBadge");
-      if (!badge) return;
-
-      badge.textContent = currentPuzzle === getDailyPuzzleIndex() ? "Today's puzzle" : "Practice puzzle";
-    }
-          renderDailyPuzzleMeta();
-         document.getElementById("dailyPuzzle").addEventListener("click", () => {
-      currentPuzzle = getDailyPuzzleIndex();
-      renderPuzzle();
-    });     
