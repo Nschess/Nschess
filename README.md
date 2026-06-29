@@ -1,4 +1,3963 @@
 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+  <link rel="preconnect" href="https://www.youtube.com" />
+  <link rel="preconnect" href="https://i.ytimg.com" />
+  <link rel="preconnect" href="https://www.google.com" />
+  <title>Checkmate Quest - Learn Chess From First Move to Strategy</title>
+  <style>
+    :root {
+      --bg: #201d1a;
+      --panel: #2f2b27;
+      --panel-2: #3b3630;
+      --text: #f7f1e6;
+      --muted: #cfc3b2;
+      --soft: #f0d9b5;
+      --board-light: #f0d9b5;
+      --board-dark: #b58863;
+      --green: #7fa650;
+      --green-dark: #5f7f3a;
+      --gold: #e7b65d;
+      --blue: #6fa8dc;
+      --danger: #d86f62;
+      --line: rgba(255, 255, 255, 0.13);
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    body.short-feed-locked {
+      overflow: hidden;
+    }
+
+    body::selection {
+      background: var(--gold);
+      color: #211a12;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    iframe {
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(32, 29, 26, 0.93);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 2px solid var(--board-light);
+      background:
+        linear-gradient(45deg, var(--board-dark) 25%, transparent 25% 75%, var(--board-dark) 75%),
+        linear-gradient(45deg, var(--board-dark) 25%, transparent 25% 75%, var(--board-dark) 75%);
+      background-color: var(--board-light);
+      background-position: 0 0, 9px 9px;
+      background-size: 18px 18px;
+      border-radius: var(--radius);
+      color: #211a12;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 11px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .nav-links a[aria-current="page"],
+    .nav-links a.is-active-tab {
+      color: #10150d;
+      background: var(--green);
+      box-shadow: 0 8px 20px rgba(127, 166, 80, 0.24);
+    }
+
+    .nav-links::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .nav-links::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+    }
+
+    .nav-links::-webkit-scrollbar-thumb {
+      background: rgba(240, 217, 181, 0.42);
+      border-radius: 999px;
+    }
+
+    .site-panel,
+    #shorts {
+      scroll-margin-top: 88px;
+    }
+
+    body.site-tab-mode .hero {
+      display: none;
+    }
+
+    body.site-tab-mode main > .site-panel:not(.is-active-panel) {
+      display: none;
+    }
+
+    body.site-tab-mode main > .site-panel.is-active-panel {
+      min-height: calc(100svh - 68px);
+      animation: sitePanelIn 220ms ease both;
+    }
+
+    @keyframes sitePanelIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      min-height: clamp(540px, 78svh, 780px);
+      border-bottom: 1px solid var(--line);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(32, 29, 26, 0.92) 0%, rgba(32, 29, 26, 0.78) 42%, rgba(32, 29, 26, 0.44) 100%),
+        radial-gradient(circle at 68% 30%, rgba(231, 182, 93, 0.14), transparent 34%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-board {
+      position: absolute;
+      right: max(-80px, calc((100vw - var(--max)) / 2 - 90px));
+      top: 50%;
+      width: min(680px, 64vw);
+      aspect-ratio: 1;
+      transform: translateY(-48%) rotate(2deg);
+      box-shadow: var(--shadow);
+      border: 10px solid #181512;
+      background: #181512;
+      z-index: -2;
+    }
+
+    .hero-board-grid,
+    .puzzle-board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+    }
+
+    .hero-square,
+    .puzzle-square {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 5vw, 4.6rem);
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.38);
+      user-select: none;
+      line-height: 1;
+    }
+
+    .light {
+      background: var(--board-light);
+    }
+
+    .dark {
+      background: var(--board-dark);
+    }
+
+    .white-piece {
+      color: #fff8ed;
+      -webkit-text-stroke: 0.8px rgba(93, 64, 42, 0.72);
+      text-shadow:
+        0 1px 0 rgba(110, 75, 48, 0.78),
+        0 3px 8px rgba(0, 0, 0, 0.38);
+    }
+
+    .black-piece {
+      color: #1d1814;
+      -webkit-text-stroke: 0.55px rgba(255, 248, 237, 0.42);
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.2),
+        0 3px 7px rgba(0, 0, 0, 0.32);
+    }
+
+    .hero-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 72px 0 58px;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin-bottom: 18px;
+      font-size: clamp(3.2rem, 9vw, 7.2rem);
+      line-height: 0.91;
+      letter-spacing: 0;
+    }
+
+    .hero-copy > p {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: var(--green);
+      color: #10150d;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      background: #95ba60;
+      outline: none;
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .button.secondary:hover,
+    .button.secondary:focus-visible {
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(110px, 1fr));
+      gap: 12px;
+      max-width: 560px;
+      margin-top: 44px;
+    }
+
+    .metric {
+      min-height: 88px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(47, 43, 39, 0.76);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--soft);
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-dark {
+      background: #26221f;
+    }
+
+    .section-warm {
+      background: #f4eadc;
+      color: #211a12;
+    }
+
+    .section-warm .section-kicker,
+    .section-warm .section-intro,
+    .section-warm .muted {
+      color: #5d5144;
+    }
+
+    .section-warm .lesson-card,
+    .section-warm .adventure-card,
+    .section-warm .mission-card,
+    .section-warm .adventure-play,
+    .section-warm .rule-item,
+    .section-warm .opening-card,
+    .section-warm .notation-card,
+    .section-warm .book-card,
+    .section-warm .book-detail,
+    .section-warm .video-card,
+    .section-warm .puzzle-shell {
+      border-color: rgba(33, 26, 18, 0.16);
+      background: #fff8eb;
+      color: #211a12;
+      box-shadow: 0 18px 40px rgba(82, 55, 25, 0.12);
+    }
+
+    .wrap {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-intro {
+      max-width: 54ch;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .path-tabs {
+      display: inline-grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .tab-button {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tab-button[aria-selected="true"] {
+      background: var(--green);
+      color: #11170e;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .lesson-card,
+    .adventure-card,
+    .mission-card,
+    .adventure-play,
+    .rule-item,
+    .opening-card,
+    .notation-card,
+    .book-card,
+    .book-detail,
+    .video-card,
+    .puzzle-shell {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16);
+    }
+
+    .lesson-card {
+      min-height: 270px;
+      padding: 20px;
+    }
+
+    .gentle-start {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.25fr);
+      gap: 20px;
+      margin: 0 0 26px;
+      padding: 22px;
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(127, 166, 80, 0.16), rgba(111, 168, 220, 0.09)),
+        var(--panel);
+      box-shadow: 0 20px 46px rgba(0, 0, 0, 0.18);
+    }
+
+    .gentle-copy h3,
+    .gentle-output h4 {
+      margin-bottom: 10px;
+      font-size: 1.34rem;
+      line-height: 1.18;
+    }
+
+    .gentle-copy p,
+    .gentle-output p {
+      color: var(--muted);
+    }
+
+    .gentle-badges,
+    .gentle-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .gentle-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 248, 237, 0.13);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .gentle-checklist {
+      display: grid;
+      gap: 9px;
+      margin: 16px 0 18px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .gentle-checklist li {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .gentle-checklist span {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.15);
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .gentle-coach {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .gentle-form {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .gentle-form label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 900;
+    }
+
+    .gentle-form select {
+      min-height: 42px;
+      padding: 0 11px;
+      border: 1px solid rgba(255, 248, 237, 0.15);
+      border-radius: 7px;
+      background: #211d1a;
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .gentle-output {
+      display: grid;
+      gap: 12px;
+      min-height: 220px;
+      padding: 16px;
+      border: 1px solid rgba(127, 166, 80, 0.2);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.08);
+    }
+
+    .gentle-task-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .gentle-task {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 58px;
+      padding: 10px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .gentle-task input {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--green);
+    }
+
+    .gentle-task.is-done {
+      border-color: rgba(127, 166, 80, 0.34);
+      background: rgba(127, 166, 80, 0.12);
+    }
+
+    .gentle-task strong,
+    .gentle-task small {
+      display: block;
+    }
+
+    .gentle-task small {
+      margin-top: 3px;
+      color: var(--muted);
+      line-height: 1.42;
+    }
+
+    .gentle-time {
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .lesson-number {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #10150d;
+      font-weight: 900;
+    }
+
+    .lesson-card h3,
+    .video-card h3,
+    .puzzle-info h3 {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .lesson-card p,
+    .rule-item p,
+    .video-card p,
+    .puzzle-info p {
+      color: var(--muted);
+    }
+
+    .section-warm .lesson-card p,
+    .section-warm .adventure-card p,
+    .section-warm .mission-card p,
+    .section-warm .adventure-play p,
+    .section-warm .rule-item p,
+    .section-warm .opening-card p,
+    .section-warm .notation-card p,
+    .section-warm .book-card p,
+    .section-warm .book-detail p,
+    .section-warm .video-card p,
+    .section-warm .puzzle-info p {
+      color: #5d5144;
+    }
+
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topic-list li {
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .section-warm .topic-list li {
+      border-color: rgba(33, 26, 18, 0.16);
+      color: #5d5144;
+      background: rgba(181, 136, 99, 0.12);
+    }
+
+    .adventure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .adventure-card {
+      min-height: 210px;
+      padding: 20px;
+    }
+
+    .character-mark {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 16px;
+      border-radius: 50%;
+      background: rgba(127, 166, 80, 0.16);
+      color: #211a12;
+      font-size: 1.6rem;
+    }
+
+    .adventure-card h3,
+    .mission-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mission-card {
+      padding: 20px;
+      min-height: 190px;
+    }
+
+    .mission-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      margin-bottom: 12px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(231, 182, 93, 0.22);
+      color: #704d13;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .adventure-play {
+      display: grid;
+      grid-template-columns: minmax(300px, 460px) 1fr;
+      gap: 24px;
+      margin-top: 18px;
+      padding: 22px;
+      align-items: start;
+    }
+
+    .adventure-board-wrap {
+      border: 8px solid #211a12;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #211a12;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .adventure-board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .adventure-square {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border: 0;
+      padding: 0;
+      appearance: none;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 5vw, 3.35rem);
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .adventure-square.selected {
+      outline: 4px solid rgba(231, 182, 93, 0.86);
+      outline-offset: -4px;
+    }
+
+    .adventure-square.source-piece {
+      box-shadow: inset 0 0 0 4px rgba(231, 182, 93, 0.5);
+    }
+
+    .adventure-square.legal-target::after {
+      content: "";
+      position: absolute;
+      width: 34%;
+      height: 34%;
+      border: 3px solid rgba(127, 166, 80, 0.85);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .adventure-panel {
+      min-width: 0;
+    }
+
+    .mission-selector {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .mission-button {
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background: #f7efe2;
+      color: #211a12;
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .mission-button[aria-pressed="true"] {
+      border-color: var(--green);
+      background: #dfeecf;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rule-item {
+      min-height: 180px;
+      padding: 18px;
+    }
+
+    .rule-item strong {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 1.05rem;
+    }
+
+    .rule-item p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .opening-grid,
+    .notation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .opening-card,
+    .notation-card {
+      overflow: hidden;
+    }
+
+    .opening-body,
+    .notation-card {
+      padding: 20px;
+    }
+
+    .opening-body h3,
+    .notation-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .opening-line {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: rgba(127, 166, 80, 0.14);
+      color: var(--green-dark);
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+
+    .book-lines {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .book-lines li {
+      display: grid;
+      gap: 3px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .book-lines code {
+      color: var(--soft);
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.84rem;
+      font-weight: 900;
+      white-space: normal;
+    }
+
+    .book-lines span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .mini-board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      width: 100%;
+      aspect-ratio: 1;
+      border-bottom: 1px solid rgba(33, 26, 18, 0.16);
+      background: #211a12;
+    }
+
+    .mini-square {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1rem, 3vw, 2rem);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .notation-grid {
+      grid-template-columns: 1.1fr 0.9fr 1fr;
+    }
+
+    .notation-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .notation-list li {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .notation-list code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--soft);
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-weight: 900;
+    }
+
+    .notation-card.callout {
+      background:
+        linear-gradient(135deg, rgba(127, 166, 80, 0.22), rgba(231, 182, 93, 0.14)),
+        var(--panel);
+    }
+
+    .books-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .book-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .book-stat {
+      min-height: 88px;
+      padding: 15px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: var(--radius);
+      background: #fff8eb;
+    }
+
+    .book-stat strong,
+    .book-stat span {
+      display: block;
+    }
+
+    .book-stat strong {
+      color: #211a12;
+      font-size: 1.38rem;
+      line-height: 1;
+    }
+
+    .book-stat span {
+      margin-top: 8px;
+      color: #5d5144;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .books-controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .book-search {
+      display: grid;
+      gap: 7px;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .book-search input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #211a12;
+      font: inherit;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .book-search input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(127, 166, 80, 0.18);
+    }
+
+    .book-level-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .book-category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 235, 0.58);
+    }
+
+    .book-filter {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid rgba(33, 26, 18, 0.17);
+      border-radius: 7px;
+      background: #f7efe2;
+      color: #211a12;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .book-filter:hover,
+    .book-filter:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--green);
+      outline: none;
+    }
+
+    .book-filter[aria-pressed="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .books-shell .button.secondary {
+      border-color: rgba(33, 26, 18, 0.18);
+      background: rgba(33, 26, 18, 0.06);
+      color: #211a12;
+    }
+
+    .books-shell .button.secondary:hover,
+    .books-shell .button.secondary:focus-visible {
+      background: rgba(33, 26, 18, 0.1);
+    }
+
+    .book-verify-note {
+      padding: 14px 16px;
+      border: 1px solid rgba(127, 166, 80, 0.25);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.12);
+      color: #2c261f;
+    }
+
+    .book-verify-note strong {
+      color: #1f2b16;
+    }
+
+    .book-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .book-level-section {
+      display: grid;
+      gap: 14px;
+    }
+
+    .book-level-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+    }
+
+    .book-level-head h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      line-height: 1.15;
+    }
+
+    .book-level-head p {
+      max-width: 58ch;
+      margin: 6px 0 0;
+      color: #5d5144;
+      font-size: 0.94rem;
+    }
+
+    .book-level-head span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.14);
+      color: var(--green-dark);
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .book-level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .book-card {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 410px;
+      padding: 20px;
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .book-card:hover,
+    .book-card:focus-within {
+      transform: translateY(-3px);
+      border-color: rgba(127, 166, 80, 0.46);
+      box-shadow: 0 22px 46px rgba(82, 55, 25, 0.18);
+    }
+
+    .book-card.is-selected {
+      border-color: rgba(95, 127, 58, 0.72);
+      box-shadow: 0 20px 48px rgba(95, 127, 58, 0.16);
+    }
+
+    .book-card-main {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .book-card-top {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .book-cover {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      aspect-ratio: 3 / 4;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #7fa650, #f0d9b5 72%);
+      color: #211a12;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .book-cover.intermediate {
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #6fa8dc, #f0d9b5 74%);
+    }
+
+    .book-cover.advanced {
+      background:
+        linear-gradient(90deg, rgba(33, 26, 18, 0.14) 0 13px, transparent 13px),
+        linear-gradient(145deg, #e7b65d, #b58863 76%);
+    }
+
+    .book-card-copy {
+      min-width: 0;
+    }
+
+    .book-free-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 28px;
+      margin: 8px 0 10px;
+      padding: 0 9px;
+      border: 1px solid rgba(95, 127, 58, 0.22);
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.16);
+      color: #26391a;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .book-card h3,
+    .book-detail h3 {
+      margin-bottom: 8px;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .book-detail h4 {
+      margin: 18px 0 8px;
+      font-size: 1rem;
+    }
+
+    .book-card p {
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .book-meta {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+      color: #5d5144;
+      font-size: 0.9rem;
+    }
+
+    .book-meta span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 9px;
+      border: 1px solid rgba(33, 26, 18, 0.13);
+      border-radius: 7px;
+      background: rgba(181, 136, 99, 0.1);
+    }
+
+    .book-source {
+      margin-top: 0;
+      color: #5d5144;
+      font-size: 0.82rem;
+      word-break: break-word;
+    }
+
+    .book-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .book-detail[hidden] {
+      display: none;
+    }
+
+    .book-detail {
+      padding: 24px;
+      scroll-margin-top: 86px;
+    }
+
+    .book-reader,
+    .book-admin {
+      border: 1px solid rgba(33, 26, 18, 0.16);
+      border-radius: var(--radius);
+      background: #fff8eb;
+      color: #211a12;
+      box-shadow: 0 18px 40px rgba(82, 55, 25, 0.12);
+    }
+
+    .book-reader[hidden] {
+      display: none;
+    }
+
+    .book-reader {
+      overflow: hidden;
+      scroll-margin-top: 86px;
+    }
+
+    .reader-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+      background: #f7efe2;
+    }
+
+    .reader-title {
+      min-width: 0;
+    }
+
+    .reader-title h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .reader-title p {
+      margin: 4px 0 0;
+      color: #5d5144;
+      font-size: 0.9rem;
+    }
+
+    .reader-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .reader-font-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 10px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .reader-font-control input {
+      width: 96px;
+    }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(190px, 260px) minmax(0, 1fr);
+      min-height: 440px;
+    }
+
+    .reader-toc {
+      padding: 16px;
+      border-right: 1px solid rgba(33, 26, 18, 0.14);
+      background: #fbf1e3;
+    }
+
+    .reader-toc h4,
+    .reader-page h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .reader-toc-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .reader-toc-button {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: 7px;
+      background: #fff8eb;
+      color: #211a12;
+      font: inherit;
+      font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .reader-toc-button[aria-current="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .reader-page {
+      padding: clamp(20px, 4vw, 38px);
+      background: #fffdf6;
+    }
+
+    .reader-page.dark {
+      background: #15120f;
+      color: #f7f1e6;
+    }
+
+    .reader-page.dark p,
+    .reader-page.dark li {
+      color: #d8ccb9;
+    }
+
+    .reader-page p,
+    .reader-page li {
+      color: #3c332a;
+      line-height: 1.75;
+    }
+
+    .reader-page ul {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding-left: 20px;
+    }
+
+    .reader-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .reader-nav .button:disabled {
+      cursor: default;
+      opacity: 0.55;
+      transform: none;
+    }
+
+    .reader-status {
+      min-height: 28px;
+      margin-top: 14px;
+      color: #5d5144;
+      font-weight: 900;
+    }
+
+    .book-admin {
+      padding: 18px;
+    }
+
+    .book-admin summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .book-admin p {
+      margin: 10px 0 16px;
+      color: #5d5144;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .admin-grid label {
+      display: grid;
+      gap: 6px;
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .admin-grid input,
+    .admin-grid select,
+    .admin-grid textarea {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 11px;
+      border: 1px solid rgba(33, 26, 18, 0.16);
+      border-radius: 7px;
+      background: #fffdf6;
+      color: #211a12;
+      font: inherit;
+    }
+
+    .admin-grid textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .admin-wide {
+      grid-column: 1 / -1;
+    }
+
+    .admin-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .admin-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: #fffdf6;
+    }
+
+    .book-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.85fr) minmax(0, 1.15fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .book-detail-list {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 10px 14px;
+      margin: 16px 0 0;
+    }
+
+    .book-detail-list dt {
+      color: #2c261f;
+      font-weight: 900;
+    }
+
+    .book-detail-list dd {
+      margin: 0;
+      color: #5d5144;
+      word-break: break-word;
+    }
+
+    .book-detail a {
+      color: var(--green-dark);
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .book-empty {
+      grid-column: 1 / -1;
+      padding: 20px;
+      border: 1px dashed rgba(33, 26, 18, 0.22);
+      border-radius: var(--radius);
+      color: #5d5144;
+      background: rgba(255, 248, 235, 0.58);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .video-tier {
+      margin-top: 26px;
+    }
+
+    .video-tier:first-of-type {
+      margin-top: 0;
+    }
+
+    .video-tier-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .video-tier-head h3 {
+      margin-bottom: 0;
+      font-size: 1.35rem;
+      line-height: 1.15;
+    }
+
+    .video-tier-head p {
+      max-width: 58ch;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .video-grid.tier-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .shorts-tier {
+      margin-top: 44px;
+      padding-top: 34px;
+      border-top: 1px solid rgba(255, 248, 237, 0.12);
+      scroll-margin-top: 92px;
+    }
+
+    .shorts-title-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 248, 237, 0.08);
+    }
+
+    .shorts-title-band .section-kicker {
+      margin-bottom: 6px;
+    }
+
+    .shorts-title-band h3 {
+      margin: 0;
+      font-size: clamp(1.85rem, 4vw, 2.65rem);
+      line-height: 1.05;
+    }
+
+    .shorts-title-band p {
+      max-width: 68ch;
+      margin: 9px 0 0;
+      color: var(--muted);
+    }
+
+    .shorts-count {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(231, 182, 93, 0.42);
+      border-radius: 6px;
+      background: rgba(231, 182, 93, 0.13);
+      color: var(--gold);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .shorts-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px;
+    }
+
+    .shorts-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .shorts-progress-controls {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .shorts-audio-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .shorts-tab,
+    .shorts-sound-toggle,
+    .shorts-resume {
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 248, 237, 0.14);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .shorts-tab:hover,
+    .shorts-tab:focus-visible,
+    .shorts-sound-toggle:hover,
+    .shorts-sound-toggle:focus-visible,
+    .shorts-resume:hover,
+    .shorts-resume:focus-visible {
+      color: var(--text);
+      border-color: rgba(231, 182, 93, 0.4);
+      outline: none;
+    }
+
+    .shorts-tab[aria-selected="true"],
+    .shorts-sound-toggle[aria-pressed="true"] {
+      background: var(--green);
+      border-color: transparent;
+      color: #10150d;
+    }
+
+    .shorts-resume {
+      color: var(--text);
+      background: rgba(231, 182, 93, 0.13);
+      border-color: rgba(231, 182, 93, 0.36);
+    }
+
+    .shorts-progress {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 0.88rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .shorts-volume {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 248, 237, 0.14);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+
+    .shorts-volume input {
+      width: 110px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .shorts-feed {
+      position: relative;
+      height: calc(100svh - 76px);
+      height: calc(100dvh - 76px);
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #111;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(231, 182, 93, 0.58) rgba(255, 255, 255, 0.08);
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .shorts-feed::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .shorts-feed::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .shorts-feed::-webkit-scrollbar-thumb {
+      background: rgba(231, 182, 93, 0.58);
+      border-radius: 999px;
+    }
+
+    .short-slide {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      height: 100%;
+      padding: 18px;
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(231, 182, 93, 0.18), transparent 34%),
+        linear-gradient(180deg, #17130f, #0d0b09);
+      isolation: isolate;
+      contain: layout paint style;
+      content-visibility: auto;
+      contain-intrinsic-size: 100vh;
+      contain-intrinsic-size: 100dvh;
+    }
+
+    .short-slide.is-filtered-out {
+      display: none;
+    }
+
+    .short-slide::before {
+      content: attr(data-level);
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 248, 237, 0.16);
+      border-radius: 6px;
+      background: rgba(17, 15, 13, 0.72);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 900;
+      backdrop-filter: blur(10px);
+    }
+
+    .short-stage {
+      position: relative;
+      width: auto;
+      height: calc(100% - 32px);
+      max-height: calc(100% - 32px);
+      max-width: calc(100vw - 42px);
+      aspect-ratio: 9 / 16;
+      border: 1px solid rgba(255, 248, 237, 0.16);
+      border-radius: var(--radius);
+      background: #050505;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .short-frame,
+    .short-frame iframe,
+    .short-placeholder {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .short-frame iframe {
+      z-index: 0;
+      background: #050505;
+    }
+
+    .short-gesture-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      touch-action: pan-y;
+      background: transparent;
+    }
+
+    .short-placeholder {
+      display: grid;
+      place-items: center;
+      background-color: #111;
+      background-position: center;
+      background-size: cover;
+      transform: translateZ(0);
+      z-index: 1;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 180ms ease, visibility 180ms ease;
+    }
+
+    .short-placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.66));
+    }
+
+    .short-placeholder::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 22%, rgba(255, 248, 237, 0.16) 42%, transparent 62%);
+      opacity: 0;
+      transform: translateX(-120%);
+    }
+
+    .short-slide.is-loading .short-placeholder::after {
+      opacity: 1;
+      animation: shortBufferSweep 1.15s ease-in-out infinite;
+    }
+
+    .short-placeholder .play-mark {
+      z-index: 2;
+    }
+
+    .short-slide.is-loaded .short-placeholder {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @keyframes shortBufferSweep {
+      to {
+        transform: translateX(120%);
+      }
+    }
+
+    .short-meta {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 2;
+      padding: 82px 16px 16px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.84));
+      color: var(--text);
+    }
+
+    .short-meta h4 {
+      margin: 10px 0 6px;
+      font-size: 1.18rem;
+      line-height: 1.16;
+    }
+
+    .short-meta p {
+      margin: 0;
+      color: rgba(255, 248, 237, 0.82);
+      font-size: 0.92rem;
+      line-height: 1.38;
+    }
+
+    .short-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .short-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--soft);
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    .short-pill.creator {
+      color: #a9d1f4;
+      background: rgba(111, 168, 220, 0.18);
+    }
+
+    .short-pill.difficulty {
+      color: #10150d;
+      background: var(--green);
+    }
+
+    .short-pill.category {
+      color: var(--gold);
+      background: rgba(231, 182, 93, 0.18);
+    }
+
+    .short-position {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 2;
+      color: rgba(255, 248, 237, 0.76);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.48);
+    }
+
+    .short-actions {
+      position: absolute;
+      right: 12px;
+      top: 44px;
+      z-index: 3;
+      display: grid;
+      gap: 8px;
+    }
+
+    .short-action-button {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 248, 237, 0.18);
+      border-radius: 6px;
+      background: rgba(17, 15, 13, 0.74);
+      color: var(--text);
+      font-size: 1.08rem;
+      font-weight: 900;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: background var(--speed), border-color var(--speed), transform var(--speed);
+    }
+
+    .short-action-button:hover,
+    .short-action-button:focus-visible {
+      border-color: rgba(231, 182, 93, 0.72);
+      background: rgba(231, 182, 93, 0.22);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .short-action-button[aria-pressed="true"] {
+      border-color: transparent;
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .short-like[aria-pressed="true"] {
+      background: #e9a0a6;
+      color: #2a090d;
+    }
+
+    .short-bookmark[aria-pressed="true"] {
+      background: var(--gold);
+      color: #251706;
+    }
+
+    .short-share.is-copied {
+      border-color: transparent;
+      background: #a9d1f4;
+      color: #07121c;
+    }
+
+    .shorts-feed:fullscreen,
+    .shorts-feed:-webkit-full-screen,
+    .shorts-feed.is-feed-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      max-height: none;
+      border: 0;
+      border-radius: 0;
+      background: #050505;
+      scrollbar-width: none;
+      scroll-snap-type: y mandatory;
+      overscroll-behavior: none;
+      touch-action: pan-y;
+    }
+
+    .shorts-feed:fullscreen::-webkit-scrollbar,
+    .shorts-feed:-webkit-full-screen::-webkit-scrollbar,
+    .shorts-feed.is-feed-fullscreen::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shorts-feed:fullscreen .short-slide,
+    .shorts-feed:-webkit-full-screen .short-slide,
+    .shorts-feed.is-feed-fullscreen .short-slide {
+      min-height: 100vh;
+      min-height: 100dvh;
+      height: 100vh;
+      height: 100dvh;
+      padding: 0;
+      background: #050505;
+    }
+
+    .shorts-feed:fullscreen .short-stage,
+    .shorts-feed:-webkit-full-screen .short-stage,
+    .shorts-feed.is-feed-fullscreen .short-stage {
+      width: min(100vw, 56.25vh);
+      width: min(100vw, 56.25dvh);
+      height: min(100vh, 177.78vw);
+      height: min(100dvh, 177.78vw);
+      max-width: 100vw;
+      max-height: 100vh;
+      max-height: 100dvh;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .shorts-feed:fullscreen .short-gesture-layer,
+    .shorts-feed:-webkit-full-screen .short-gesture-layer,
+    .shorts-feed.is-feed-fullscreen .short-gesture-layer {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .shorts-feed:fullscreen .short-slide::before,
+    .shorts-feed:-webkit-full-screen .short-slide::before,
+    .shorts-feed.is-feed-fullscreen .short-slide::before,
+    .shorts-feed:fullscreen .short-action-button,
+    .shorts-feed:-webkit-full-screen .short-action-button,
+    .shorts-feed.is-feed-fullscreen .short-action-button {
+      backdrop-filter: none;
+    }
+
+    .shorts-feed:fullscreen .short-slide::before,
+    .shorts-feed:-webkit-full-screen .short-slide::before,
+    .shorts-feed.is-feed-fullscreen .short-slide::before {
+      top: 14px;
+      left: 14px;
+    }
+
+    .shorts-feed.is-mobile-portrait-fullscreen {
+      height: 100svh;
+      height: 100dvh;
+      overscroll-behavior: none;
+      touch-action: pan-y;
+    }
+
+    .shorts-feed.is-mobile-portrait-fullscreen .short-stage {
+      aspect-ratio: 9 / 16;
+      width: min(100vw, 56.25svh);
+      width: min(100vw, 56.25dvh);
+      height: min(100svh, 177.78vw);
+      height: min(100dvh, 177.78vw);
+    }
+
+    .short-slide.is-active .short-stage {
+      border-color: rgba(231, 182, 93, 0.58);
+      box-shadow: 0 28px 80px rgba(231, 182, 93, 0.16), 0 24px 64px rgba(0, 0, 0, 0.44);
+    }
+
+    .shorts-level + .shorts-level {
+      margin-top: 30px;
+    }
+
+    .shorts-level-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .shorts-level-head h4 {
+      margin: 0;
+      font-size: 1.28rem;
+      line-height: 1.15;
+    }
+
+    .shorts-level-head p {
+      max-width: 62ch;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .shorts-level-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background: rgba(127, 166, 80, 0.17);
+      color: #bce38c;
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .shorts-grid {
+      align-items: start;
+    }
+
+    .shorts-grid .video-card {
+      background:
+        linear-gradient(180deg, rgba(231, 182, 93, 0.12), rgba(127, 166, 80, 0.08)),
+        var(--card);
+    }
+
+    .shorts-grid .video-card {
+      scroll-margin-top: 92px;
+    }
+
+    .shorts-grid .video-frame {
+      aspect-ratio: 9 / 16;
+    }
+
+    .shorts-grid .play-mark {
+      width: 54px;
+      height: 54px;
+    }
+
+    .shorts-grid .video-body {
+      padding: 14px;
+    }
+
+    .shorts-grid .video-body h3 {
+      font-size: 1rem;
+    }
+
+    .shorts-grid .video-body p {
+      font-size: 0.9rem;
+    }
+
+    .video-card {
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(231, 182, 93, 0.45);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.24);
+    }
+
+    .video-card.video-resume {
+      border-color: rgba(231, 182, 93, 0.72);
+      box-shadow: 0 22px 48px rgba(231, 182, 93, 0.18);
+    }
+
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #111;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-thumb {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background-color: #111;
+      background-position: center;
+      background-size: cover;
+      color: var(--text);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-thumb.is-thumb-loading {
+      background:
+        linear-gradient(105deg, transparent 20%, rgba(255, 248, 237, 0.12) 42%, transparent 64%),
+        #111;
+      background-size: 220% 100%, auto;
+      animation: shortBufferSweep 1.2s ease-in-out infinite;
+    }
+
+    .video-thumb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.58));
+    }
+
+    .play-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border: 2px solid rgba(255, 248, 237, 0.86);
+      border-radius: 50%;
+      background: rgba(32, 29, 26, 0.68);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .play-mark::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 18px solid var(--text);
+    }
+
+    .video-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(18, 15, 12, 0.84);
+      backdrop-filter: blur(10px);
+    }
+
+    .video-modal[hidden] {
+      display: none;
+    }
+
+    .video-modal-panel {
+      width: min(100%, 1040px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #181512;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-modal.is-short .video-modal-panel {
+      width: min(100%, 430px, calc((100vh - 120px) * 9 / 16));
+    }
+
+    .video-modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .video-modal-title {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 900;
+    }
+
+    .video-close {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .video-modal-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-modal.is-short .video-modal-frame {
+      aspect-ratio: 9 / 16;
+    }
+
+    .video-modal-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-body {
+      padding: 18px;
+    }
+
+    .video-body .badge {
+      margin-bottom: 11px;
+    }
+
+    .badge.duration {
+      margin-left: 6px;
+      background: rgba(231, 182, 93, 0.18);
+      color: var(--gold);
+    }
+
+    .badge.creator {
+      margin-left: 6px;
+      background: rgba(111, 168, 220, 0.16);
+      color: #a9d1f4;
+    }
+
+    .video-body p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .puzzle-shell {
+      display: grid;
+      grid-template-columns: minmax(300px, 520px) 1fr;
+      gap: 28px;
+      padding: 22px;
+      align-items: stretch;
+    }
+
+    .puzzle-board-wrap {
+      position: relative;
+      align-self: start;
+      border: 8px solid #211a12;
+      border-radius: var(--radius);
+      background: #211a12;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.26);
+      overflow: hidden;
+    }
+
+    .puzzle-board {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .puzzle-square {
+      position: relative;
+      font-size: clamp(1.4rem, 5vw, 3.55rem);
+    }
+
+    .puzzle-square.target::after {
+      content: "";
+      position: absolute;
+      width: 34%;
+      height: 34%;
+      border: 3px solid rgba(127, 166, 80, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .coordinates {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: rgba(33, 26, 18, 0.72);
+    }
+
+    .coordinates span {
+      position: absolute;
+    }
+
+    .puzzle-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .puzzle-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .daily-puzzle-badge {
+      background: rgba(231, 182, 93, 0.22);
+      color: #704d13;
+    }
+
+    .puzzle-plan-selector {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(127, 166, 80, 0.16);
+      color: var(--green-dark);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .puzzle-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stat-pill {
+      min-height: 66px;
+      padding: 10px 12px;
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      border-radius: var(--radius);
+      background: #f7efe2;
+    }
+
+    .stat-pill strong,
+    .stat-pill span {
+      display: block;
+    }
+
+    .stat-pill strong {
+      color: #211a12;
+      font-size: 1.08rem;
+      line-height: 1.1;
+    }
+
+    .stat-pill span {
+      margin-top: 5px;
+      color: #5d5144;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .progress-track {
+      height: 9px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(33, 26, 18, 0.12);
+    }
+
+    .progress-fill {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .puzzle-hint {
+      min-height: 48px;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid rgba(127, 166, 80, 0.28);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.12);
+      color: #2c261f;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .answer-button {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid rgba(33, 26, 18, 0.18);
+      border-radius: 7px;
+      background: #f7efe2;
+      color: #211a12;
+      font: inherit;
+      font-weight: 800;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .answer-button:hover,
+    .answer-button:focus-visible {
+      transform: translateX(2px);
+      border-color: var(--green);
+      outline: none;
+    }
+
+    .answer-button:disabled {
+      cursor: default;
+      transform: none;
+      opacity: 0.86;
+    }
+
+    .answer-button.correct {
+      border-color: var(--green);
+      background: #dfeecf;
+    }
+
+    .answer-button.wrong {
+      border-color: var(--danger);
+      background: #f8ded9;
+    }
+
+    .feedback {
+      min-height: 64px;
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--green);
+      background: rgba(127, 166, 80, 0.12);
+      color: #2c261f;
+    }
+
+    .puzzle-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .study-plan {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .plan-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .plan-panel h3 {
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+    }
+
+    .plan-panel p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .plan-panel.wide {
+      grid-column: 1 / -1;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .plan-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .plan-meta .badge {
+      background: rgba(127, 166, 80, 0.16);
+      color: #dfeecf;
+    }
+
+    .plan-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+    }
+
+    .plan-list li {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .plan-list span {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(231, 182, 93, 0.16);
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .plan-focus {
+      margin-top: 18px;
+      padding: 13px 14px;
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.1);
+      color: #f3e3c1;
+      font-weight: 800;
+    }
+
+    .daily-trainer {
+      display: grid;
+      gap: 18px;
+    }
+
+    .trainer-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .trainer-head p {
+      max-width: 68ch;
+    }
+
+    .trainer-form {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .trainer-form > label,
+    .trainer-field {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .trainer-form select,
+    .trainer-form input[type="range"] {
+      width: 100%;
+    }
+
+    .trainer-form select {
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid rgba(239, 229, 211, 0.16);
+      border-radius: 7px;
+      background: #211d1a;
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .trainer-form input[type="range"] {
+      accent-color: var(--green);
+    }
+
+    .trainer-wide {
+      grid-column: 1 / -1;
+    }
+
+    .trainer-field {
+      padding: 0;
+      border: 0;
+    }
+
+    .trainer-field legend {
+      padding: 0;
+      color: var(--muted);
+    }
+
+    .trainer-check-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .trainer-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 10px;
+      border: 1px solid rgba(239, 229, 211, 0.13);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .trainer-check input {
+      accent-color: var(--green);
+    }
+
+    .trainer-output {
+      display: grid;
+      gap: 14px;
+    }
+
+    .trainer-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .trainer-stat {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .trainer-stat strong {
+      display: block;
+      color: var(--gold);
+      font-size: 1.12rem;
+      line-height: 1.2;
+    }
+
+    .trainer-stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .trainer-progress {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .trainer-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .training-task-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .training-task {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 13px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .training-task.is-complete {
+      border-color: rgba(127, 166, 80, 0.34);
+      background: rgba(127, 166, 80, 0.1);
+    }
+
+    .training-task input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+    }
+
+    .training-task strong,
+    .training-task small {
+      display: block;
+    }
+
+    .training-task small {
+      margin-top: 4px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .training-time {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 9px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.14);
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .trainer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .trainer-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .weekly-roadmap {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .day-card {
+      min-height: 136px;
+      padding: 14px;
+      border: 1px solid rgba(239, 229, 211, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .day-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .day-card span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--cream);
+      font-weight: 900;
+    }
+
+    .day-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: #181512;
+    }
+
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero-board {
+        right: -230px;
+        width: min(720px, 94vw);
+        opacity: 0.72;
+      }
+
+      .lesson-grid,
+      .adventure-grid,
+      .mission-grid,
+      .rules-grid,
+      .opening-grid,
+      .book-level-grid,
+      .notation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .video-grid,
+      .video-grid.tier-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .adventure-play,
+      .puzzle-shell,
+      .book-detail-grid,
+      .study-plan,
+      .gentle-start {
+        grid-template-columns: 1fr;
+      }
+
+      .weekly-roadmap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gentle-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainer-form,
+      .trainer-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainer-check-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .puzzle-board-wrap {
+        max-width: 540px;
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 13px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 3px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding: 56px 0 44px;
+      }
+
+      .hero-board {
+        right: -270px;
+        top: 48%;
+        width: 760px;
+      }
+
+      h1 {
+        max-width: 8ch;
+      }
+
+      .hero-metrics,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-metrics {
+        display: grid;
+      }
+
+      .section-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .video-tier-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .shorts-title-band {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .shorts-toolbar {
+        display: grid;
+        align-items: start;
+      }
+
+      .shorts-level-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .book-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .books-controls {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .book-level-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .book-category-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .reader-toolbar,
+      .reader-controls {
+        display: grid;
+        justify-content: stretch;
+      }
+
+      .reader-layout,
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reader-toc {
+        border-right: 0;
+        border-bottom: 1px solid rgba(33, 26, 18, 0.14);
+      }
+
+      .shorts-feed {
+        height: calc(100svh - 64px);
+        height: calc(100dvh - 64px);
+      }
+
+      .short-slide {
+        padding: 12px;
+      }
+
+      .short-slide::before {
+        top: 12px;
+        left: 12px;
+        max-width: calc(100% - 118px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .path-tabs {
+        width: 100%;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .lesson-grid,
+      .adventure-grid,
+      .mission-grid,
+      .rules-grid,
+      .opening-grid,
+      .book-level-grid,
+      .notation-grid,
+      .video-grid,
+      .video-grid.tier-grid,
+      .mission-selector,
+      .puzzle-shell,
+      .study-plan,
+      .puzzle-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .weekly-roadmap {
+        grid-template-columns: 1fr;
+      }
+
+      .trainer-head,
+      .trainer-form,
+      .trainer-summary,
+      .trainer-check-grid,
+      .training-task,
+      .gentle-form,
+      .gentle-task {
+        grid-template-columns: 1fr;
+      }
+
+      .trainer-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .gentle-start {
+        padding: 16px;
+      }
+
+      .gentle-task .button {
+        width: 100%;
+      }
+
+      .training-time {
+        width: fit-content;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .book-actions {
+        display: grid;
+      }
+
+      .reader-nav,
+      .admin-row {
+        display: grid;
+      }
+
+      .book-level-head,
+      .book-card-top {
+        grid-template-columns: 1fr;
+      }
+
+      .book-level-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .shorts-tabs,
+      .shorts-progress-controls,
+      .shorts-audio-controls,
+      .shorts-volume,
+      .shorts-sound-toggle,
+      .shorts-resume,
+      .shorts-progress {
+        width: 100%;
+      }
+
+      .shorts-audio-controls {
+        justify-content: stretch;
+      }
+
+      .shorts-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .shorts-progress-controls {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .shorts-sound-toggle {
+        flex: 1 1 120px;
+      }
+
+      .shorts-volume {
+        flex: 2 1 180px;
+        justify-content: space-between;
+      }
+
+      .shorts-volume input {
+        flex: 1;
+        width: auto;
+      }
+
+      .shorts-tab {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0 8px;
+      }
+
+      .shorts-feed {
+        height: calc(100svh - 58px);
+        height: calc(100dvh - 58px);
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .short-stage {
+        height: calc(100% - 18px);
+        max-height: calc(100% - 18px);
+        max-width: calc(100vw - 20px);
+      }
+
+      .short-meta {
+        padding: 76px 13px 13px;
+      }
+
+      .short-meta h4 {
+        font-size: 1.05rem;
+      }
+
+      .short-meta p {
+        font-size: 0.84rem;
+      }
+
+      .short-pill {
+        min-height: 24px;
+        padding: 0 7px;
+        font-size: 0.7rem;
+      }
+
+      .short-position {
+        top: 10px;
+        right: 10px;
+        font-size: 0.74rem;
+      }
+
+      .short-actions {
+        top: 38px;
+        right: 10px;
+      }
+
+      .short-action-button {
+        width: 34px;
+        height: 34px;
+        font-size: 0.98rem;
+      }
+
+      .puzzle-shell {
+        padding: 14px;
+      }
+
+      .puzzle-board-wrap {
+        border-width: 5px;
+      }
+
+      .tab-button {
+        padding: 0 8px;
+        font-size: 0.86rem;
+      }
+    }
+
+    @media print {
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #111 !important;
+        font-size: 11pt;
+      }
+
+      .site-header,
+      .hero,
+      #paths,
+      #adventures,
+      #rules,
+      #openings,
+      #videos,
+      #notation,
+      #puzzles,
+      #plan,
+      .footer,
+      .books-controls,
+      .book-category-filters,
+      .book-admin,
+      .reader-toolbar,
+      .reader-toc,
+      .reader-nav,
+      .book-actions,
+      .video-modal {
+        display: none !important;
+      }
+
+      main,
+      #books,
+      #books .wrap {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      #books .section-head {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .book-grid {
+        display: block;
+      }
+
+      .book-level-grid,
+      .book-level-section {
+        display: block;
+      }
+
+      .book-card,
+      .book-detail,
+      .book-reader,
+      .reader-page,
+      .book-stat,
+      .book-verify-note {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 0 0 14px;
+        border: 1px solid #777 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      .reader-layout {
+        display: block !important;
+      }
+
+      .book-detail[hidden] {
+        display: none !important;
+      }
+
+      .badge,
+      .topic-list li,
+      .book-meta span {
+        border: 1px solid #777 !important;
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        font-weight: 400;
+        word-break: break-all;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Checkmate Quest home">
+        <span class="brand-mark" aria-hidden="true">♟</span>
+        <span>Checkmate Quest</span>
+      </a>
+      <div class="nav-links" aria-label="Course section tabs">
+        <a href="#paths" data-site-tab="paths" data-site-panel="paths">Lessons</a>
+        <a href="#adventures" data-site-tab="adventures" data-site-panel="adventures">Adventures</a>
+        <a href="#rules" data-site-tab="rules" data-site-panel="rules">Rules</a>
+        <a href="#openings" data-site-tab="openings" data-site-panel="openings">Openings</a>
+        <a href="#videos" data-site-tab="videos" data-site-panel="videos">Videos</a>
+        <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
+        <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
+        <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
+        <a href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
+        <a href="#plan" data-site-tab="plan" data-site-panel="plan">Study Plan</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-board" aria-hidden="true">
+        <div class="hero-board-grid" id="heroBoard"></div>
+      </div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Lichess-inspired chess tutorial</p>
+          <h1 id="hero-title">Checkmate Quest</h1>
+          <p>Move from legal moves to confident plans with a clean learning path, focused rules, hand-picked videos, and tactical puzzles you can solve right on the board.</p>
+          <div class="hero-actions">
+            <a class="button" href="#paths">Start Learning</a>
+            <a class="button secondary" href="#puzzles">Try a Puzzle</a>
+          </div>
+          <div class="hero-metrics" aria-label="Course summary">
+            <div class="metric">
+              <strong>3</strong>
+              <span>skill levels</span>
+            </div>
+            <div class="metric">
+              <strong>8</strong>
+              <span>core rules</span>
+            </div>
+            <div class="metric">
+              <strong>6</strong>
+              <span>board puzzles</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="paths" class="section-dark" aria-labelledby="paths-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Learning paths</p>
+            <h2 id="paths-title">Choose your level</h2>
+          </div>
+          <p class="section-intro">Each path builds one practical layer at a time: first the board, then tactics, then strategic decisions that hold up in real games.</p>
+        </div>
+
+        <aside class="gentle-start" id="gentleStart" aria-labelledby="gentleStartTitle">
+          <div class="gentle-copy">
+            <div class="gentle-badges" aria-label="Beginner friendly promises">
+              <span class="gentle-badge">No pressure</span>
+              <span class="gentle-badge">Tiny wins</span>
+              <span class="gentle-badge">Fun first</span>
+            </div>
+            <h3 id="gentleStartTitle">Gentle Start Coach</h3>
+            <p>New players do not need to study everything at once. Pick your mood, get a tiny quest, and stop when you finish it. A good day can be just one clear idea.</p>
+            <ul class="gentle-checklist">
+              <li><span>1</span><strong>Learn one idea, not ten.</strong></li>
+              <li><span>2</span><strong>Play or solve once to feel it.</strong></li>
+              <li><span>3</span><strong>Celebrate the mistake you understood.</strong></li>
+            </ul>
+            <div class="gentle-actions">
+              <a class="button secondary" href="#adventures">Try Adventures</a>
+              <a class="button secondary" href="#puzzles">Solve One Puzzle</a>
+            </div>
+          </div>
+
+          <div class="gentle-coach">
+            <form class="gentle-form" id="gentleStartForm">
+              <label for="gentleMood">
+                Today I feel
+                <select id="gentleMood" name="gentleMood">
+                  <option value="new">Brand new</option>
+                  <option value="blunders">I keep losing pieces</option>
+                  <option value="fun">I want a fun challenge</option>
+                  <option value="opening">Openings confuse me</option>
+                </select>
+              </label>
+              <label for="gentleMinutes">
+                Time
+                <select id="gentleMinutes" name="gentleMinutes">
+                  <option value="8">8 minutes</option>
+                  <option value="12" selected>12 minutes</option>
+                  <option value="18">18 minutes</option>
+                  <option value="25">25 minutes</option>
+                </select>
+              </label>
+              <label for="gentleEnergy">
+                Energy
+                <select id="gentleEnergy" name="gentleEnergy">
+                  <option value="calm">Calm</option>
+                  <option value="normal" selected>Normal</option>
+                  <option value="spark">Excited</option>
+                </select>
+              </label>
+              <button class="button" type="submit">Make Mini Quest</button>
+            </form>
+            <div class="gentle-output" id="gentleQuestOutput" aria-live="polite"></div>
+          </div>
+        </aside>
+
+        <div class="path-tabs" role="tablist" aria-label="Lesson levels">
+          <button class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="beginner" id="tab-beginner" data-level="beginner">Beginner</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="intermediate" id="tab-intermediate" data-level="intermediate">Intermediate</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="advanced" id="tab-advanced" data-level="advanced">Advanced</button>
+        </div>
+
+        <div class="lesson-grid" id="beginner" role="tabpanel" aria-labelledby="tab-beginner">
+          <article class="lesson-card">
+            <span class="lesson-number">1</span>
+            <h3>Board and Setup</h3>
+            <p>Place the light square on your right, line up pieces in the usual back-rank order, and remember that queens start on their own color.</p>
+            <ul class="topic-list">
+              <li>Coordinates</li>
+              <li>Starting position</li>
+              <li>Piece values</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">2</span>
+            <h3>How Pieces Move</h3>
+            <p>Learn the movement patterns, captures, and special limits that keep bishops diagonal, rooks straight, knights jumping, and kings cautious.</p>
+            <ul class="topic-list">
+              <li>Movement</li>
+              <li>Captures</li>
+              <li>King safety</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">3</span>
+            <h3>Check and Mate</h3>
+            <p>Spot checks, escape checks legally, and recognize when the enemy king has no safe square, capture, or block left.</p>
+            <ul class="topic-list">
+              <li>Check</li>
+              <li>Checkmate</li>
+              <li>Stalemate</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">4</span>
+            <h3>First Opening Habits</h3>
+            <p>Control the center, develop minor pieces, castle early, and avoid moving the same piece repeatedly without a concrete reason.</p>
+            <ul class="topic-list">
+              <li>Center</li>
+              <li>Development</li>
+              <li>Castling</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="lesson-grid hidden" id="intermediate" role="tabpanel" aria-labelledby="tab-intermediate">
+          <article class="lesson-card">
+            <span class="lesson-number">1</span>
+            <h3>Tactical Patterns</h3>
+            <p>Train forks, pins, skewers, discoveries, and back-rank ideas until the patterns start appearing before you calculate.</p>
+            <ul class="topic-list">
+              <li>Forks</li>
+              <li>Pins</li>
+              <li>Skewers</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">2</span>
+            <h3>Calculation</h3>
+            <p>List forcing moves first: checks, captures, and threats. Then compare candidate lines before touching a piece.</p>
+            <ul class="topic-list">
+              <li>Candidate moves</li>
+              <li>Forcing lines</li>
+              <li>Blunder checks</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">3</span>
+            <h3>Pawn Structure</h3>
+            <p>Use pawn chains, open files, isolated pawns, and outposts to decide where your pieces belong after the opening.</p>
+            <ul class="topic-list">
+              <li>Outposts</li>
+              <li>Open files</li>
+              <li>Weak squares</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">4</span>
+            <h3>Practical Endgames</h3>
+            <p>Convert extra material by activating the king, cutting off counterplay, and knowing the basic rook and pawn endings.</p>
+            <ul class="topic-list">
+              <li>King activity</li>
+              <li>Rook endings</li>
+              <li>Passed pawns</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="lesson-grid hidden" id="advanced" role="tabpanel" aria-labelledby="tab-advanced">
+          <article class="lesson-card">
+            <span class="lesson-number">1</span>
+            <h3>Positional Imbalances</h3>
+            <p>Compare bishops vs. knights, space, pawn weaknesses, king exposure, and initiative before choosing a plan.</p>
+            <ul class="topic-list">
+              <li>Space</li>
+              <li>Initiative</li>
+              <li>Piece quality</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">2</span>
+            <h3>Opening Repertoires</h3>
+            <p>Build compact opening files around structures and middlegame plans, not just memorized move orders.</p>
+            <ul class="topic-list">
+              <li>Repertoires</li>
+              <li>Transpositions</li>
+              <li>Model games</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">3</span>
+            <h3>Endgame Technique</h3>
+            <p>Refine opposition, triangulation, rook activity, queen checks, and conversion methods for small advantages.</p>
+            <ul class="topic-list">
+              <li>Opposition</li>
+              <li>Triangulation</li>
+              <li>Conversion</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">4</span>
+            <h3>Game Review</h3>
+            <p>Annotate without an engine first, mark turning points, then use analysis to test your reasoning against the position.</p>
+            <ul class="topic-list">
+              <li>Annotations</li>
+              <li>Critical moments</li>
+              <li>Engine review</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="adventures" class="section-warm" aria-labelledby="adventures-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Adventure mode</p>
+            <h2 id="adventures-title">Turn lessons into adventures</h2>
+          </div>
+          <p class="section-intro">Every piece becomes a character in Chess Kingdom, and every rule becomes a mission the player can picture before they move.</p>
+        </div>
+
+        <div class="adventure-grid">
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#128081;</span>
+            <h3>King = nervous boss</h3>
+            <p>The boss is important but fragile. Every mission is secretly about keeping him safe while the team does the work.</p>
+            <ul class="topic-list">
+              <li>One square</li>
+              <li>Never into danger</li>
+              <li>Needs guards</li>
+            </ul>
+          </article>
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#128120;</span>
+            <h3>Queen = superhero</h3>
+            <p>The superhero flies across ranks, files, and diagonals. She is powerful, but even heroes need backup.</p>
+            <ul class="topic-list">
+              <li>Any distance</li>
+              <li>Straight or diagonal</li>
+              <li>Big attacker</li>
+            </ul>
+          </article>
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#127984;</span>
+            <h3>Rook = castle guardian</h3>
+            <p>The guardian patrols the castle walls in straight lines, guarding files and ranks like long hallways.</p>
+            <ul class="topic-list">
+              <li>Files</li>
+              <li>Ranks</li>
+              <li>Open lanes</li>
+            </ul>
+          </article>
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#128052;</span>
+            <h3>Knight = trickster jumper</h3>
+            <p>The trickster leaps over crowds and lands in an L shape, surprising enemies that thought they were safe.</p>
+            <ul class="topic-list">
+              <li>Jumps pieces</li>
+              <li>L shape</li>
+              <li>Forks</li>
+            </ul>
+          </article>
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#9962;</span>
+            <h3>Bishop = diagonal sniper</h3>
+            <p>The sniper watches long diagonal roads. Once a diagonal opens, the bishop can strike from far away.</p>
+            <ul class="topic-list">
+              <li>Diagonals</li>
+              <li>Long range</li>
+              <li>Color bound</li>
+            </ul>
+          </article>
+          <article class="adventure-card">
+            <span class="character-mark" aria-hidden="true">&#9823;&#65039;</span>
+            <h3>Pawn = rookie soldier</h3>
+            <p>The rookie soldier marches forward, captures diagonally, and dreams of promotion at the far side of the board.</p>
+            <ul class="topic-list">
+              <li>Moves forward</li>
+              <li>Captures diagonal</li>
+              <li>Promotes</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="mission-grid">
+          <article class="mission-card">
+            <span class="mission-label">Lesson 1 replacement</span>
+            <h3>&#128052; The Knight's Secret Jump Mission</h3>
+            <p>The trickster jumper must rescue a trapped pawn by leaping over two guards and landing in the perfect L-shaped hideout.</p>
+          </article>
+          <article class="mission-card">
+            <span class="mission-label">Movement story</span>
+            <h3>&#128120; The Queen's Superhero Rescue</h3>
+            <p>The queen races down a file, cuts across a diagonal, and saves the nervous boss by attacking the enemy's strongest piece.</p>
+          </article>
+          <article class="mission-card">
+            <span class="mission-label">Board control</span>
+            <h3>&#127984; The Rook's Castle Wall Patrol</h3>
+            <p>The rook opens a file like a castle gate, then patrols the whole hallway so no enemy can sneak through.</p>
+          </article>
+          <article class="mission-card">
+            <span class="mission-label">Diagonal vision</span>
+            <h3>&#9962; The Bishop's Hidden Sniper Trail</h3>
+            <p>The bishop waits on a quiet diagonal until one pawn moves, revealing a long-range attack across the kingdom.</p>
+          </article>
+          <article class="mission-card">
+            <span class="mission-label">Pawn power</span>
+            <h3>&#9823;&#65039; The Rookie Soldier's Promotion Quest</h3>
+            <p>The pawn survives one square at a time, dodges captures, and reaches the final rank to become a new hero.</p>
+          </article>
+          <article class="mission-card">
+            <span class="mission-label">King safety</span>
+            <h3>&#128081; Protect the Nervous Boss</h3>
+            <p>The whole team builds a shield, castles the king away from danger, and checks every move for hidden threats.</p>
+          </article>
+        </div>
+
+        <div class="adventure-play" aria-labelledby="adventurePlayTitle">
+          <div class="adventure-board-wrap" aria-label="Playable adventure board">
+            <div class="adventure-board" id="adventureBoard"></div>
+          </div>
+          <div class="adventure-panel">
+            <div class="mission-selector" id="adventureMissionList" aria-label="Adventure mission list"></div>
+            <div class="puzzle-meta">
+              <span class="badge" id="adventureRole">Knight mission</span>
+              <span class="badge" id="adventureMove">White to move</span>
+            </div>
+            <h3 id="adventurePlayTitle">Adventure mission</h3>
+            <p id="adventureTask">Choose a mission to begin.</p>
+            <p class="puzzle-hint" id="adventureTip">Select the glowing character, then click the target square.</p>
+            <p class="feedback" id="adventureFeedback">Start with the knight mission.</p>
+            <div class="puzzle-actions">
+              <button class="button" type="button" id="nextAdventure">Next Mission</button>
+              <button class="button secondary" type="button" id="restartAdventure">Restart Mission</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules" class="section-warm" aria-labelledby="rules-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Rules</p>
+            <h2 id="rules-title">The essentials</h2>
+          </div>
+          <p class="section-intro">These rules cover the situations that decide most beginner games and prevent the classic illegal-move confusion.</p>
+        </div>
+
+        <div class="rules-grid">
+          <article class="rule-item">
+            <strong>Objective</strong>
+            <p>Checkmate the opposing king. A king is checkmated when it is attacked and has no legal way to escape.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Turns</strong>
+            <p>White moves first. Players alternate one legal move at a time, and a move cannot leave your own king in check.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Piece movement</strong>
+            <p>Rooks move straight, bishops diagonal, queens both ways, knights in an L shape, kings one square, and pawns forward.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Captures</strong>
+            <p>Most pieces capture the way they move. Pawns move forward but capture one square diagonally forward.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Castling</strong>
+            <p>The king and rook move together if neither has moved, the path is clear, and the king does not pass through check.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Promotion</strong>
+            <p>A pawn reaching the last rank becomes a queen, rook, bishop, or knight. Most positions call for a queen.</p>
+          </article>
+          <article class="rule-item">
+            <strong>En passant</strong>
+            <p>A pawn that advances two squares can sometimes be captured as if it moved one square, but only immediately.</p>
+          </article>
+          <article class="rule-item">
+            <strong>Draws</strong>
+            <p>Games can draw by stalemate, agreement, repetition, the fifty-move rule, or insufficient mating material.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="openings" class="section-dark" aria-labelledby="openings-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Opening compass</p>
+            <h2 id="openings-title">Start with a plan</h2>
+          </div>
+          <p class="section-intro">Openings are easier to remember when each one has a job: control the center, develop pieces, and get the king safe.</p>
+        </div>
+
+        <div class="opening-grid">
+          <article class="opening-card">
+            <div class="mini-board" data-fen="r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R" aria-label="Italian Game position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 e5 2. Nf3 Nc6 3. Bc4</span>
+              <h3>Italian Game</h3>
+              <p>Fast development, pressure on f7, and simple castling plans make this a friendly first opening for White.</p>
+              <ul class="topic-list">
+                <li>Open center</li>
+                <li>Quick castle</li>
+                <li>f7 pressure</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>3...Bc5 4. c3 Nf6</code><span>Giuoco Piano: build the center before attacking.</span></li>
+                <li><code>3...Nf6 4. Ng5</code><span>Two Knights: tactical pressure on f7.</span></li>
+                <li><code>4. b4</code><span>Evans Gambit: trade a pawn for fast activity.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR" aria-label="Queen's Gambit position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. d4 d5 2. c4</span>
+              <h3>Queen's Gambit</h3>
+              <p>White offers a wing pawn to pull Black away from the center and build a strong pawn duo.</p>
+              <ul class="topic-list">
+                <li>Central space</li>
+                <li>Pawn tension</li>
+                <li>Piece harmony</li>
+              </ul>
+              <ul class="book-lines">
+                <li><code>2...e6 3. Nc3 Nf6</code><span>Queen's Gambit Declined: solid center and natural development.</span></li>
+                <li><code>2...dxc4 3. e4</code><span>Queen's Gambit Accepted: win back c4 with central control.</span></li>
+                <li><code>2...c6</code><span>Slav Defense: support d5 before developing the bishop.</span></li>
+              </ul>
+            </div>
+          </article>
+          <article class="opening-card">
+            <div class="mini-board" data-fen="rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR" aria-label="Sicilian Defense position"></div>
+            <div class="opening-body">
+              <span class="opening-line">1. e4 c5</span>
+              <h3>Sicilian Defense</h3>
+              <p>Black fights from the side, creates an unbalanced pawn structure, and plays for active counterplay.</p>
+              <ul class="topic-list">
                 <li>Counterattack</li>
                 <li>Open c-file</li>
                 <li>Sharp play</li>
