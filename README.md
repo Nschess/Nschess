@@ -121,6 +121,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 24px;
       width: min(100% - 32px, var(--max));
       margin: 0 auto;
@@ -131,7 +132,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0;
       white-space: nowrap;
     }
@@ -150,33 +151,60 @@
       background-size: 18px 18px;
       border-radius: var(--radius);
       color: #211a12;
-      font-size: 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 1000;
       line-height: 1;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: flex-end;
-      padding: 6px;
+      min-width: 0;
+      padding: 5px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.045);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-group {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      gap: 4px;
+      padding: 3px;
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-group-label {
+      padding: 0 8px;
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 1000;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .nav-links a {
       display: inline-flex;
       align-items: center;
-      min-height: 38px;
-      padding: 0 11px;
+      min-height: 36px;
+      padding: 0 10px;
       border-radius: 6px;
       color: var(--muted);
-      font-size: 0.93rem;
-      font-weight: 800;
+      font-size: 0.88rem;
+      font-weight: 900;
       white-space: nowrap;
       transition: background var(--move-speed) ease, color var(--move-speed) ease, box-shadow var(--move-speed) ease, transform var(--move-speed) ease;
+    }
+
+    .nav-links a.is-quick-tab {
+      color: var(--text);
+      background: rgba(127, 166, 80, 0.16);
     }
 
     .nav-links a:hover,
@@ -414,6 +442,51 @@
       margin-top: 44px;
     }
 
+    .home-dashboard {
+      display: grid;
+      gap: 14px;
+      max-width: 720px;
+      margin-top: 34px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(47, 43, 39, 0.78);
+    }
+
+    body.theme-light .home-dashboard {
+      background: rgba(255, 250, 240, 0.82);
+    }
+
+    .home-dashboard h3,
+    .home-dashboard p {
+      margin: 0;
+    }
+
+    .home-stat-grid,
+    .quick-practice,
+    .recommendation-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .home-stat {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.15);
+      color: var(--gold);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .recommendation-list a {
+      border-color: rgba(127, 166, 80, 0.38);
+      background: rgba(127, 166, 80, 0.14);
+    }
+
     .metric {
       min-height: 88px;
       padding: 16px;
@@ -446,6 +519,11 @@
 
     body.theme-light .site-header {
       background: rgba(246, 241, 232, 0.94);
+    }
+
+    body.theme-light .nav-links,
+    body.theme-light .nav-group {
+      background: rgba(33, 26, 18, 0.04);
     }
 
     body.theme-light .section-dark,
@@ -578,7 +656,7 @@
 
     .lesson-flow {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
       gap: 10px;
       margin: 0 0 18px;
       padding: 14px;
@@ -2779,7 +2857,8 @@
     }
 
     .captured-row > div,
-    .move-history {
+    .move-history,
+    .guided-review {
       border: 1px solid rgba(255, 248, 237, 0.12);
       border-radius: var(--radius);
       background: rgba(0, 0, 0, 0.14);
@@ -2797,6 +2876,44 @@
       font-family: Georgia, "Times New Roman", serif;
       font-size: 1.55rem;
       line-height: 1.15;
+    }
+
+    .guided-review {
+      display: grid;
+      gap: 10px;
+    }
+
+    .guided-review[hidden] {
+      display: none;
+    }
+
+    .review-moment {
+      display: grid;
+      gap: 5px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 248, 237, 0.1);
+    }
+
+    .review-moment span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .principle-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .principle-strip span {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--soft);
+      font-weight: 900;
     }
 
     .move-history {
@@ -2836,6 +2953,68 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
+    }
+
+    .puzzle-brief {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .puzzle-brief span,
+    .puzzle-complete {
+      padding: 10px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.52);
+      color: #3a3127;
+      font-weight: 800;
+    }
+
+    .puzzle-tags {
+      margin-bottom: 12px;
+    }
+
+    .puzzle-tags span {
+      background: rgba(33, 26, 18, 0.06);
+      color: #3a3127;
+    }
+
+    .puzzle-complete {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--green);
+    }
+
+    .puzzle-complete[hidden] {
+      display: none;
+    }
+
+    .puzzle-complete p {
+      margin: 0;
+    }
+
+    .puzzle-board-wrap.is-correct {
+      animation: puzzlePulse 420ms ease;
+    }
+
+    .puzzle-board-wrap.is-wrong {
+      animation: puzzleShake 280ms ease;
+    }
+
+    @keyframes puzzlePulse {
+      50% {
+        box-shadow: 0 0 0 5px rgba(127, 166, 80, 0.42), 0 15px 30px rgba(0, 0, 0, 0.26);
+      }
+    }
+
+    @keyframes puzzleShake {
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
     }
 
     .puzzle-meta {
@@ -2966,6 +3145,29 @@
     .achievement-badge.unlocked {
       background: var(--green);
       color: #10150d;
+    }
+
+    .game-reward-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .game-unlock {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: rgba(111, 168, 220, 0.16);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    body.no-pressure .pressure-rating {
+      display: none;
     }
 
     .habit-reward,
@@ -3132,6 +3334,32 @@
       border-left: 4px solid var(--green);
       background: rgba(127, 166, 80, 0.12);
       color: #2c261f;
+    }
+
+    .puzzle-info .thinking-checklist {
+      margin: 12px 0;
+    }
+
+    .puzzle-info .thinking-checklist li {
+      color: #3a3127;
+      font-size: 0.9rem;
+    }
+
+    .vision-drill {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0;
+      padding: 12px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .vision-drill p,
+    .vision-drill small {
+      margin: 0;
+      color: #3a3127;
+      line-height: 1.45;
     }
 
     .puzzle-actions {
@@ -3437,6 +3665,28 @@
       align-items: center;
     }
 
+    .trainer-patterns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .trainer-patterns span {
+      padding: 7px 10px;
+      border: 1px solid rgba(239, 229, 211, 0.13);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .trainer-patterns .is-active {
+      border-color: rgba(127, 166, 80, 0.42);
+      background: rgba(127, 166, 80, 0.16);
+      color: var(--text);
+    }
+
     .trainer-note {
       margin: 0;
       color: var(--muted);
@@ -3580,7 +3830,17 @@
         justify-content: flex-start;
         overflow-x: auto;
         flex-wrap: nowrap;
-        padding-bottom: 3px;
+        padding-bottom: 5px;
+        scroll-snap-type: x proximity;
+      }
+
+      .nav-group {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
+      .nav-group-label {
+        padding-left: 6px;
       }
 
       .hero {
@@ -3771,7 +4031,8 @@
       .puzzle-actions,
       .coach-levels,
       .progress-mini-stats,
-      .achievement-row {
+      .achievement-row,
+      .puzzle-brief {
         display: grid;
         grid-template-columns: 1fr;
       }
@@ -3923,6 +4184,22 @@
       }
     }
 
+    @media (max-width: 520px) {
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-links a {
+        min-height: 40px;
+        padding: 0 10px;
+      }
+
+      .nav-group-label {
+        font-size: 0.62rem;
+      }
+    }
+
     @media print {
       * {
         box-shadow: none !important;
@@ -4026,21 +4303,30 @@
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="Checkmate Quest home">
-        <span class="brand-mark" aria-hidden="true">♟</span>
+        <span class="brand-mark" aria-hidden="true">CQ</span>
         <span>Checkmate Quest</span>
       </a>
       <div class="nav-links" aria-label="Course section tabs">
-        <a href="#paths" data-site-tab="paths" data-site-panel="paths">Lessons</a>
-        <a href="#adventures" data-site-tab="adventures" data-site-panel="adventures">Adventures</a>
-        <a href="#rules" data-site-tab="rules" data-site-panel="rules">Rules</a>
-        <a href="#openings" data-site-tab="openings" data-site-panel="openings">Openings</a>
-        <a href="#videos" data-site-tab="videos" data-site-panel="videos">Videos</a>
-        <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
-        <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
-        <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
-        <a href="#play" data-site-tab="play" data-site-panel="play">Play AI</a>
-        <a href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
-        <a href="#plan" data-site-tab="plan" data-site-panel="plan">Study Plan</a>
+        <div class="nav-group" aria-label="Learn">
+          <span class="nav-group-label">Learn</span>
+          <a href="#paths" data-site-tab="paths" data-site-panel="paths">Lessons</a>
+          <a href="#adventures" data-site-tab="adventures" data-site-panel="adventures">Adventures</a>
+          <a href="#rules" data-site-tab="rules" data-site-panel="rules">Rules</a>
+          <a href="#openings" data-site-tab="openings" data-site-panel="openings">Openings</a>
+        </div>
+        <div class="nav-group" aria-label="Practice">
+          <span class="nav-group-label">Play</span>
+          <a class="is-quick-tab" href="#play" data-site-tab="play" data-site-panel="play">Play AI</a>
+          <a class="is-quick-tab" href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
+          <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
+        </div>
+        <div class="nav-group" aria-label="Study">
+          <span class="nav-group-label">Study</span>
+          <a href="#videos" data-site-tab="videos" data-site-panel="videos">Videos</a>
+          <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
+          <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
+          <a class="is-quick-tab" href="#plan" data-site-tab="plan" data-site-panel="plan">Plan</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -4059,19 +4345,23 @@
             <a class="button" href="#paths" id="newToChessButton">I'm new to chess</a>
             <a class="button secondary" href="#puzzles">Try a Puzzle</a>
           </div>
-          <div class="hero-metrics" aria-label="Course summary">
-            <div class="metric">
-              <strong>3</strong>
-              <span>skill levels</span>
+          <div class="home-dashboard" aria-label="Personal chess dashboard">
+            <h3 id="homeWelcome">Welcome back!</h3>
+            <div class="home-stat-grid">
+              <span class="home-stat" id="homeStreak">0-day streak</span>
+              <span class="home-stat" id="homeLevel">Level: Beginner</span>
+              <span class="home-stat" id="homeXp">0 XP</span>
+              <span class="home-stat" id="homeProgress">0 lessons done</span>
             </div>
-            <div class="metric">
-              <strong>8</strong>
-              <span>core rules</span>
+            <div class="quick-practice" aria-label="Quick practice">
+              <a class="button secondary" href="#puzzles">2-minute practice</a>
+              <a class="button secondary" href="#puzzles">5 puzzles</a>
+              <a class="button secondary" href="#videos">One endgame</a>
+              <a class="button secondary" href="#puzzles">Checkmate challenge</a>
             </div>
-            <div class="metric">
-              <strong>6</strong>
-              <span>board puzzles</span>
-            </div>
+            <p id="homeInsight">One puzzle today is better than none.</p>
+            <div class="game-reward-row" id="homeUnlocks" aria-label="Unlocked rewards"></div>
+            <div class="recommendation-list" id="homeRecommendations" aria-label="Recommended practice"></div>
           </div>
         </div>
       </div>
@@ -4481,6 +4771,14 @@
             <h2 id="openings-title">Start with a plan</h2>
           </div>
           <p class="section-intro">Openings are easier to remember when each one has a job: control the center, develop pieces, and get the king safe.</p>
+        </div>
+
+        <div class="principle-strip" aria-label="Opening principles">
+          <span>Control the center</span>
+          <span>Develop minor pieces</span>
+          <span>Castle early</span>
+          <span>Avoid repeat moves</span>
+          <span>Connect your rooks</span>
         </div>
 
         <div class="opening-grid">
@@ -5477,6 +5775,12 @@
                 <option value="fast">Fast</option>
               </select>
             </label>
+            <label>No pressure
+              <select id="prefPressure">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+              </select>
+            </label>
           </div>
           <p class="preference-note" id="motivationMessage">Every master was once a beginner.</p>
         </div>
@@ -5497,6 +5801,10 @@
               <button class="mission-button" type="button" data-game-difficulty="hard" aria-pressed="false">Hard</button>
             </div>
             <p class="simple-coach" id="gameCoach">Loading chess.js so every move follows official chess rules.</p>
+            <div class="guided-review" id="guidedReview" hidden aria-live="polite">
+              <strong>Guided review</strong>
+              <div id="guidedReviewList"></div>
+            </div>
             <div class="mini-game-row" id="coachPracticeLinks" hidden aria-label="Recommended practice"></div>
             <div class="captured-row" aria-label="Captured pieces">
               <div>
@@ -5546,8 +5854,16 @@
               <span class="badge" id="puzzleSide">White to move</span>
               <span class="badge daily-puzzle-badge" id="dailyPuzzleBadge">Today</span>
             </div>
+            <div class="puzzle-brief" aria-label="Puzzle details">
+              <span class="pressure-rating"><strong id="puzzleRating">400</strong> Elo</span>
+              <span id="puzzleEstimate">~1 min</span>
+              <span id="puzzleClock">00:00</span>
+              <span id="puzzleMistakes">0 mistakes</span>
+            </div>
+            <div class="trainer-patterns puzzle-tags" id="puzzleTags" aria-label="Puzzle themes"></div>
             <div class="mission-selector puzzle-plan-selector" role="group" aria-label="Study plan puzzle track">
               <button class="mission-button" type="button" data-puzzle-plan="all" aria-pressed="true">All</button>
+              <button class="mission-button" type="button" data-puzzle-plan="adaptive" aria-pressed="false">Adaptive</button>
               <button class="mission-button" type="button" data-puzzle-plan="Beginner" aria-pressed="false">Beginner</button>
               <button class="mission-button" type="button" data-puzzle-plan="Intermediate" aria-pressed="false">Intermediate</button>
               <button class="mission-button" type="button" data-puzzle-plan="Advanced" aria-pressed="false">Advanced</button>
@@ -5582,6 +5898,10 @@
                 <span class="xp-pill" id="lessonCompletePill">Missions 0</span>
                 <span class="xp-pill" id="favoriteOpeningPill">Favorite opening: Italian Game</span>
                 <span class="xp-pill" id="puzzleAccuracyPill">Puzzle confidence 0%</span>
+                <span class="xp-pill" id="hangingPiecesPill">Hanging pieces/game 0</span>
+                <span class="xp-pill" id="moveQualityPill">Move quality 100%</span>
+                <span class="xp-pill" id="puzzleRatingPill">Puzzle rating 400</span>
+                <span class="xp-pill" id="timeManagementPill">Time: steady</span>
               </div>
               <p class="habit-reward" id="dailyReward">Reward locked: finish today's puzzle.</p>
               <p class="simple-coach" id="simpleCoach">Simple coach: Try one move. Learning counts more than winning.</p>
@@ -5594,13 +5914,36 @@
             </div>
             <h3 id="puzzleTitle">Puzzle title</h3>
             <p id="puzzlePrompt">Puzzle prompt</p>
+            <ul class="gentle-checklist thinking-checklist" aria-label="Thinking checklist">
+              <li><span>1</span>What is my opponent threatening?</li>
+              <li><span>2</span>Are any pieces undefended?</li>
+              <li><span>3</span>Can I improve my worst piece?</li>
+              <li><span>4</span>Do I have checks, captures, or threats?</li>
+            </ul>
+            <div class="vision-drill" id="visionDrill">
+              <strong>Board Vision</strong>
+              <p id="visionQuestion">Which piece is hanging?</p>
+              <button class="button secondary" type="button" id="visionAnswer">Show Answer</button>
+              <small id="visionAnswerText" hidden></small>
+            </div>
             <p class="puzzle-hint hidden" id="puzzleHint">Hint text</p>
             <div class="answers" id="answers"></div>
             <p class="feedback" id="feedback">Choose the strongest move.</p>
+            <div class="puzzle-complete" id="puzzleComplete" hidden>
+              <strong>Puzzle complete</strong>
+              <p id="puzzleCompleteSummary">Accuracy, time, and themes appear here.</p>
+              <p id="puzzleExplanation">Why the move works appears here.</p>
+            </div>
             <div class="puzzle-actions">
+              <button class="button" type="button" id="startPuzzle">Start Puzzle</button>
               <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
+              <button class="button secondary" type="button" id="flipPuzzle">Flip</button>
+              <button class="button secondary" type="button" id="soundPuzzle" aria-pressed="false">Sound Off</button>
               <button class="button secondary" type="button" id="hintPuzzle">Hint</button>
               <button class="button secondary" type="button" id="revealPuzzle">Show Move</button>
+              <button class="button secondary" type="button" id="retryPuzzle">Retry</button>
+              <button class="button secondary" type="button" id="analyzePuzzle">Analyze</button>
+              <button class="button secondary" type="button" id="replayPuzzle">Replay</button>
               <button class="button" type="button" id="nextPuzzle">Next Puzzle</button>
               <button class="button secondary" type="button" id="resetPuzzle">Reset Score</button>
             </div>
@@ -5623,7 +5966,7 @@
           <article class="plan-panel">
             <div class="plan-meta">
               <span class="badge">Beginner</span>
-              <span class="badge">31 min/day</span>
+              <span class="badge">25 min/day</span>
               <span class="badge">First 30 days</span>
             </div>
             <h3>Build board confidence</h3>
@@ -5692,8 +6035,8 @@
                 </select>
               </label>
               <label for="trainingMinutes">
-                Time today: <span id="trainingMinutesLabel">31 min</span>
-                <input id="trainingMinutes" name="trainingMinutes" type="range" min="15" max="60" step="1" value="31" />
+                Time today: <span id="trainingMinutesLabel">25 min</span>
+                <input id="trainingMinutes" name="trainingMinutes" type="range" min="15" max="60" step="1" value="25" />
               </label>
               <label for="trainingGoal">
                 Main goal
@@ -5721,6 +6064,20 @@
             </form>
 
             <div class="trainer-output" id="dailyTrainingOutput" aria-live="polite"></div>
+          </article>
+          <article class="plan-panel wide">
+            <div class="plan-meta">
+              <span class="badge">Endgame essentials</span>
+              <span class="badge">Convert wins</span>
+            </div>
+            <h3>Endgames that matter first</h3>
+            <ul class="plan-list">
+              <li><span>1</span><div><a href="#videos">King and Queen vs. King: learn the box method and finish calmly.</a></div></li>
+              <li><span>2</span><div><a href="#videos">King and Rook vs. King: cut off the king, then shrink the board.</a></div></li>
+              <li><span>3</span><div><a href="#videos">Opposition: use kings to win key squares.</a></div></li>
+              <li><span>4</span><div><a href="#videos">King and Pawn vs. King: know when promotion is possible.</a></div></li>
+              <li><span>5</span><div><a href="#videos">Basic pawn endings: push only after your king helps.</a></div></li>
+            </ul>
           </article>
           <article class="plan-panel wide">
             <div class="plan-meta">
@@ -5777,13 +6134,15 @@
             </ul>
           </article>
           <article class="plan-panel wide">
-            <h3>Learning app roadmap</h3>
+            <h3>Beginner to intermediate path</h3>
             <ul class="plan-list">
-              <li><span>1</span><div><a href="#paths">Interactive lessons: one tiny idea, one try, one quick win.</a></div></li>
-              <li><span>2</span><div><a href="#puzzles">Puzzle trainer and daily challenges: checks, captures, threats, then celebrate progress.</a></div></li>
-              <li><span>3</span><div><a href="#plan">Progress tracking: XP, achievements, streaks, weekly stats, and clear next steps.</a></div></li>
-              <li><span>4</span><div><a href="#play">AI coach: simple feedback, one helpful tip, and personalized recommendations.</a></div></li>
-              <li><span>5</span><div><a href="#play">Customization and community: board themes first, then friendly competitions, clubs, and leaderboards.</a></div></li>
+              <li><span>1</span><div><a href="#paths">Learn piece movement and basic checkmates.</a></div></li>
+              <li><span>2</span><div><a href="#puzzles">Build board vision and avoid hanging pieces.</a></div></li>
+              <li><span>3</span><div><a href="#puzzles">Practice tactical patterns until they feel familiar.</a></div></li>
+              <li><span>4</span><div><a href="#openings">Learn opening principles before memorizing lines.</a></div></li>
+              <li><span>5</span><div><a href="#play">Review games and fix recurring mistakes.</a></div></li>
+              <li><span>6</span><div><a href="#videos">Study essential endgames and simple planning.</a></div></li>
+              <li><span>7</span><div><a href="#play">Play longer games with calm analysis.</a></div></li>
             </ul>
           </article>
         </div>
@@ -7429,10 +7788,11 @@
 
     const puzzleStorageKey = "checkmateQuest.puzzles.v1";
     const puzzlePlanLevels = ["Beginner", "Intermediate", "Advanced"];
+    const puzzlePlanOptions = ["all", "adaptive", ...puzzlePlanLevels];
     const savedPuzzleState = readPuzzleState();
     let currentPuzzle = Math.max(0, Math.min(puzzles.length - 1, Number(savedPuzzleState.currentPuzzle) || 0));
-    let activePuzzlePlan = puzzlePlanLevels.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
-    if (activePuzzlePlan !== "all" && puzzles[currentPuzzle]?.level !== activePuzzlePlan) {
+    let activePuzzlePlan = puzzlePlanOptions.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
+    if (puzzlePlanLevels.includes(activePuzzlePlan) && puzzles[currentPuzzle]?.level !== activePuzzlePlan) {
       currentPuzzle = puzzles.findIndex((puzzle) => puzzle.level === activePuzzlePlan);
       if (currentPuzzle < 0) currentPuzzle = 0;
     }
@@ -7442,17 +7802,31 @@
     let puzzleLegalMoves = [];
     let puzzleLastMove = null;
     let puzzleHintStep = 0;
+    let puzzleStarted = false;
+    let puzzleAnalyzeMode = false;
+    let puzzleFlipped = false;
+    let puzzleSoundOn = false;
+    let puzzleMistakeCount = 0;
+    let puzzleStartAt = 0;
+    let puzzleTimerId = 0;
     let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
     let puzzleXp = Math.max(0, Number(savedPuzzleState.xp) || 0);
     let bestPuzzleStreak = Math.max(streak, Number(savedPuzzleState.bestStreak) || 0);
     let puzzleAttempts = Math.max(0, Number(savedPuzzleState.attempts) || 0);
     let puzzleCorrect = Math.max(0, Number(savedPuzzleState.correct) || 0);
+    let spacedReview = savedPuzzleState.spacedReview && typeof savedPuzzleState.spacedReview === "object" ? savedPuzzleState.spacedReview : null;
     let weeklyPuzzleXp = savedPuzzleState.weekly && typeof savedPuzzleState.weekly === "object" ? savedPuzzleState.weekly : {};
     let favoriteOpening = savedPuzzleState.favoriteOpening || "Italian Game";
     let gameStats = savedPuzzleState.gameStats && typeof savedPuzzleState.gameStats === "object" ? savedPuzzleState.gameStats : {};
     gameStats = {
       played: Math.max(0, Number(gameStats.played) || 0),
-      wins: Math.max(0, Number(gameStats.wins) || 0)
+      wins: Math.max(0, Number(gameStats.wins) || 0),
+      hanging: Math.max(0, Number(gameStats.hanging) || 0),
+      moveQualityTotal: Math.max(0, Number(gameStats.moveQualityTotal) || 0),
+      moveQualityMoves: Math.max(0, Number(gameStats.moveQualityMoves) || 0),
+      cleanGames: Math.max(0, Number(gameStats.cleanGames) || 0),
+      principleGames: Math.max(0, Number(gameStats.principleGames) || 0),
+      endgameWins: Math.max(0, Number(gameStats.endgameWins) || 0)
     };
     const completedPathLessons = new Set(Array.isArray(savedPuzzleState.completedPathLessons) ? savedPuzzleState.completedPathLessons : []);
     let dailyHabit = savedPuzzleState.habit && typeof savedPuzzleState.habit === "object" ? savedPuzzleState.habit : {};
@@ -7771,10 +8145,53 @@
       });
     }
 
+    function getPuzzleAccuracy(fallback = 100) {
+      return puzzleCorrect + puzzleAttempts ? Math.round((puzzleCorrect / (puzzleCorrect + puzzleAttempts)) * 100) : fallback;
+    }
+
+    function getAdaptivePuzzleLevel() {
+      const accuracy = getPuzzleAccuracy(0);
+      if (accuracy >= 90 && solvedPuzzles.size >= 8) return "Advanced";
+      if (accuracy >= 70 && solvedPuzzles.size >= 3) return "Intermediate";
+      return "Beginner";
+    }
+
+    function getPuzzlePattern(puzzle) {
+      const text = `${puzzle.title} ${puzzle.prompt} ${puzzle.hint}`.toLowerCase();
+      if (text.includes("fork")) return "Forks";
+      if (text.includes("pin")) return "Pins";
+      if (text.includes("skewer")) return "Skewers";
+      if (text.includes("defender")) return "Removing the defender";
+      if (text.includes("back-rank") || text.includes("back rank")) return "Back-rank mates";
+      if (text.includes("mate")) return "Checkmates";
+      if (text.includes("bishop")) return "Bishop vision";
+      return "Tactics";
+    }
+
+    function addDaysKey(days) {
+      const date = new Date(`${getTodayKey()}T00:00:00`);
+      date.setDate(date.getDate() + days);
+      return date.toISOString().slice(0, 10);
+    }
+
+    function scheduleSpacedReview(wasCorrect) {
+      const label = getPuzzlePattern(puzzles[currentPuzzle]);
+      if (wasCorrect && spacedReview?.label !== label) return;
+      const interval = wasCorrect ? Math.min(Math.max(2, Number(spacedReview?.interval) || 2) * 2, 7) : 1;
+      spacedReview = { label, interval, due: addDaysKey(interval) };
+    }
+
     function getActivePuzzleIndexes() {
-      return puzzles
-        .map((puzzle, index) => activePuzzlePlan === "all" || puzzle.level === activePuzzlePlan ? index : -1)
+      let level = activePuzzlePlan;
+      if (activePuzzlePlan === "adaptive") level = getAdaptivePuzzleLevel();
+      let indexes = puzzles
+        .map((puzzle, index) => activePuzzlePlan === "all" || puzzle.level === level ? index : -1)
         .filter((index) => index >= 0);
+      if (activePuzzlePlan === "adaptive" && spacedReview?.due <= getTodayKey()) {
+        const reviewIndexes = indexes.filter((index) => getPuzzlePattern(puzzles[index]) === spacedReview.label);
+        if (reviewIndexes.length) indexes = reviewIndexes;
+      }
+      return indexes;
     }
 
     function getNextPuzzleIndex(direction = 1) {
@@ -7792,7 +8209,7 @@
     }
 
     function setPuzzlePlan(plan) {
-      activePuzzlePlan = puzzlePlanLevels.includes(plan) ? plan : "all";
+      activePuzzlePlan = puzzlePlanOptions.includes(plan) ? plan : "all";
       const indexes = getActivePuzzleIndexes();
       if (!indexes.includes(currentPuzzle)) {
         currentPuzzle = indexes.find((index) => !solvedPuzzles.has(index)) ?? indexes[0] ?? 0;
@@ -7816,7 +8233,7 @@
     }
 
     function readPuzzleState() {
-      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game" };
+      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game", spacedReview: null };
       const state = readJsonStorage(puzzleStorageKey, fallback);
       return state && typeof state === "object" ? { ...fallback, ...state } : fallback;
     }
@@ -7835,7 +8252,8 @@
         habit: dailyHabit,
         gameStats,
         completedPathLessons: [...completedPathLessons],
-        favoriteOpening
+        favoriteOpening,
+        spacedReview
       });
     }
 
@@ -7905,6 +8323,98 @@
       return "Today's Puzzle";
     }
 
+    function getSolvedPuzzleCountByPattern(pattern) {
+      return [...solvedPuzzles].filter((index) => getPuzzlePattern(puzzles[index]) === pattern).length;
+    }
+
+    function getMoveQualityScore() {
+      return gameStats.moveQualityMoves ? Math.round(gameStats.moveQualityTotal / gameStats.moveQualityMoves) : 100;
+    }
+
+    function getHangingPerGame() {
+      return gameStats.played ? gameStats.hanging / gameStats.played : 0;
+    }
+
+    function getWeeklySkillScores() {
+      return [
+        ["Tactics", getPuzzleAccuracy(0), "tactics"],
+        ["Opening principles", gameStats.principleGames ? 82 : 45, "openings"],
+        ["Endgames", gameStats.endgameWins ? 82 : 42, "endgame"],
+        ["Board vision", Math.max(35, 90 - Math.round(getHangingPerGame() * 28)), "review"],
+        ["Calculation", getMoveQualityScore(), "calculation"]
+      ];
+    }
+
+    function getWeeklySkillAssessment() {
+      return [...getWeeklySkillScores()].sort((a, b) => a[1] - b[1])[0];
+    }
+
+    function getGameUnlocks() {
+      const level = getLearnerLevel(puzzleXp).current[0];
+      return [
+        `Avatar: ${puzzleXp >= 40 ? "Knight Rookie" : "Pawn Rookie"}`,
+        `Theme: ${puzzleXp >= 100 ? "Neon Board" : "Wood Board"}`,
+        `Badge: ${solvedPuzzles.size >= 5 ? "Puzzle Spark" : level}`
+      ];
+    }
+
+    function getSingleCoachFocus() {
+      const [skill, score, weaknessKey] = getWeeklySkillAssessment();
+      const forks = getSolvedPuzzleCountByPattern("Forks");
+      if (forks < 3) {
+        return { skill: "Forks", weaknessKey: "tactics", practice: "spot three fork puzzles", related: "Spot the fork", href: "#puzzles" };
+      }
+      if (getHangingPerGame() > 0.8 || coachCurrentHanging > 0) {
+        return { skill: "Board vision", weaknessKey: "review", practice: "check undefended pieces before every move", related: "Which piece is hanging?", href: "#puzzles" };
+      }
+      if (!gameStats.principleGames) {
+        return { skill: "Opening principles", weaknessKey: "openings", practice: "center, minor pieces, castle, connect rooks", related: "Opening principle drill", href: "#openings" };
+      }
+      if (!gameStats.endgameWins && gameStats.wins > 0) {
+        return { skill: "Endgames", weaknessKey: "endgame", practice: "king and rook or king and pawn basics", related: "Endgame challenge", href: "#videos" };
+      }
+      return { skill, weaknessKey, practice: `raise ${skill.toLowerCase()} above ${Math.max(60, score + 10)}%`, related: getDailyChallengeName(), href: weaknessKey === "openings" ? "#openings" : weaknessKey === "endgame" ? "#videos" : "#puzzles" };
+    }
+
+    function renderHomeDashboard() {
+      const welcome = document.getElementById("homeWelcome");
+      const recs = document.getElementById("homeRecommendations");
+      const unlocks = document.getElementById("homeUnlocks");
+      if (!welcome || !recs) return;
+
+      const shortLessonsDone = readShortLessonState().completed.length;
+      const lessonCount = completedPathLessons.size + shortLessonsDone;
+      const level = getLearnerLevel(puzzleXp).current[0];
+      const needsTactics = puzzleAttempts > puzzleCorrect;
+      const completedToday = dailyHabit.rewardDate === getTodayKey();
+      const nextLesson = Math.max(1, lessonCount + 1);
+      const focus = getSingleCoachFocus();
+      const recommendations = [
+        [`Continue Lesson ${nextLesson}`, "#paths"],
+        [completedToday ? "Continue Learning" : "Puzzle of the Day", "#puzzles"],
+        [needsTactics ? "Fork Practice" : focus.related, needsTactics ? "#puzzles" : focus.href],
+        ["Practice Mistakes", "#play"]
+      ];
+
+      welcome.textContent = lessonCount || puzzleXp ? "Welcome back!" : "Welcome! Start with one tiny win.";
+      document.getElementById("homeStreak").textContent = `${dailyHabit.streak}-day streak`;
+      document.getElementById("homeLevel").textContent = `Level: ${level}`;
+      document.getElementById("homeXp").textContent = `${puzzleXp} XP`;
+      document.getElementById("homeProgress").textContent = `${lessonCount} lessons done`;
+      document.getElementById("homeInsight").textContent = needsTactics
+        ? "You struggled with tactics recently. Try one quick pattern."
+        : `Single focus today: ${focus.practice}.`;
+
+      if (unlocks) unlocks.replaceChildren(...getGameUnlocks().map((item) => createBookText("span", "game-unlock", item)));
+      recs.replaceChildren(...recommendations.map(([label, href]) => {
+        const link = document.createElement("a");
+        link.className = "button secondary";
+        link.href = href;
+        link.textContent = label;
+        return link;
+      }));
+    }
+
     function renderBeginnerProgress() {
       const xpPill = document.getElementById("xpPill");
       const levelPill = document.getElementById("learnerLevelPill");
@@ -7917,6 +8427,10 @@
       const lessonPill = document.getElementById("lessonCompletePill");
       const openingPill = document.getElementById("favoriteOpeningPill");
       const accuracyPill = document.getElementById("puzzleAccuracyPill");
+      const hangingPill = document.getElementById("hangingPiecesPill");
+      const moveQualityPill = document.getElementById("moveQualityPill");
+      const puzzleRatingPill = document.getElementById("puzzleRatingPill");
+      const timePill = document.getElementById("timeManagementPill");
       const dailyReward = document.getElementById("dailyReward");
       const coach = document.getElementById("simpleCoach");
       const badges = document.getElementById("achievementBadges");
@@ -7926,8 +8440,11 @@
       const completedToday = dailyHabit.rewardDate === getTodayKey();
       const shortLessonsDone = readShortLessonState().completed.length;
       const lessonCount = completedPathLessons.size + shortLessonsDone;
-      const accuracy = puzzleCorrect + puzzleAttempts ? Math.round((puzzleCorrect / (puzzleCorrect + puzzleAttempts)) * 100) : 0;
+      const accuracy = getPuzzleAccuracy(0);
       const winRate = gameStats.played ? Math.round((gameStats.wins / gameStats.played) * 100) : 0;
+      const hangingPerGame = gameStats.played ? (gameStats.hanging / gameStats.played).toFixed(1) : "0";
+      const moveQuality = getMoveQualityScore();
+      const puzzleRating = 400 + (solvedPuzzles.size * 12) + (bestPuzzleStreak * 8) + Math.floor(puzzleXp / 10);
       const level = getLearnerLevel(puzzleXp);
       xpPill.textContent = `${puzzleXp} XP`;
       levelPill.textContent = `Level: ${level.current[0]}`;
@@ -7941,19 +8458,25 @@
       lessonPill.textContent = `Missions completed ${lessonCount}`;
       openingPill.textContent = `Favorite opening: ${favoriteOpening}`;
       accuracyPill.textContent = `Puzzle confidence ${accuracy}%`;
+      if (hangingPill) hangingPill.textContent = `Hanging pieces/game ${hangingPerGame}`;
+      if (moveQualityPill) moveQualityPill.textContent = `Move quality ${moveQuality}%`;
+      if (puzzleRatingPill) puzzleRatingPill.textContent = `Puzzle rating ${puzzleRating}`;
+      if (timePill) timePill.textContent = `Time: ${moveQuality >= 75 ? "steady" : "slow scan"}`;
       dailyReward.textContent = completedToday ? "Reward unlocked: +10 XP. Come back tomorrow for the next spark." : "Reward locked: finish today's puzzle for +10 XP.";
       coach.textContent = puzzleAttempts
-        ? `Simple AI coach: You're getting better every day. One helpful idea: ${puzzles[currentPuzzle].hint}`
+        ? `Simple AI coach: You're getting better every day. ${activePuzzlePlan === "adaptive" ? `Adaptive is giving you ${getAdaptivePuzzleLevel()} puzzles. ` : ""}One helpful idea: ${puzzles[currentPuzzle].hint}`
         : "Simple AI coach: You're getting better every day. Try one move.";
 
       const achievements = [
         ["First Win", gameStats.wins > 0],
         ["Puzzle Solver", solvedPuzzles.size > 0],
         ["7-Day Streak", dailyHabit.streak >= 7],
-        ["Knight Master", solvedPuzzles.size >= 3],
+        ["Fork Spotter", getSolvedPuzzleCountByPattern("Forks") >= 3],
         ["Checkmate Artist", solvedPuzzles.size >= 5],
         ["Fast Thinker", bestPuzzleStreak >= 3],
-        ["No Blunders", completedToday && puzzleAttempts === 0]
+        ["No Hanging Pieces", gameStats.cleanGames > 0],
+        ["Opening Principles", gameStats.principleGames > 0],
+        ["Endgame Winner", gameStats.endgameWins > 0]
       ];
       badges.replaceChildren(...achievements.map(([label, unlocked]) => {
         const badge = createBookText("span", `achievement-badge${unlocked ? " unlocked" : ""}`, label);
@@ -7978,6 +8501,7 @@
         bar.title = `${label}: ${value} XP`;
         return bar;
       }));
+      renderHomeDashboard();
     }
 
     function fireConfettiBurst() {
@@ -8038,7 +8562,7 @@
     }
 
     function getPuzzleSquares() {
-      const flipped = getPuzzleSideColor(puzzles[currentPuzzle]) === "b";
+      const flipped = (getPuzzleSideColor(puzzles[currentPuzzle]) === "b") !== puzzleFlipped;
       const files = flipped ? ["h", "g", "f", "e", "d", "c", "b", "a"] : ["a", "b", "c", "d", "e", "f", "g", "h"];
       const ranks = flipped ? ["1", "2", "3", "4", "5", "6", "7", "8"] : ["8", "7", "6", "5", "4", "3", "2", "1"];
       return ranks.flatMap((rank) => files.map((file) => `${file}${rank}`));
@@ -8049,6 +8573,204 @@
         const piece = puzzleGame?.get(square);
         return piece && piece.type === "k" && piece.color === color;
       }) || "";
+    }
+
+    function getSquareCoords(square) {
+      return { file: square.charCodeAt(0) - 97, rank: Number(square[1]) - 1 };
+    }
+
+    function toSquare(file, rank) {
+      return file >= 0 && file < 8 && rank >= 0 && rank < 8 ? `${String.fromCharCode(97 + file)}${rank + 1}` : "";
+    }
+
+    function getRaySquares(square, directions) {
+      const { file, rank } = getSquareCoords(square);
+      const squares = [];
+      directions.forEach(([df, dr]) => {
+        let nextFile = file + df;
+        let nextRank = rank + dr;
+        while (toSquare(nextFile, nextRank)) {
+          const next = toSquare(nextFile, nextRank);
+          squares.push(next);
+          if (puzzleGame?.get(next)) break;
+          nextFile += df;
+          nextRank += dr;
+        }
+      });
+      return squares;
+    }
+
+    function getPseudoAttacks(square, piece) {
+      const { file, rank } = getSquareCoords(square);
+      const colorStep = piece.color === "w" ? 1 : -1;
+      const jump = (pairs) => pairs.map(([df, dr]) => toSquare(file + df, rank + dr)).filter(Boolean);
+      if (piece.type === "p") return jump([[-1, colorStep], [1, colorStep]]);
+      if (piece.type === "n") return jump([[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]);
+      if (piece.type === "b") return getRaySquares(square, [[1, 1], [1, -1], [-1, 1], [-1, -1]]);
+      if (piece.type === "r") return getRaySquares(square, [[1, 0], [-1, 0], [0, 1], [0, -1]]);
+      if (piece.type === "q") return getRaySquares(square, [[1, 1], [1, -1], [-1, 1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]]);
+      if (piece.type === "k") return jump([[1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1]]);
+      return [];
+    }
+
+    function countAttackers(target, color) {
+      if (!puzzleGame) return 0;
+      return getPuzzleSquares().filter((square) => {
+        const piece = puzzleGame.get(square);
+        return piece && piece.color === color && getPseudoAttacks(square, piece).includes(target);
+      }).length;
+    }
+
+    function getBoardVisionDrill() {
+      const side = getPuzzleSideColor(puzzles[currentPuzzle]);
+      const enemy = side === "w" ? "b" : "w";
+      const pieceNames = { p: "pawn", n: "knight", b: "bishop", r: "rook", q: "queen", k: "king" };
+      if (!puzzleGame) return { question: "Which piece is hanging?", answer: "Loading the board. Try again in a moment." };
+
+      if (currentPuzzle % 4 === 1) {
+        const bishopSquare = getPuzzleSquares().find((square) => puzzleGame.get(square)?.type === "b") || "";
+        const bishop = bishopSquare ? puzzleGame.get(bishopSquare) : null;
+        const squares = bishop ? getPseudoAttacks(bishopSquare, bishop).slice(0, 8).join(", ") : "no bishop on this board";
+        return { question: "What squares does a bishop control?", answer: bishop ? `The ${bishop.color === "w" ? "white" : "black"} bishop on ${bishopSquare} controls: ${squares}.` : `This position has ${squares}.` };
+      }
+
+      if (currentPuzzle % 4 === 2) {
+        const king = findPuzzleKing(side);
+        const attackers = king ? countAttackers(king, enemy) : 0;
+        return { question: "Is your king safe?", answer: king ? `${king} has ${attackers} direct attacker${attackers === 1 ? "" : "s"}. ${attackers ? "Answer the threat first." : "No immediate attacker. Now scan loose pieces."}` : "Find your king first, then count direct attackers." };
+      }
+
+      if (currentPuzzle % 4 === 3) {
+        const target = puzzles[currentPuzzle].targets[0] || "the target square";
+        return { question: `Count attackers and defenders on ${target}.`, answer: `${side === "w" ? "White" : "Black"} attacks ${target} with ${countAttackers(target, side)} piece(s). The defender has ${countAttackers(target, enemy)} piece(s) guarding it.` };
+      }
+
+      const hanging = getPuzzleSquares().map((square) => {
+        const piece = puzzleGame.get(square);
+        if (!piece || piece.type === "k") return null;
+        const attackers = countAttackers(square, piece.color === "w" ? "b" : "w");
+        const defenders = countAttackers(square, piece.color);
+        return attackers > defenders ? { square, piece, attackers, defenders } : null;
+      }).find(Boolean);
+      return hanging
+        ? { question: "Which piece is hanging?", answer: `The ${hanging.piece.color === "w" ? "white" : "black"} ${pieceNames[hanging.piece.type]} on ${hanging.square} has ${hanging.attackers} attacker(s) and ${hanging.defenders} defender(s).` }
+        : { question: "Which piece is hanging?", answer: "No clear hanging piece. Good scan. Now look for checks, captures, and threats." };
+    }
+
+    function renderBoardVisionDrill() {
+      const drill = getBoardVisionDrill();
+      const question = document.getElementById("visionQuestion");
+      const answer = document.getElementById("visionAnswerText");
+      const button = document.getElementById("visionAnswer");
+      if (!question || !answer || !button) return;
+      question.textContent = drill.question;
+      answer.textContent = drill.answer;
+      answer.hidden = true;
+      button.textContent = "Show Answer";
+    }
+
+    function getPuzzleRating(puzzle = puzzles[currentPuzzle]) {
+      const base = { Beginner: 650, Intermediate: 1250, Advanced: 1750 }[puzzle.level] || 900;
+      return base + (getPuzzlePattern(puzzle).length % 5) * 30;
+    }
+
+    function getPuzzleTags(puzzle = puzzles[currentPuzzle]) {
+      const text = `${puzzle.title} ${puzzle.prompt} ${puzzle.hint}`.toLowerCase();
+      const tags = [getPuzzlePattern(puzzle)];
+      [
+        [/mate|checkmate/, "Mate"],
+        [/back-rank|back rank/, "Back rank"],
+        [/fork/, "Fork"],
+        [/pin/, "Pin"],
+        [/defender|deflect/, "Deflection"],
+        [/pawn|endgame|promotion/, "Endgame"],
+        [/quiet/, "Quiet move"],
+        [/sacrifice/, "Sacrifice"]
+      ].forEach(([pattern, label]) => {
+        if (pattern.test(text)) tags.push(label);
+      });
+      return [...new Set(tags)].slice(0, 4);
+    }
+
+    function formatPuzzleTime(ms) {
+      const seconds = Math.max(0, Math.floor(ms / 1000));
+      return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+    }
+
+    function updatePuzzleClock() {
+      const clock = document.getElementById("puzzleClock");
+      if (clock) clock.textContent = formatPuzzleTime(puzzleStartAt ? Date.now() - puzzleStartAt : 0);
+    }
+
+    function stopPuzzleTimer() {
+      window.clearInterval(puzzleTimerId);
+      puzzleTimerId = 0;
+      updatePuzzleClock();
+    }
+
+    function startPuzzleTimer() {
+      puzzleStartAt = Date.now();
+      stopPuzzleTimer();
+      puzzleTimerId = window.setInterval(updatePuzzleClock, 500);
+      updatePuzzleClock();
+    }
+
+    function playPuzzleTone(type) {
+      if (!puzzleSoundOn || !window.AudioContext) return;
+      const context = new AudioContext();
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.frequency.value = type === "correct" ? 660 : 180;
+      gain.gain.value = 0.025;
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start();
+      window.setTimeout(() => {
+        oscillator.stop();
+        context.close();
+      }, 110);
+    }
+
+    function flashPuzzleBoard(className) {
+      const wrap = document.querySelector("#puzzleBoard")?.closest(".puzzle-board-wrap");
+      if (!wrap) return;
+      wrap.classList.remove("is-correct", "is-wrong");
+      void wrap.offsetWidth;
+      wrap.classList.add(className);
+      window.setTimeout(() => wrap.classList.remove(className), 450);
+    }
+
+    function renderPuzzleDetails() {
+      const puzzle = puzzles[currentPuzzle];
+      const tags = getPuzzleTags(puzzle);
+      document.getElementById("puzzleRating").textContent = String(getPuzzleRating(puzzle));
+      document.getElementById("puzzleEstimate").textContent = getPuzzleRating(puzzle) >= 1600 ? "~4 min" : getPuzzleRating(puzzle) >= 1200 ? "~2 min" : "~1 min";
+      document.getElementById("puzzleMistakes").textContent = `${puzzleMistakeCount} mistake${puzzleMistakeCount === 1 ? "" : "s"}`;
+      document.getElementById("puzzleTags").replaceChildren(...tags.map((tag) => createBookText("span", "", tag)));
+    }
+
+    function showPuzzleComplete() {
+      const panel = document.getElementById("puzzleComplete");
+      const summary = document.getElementById("puzzleCompleteSummary");
+      const explanation = document.getElementById("puzzleExplanation");
+      const tags = getPuzzleTags().join(", ");
+      const accuracy = puzzleMistakeCount ? Math.max(20, 100 - puzzleMistakeCount * 25) : 100;
+      stopPuzzleTimer();
+      panel.hidden = false;
+      summary.textContent = `Accuracy ${accuracy}%. Time ${document.getElementById("puzzleClock").textContent}. Rating ${getPuzzleRating()}. Themes: ${tags}.`;
+      explanation.textContent = `Why it works: ${puzzles[currentPuzzle].feedback}`;
+    }
+
+    function startPuzzle() {
+      if (puzzleStarted && !activeAnswered) return;
+      puzzleStarted = true;
+      puzzleAnalyzeMode = false;
+      activeAnswered = false;
+      document.getElementById("puzzleComplete").hidden = true;
+      document.getElementById("startPuzzle").textContent = "Solving";
+      document.getElementById("feedback").textContent = "Find the best move. Use checks, captures, threats.";
+      startPuzzleTimer();
+      renderPuzzleBoard();
     }
 
     function finishPuzzleMove(move) {
@@ -8070,16 +8792,25 @@
         }
         bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
         puzzleCorrect += 1;
+        scheduleSpacedReview(true);
         const reward = firstSolve ? 15 : 5;
         const xpResult = addPuzzleXp(reward);
         document.getElementById("feedback").textContent = `Great move! +${reward}${habitReward ? " +10 daily reward" : ""} XP. You played ${move.san}. ${puzzle.feedback}`;
+        flashPuzzleBoard("is-correct");
+        playPuzzleTone("correct");
+        showPuzzleComplete();
         showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
       } else {
         puzzleGame.undo();
         streak = 0;
         puzzleAttempts += 1;
+        puzzleMistakeCount += 1;
+        scheduleSpacedReview(false);
         addPuzzleXp(2);
         document.getElementById("feedback").textContent = `Good idea! Here's an even stronger move. ${move.san} was legal. Tip: ${puzzle.hint}`;
+        document.getElementById("puzzleMistakes").textContent = `${puzzleMistakeCount} mistake${puzzleMistakeCount === 1 ? "" : "s"}`;
+        flashPuzzleBoard("is-wrong");
+        playPuzzleTone("wrong");
       }
 
       updatePuzzleStats();
@@ -8087,7 +8818,7 @@
     }
 
     function handlePuzzleSquare(square) {
-      if (!puzzleGame || activeAnswered) return;
+      if (!puzzleGame || (!puzzleStarted && !puzzleAnalyzeMode) || (activeAnswered && !puzzleAnalyzeMode)) return;
       const piece = puzzleGame.get(square);
 
       if (selectedPuzzleSquare && square !== selectedPuzzleSquare) {
@@ -8095,7 +8826,17 @@
         if (legalMoves.length) {
           const promotion = choosePromotion(legalMoves);
           const move = puzzleGame.move({ from: selectedPuzzleSquare, to: square, ...(promotion ? { promotion } : {}) });
-          if (move) finishPuzzleMove(move);
+          if (move) {
+            if (puzzleAnalyzeMode) {
+              puzzleLastMove = move;
+              selectedPuzzleSquare = "";
+              puzzleLegalMoves = [];
+              document.getElementById("feedback").textContent = `Analyze mode: ${move.san} is legal. Explore the position freely.`;
+              renderPuzzleBoard();
+            } else {
+              finishPuzzleMove(move);
+            }
+          }
           return;
         }
       }
@@ -8155,9 +8896,12 @@
       activeAnswered = true;
       streak = 0;
       puzzleAttempts += 1;
+      puzzleMistakeCount += 1;
       addPuzzleXp(1);
+      scheduleSpacedReview(false);
       lockAnswers(null, false);
       document.getElementById("feedback").textContent = `Good idea to learn from the answer. +1 XP. Stronger move: ${played?.san || correct.move}. Tip: ${puzzle.hint}`;
+      showPuzzleComplete();
       updatePuzzleStats();
       renderPuzzleBoard();
     }
@@ -8210,6 +8954,22 @@
         if (hintVisible && puzzle.targets.includes(name)) square.classList.add("target");
         square.textContent = piece ? coachPieceSymbols[piece.color][piece.type] : "";
         square.setAttribute("aria-label", `${name}${piece ? ` ${piece.color === "w" ? "white" : "black"} ${piece.type}` : " empty"}`);
+        square.draggable = Boolean(piece && piece.color === puzzleGame.turn() && (puzzleStarted || puzzleAnalyzeMode) && (!activeAnswered || puzzleAnalyzeMode));
+        square.addEventListener("dragstart", (event) => {
+          if (!square.draggable) return event.preventDefault();
+          event.dataTransfer.setData("text/plain", name);
+          square.classList.add("dragging");
+        });
+        square.addEventListener("dragend", () => square.classList.remove("dragging"));
+        square.addEventListener("dragover", (event) => event.preventDefault());
+        square.addEventListener("drop", (event) => {
+          event.preventDefault();
+          const from = event.dataTransfer.getData("text/plain");
+          if (from) {
+            selectedPuzzleSquare = from;
+            handlePuzzleSquare(name);
+          }
+        });
         square.addEventListener("click", () => handlePuzzleSquare(name));
         board.appendChild(square);
       });
@@ -8232,6 +8992,7 @@
 
     function handleAnswer(answer, button) {
       if (activeAnswered) return;
+      if (!puzzleStarted) startPuzzle();
 
       const puzzle = puzzles[currentPuzzle];
       activeAnswered = true;
@@ -8245,18 +9006,26 @@
         }
         bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
         puzzleCorrect += 1;
+        scheduleSpacedReview(true);
         const reward = firstSolve ? 15 : 5;
         const xpResult = addPuzzleXp(reward);
         document.getElementById("feedback").textContent = `Great move! +${reward} XP. You improved because you found the idea: ${puzzle.feedback}`;
+        flashPuzzleBoard("is-correct");
+        playPuzzleTone("correct");
+        showPuzzleComplete();
         showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
       } else {
         puzzleAttempts += 1;
         streak = 0;
+        puzzleMistakeCount += 1;
+        scheduleSpacedReview(false);
         addPuzzleXp(2);
         document.getElementById("feedback").textContent = `Great Try! +2 XP for practicing. You improved because you checked a candidate move. Tip: ${puzzle.hint}`;
+        document.getElementById("puzzleMistakes").textContent = `${puzzleMistakeCount} mistake${puzzleMistakeCount === 1 ? "" : "s"}`;
+        flashPuzzleBoard("is-wrong");
+        playPuzzleTone("wrong");
       }
 
-      puzzleAttempts += answer.correct ? 1 : 0;
       updatePuzzleStats();
     }
 
@@ -8272,22 +9041,32 @@
       const hint = document.getElementById("puzzleHint");
 
       activeAnswered = false;
+      puzzleStarted = false;
+      puzzleAnalyzeMode = false;
+      puzzleMistakeCount = 0;
+      puzzleStartAt = 0;
       puzzleHintStep = 0;
+      stopPuzzleTimer();
       resetPuzzleGame();
-      document.getElementById("puzzleLevel").textContent = puzzle.level;
+      document.getElementById("puzzleLevel").textContent = activePuzzlePlan === "adaptive" ? `Adaptive: ${getAdaptivePuzzleLevel()}` : puzzle.level;
       document.getElementById("puzzleSide").textContent = puzzle.side;
       document.getElementById("puzzleTitle").textContent = puzzle.title;
       document.getElementById("puzzlePrompt").textContent = puzzle.prompt;
+      document.getElementById("puzzleComplete").hidden = true;
+      document.getElementById("startPuzzle").textContent = "Start Puzzle";
+      document.getElementById("analyzePuzzle").setAttribute("aria-pressed", "false");
       hint.textContent = puzzle.hint;
       hint.classList.add("hidden");
-      feedback.textContent = CoachChess ? "Move the piece on the board. Legal moves will glow." : "Loading chess.js puzzle rules...";
+      feedback.textContent = CoachChess ? "Press Start Puzzle when you are ready." : "Loading chess.js puzzle rules...";
       document.getElementById("hintPuzzle").disabled = false;
       document.getElementById("hintPuzzle").textContent = "Hint";
       document.getElementById("revealPuzzle").disabled = false;
       document.getElementById("revealPuzzle").textContent = "Show Move";
+      renderPuzzleDetails();
       updatePuzzleStats();
       renderDailyPuzzleMeta();
       renderPuzzleBoard();
+      renderBoardVisionDrill();
 
       answers.innerHTML = "";
       puzzle.answers.forEach((answer) => {
@@ -8298,6 +9077,45 @@
         button.addEventListener("click", () => handleAnswer(answer, button));
         answers.appendChild(button);
       });
+    }
+
+    function retryPuzzle() {
+      renderPuzzle();
+      document.getElementById("feedback").textContent = "Retry from the original position. Look for the forcing idea.";
+      startPuzzle();
+    }
+
+    function toggleAnalyzePuzzle() {
+      if (!activeAnswered) return;
+      puzzleAnalyzeMode = !puzzleAnalyzeMode;
+      document.getElementById("analyzePuzzle").setAttribute("aria-pressed", String(puzzleAnalyzeMode));
+      document.getElementById("feedback").textContent = puzzleAnalyzeMode
+        ? "Analyze mode on: explore legal moves freely."
+        : "Analyze mode off. Review the solution or go next.";
+      renderPuzzleBoard();
+    }
+
+    function flipPuzzleBoard() {
+      puzzleFlipped = !puzzleFlipped;
+      renderPuzzleBoard();
+    }
+
+    function replayPuzzleSolution() {
+      retryPuzzle();
+      puzzleStarted = true;
+      const played = playPuzzleSolution();
+      activeAnswered = true;
+      document.getElementById("feedback").textContent = `Replay: ${played?.san || "best move"}. ${puzzles[currentPuzzle].feedback}`;
+      showPuzzleComplete();
+      renderPuzzleBoard();
+    }
+
+    function togglePuzzleSound() {
+      puzzleSoundOn = !puzzleSoundOn;
+      const button = document.getElementById("soundPuzzle");
+      button.textContent = puzzleSoundOn ? "Sound On" : "Sound Off";
+      button.setAttribute("aria-pressed", String(puzzleSoundOn));
+      playPuzzleTone("correct");
     }
 
     function renderCoordinates() {
@@ -8349,6 +9167,8 @@
     let coachMistakeNote = "";
     let coachWhyText = "Select or make a move, then ask why.";
     let coachGameRecorded = false;
+    let coachReviewMoments = [];
+    let coachCurrentHanging = 0;
     let chessRulesPromise = null;
 
     async function loadChessRules() {
@@ -8504,6 +9324,66 @@
       return `The coach played ${move.san}. Look for a safe developing move or a forcing move.`;
     }
 
+    function getMistakePracticeTopics(move) {
+      if (move.piece === "q") return ["Defending pieces", "Hanging pieces", "Board scanning"];
+      if (move.captured) return ["Safe captures", "Counting defenders", "Piece safety"];
+      if (move.san.includes("+")) return ["King safety", "Check defense", "Candidate moves"];
+      return ["Hanging pieces", "Piece safety", "Board scanning"];
+    }
+
+    function rememberCoachMistake(move, bestMove, note) {
+      const state = readDailyTrainingState();
+      saveDailyTrainingState({
+        ...state,
+        weaknesses: [...new Set(["review", "tactics", ...(state.weaknesses || [])])],
+        lastMistake: {
+          date: getTodayKey(),
+          note,
+          practice: getMistakePracticeTopics(move),
+          better: bestMove?.san || ""
+        }
+      });
+      renderDailyTraining();
+    }
+
+    function addGuidedReviewMoment(move, bestMove) {
+      if (coachReviewMoments.length >= 3) return;
+      const names = { p: "pawn", n: "knight", b: "bishop", r: "rook", q: "queen", k: "king" };
+      const moveNumber = Math.max(1, Math.ceil(coachGame.history({ verbose: true }).length / 2));
+      const piece = names[move.piece] || "piece";
+      coachReviewMoments.push({
+        move: moveNumber,
+        headline: `Your ${piece} was undefended.`,
+        why: "Your opponent could win material without giving anything back.",
+        remember: bestMove ? `Check whether every piece is protected before moving. A calmer idea was ${bestMove.san}.` : "Check whether every piece is protected before moving."
+      });
+    }
+
+    function renderGuidedGameReview(show) {
+      const panel = document.getElementById("guidedReview");
+      const list = document.getElementById("guidedReviewList");
+      if (!panel || !list) return;
+      panel.hidden = !show;
+      if (!show) return;
+      const moments = coachReviewMoments.length ? coachReviewMoments : [{
+        move: Math.max(1, Math.ceil((coachGame?.history({ verbose: true }).length || 1) / 2)),
+        headline: "No big mistake saved.",
+        why: "You finished a legal game and practiced thinking.",
+        remember: "Keep using the checklist: threat, undefended pieces, worst piece, tactic."
+      }];
+      list.replaceChildren(...moments.map((moment) => {
+        const item = document.createElement("div");
+        item.className = "review-moment";
+        item.append(
+          createBookText("strong", "", `Move ${moment.move}`),
+          createBookText("span", "", moment.headline),
+          createBookText("span", "", `Why it matters: ${moment.why}`),
+          createBookText("span", "", `What to remember: ${moment.remember}`)
+        );
+        return item;
+      }));
+    }
+
     function buildCoachMistakeNote(move, bestMove) {
       const names = { p: "pawn", n: "knight", b: "bishop", r: "rook", q: "queen", k: "king" };
       const moveNumber = Math.max(1, Math.ceil(coachGame.history({ verbose: true }).length / 2));
@@ -8517,24 +9397,36 @@
       const whiteMoves = moves.filter((move) => move.color === "w");
       const captures = whiteMoves.filter((move) => move.captured).length;
       const castles = whiteMoves.some((move) => move.flags.includes("k") || move.flags.includes("q"));
+      const focus = getSingleCoachFocus();
       const praise = castles
         ? "Great work getting your king safer."
         : captures
           ? "Great work spotting captures and staying active."
           : "Great work finishing a real legal game.";
-      const review = coachMistakeNote || "Your biggest mistake today: no major mistake saved. Practice: Hanging Pieces, Piece Safety, Defending Pieces.";
-      return `You found ${whiteMoves.length} good moves today. ${praise} ${getOneCoachSuggestion()} ${review}`;
+      const mistake = coachReviewMoments[0]?.headline || "No major mistake saved.";
+      return `You found ${whiteMoves.length} good moves today. What you did well: ${praise} Biggest mistake: ${mistake} Practice next: ${focus.practice}. Related puzzle: ${focus.related}.`;
     }
 
     function recordCoachGameResult(playerWon) {
       if (coachGameRecorded || !coachGame?.history().length) return;
       coachGameRecorded = true;
+      const history = coachGame.history({ verbose: true });
+      const whiteMoves = history.filter((move) => move.color === "w");
+      const minorMoves = new Set(whiteMoves.filter((move) => ["n", "b"].includes(move.piece)).map((move) => move.from)).size;
+      const castled = whiteMoves.some((move) => move.flags.includes("k") || move.flags.includes("q"));
       gameStats.played += 1;
+      gameStats.hanging += coachCurrentHanging;
+      if (coachCurrentHanging === 0) gameStats.cleanGames += 1;
+      if (castled || minorMoves >= 2) gameStats.principleGames += 1;
+      if (playerWon && history.length >= 24) gameStats.endgameWins += 1;
       let xpResult = { levelUp: false };
       if (playerWon) {
         gameStats.wins += 1;
         xpResult = addPuzzleXp(50);
         showCelebration("\uD83C\uDF89 Great Job!", "+50 XP", xpResult.levelUp ? "New Badge Unlocked!" : "First Win progress!");
+      } else {
+        xpResult = addPuzzleXp(coachCurrentHanging === 0 ? 18 : 10);
+        showCelebration("Nice practice!", `+${coachCurrentHanging === 0 ? 18 : 10} XP`, coachCurrentHanging === 0 ? "No Hanging Pieces progress!" : "You learned one idea.");
       }
       savePuzzleState();
       renderBeginnerProgress();
@@ -8585,12 +9477,14 @@
       const row = document.getElementById("coachPracticeLinks");
       if (!row) return;
       row.hidden = !show;
-      if (!show || row.children.length) return;
-      [
-        ["Hanging Pieces", "#puzzles"],
-        ["Piece Safety", "#rules"],
-        ["Defending Pieces", "#puzzles"]
-      ].forEach(([label, href]) => {
+      if (!show) return;
+      row.replaceChildren();
+      const mistake = getCurrentMistakePractice(readDailyTrainingState());
+      const focus = getSingleCoachFocus();
+      const topics = mistake?.practice?.length ? mistake.practice : ["Hanging pieces", "Piece safety", "Defending pieces"];
+      [[`Practice: ${focus.skill}`, focus.href], [`Related puzzle: ${focus.related}`, focus.href], ...topics.map((label) => [label, label.toLowerCase().includes("king") ? "#rules" : "#puzzles"])]
+        .filter(([label], index, list) => list.findIndex(([item]) => item === label) === index)
+        .forEach(([label, href]) => {
         const link = document.createElement("a");
         link.className = "button secondary";
         link.href = href;
@@ -8633,6 +9527,7 @@
       renderCoachCaptured();
       renderCoachHistory();
       renderCoachPracticeLinks(coachDrawAgreed || isMate || isDrawn);
+      renderGuidedGameReview(coachDrawAgreed || isMate || isDrawn);
       document.getElementById("undoGame").disabled = coachThinking || !coachGame.history().length;
       document.getElementById("replayMistake").disabled = coachThinking || !coachReplayFen;
       document.getElementById("showThreats").setAttribute("aria-pressed", String(coachThreatMode));
@@ -8716,9 +9611,14 @@
       coachSelected = "";
       coachLegalMoves = [];
       coachLastMove = move;
+      gameStats.moveQualityTotal += Math.max(0, Math.min(100, 100 - Math.round(betterGap / 8)));
+      gameStats.moveQualityMoves += 1;
       if (betterGap > 220) {
+        coachCurrentHanging += 1;
         coachReplayFen = beforeFen;
         coachMistakeNote = buildCoachMistakeNote(move, bestMove);
+        addGuidedReviewMoment(move, bestMove);
+        rememberCoachMistake(move, bestMove, coachMistakeNote);
       }
       coachMessage = explainLearnerMove(move, bestMove, betterGap);
       renderCoachBoard();
@@ -8774,8 +9674,11 @@
       coachDrawAgreed = false;
       coachGameRecorded = false;
       coachMistakeNote = "";
+      coachReviewMoments = [];
+      coachCurrentHanging = 0;
       coachMessage = "Fresh game. You are White. Select a piece to see legal moves.";
       document.getElementById("gamePgn").textContent = "PGN appears here after export.";
+      renderGuidedGameReview(false);
       renderCoachBoard();
     }
 
@@ -8788,6 +9691,9 @@
       coachLegalMoves = [];
       coachLastMove = null;
       coachDrawAgreed = false;
+      coachReviewMoments = [];
+      coachCurrentHanging = 0;
+      renderGuidedGameReview(false);
       coachMessage = "Undo complete. Try a calmer move and check what is attacked.";
       renderCoachBoard();
     }
@@ -8813,7 +9719,10 @@
       coachDrawAgreed = false;
       coachGameRecorded = false;
       coachMistakeNote = "";
+      coachReviewMoments = [];
+      coachCurrentHanging = 0;
       coachMessage = "Replay this moment. Try the stronger idea before the coach moves.";
+      renderGuidedGameReview(false);
       renderCoachBoard();
     }
 
@@ -8866,6 +9775,8 @@
         coachGame = new CoachChess();
         coachGameRecorded = false;
         coachMistakeNote = "";
+        coachReviewMoments = [];
+        coachCurrentHanging = 0;
       } catch {
         document.getElementById("gameStatusBadge").textContent = "Rules failed";
         document.getElementById("gameCoach").textContent = "Could not load chess.js. Check your connection, then refresh.";
@@ -9065,7 +9976,7 @@
     }
 
     function readLearnerPrefs() {
-      const fallback = { theme: "dark", board: "wood", pieces: "classic", coords: "on", speed: "normal" };
+      const fallback = { theme: "dark", board: "wood", pieces: "classic", coords: "on", speed: "normal", pressure: "on" };
       const saved = readJsonStorage(learnerPrefsStorageKey, fallback);
       return { ...fallback, ...(saved && typeof saved === "object" ? saved : {}) };
     }
@@ -9086,6 +9997,7 @@
       document.body.classList.toggle("coords-off", prefs.coords === "off");
       document.body.classList.toggle("speed-slow", prefs.speed === "slow");
       document.body.classList.toggle("speed-fast", prefs.speed === "fast");
+      document.body.classList.toggle("no-pressure", prefs.pressure !== "off");
       applyPiecePreference(prefs.pieces);
     }
 
@@ -9096,7 +10008,8 @@
         board: document.getElementById("prefBoard"),
         pieces: document.getElementById("prefPieces"),
         coords: document.getElementById("prefCoords"),
-        speed: document.getElementById("prefSpeed")
+        speed: document.getElementById("prefSpeed"),
+        pressure: document.getElementById("prefPressure")
       };
       const messages = [
         "Every master was once a beginner.",
@@ -9140,11 +10053,13 @@
       const fallback = {
         date: getTodayKey(),
         level: "Beginner",
-        minutes: 31,
+        minutes: 25,
         goal: "balanced",
         weaknesses: ["tactics"],
         completed: [],
-        history: []
+        history: [],
+        lastMistake: null,
+        routineVersion: 2
       };
       const saved = readJsonStorage(dailyTrainingStorageKey, fallback);
       const state = saved && typeof saved === "object" ? saved : {};
@@ -9153,12 +10068,16 @@
         ...state,
         completed: Array.isArray(state.completed) ? state.completed : [],
         history: Array.isArray(state.history) ? state.history : [],
+        lastMistake: state.lastMistake && typeof state.lastMistake === "object" ? state.lastMistake : null,
         weaknesses: Array.isArray(state.weaknesses) && state.weaknesses.length ? state.weaknesses : fallback.weaknesses
       };
 
       if (nextState.date !== fallback.date) {
         nextState.date = fallback.date;
         nextState.completed = [];
+      }
+      if (state.routineVersion !== 2 && Number(nextState.minutes) === 20) {
+        nextState.minutes = 25;
       }
 
       return nextState;
@@ -9212,9 +10131,47 @@
       };
     }
 
+    function getTrainingPatternLadder() {
+      return ["Forks", "Pins", "Skewers", "Double attacks", "Discovered attacks", "Removing the defender", "Back-rank mates", "Smothered mates"];
+    }
+
+    function getDailyPattern(level) {
+      const tracks = {
+        Beginner: ["Forks", "Pins", "Back-rank mates"],
+        Intermediate: ["Skewers", "Double attacks", "Removing the defender"],
+        Advanced: ["Discovered attacks", "Smothered mates", "Removing the defender"]
+      };
+      const list = tracks[level] || tracks.Beginner;
+      const day = Number(getTodayKey().slice(-2)) || 1;
+      return list[day % list.length];
+    }
+
+    function splitTrainingMinutes(minutes) {
+      if (minutes === 25) return [5, 5, 0, 10, 5];
+      const parts = [0.2, 0.25, 0.2, 0.2, 0.15].map((weight) => Math.max(2, Math.floor(minutes * weight)));
+      let diff = minutes - parts.reduce((total, value) => total + value, 0);
+      let index = 0;
+      while (diff > 0) {
+        parts[index % parts.length] += 1;
+        diff -= 1;
+        index += 1;
+      }
+      while (diff < 0) {
+        const largest = parts.indexOf(Math.max(...parts));
+        if (parts[largest] <= 2) break;
+        parts[largest] -= 1;
+        diff += 1;
+      }
+      return parts;
+    }
+
+    function getCurrentMistakePractice(state) {
+      return state.lastMistake?.date === getTodayKey() ? state.lastMistake : null;
+    }
+
     function buildDailyTrainingPlan(state) {
       const level = state.level || "Beginner";
-      const minutes = Math.max(15, Math.min(60, Number(state.minutes) || 31));
+      const minutes = Math.max(15, Math.min(60, Number(state.minutes) || 25));
       const goalLabels = {
         balanced: "Balanced improvement",
         rating: "Win more games",
@@ -9228,68 +10185,77 @@
         Advanced: "Slow down at critical moments and compare candidate moves before calculating deeply."
       };
       const bank = getTrainingFocusBank();
-      const weaknesses = (state.weaknesses || ["tactics"]).filter((item) => bank[item]);
+      const accuracy = getPuzzleAccuracy();
+      const coachFocus = getSingleCoachFocus();
+      const assessmentScores = getWeeklySkillScores();
+      const assessment = [...assessmentScores].sort((a, b) => a[1] - b[1])[0];
+      const automaticWeaknesses = [
+        accuracy < 60 ? "tactics" : "",
+        gameStats.played ? "review" : "",
+        coachFocus.weaknessKey
+      ].filter(Boolean);
+      const weaknesses = [...new Set([...(state.weaknesses || ["tactics"]), ...automaticWeaknesses])].filter((item) => bank[item]);
       const primaryKey = weaknesses[0] || "tactics";
       const secondaryKey = weaknesses.find((item) => item !== primaryKey) || (state.goal === "endgame" ? "endgame" : "review");
       const primary = bank[primaryKey];
       const secondary = bank[secondaryKey] || bank.review;
-      const warmupMinutes = minutes <= 15 ? 3 : minutes <= 30 ? 5 : 8;
-      const focusMinutes = minutes <= 15 ? 5 : minutes <= 30 ? 9 : minutes <= 45 ? 14 : 18;
-      const lessonMinutes = minutes <= 15 ? 4 : minutes <= 30 ? 7 : minutes <= 45 ? 10 : 12;
-      const gameMinutes = minutes <= 15 ? 0 : minutes <= 30 ? 7 : minutes <= 45 ? 10 : 15;
-      const reviewMinutes = Math.max(3, minutes - warmupMinutes - focusMinutes - lessonMinutes - gameMinutes);
+      const pattern = getDailyPattern(level);
+      const mistake = getCurrentMistakePractice(state);
+      const mistakePractice = Array.isArray(mistake?.practice) ? mistake.practice.join(", ") : "Hanging Pieces, Piece Safety, Defending Pieces";
+      const [warmupMinutes, focusMinutes, lessonMinutes, gameMinutes, reviewMinutes] = splitTrainingMinutes(minutes);
 
       const tasks = [
         {
           key: "warmup",
-          title: "Warm-up scan",
+          title: "Board vision",
           minutes: warmupMinutes,
           detail: level === "Beginner"
-            ? "Solve easy patterns and say what every capture attacks."
+            ? "Spend 5 minutes asking: what is hanging, who attacks it, and is my king safe?"
             : "Scan for checks, captures, threats, loose pieces, and king danger before moving.",
           href: "#puzzles",
           cta: "Open Puzzles"
         },
         {
           key: `focus-${primaryKey}`,
-          title: `${primary.label} focus`,
+          title: `Tactical puzzles: ${pattern}`,
           minutes: focusMinutes,
-          detail: primary.detail,
-          href: primary.href,
-          cta: primary.cta
-        },
-        {
-          key: "lesson",
-          title: "One lesson, one rule",
-          minutes: lessonMinutes,
-          detail: state.goal === "opening"
-            ? "Watch or read one opening idea and write the plan before memorizing moves."
-            : "Watch one short lesson, then write one rule you will use in the next game.",
-          href: state.goal === "opening" ? "#openings" : "#videos",
-          cta: state.goal === "opening" ? "Open Openings" : "Open Videos"
+          detail: `Pattern recognition: start simple, then make ${pattern.toLowerCase()} one step harder. ${primary.detail}`,
+          href: "#puzzles",
+          cta: "Train Pattern"
         }
       ];
 
-      if (gameMinutes > 0) {
-        tasks.push({
-          key: "game",
-          title: "Focused game",
-          minutes: gameMinutes,
-          detail: level === "Advanced"
-            ? "Play slowly and mark every candidate-move decision you were unsure about."
-            : "Play one game using today's rule. Before each move, ask what your opponent threatens.",
-          href: "#play",
-          cta: "Play AI"
+      if (lessonMinutes > 0) tasks.push({
+          key: "lesson",
+          title: secondaryKey === "endgame" ? "Endgame Drill" : "One lesson, one rule",
+          minutes: lessonMinutes,
+          detail: secondaryKey === "endgame" ? secondary.detail : state.goal === "opening"
+            ? "Watch or read one opening idea and write the plan before memorizing moves."
+            : "Watch one short lesson, then write one rule you will use in the next game.",
+          href: secondaryKey === "endgame" ? secondary.href : state.goal === "opening" ? "#openings" : "#videos",
+          cta: secondaryKey === "endgame" ? secondary.cta : state.goal === "opening" ? "Open Openings" : "Open Videos"
         });
-      }
+
+      tasks.push({
+        key: "game",
+        title: "Play One Game",
+        minutes: gameMinutes,
+        detail: level === "Advanced"
+          ? "Play slowly and mark every candidate-move decision you were unsure about."
+          : "Play one game using today's rule. Before each move, ask what your opponent threatens.",
+        href: "#play",
+        cta: "Play AI"
+      });
 
       tasks.push({
         key: `review-${secondaryKey}`,
-        title: secondaryKey === "review" ? "Game review" : `${secondary.label} review`,
+        title: "Review 3 Mistakes",
         minutes: reviewMinutes,
-        detail: secondary.detail,
-        href: secondary.href,
-        cta: secondary.cta
+        detail: mistake
+          ? `${mistake.note} Practice: ${mistakePractice}.`
+          : "Find three moments: hanging piece, missed tactic, king safety. Write one better plan.",
+        href: "#play",
+        cta: "Review Game"
       });
 
       return {
@@ -9297,6 +10263,11 @@
         focus: primary.label,
         goal: goalLabels[state.goal] || goalLabels.balanced,
         coachTip: levelTips[level] || levelTips.Beginner,
+        assessment: `${assessment[0]} ${assessment[1]}%`,
+        assessmentSummary: assessmentScores.map(([skill, score]) => `${skill} ${score}%`).join(", "),
+        nextFocus: coachFocus,
+        activePattern: pattern,
+        patterns: getTrainingPatternLadder(),
         tasks
       };
     }
@@ -9340,6 +10311,7 @@
       const progressBar = document.createElement("div");
       const taskList = document.createElement("ul");
       const actions = document.createElement("div");
+      const patternRow = document.createElement("div");
       const note = createBookText("p", "trainer-note", "Progress saves on this device. Finish all tasks to mark today as a completed training day.");
       const actionKeys = new Set();
 
@@ -9347,6 +10319,7 @@
       progressBar.className = "trainer-progress";
       taskList.className = "training-task-list";
       actions.className = "trainer-actions";
+      patternRow.className = "trainer-patterns";
       progressBar.setAttribute("aria-label", `Training progress ${progress}%`);
       progressBar.innerHTML = `<span style="width: ${progress}%"></span>`;
 
@@ -9360,6 +10333,13 @@
         stat.className = "trainer-stat";
         stat.append(createBookText("strong", "", value), createBookText("span", "", label));
         summary.appendChild(stat);
+      });
+
+      plan.patterns.forEach((pattern) => {
+        const badge = document.createElement("span");
+        badge.textContent = pattern;
+        if (pattern === plan.activePattern) badge.className = "is-active";
+        patternRow.appendChild(badge);
       });
 
       plan.tasks.forEach((task) => {
@@ -9412,8 +10392,9 @@
       });
 
       output.append(
-        createBookText("p", "plan-focus", `${plan.goal}: ${plan.coachTip} Main focus today: ${plan.focus}.`),
+        createBookText("p", "plan-focus", `${plan.goal}: ${plan.coachTip} Weekly check: ${plan.assessmentSummary}. Single focus: ${plan.nextFocus.practice}.`),
         summary,
+        patternRow,
         progressBar,
         taskList,
         actions,
@@ -11620,6 +12601,13 @@
       renderPuzzle();
     });
 
+    document.getElementById("startPuzzle").addEventListener("click", startPuzzle);
+    document.getElementById("flipPuzzle").addEventListener("click", flipPuzzleBoard);
+    document.getElementById("soundPuzzle").addEventListener("click", togglePuzzleSound);
+    document.getElementById("retryPuzzle").addEventListener("click", retryPuzzle);
+    document.getElementById("analyzePuzzle").addEventListener("click", toggleAnalyzePuzzle);
+    document.getElementById("replayPuzzle").addEventListener("click", replayPuzzleSolution);
+
     document.querySelectorAll("[data-puzzle-plan]").forEach((button) => {
       button.addEventListener("click", () => setPuzzlePlan(button.dataset.puzzlePlan));
     });
@@ -11635,6 +12623,7 @@
       streak = 0;
       puzzleAttempts = 0;
       puzzleCorrect = 0;
+      spacedReview = null;
       solvedPuzzles.clear();
       renderPuzzle();
     });
@@ -11647,6 +12636,12 @@
       if (activeAnswered) return;
       if (puzzleHintStep < 2) showNextPuzzleHint();
       else revealPuzzleSolution();
+    });
+
+    document.getElementById("visionAnswer").addEventListener("click", () => {
+      const answer = document.getElementById("visionAnswerText");
+      answer.hidden = !answer.hidden;
+      document.getElementById("visionAnswer").textContent = answer.hidden ? "Show Answer" : "Hide Answer";
     });
 
     document.getElementById("nextAdventure").addEventListener("click", () => {
