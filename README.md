@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://www.youtube.com" />
   <link rel="preconnect" href="https://i.ytimg.com" />
   <link rel="preconnect" href="https://www.google.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <title>Checkmate Quest - Learn Chess From First Move to Strategy</title>
   <style>
     :root {
@@ -27,6 +28,49 @@
       --shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
       --radius: 8px;
       --max: 1180px;
+      --move-speed: 140ms;
+    }
+
+    body.theme-light {
+      --bg: #f6f1e8;
+      --panel: #fffaf0;
+      --panel-2: #eadfce;
+      --text: #211a12;
+      --muted: #675b4d;
+      --soft: #3b3026;
+      --line: rgba(33, 26, 18, 0.14);
+    }
+
+    body.board-wood {
+      --board-light: #f0d9b5;
+      --board-dark: #b58863;
+    }
+
+    body.board-marble {
+      --board-light: #ede9df;
+      --board-dark: #8fa3a8;
+    }
+
+    body.board-neon {
+      --board-light: #d8fff4;
+      --board-dark: #245cff;
+    }
+
+    body.coords-off .coordinates {
+      display: none;
+    }
+
+    body.piece-letter .puzzle-square {
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-weight: 1000;
+    }
+
+    body.speed-slow {
+      --move-speed: 260ms;
+    }
+
+    body.speed-fast {
+      --move-speed: 70ms;
     }
 
     * {
@@ -132,7 +176,7 @@
       font-size: 0.93rem;
       font-weight: 800;
       white-space: nowrap;
-      transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      transition: background var(--move-speed) ease, color var(--move-speed) ease, box-shadow var(--move-speed) ease, transform var(--move-speed) ease;
     }
 
     .nav-links a:hover,
@@ -400,6 +444,16 @@
       background: #26221f;
     }
 
+    body.theme-light .site-header {
+      background: rgba(246, 241, 232, 0.94);
+    }
+
+    body.theme-light .section-dark,
+    body.theme-light .footer {
+      background: #ede3d3;
+      color: #211a12;
+    }
+
     .section-warm {
       background: #f4eadc;
       color: #211a12;
@@ -516,8 +570,120 @@
     }
 
     .lesson-card {
+      display: flex;
+      flex-direction: column;
       min-height: 270px;
       padding: 20px;
+    }
+
+    .lesson-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 14px;
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: var(--radius);
+      background: rgba(231, 182, 93, 0.08);
+    }
+
+    .lesson-flow-step {
+      display: grid;
+      gap: 4px;
+      min-height: 72px;
+      padding: 11px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .lesson-flow-step strong {
+      color: var(--soft);
+      font-size: 0.98rem;
+    }
+
+    .lesson-journey {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 18px;
+      padding: 16px;
+      border: 1px solid rgba(127, 166, 80, 0.28);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.08);
+    }
+
+    .lesson-journey h3 {
+      margin: 0;
+      font-size: 1.16rem;
+    }
+
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+    }
+
+    .journey-step {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid rgba(239, 229, 211, 0.14);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font: inherit;
+      font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .journey-step.is-complete {
+      border-color: rgba(127, 166, 80, 0.5);
+      background: rgba(127, 166, 80, 0.18);
+    }
+
+    .journey-step.is-current {
+      border-color: rgba(231, 182, 93, 0.55);
+      background: rgba(231, 182, 93, 0.14);
+    }
+
+    .journey-step.is-locked {
+      color: var(--muted);
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
+
+    .lesson-card.is-locked p:not(.lesson-lock-note),
+    .lesson-card.is-locked .topic-list,
+    .lesson-card.is-locked .lesson-card-footer {
+      display: none;
+    }
+
+    .lesson-lock-note {
+      display: none;
+      margin-top: auto;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .lesson-card.is-locked .lesson-lock-note {
+      display: block;
+    }
+
+    .lesson-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .lesson-time {
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 900;
     }
 
     .gentle-start {
@@ -2492,6 +2658,167 @@
       pointer-events: none;
     }
 
+    .play-square {
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      transition: background var(--move-speed) ease, box-shadow var(--move-speed) ease, transform var(--move-speed) ease;
+    }
+
+    .play-square:hover,
+    .play-square:focus-visible {
+      z-index: 1;
+      outline: none;
+      box-shadow: inset 0 0 0 4px rgba(255, 248, 237, 0.36);
+    }
+
+    .play-square.selected {
+      box-shadow: inset 0 0 0 5px rgba(231, 182, 93, 0.88);
+    }
+
+    .play-square.legal::after,
+    .play-square.capture::after {
+      content: "";
+      position: absolute;
+      width: 28%;
+      height: 28%;
+      border-radius: 50%;
+      background: rgba(32, 29, 26, 0.34);
+      pointer-events: none;
+    }
+
+    .play-square.capture::after {
+      width: 72%;
+      height: 72%;
+      border: 4px solid rgba(216, 111, 98, 0.7);
+      background: transparent;
+    }
+
+    .play-square.last-move {
+      background: linear-gradient(rgba(231, 182, 93, 0.42), rgba(231, 182, 93, 0.42)), var(--board-light);
+    }
+
+    .play-square.dark.last-move {
+      background: linear-gradient(rgba(231, 182, 93, 0.35), rgba(231, 182, 93, 0.35)), var(--board-dark);
+    }
+
+    .play-square.in-check {
+      background: linear-gradient(rgba(216, 111, 98, 0.72), rgba(216, 111, 98, 0.72)), var(--board-dark);
+    }
+
+    .play-square.threat {
+      box-shadow: inset 0 0 0 5px rgba(216, 111, 98, 0.78);
+    }
+
+    .play-square.dragging {
+      opacity: 0.72;
+      transform: scale(0.96);
+    }
+
+    .play-square.is-ai-thinking {
+      cursor: wait;
+    }
+
+    .coach-panel {
+      gap: 14px;
+    }
+
+    .coach-levels {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 0;
+    }
+
+    .preference-panel {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .preference-panel h3,
+    .preference-note {
+      margin: 0;
+    }
+
+    .preference-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .preference-grid label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .preference-grid select {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel-2);
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .preference-note {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .captured-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .captured-row > div,
+    .move-history {
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.14);
+      padding: 12px;
+    }
+
+    .captured-row strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.84rem;
+    }
+
+    .captured-pieces {
+      min-height: 34px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+
+    .move-history {
+      display: grid;
+      gap: 6px;
+      max-height: 160px;
+      overflow: auto;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .move-pair {
+      display: grid;
+      grid-template-columns: 42px 1fr 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .move-pair strong {
+      color: var(--gold);
+    }
+
     .coordinates {
       position: absolute;
       inset: 0;
@@ -2590,6 +2917,160 @@
       transition: width 180ms ease;
     }
 
+    .beginner-progress {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 18px;
+      padding: 14px;
+      border: 1px solid rgba(127, 166, 80, 0.24);
+      border-radius: var(--radius);
+      background: rgba(127, 166, 80, 0.1);
+    }
+
+    .progress-mini-stats,
+    .achievement-row,
+    .mini-game-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .xp-pill,
+    .achievement-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .xp-pill {
+      background: rgba(231, 182, 93, 0.16);
+      color: var(--gold);
+    }
+
+    .level-pill {
+      background: rgba(127, 166, 80, 0.18);
+      color: #dfeecf;
+    }
+
+    .achievement-badge {
+      border: 1px solid rgba(33, 26, 18, 0.14);
+      background: rgba(255, 248, 235, 0.72);
+      color: #5d5144;
+    }
+
+    .achievement-badge.unlocked {
+      background: var(--green);
+      color: #10150d;
+    }
+
+    .habit-reward,
+    .simple-coach {
+      margin: 0;
+      color: #2c261f;
+      font-weight: 800;
+    }
+
+    .habit-reward {
+      padding: 10px 12px;
+      border: 1px solid rgba(231, 182, 93, 0.34);
+      border-radius: var(--radius);
+      background: rgba(231, 182, 93, 0.16);
+    }
+
+    .weekly-chart {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+      align-items: end;
+      min-height: 78px;
+    }
+
+    .week-bar {
+      display: grid;
+      align-content: end;
+      gap: 4px;
+      min-height: 78px;
+      color: #5d5144;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .week-bar span {
+      display: block;
+      min-height: 8px;
+      border-radius: 999px 999px 4px 4px;
+      background: var(--green);
+    }
+
+    .confetti-burst {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -12px;
+      width: 8px;
+      height: 14px;
+      border-radius: 3px;
+      animation: confettiFall 900ms ease-out forwards;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(105vh) rotate(540deg);
+        opacity: 0;
+      }
+    }
+
+    .celebration-toast {
+      position: fixed;
+      left: 50%;
+      top: 82px;
+      z-index: 2100;
+      display: grid;
+      gap: 4px;
+      min-width: min(300px, calc(100vw - 28px));
+      padding: 16px 18px;
+      border: 1px solid rgba(231, 182, 93, 0.5);
+      border-radius: var(--radius);
+      background: rgba(27, 22, 17, 0.94);
+      color: var(--soft);
+      text-align: center;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+      transform: translate(-50%, -12px);
+      animation: celebrationPop 1600ms ease forwards;
+    }
+
+    .celebration-toast strong {
+      color: var(--gold);
+      font-size: 1.16rem;
+    }
+
+    .celebration-toast span {
+      font-weight: 900;
+    }
+
+    @keyframes celebrationPop {
+      10%, 78% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      to {
+        opacity: 0;
+        transform: translate(-50%, -16px);
+      }
+    }
+
     .puzzle-hint {
       min-height: 48px;
       margin: 0;
@@ -2601,7 +3082,7 @@
     }
 
     .answers {
-      display: grid;
+      display: none;
       gap: 10px;
       margin: 18px 0;
     }
@@ -2717,6 +3198,17 @@
       grid-template-columns: 42px 1fr;
       gap: 12px;
       align-items: start;
+    }
+
+    .plan-list a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .plan-list a:hover,
+    .plan-list a:focus-visible {
+      color: var(--soft);
+      text-decoration: underline;
     }
 
     .plan-list span {
@@ -2959,11 +3451,22 @@
     }
 
     .day-card {
+      display: block;
       min-height: 136px;
       padding: 14px;
       border: 1px solid rgba(239, 229, 211, 0.12);
       border-radius: 7px;
       background: rgba(255, 255, 255, 0.035);
+      color: inherit;
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .day-card:hover,
+    .day-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(231, 182, 93, 0.45);
+      background: rgba(231, 182, 93, 0.08);
     }
 
     .day-card strong {
@@ -3040,12 +3543,17 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .lesson-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
       .gentle-form {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .trainer-form,
-      .trainer-summary {
+      .trainer-summary,
+      .preference-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -3200,9 +3708,11 @@
       .video-grid,
       .video-grid.tier-grid,
       .mission-selector,
+      .lesson-flow,
       .puzzle-shell,
       .study-plan,
-      .puzzle-stats {
+      .puzzle-stats,
+      .captured-row {
         grid-template-columns: 1fr;
       }
 
@@ -3222,13 +3732,20 @@
       .trainer-form,
       .trainer-summary,
       .trainer-check-grid,
+      .preference-grid,
       .training-task,
+      .lesson-card-footer,
       .gentle-form,
       .gentle-task {
         grid-template-columns: 1fr;
       }
 
       .trainer-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .lesson-card-footer {
         display: grid;
         align-items: start;
       }
@@ -3247,6 +3764,38 @@
 
       .button {
         width: 100%;
+        min-height: 52px;
+        font-size: 1rem;
+      }
+
+      .puzzle-actions,
+      .coach-levels,
+      .progress-mini-stats,
+      .achievement-row {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .puzzle-actions .button,
+      .mission-button,
+      .xp-pill,
+      .achievement-badge {
+        min-height: 46px;
+        justify-content: center;
+      }
+
+      .puzzle-board-wrap {
+        border-width: 5px;
+      }
+
+      .puzzle-square {
+        font-size: clamp(1.85rem, 10vw, 3.2rem);
+      }
+
+      .beginner-progress,
+      .puzzle-shell,
+      .lesson-card {
+        padding: 14px;
       }
 
       .book-actions {
@@ -3489,6 +4038,7 @@
         <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
         <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
         <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
+        <a href="#play" data-site-tab="play" data-site-panel="play">Play AI</a>
         <a href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
         <a href="#plan" data-site-tab="plan" data-site-panel="plan">Study Plan</a>
       </div>
@@ -3506,7 +4056,7 @@
           <h1 id="hero-title">Checkmate Quest</h1>
           <p>Move from legal moves to confident plans with a clean learning path, focused rules, hand-picked videos, and tactical puzzles you can solve right on the board.</p>
           <div class="hero-actions">
-            <a class="button" href="#paths">Start Learning</a>
+            <a class="button" href="#paths" id="newToChessButton">I'm new to chess</a>
             <a class="button secondary" href="#puzzles">Try a Puzzle</a>
           </div>
           <div class="hero-metrics" aria-label="Course summary">
@@ -3532,9 +4082,9 @@
         <div class="section-head">
           <div>
             <p class="section-kicker">Learning paths</p>
-            <h2 id="paths-title">Choose your level</h2>
+            <h2 id="paths-title">Complete beginner missions</h2>
           </div>
-          <p class="section-intro">Each path builds one practical layer at a time: first the board, then tactics, then strategic decisions that hold up in real games.</p>
+          <p class="section-intro">No ratings, no heavy analysis. Finish one tiny mission, celebrate it, and remember: you're getting better every day.</p>
         </div>
 
         <aside class="gentle-start" id="gentleStart" aria-labelledby="gentleStartTitle">
@@ -3545,7 +4095,7 @@
               <span class="gentle-badge">Fun first</span>
             </div>
             <h3 id="gentleStartTitle">Gentle Start Coach</h3>
-            <p>New players do not need to study everything at once. Pick your mood, get a tiny quest, and stop when you finish it. A good day can be just one clear idea.</p>
+            <p>Take a 2-minute skill assessment, then get a personalized path for today. A good day can be just one clear idea.</p>
             <ul class="gentle-checklist">
               <li><span>1</span><strong>Learn one idea, not ten.</strong></li>
               <li><span>2</span><strong>Play or solve once to feel it.</strong></li>
@@ -3571,10 +4121,9 @@
               <label for="gentleMinutes">
                 Time
                 <select id="gentleMinutes" name="gentleMinutes">
+                  <option value="5" selected>5 minutes</option>
                   <option value="8">8 minutes</option>
-                  <option value="12" selected>12 minutes</option>
-                  <option value="18">18 minutes</option>
-                  <option value="25">25 minutes</option>
+                  <option value="12">12 minutes</option>
                 </select>
               </label>
               <label for="gentleEnergy">
@@ -3585,11 +4134,21 @@
                   <option value="spark">Excited</option>
                 </select>
               </label>
-              <button class="button" type="submit">Make Mini Quest</button>
+              <button class="button" type="submit">Build My Path</button>
             </form>
             <div class="gentle-output" id="gentleQuestOutput" aria-live="polite"></div>
           </div>
         </aside>
+
+        <div class="lesson-flow" aria-label="Short lesson flow">
+          <div class="lesson-flow-step"><strong>Learn</strong><span>One idea only.</span></div>
+          <div class="lesson-flow-step"><strong>Try</strong><span>Use it once.</span></div>
+          <div class="lesson-flow-step"><strong>One Puzzle</strong><span>Test the pattern.</span></div>
+          <div class="lesson-flow-step"><strong>Celebrate</strong><span>Mark the win.</span></div>
+          <div class="lesson-flow-step"><strong>Next Lesson</strong><span>Keep momentum.</span></div>
+        </div>
+
+        <div class="lesson-journey" id="chessJourney" aria-live="polite"></div>
 
         <div class="path-tabs" role="tablist" aria-label="Lesson levels">
           <button class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="beginner" id="tab-beginner" data-level="beginner">Beginner</button>
@@ -3600,42 +4159,52 @@
         <div class="lesson-grid" id="beginner" role="tabpanel" aria-labelledby="tab-beginner">
           <article class="lesson-card">
             <span class="lesson-number">1</span>
-            <h3>Board and Setup</h3>
-            <p>Place the light square on your right, line up pieces in the usual back-rank order, and remember that queens start on their own color.</p>
+            <h3>Mission 1: Control the Center</h3>
+            <p>Put a pawn or piece near the middle so your army has more room to move.</p>
             <ul class="topic-list">
-              <li>Coordinates</li>
-              <li>Starting position</li>
-              <li>Piece values</li>
+              <li>e4/d4</li>
+              <li>Center squares</li>
+              <li>Space</li>
             </ul>
           </article>
           <article class="lesson-card">
             <span class="lesson-number">2</span>
-            <h3>How Pieces Move</h3>
-            <p>Learn the movement patterns, captures, and special limits that keep bishops diagonal, rooks straight, knights jumping, and kings cautious.</p>
+            <h3>Mission 2: Develop Pieces</h3>
+            <p>Bring knights and bishops out before chasing attacks with the queen.</p>
             <ul class="topic-list">
-              <li>Movement</li>
-              <li>Captures</li>
-              <li>King safety</li>
+              <li>Knights</li>
+              <li>Bishops</li>
+              <li>Simple plans</li>
             </ul>
           </article>
           <article class="lesson-card">
             <span class="lesson-number">3</span>
-            <h3>Check and Mate</h3>
-            <p>Spot checks, escape checks legally, and recognize when the enemy king has no safe square, capture, or block left.</p>
+            <h3>Mission 3: Castle</h3>
+            <p>Move the king to safety and connect your rooks before the board opens up.</p>
             <ul class="topic-list">
-              <li>Check</li>
-              <li>Checkmate</li>
-              <li>Stalemate</li>
+              <li>King safety</li>
+              <li>Rooks</li>
+              <li>Timing</li>
             </ul>
           </article>
           <article class="lesson-card">
             <span class="lesson-number">4</span>
-            <h3>First Opening Habits</h3>
-            <p>Control the center, develop minor pieces, castle early, and avoid moving the same piece repeatedly without a concrete reason.</p>
+            <h3>Mission 4: Protect Pieces</h3>
+            <p>Before moving, ask what is attacked and what your opponent wants next.</p>
             <ul class="topic-list">
-              <li>Center</li>
-              <li>Development</li>
-              <li>Castling</li>
+              <li>Threats</li>
+              <li>Loose pieces</li>
+              <li>Safe moves</li>
+            </ul>
+          </article>
+          <article class="lesson-card">
+            <span class="lesson-number">5</span>
+            <h3>Mission 5: Win Your First Game</h3>
+            <p>Use center, development, castling, and piece safety together in one friendly game.</p>
+            <ul class="topic-list">
+              <li>Play AI</li>
+              <li>One tip</li>
+              <li>Celebrate</li>
             </ul>
           </article>
         </div>
@@ -4117,7 +4686,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/OCSbzArwB10?rel=0&modestbranding=1&playsinline=1" title="How To Play Chess: The Ultimate Beginner Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/OCSbzArwB10?rel=0&modestbranding=1&playsinline=1" title="How To Play Chess: The Ultimate Beginner Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 1</span>
@@ -4127,7 +4696,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/IU6k-4rKf-g?rel=0&modestbranding=1&playsinline=1" title="Learn How to Play Chess for Beginners in Less Than 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/IU6k-4rKf-g?rel=0&modestbranding=1&playsinline=1" title="Learn How to Play Chess for Beginners in Less Than 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 2</span>
@@ -4137,7 +4706,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/8IlJ3v8I4Z8?rel=0&modestbranding=1&playsinline=1" title="Basic Chess Openings Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/8IlJ3v8I4Z8?rel=0&modestbranding=1&playsinline=1" title="Basic Chess Openings Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 3</span>
@@ -4147,7 +4716,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/I9n8sDRZLZ8?rel=0&modestbranding=1&playsinline=1" title="Checkmate for chess beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/I9n8sDRZLZ8?rel=0&modestbranding=1&playsinline=1" title="Checkmate for chess beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 4</span>
@@ -4157,7 +4726,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/LPK6_QRJRA0?rel=0&modestbranding=1&playsinline=1" title="King Opposition: Draw King and Pawn Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/LPK6_QRJRA0?rel=0&modestbranding=1&playsinline=1" title="King Opposition: Draw King and Pawn Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Beginner 5</span>
@@ -4176,7 +4745,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/MbMslp2WcI0?rel=0&modestbranding=1&playsinline=1" title="The Chess Tactics Guide For Beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/MbMslp2WcI0?rel=0&modestbranding=1&playsinline=1" title="The Chess Tactics Guide For Beginners" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 1</span>
@@ -4186,7 +4755,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/9Ga9dP3bvN8?rel=0&modestbranding=1&playsinline=1" title="How To Calculate In Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/9Ga9dP3bvN8?rel=0&modestbranding=1&playsinline=1" title="How To Calculate In Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 2</span>
@@ -4196,7 +4765,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/yAnNQY2Ac6w?rel=0&modestbranding=1&playsinline=1" title="Top 5 Pawn Structures You Should Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/yAnNQY2Ac6w?rel=0&modestbranding=1&playsinline=1" title="Top 5 Pawn Structures You Should Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 3</span>
@@ -4206,7 +4775,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kTON84W-b2Q?rel=0&modestbranding=1&playsinline=1" title="The ONLY Chess Middlegame Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kTON84W-b2Q?rel=0&modestbranding=1&playsinline=1" title="The ONLY Chess Middlegame Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 4</span>
@@ -4216,7 +4785,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/zOvaUJdtYTc?rel=0&modestbranding=1&playsinline=1" title="EASY Rook Checkmate!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/zOvaUJdtYTc?rel=0&modestbranding=1&playsinline=1" title="EASY Rook Checkmate!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Intermediate 5</span>
@@ -4235,7 +4804,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/wsOQBe5yBqk?rel=0&modestbranding=1&playsinline=1" title="Distant and Rectangular Opposition" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/wsOQBe5yBqk?rel=0&modestbranding=1&playsinline=1" title="Distant and Rectangular Opposition" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 1</span>
@@ -4245,7 +4814,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/s8RDioKrLx8?rel=0&modestbranding=1&playsinline=1" title="The Principle of Positional Imbalances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/s8RDioKrLx8?rel=0&modestbranding=1&playsinline=1" title="The Principle of Positional Imbalances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 2</span>
@@ -4255,7 +4824,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/N6WmHGKLaa8?rel=0&modestbranding=1&playsinline=1" title="PROPHYLAXIS in Chess. GM Johan Hellsten explains." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/N6WmHGKLaa8?rel=0&modestbranding=1&playsinline=1" title="PROPHYLAXIS in Chess. GM Johan Hellsten explains." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 3</span>
@@ -4265,7 +4834,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/aMIRnzCeD64?rel=0&modestbranding=1&playsinline=1" title="Lucena Position Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/aMIRnzCeD64?rel=0&modestbranding=1&playsinline=1" title="Lucena Position Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 4</span>
@@ -4275,7 +4844,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/5rEqhhYYOrQ?rel=0&modestbranding=1&playsinline=1" title="How to Choose Candidate Moves" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/5rEqhhYYOrQ?rel=0&modestbranding=1&playsinline=1" title="How to Choose Candidate Moves" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Advanced 5</span>
@@ -4294,7 +4863,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/GQvR_fLkNKo?rel=0&modestbranding=1&playsinline=1" title="Chess Lesson 1: The Chess Pieces and the Board" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/GQvR_fLkNKo?rel=0&modestbranding=1&playsinline=1" title="Chess Lesson 1: The Chess Pieces and the Board" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Beginner 1</span>
@@ -4304,7 +4873,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/AshEhLcPHqU?rel=0&modestbranding=1&playsinline=1" title="Free Chess Course From Beginner To Master Level" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/AshEhLcPHqU?rel=0&modestbranding=1&playsinline=1" title="Free Chess Course From Beginner To Master Level" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Beginner 2</span>
@@ -4314,7 +4883,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/346S2bg8Gjw?rel=0&modestbranding=1&playsinline=1" title="Learn to Play Chess Openings: The Ultimate Beginner's Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/346S2bg8Gjw?rel=0&modestbranding=1&playsinline=1" title="Learn to Play Chess Openings: The Ultimate Beginner's Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Beginner 3</span>
@@ -4324,7 +4893,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/UoFqV1lxA7Q?rel=0&modestbranding=1&playsinline=1" title="3 Basic Opening Strategy Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/UoFqV1lxA7Q?rel=0&modestbranding=1&playsinline=1" title="3 Basic Opening Strategy Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Beginner 4</span>
@@ -4334,7 +4903,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/O_RDwBNWKn8?rel=0&modestbranding=1&playsinline=1" title="Simple Opening Idea Back to Basic Opening Principle" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/O_RDwBNWKn8?rel=0&modestbranding=1&playsinline=1" title="Simple Opening Idea Back to Basic Opening Principle" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Beginner 5</span>
@@ -4353,7 +4922,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uHXmlOI0VrE?rel=0&modestbranding=1&playsinline=1" title="Every Chess Tactic Explained From Beginner To Advanced" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uHXmlOI0VrE?rel=0&modestbranding=1&playsinline=1" title="Every Chess Tactic Explained From Beginner To Advanced" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Intermediate 1</span>
@@ -4363,7 +4932,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/C81vrCD0RcA?rel=0&modestbranding=1&playsinline=1" title="Chess Calculation is Hard Until You Learn These 6 Rules" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/C81vrCD0RcA?rel=0&modestbranding=1&playsinline=1" title="Chess Calculation is Hard Until You Learn These 6 Rules" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Intermediate 2</span>
@@ -4373,7 +4942,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kh24tXamy3U?rel=0&modestbranding=1&playsinline=1" title="How to Improve Your Chess Calculation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kh24tXamy3U?rel=0&modestbranding=1&playsinline=1" title="How to Improve Your Chess Calculation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Intermediate 3</span>
@@ -4383,7 +4952,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/goW1cFHaxtU?rel=0&modestbranding=1&playsinline=1" title="Chess Tips: Creating Counterplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/goW1cFHaxtU?rel=0&modestbranding=1&playsinline=1" title="Chess Tips: Creating Counterplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Intermediate 4</span>
@@ -4393,7 +4962,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Ng1Wj87dWHk?rel=0&modestbranding=1&playsinline=1" title="Calculate and Evaluate Like a Grandmaster" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Ng1Wj87dWHk?rel=0&modestbranding=1&playsinline=1" title="Calculate and Evaluate Like a Grandmaster" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Intermediate 5</span>
@@ -4412,7 +4981,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/h7S9uE3lT0I?rel=0&modestbranding=1&playsinline=1" title="The Only Chess Positional Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/h7S9uE3lT0I?rel=0&modestbranding=1&playsinline=1" title="The Only Chess Positional Guide You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Advanced 1</span>
@@ -4422,7 +4991,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/NKBbyDDzzmw?rel=0&modestbranding=1&playsinline=1" title="Mastering Positional Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/NKBbyDDzzmw?rel=0&modestbranding=1&playsinline=1" title="Mastering Positional Chess" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Advanced 2</span>
@@ -4432,7 +5001,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W_Xkm5v_prI?rel=0&modestbranding=1&playsinline=1" title="Closed Positions Do Not Have to Be Confusing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W_Xkm5v_prI?rel=0&modestbranding=1&playsinline=1" title="Closed Positions Do Not Have to Be Confusing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Advanced 3</span>
@@ -4442,7 +5011,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mhUoe2JBxco?rel=0&modestbranding=1&playsinline=1" title="Principles of Chess Endgames: King Activity" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mhUoe2JBxco?rel=0&modestbranding=1&playsinline=1" title="Principles of Chess Endgames: King Activity" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Advanced 4</span>
@@ -4452,7 +5021,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/QUqq7wSLE78?rel=0&modestbranding=1&playsinline=1" title="Introduction to Pawn Endgames" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/QUqq7wSLE78?rel=0&modestbranding=1&playsinline=1" title="Introduction to Pawn Endgames" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Accuracy Advanced 5</span>
@@ -4471,7 +5040,7 @@
           <div class="video-grid tier-grid">
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/6IegDENuxU4?rel=0&modestbranding=1&playsinline=1" title="How To Learn and Study Chess Openings" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/6IegDENuxU4?rel=0&modestbranding=1&playsinline=1" title="How To Learn and Study Chess Openings" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">22:41</span>
@@ -4481,7 +5050,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jfcVjIa1EGM?rel=0&modestbranding=1&playsinline=1" title="Every Chess Opening Principle Explained In 18 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/jfcVjIa1EGM?rel=0&modestbranding=1&playsinline=1" title="Every Chess Opening Principle Explained In 18 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">17:41</span>
@@ -4491,7 +5060,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kURU67G98O8?rel=0&modestbranding=1&playsinline=1" title="Chess Basics: Opening Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/kURU67G98O8?rel=0&modestbranding=1&playsinline=1" title="Chess Basics: Opening Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Openings</span><span class="badge duration">8:08</span>
@@ -4501,7 +5070,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nXyJdetptXg?rel=0&modestbranding=1&playsinline=1" title="35 Vital Chess Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nXyJdetptXg?rel=0&modestbranding=1&playsinline=1" title="35 Vital Chess Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Strategy</span><span class="badge duration">18:51</span>
@@ -4511,7 +5080,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W1gWHIpQNVU?rel=0&modestbranding=1&playsinline=1" title="All The Chess Tactics You Need To Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/W1gWHIpQNVU?rel=0&modestbranding=1&playsinline=1" title="All The Chess Tactics You Need To Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">15:59</span>
@@ -4521,7 +5090,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/hcmMtNqEm4o?rel=0&modestbranding=1&playsinline=1" title="Chess Strategies - Skewers and Pins" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/hcmMtNqEm4o?rel=0&modestbranding=1&playsinline=1" title="Chess Strategies - Skewers and Pins" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">7:37</span>
@@ -4531,7 +5100,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qMfXy648KIY?rel=0&modestbranding=1&playsinline=1" title="Chess pins, skewers and forks explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qMfXy648KIY?rel=0&modestbranding=1&playsinline=1" title="Chess pins, skewers and forks explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Tactics</span><span class="badge duration">11:09</span>
@@ -4541,7 +5110,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/iBZLU1FXhcI?rel=0&modestbranding=1&playsinline=1" title="6 Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/iBZLU1FXhcI?rel=0&modestbranding=1&playsinline=1" title="6 Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">21:46</span>
@@ -4551,7 +5120,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/spj8bTeZpdk?rel=0&modestbranding=1&playsinline=1" title="Learn Every Checkmate Pattern in 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/spj8bTeZpdk?rel=0&modestbranding=1&playsinline=1" title="Learn Every Checkmate Pattern in 8 Minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">8:09</span>
@@ -4561,7 +5130,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Wjvy_TH1qQs?rel=0&modestbranding=1&playsinline=1" title="5 Basic Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Wjvy_TH1qQs?rel=0&modestbranding=1&playsinline=1" title="5 Basic Checkmate Patterns You Must Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">11:21</span>
@@ -4571,7 +5140,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Bo93mIhnDz4?rel=0&modestbranding=1&playsinline=1" title="The Top 23 Checkmate Patterns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Bo93mIhnDz4?rel=0&modestbranding=1&playsinline=1" title="The Top 23 Checkmate Patterns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">22:49</span>
@@ -4581,7 +5150,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uszf3ZRxYMo?rel=0&modestbranding=1&playsinline=1" title="Top 10 Chess Endgame Principles Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/uszf3ZRxYMo?rel=0&modestbranding=1&playsinline=1" title="Top 10 Chess Endgame Principles Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">14:51</span>
@@ -4591,7 +5160,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mCsc24k-Q8M?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: King and Pawns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/mCsc24k-Q8M?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: King and Pawns" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">21:15</span>
@@ -4601,7 +5170,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/JMZJ9P2Hnq0?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: Rook and Pawn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/JMZJ9P2Hnq0?rel=0&modestbranding=1&playsinline=1" title="Easy Chess Endgames: Rook and Pawn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">23:00</span>
@@ -4611,7 +5180,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/FaYmAoJxjUY?rel=0&modestbranding=1&playsinline=1" title="15 Rules For The Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/FaYmAoJxjUY?rel=0&modestbranding=1&playsinline=1" title="15 Rules For The Endgame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">22:38</span>
@@ -4621,7 +5190,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nR8ULRlk9HA?rel=0&modestbranding=1&playsinline=1" title="Rook Endgames Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/nR8ULRlk9HA?rel=0&modestbranding=1&playsinline=1" title="Rook Endgames Crash Course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">23:32</span>
@@ -4631,7 +5200,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/XZeTKbB_LWg?rel=0&modestbranding=1&playsinline=1" title="Top 25 Chess Endgame Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/XZeTKbB_LWg?rel=0&modestbranding=1&playsinline=1" title="Top 25 Chess Endgame Principles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Endgame</span><span class="badge duration">16:56</span>
@@ -4641,7 +5210,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lYX-VO1ut7U?rel=0&modestbranding=1&playsinline=1" title="5 Most Common Chess Pawn Structure Mistakes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/lYX-VO1ut7U?rel=0&modestbranding=1&playsinline=1" title="5 Most Common Chess Pawn Structure Mistakes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Pawns</span><span class="badge duration">21:06</span>
@@ -4651,7 +5220,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VL9F0xs0yHg?rel=0&modestbranding=1&playsinline=1" title="6 Rules That Will Make You A Pawn Genius" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/VL9F0xs0yHg?rel=0&modestbranding=1&playsinline=1" title="6 Rules That Will Make You A Pawn Genius" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Pawns</span><span class="badge duration">7:37</span>
@@ -4661,7 +5230,7 @@
             </article>
             <article class="video-card">
               <div class="video-frame">
-                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/F98JdnLyUXA?rel=0&modestbranding=1&playsinline=1" title="The 10 Best Chess Plans For The Middlegame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/F98JdnLyUXA?rel=0&modestbranding=1&playsinline=1" title="The 10 Best Chess Plans For The Middlegame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
               <div class="video-body">
                 <span class="badge">Middlegame</span><span class="badge duration">13:02</span>
@@ -4863,6 +5432,99 @@
       </div>
     </section>
 
+    <section id="play" class="section-dark" aria-labelledby="play-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Beginner game</p>
+            <h2 id="play-title">Play the coach</h2>
+          </div>
+          <p class="section-intro">Practice one friendly game at a time. Legal moves, checks, checkmate, castling, en passant, promotion, and draws are handled by chess.js.</p>
+        </div>
+
+        <div class="preference-panel" id="learnerPreferences">
+          <h3>Board style</h3>
+          <div class="preference-grid">
+            <label>Mode
+              <select id="prefTheme">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </label>
+            <label>Board
+              <select id="prefBoard">
+                <option value="wood">Wooden</option>
+                <option value="marble">Marble</option>
+                <option value="neon">Neon</option>
+              </select>
+            </label>
+            <label>Pieces
+              <select id="prefPieces">
+                <option value="classic">Classic</option>
+                <option value="letter">Letters</option>
+              </select>
+            </label>
+            <label>Coordinates
+              <select id="prefCoords">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+              </select>
+            </label>
+            <label>Animation
+              <select id="prefSpeed">
+                <option value="normal">Normal</option>
+                <option value="slow">Slow</option>
+                <option value="fast">Fast</option>
+              </select>
+            </label>
+          </div>
+          <p class="preference-note" id="motivationMessage">Every master was once a beginner.</p>
+        </div>
+
+        <div class="puzzle-shell play-shell">
+          <div class="puzzle-board-wrap play-board-wrap" aria-label="Playable chess board">
+            <div class="puzzle-board play-board" id="coachBoard" role="grid" aria-label="Player versus AI chess board"></div>
+          </div>
+          <div class="puzzle-info coach-panel">
+            <div class="puzzle-meta">
+              <span class="badge" id="gameTurnBadge">White to move</span>
+              <span class="badge" id="gameStatusBadge">Loading rules</span>
+              <span class="badge" id="gameDifficultyBadge">Easy coach</span>
+            </div>
+            <div class="mission-selector puzzle-plan-selector coach-levels" role="group" aria-label="AI difficulty">
+              <button class="mission-button" type="button" data-game-difficulty="easy" aria-pressed="true">Easy</button>
+              <button class="mission-button" type="button" data-game-difficulty="medium" aria-pressed="false">Medium</button>
+              <button class="mission-button" type="button" data-game-difficulty="hard" aria-pressed="false">Hard</button>
+            </div>
+            <p class="simple-coach" id="gameCoach">Loading chess.js so every move follows official chess rules.</p>
+            <div class="mini-game-row" id="coachPracticeLinks" hidden aria-label="Recommended practice"></div>
+            <div class="captured-row" aria-label="Captured pieces">
+              <div>
+                <strong>White captured</strong>
+                <div class="captured-pieces" id="whiteCaptured"></div>
+              </div>
+              <div>
+                <strong>Black captured</strong>
+                <div class="captured-pieces" id="blackCaptured"></div>
+              </div>
+            </div>
+            <div class="move-history" id="moveHistory" aria-label="Move history"></div>
+            <p class="trainer-note" id="gamePgn">PGN appears here after export.</p>
+            <div class="puzzle-actions">
+              <button class="button secondary" type="button" id="undoGame">Undo</button>
+              <button class="button secondary" type="button" id="restartGame">Restart</button>
+              <button class="button secondary" type="button" id="flipGame">Flip Board</button>
+              <button class="button secondary" type="button" id="whyGame">Why?</button>
+              <button class="button secondary" type="button" id="replayMistake">Replay Mistake</button>
+              <button class="button secondary" type="button" id="showThreats">Threats</button>
+              <button class="button secondary" type="button" id="offerDraw">Agree Draw</button>
+              <button class="button" type="button" id="exportPgn">Copy PGN</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="puzzles" class="section-warm" aria-labelledby="puzzles-title">
       <div class="wrap">
         <div class="section-head">
@@ -4870,7 +5532,7 @@
             <p class="section-kicker">Puzzle board</p>
             <h2 id="puzzles-title">Find the move</h2>
           </div>
-          <p class="section-intro">Solve positions by pattern: mate threats, forks, and overloaded defenders. The feedback explains the idea behind the answer.</p>
+          <p class="section-intro">Solve positions by moving pieces on the board: legal moves glow, tries return gently, and the coach explains the stronger idea.</p>
         </div>
 
         <div class="puzzle-shell">
@@ -4907,6 +5569,29 @@
             <div class="progress-track" aria-hidden="true">
               <span class="progress-fill" id="puzzleProgress"></span>
             </div>
+            <div class="beginner-progress" aria-label="Beginner progress">
+              <div class="progress-mini-stats">
+                <span class="xp-pill" id="xpPill">0 XP</span>
+                <span class="xp-pill level-pill" id="learnerLevelPill">Level: Beginner</span>
+                <span class="xp-pill" id="gamesPlayedPill">Games played 0</span>
+                <span class="xp-pill" id="winRatePill">Win rate 0%</span>
+                <span class="xp-pill" id="puzzlesSolvedPill">Puzzles solved 0</span>
+                <span class="xp-pill" id="bestStreakPill">Best streak 0</span>
+                <span class="xp-pill" id="dailyChallengePill">5-minute challenge ready</span>
+                <span class="xp-pill" id="dailyStreakPill">Current streak 0</span>
+                <span class="xp-pill" id="lessonCompletePill">Missions 0</span>
+                <span class="xp-pill" id="favoriteOpeningPill">Favorite opening: Italian Game</span>
+                <span class="xp-pill" id="puzzleAccuracyPill">Puzzle confidence 0%</span>
+              </div>
+              <p class="habit-reward" id="dailyReward">Reward locked: finish today's puzzle.</p>
+              <p class="simple-coach" id="simpleCoach">Simple coach: Try one move. Learning counts more than winning.</p>
+              <div class="achievement-row" id="achievementBadges" aria-label="Achievement badges"></div>
+              <div class="weekly-chart" id="weeklyChart" aria-label="Weekly progress chart"></div>
+              <div class="mini-game-row" aria-label="Mini-games">
+                <a class="button secondary" href="#adventures">Mini-game: Piece Mission</a>
+                <a class="button secondary" href="#shorts">Mini-game: Shorts Sprint</a>
+              </div>
+            </div>
             <h3 id="puzzleTitle">Puzzle title</h3>
             <p id="puzzlePrompt">Puzzle prompt</p>
             <p class="puzzle-hint hidden" id="puzzleHint">Hint text</p>
@@ -4915,7 +5600,7 @@
             <div class="puzzle-actions">
               <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
               <button class="button secondary" type="button" id="hintPuzzle">Hint</button>
-              <button class="button secondary" type="button" id="revealPuzzle">Reveal</button>
+              <button class="button secondary" type="button" id="revealPuzzle">Show Move</button>
               <button class="button" type="button" id="nextPuzzle">Next Puzzle</button>
               <button class="button secondary" type="button" id="resetPuzzle">Reset Score</button>
             </div>
@@ -4938,16 +5623,16 @@
           <article class="plan-panel">
             <div class="plan-meta">
               <span class="badge">Beginner</span>
-              <span class="badge">35 min/day</span>
+              <span class="badge">31 min/day</span>
               <span class="badge">First 30 days</span>
             </div>
             <h3>Build board confidence</h3>
             <p>Goal: stop losing pieces for free, learn basic mates, and finish games with a simple plan.</p>
             <ul class="plan-list">
-              <li><span>1</span><div>Warm up with 5 easy puzzles: mate in one, mate in two, forks, and hanging pieces.</div></li>
-              <li><span>2</span><div>Watch 1 beginner lesson or 3 Shorts, then write one rule you will use today.</div></li>
-              <li><span>3</span><div>Play one 10+5 game. Before every move, ask: is my king safe and is any piece hanging?</div></li>
-              <li><span>4</span><div>Review only one moment: the first blunder or the first move where you felt confused.</div></li>
+              <li><span>1</span><div><a href="#puzzles">Warm up with 5 easy puzzles: mate in one, mate in two, forks, and hanging pieces.</a></div></li>
+              <li><span>2</span><div><a href="#paths">Watch 1 beginner lesson or 3 Shorts, then write one rule you will use today.</a></div></li>
+              <li><span>3</span><div><a href="#play">Play one 10+5 game. Before every move, ask: is my king safe and is any piece hanging?</a></div></li>
+              <li><span>4</span><div><a href="#notation">Review only one moment: the first blunder or the first move where you felt confused.</a></div></li>
             </ul>
             <div class="plan-focus">Level up when you can solve 50 simple puzzles and play 5 games with fewer hanging pieces.</div>
           </article>
@@ -4960,10 +5645,10 @@
             <h3>Turn ideas into threats</h3>
             <p>Goal: calculate cleaner, understand your openings, and turn winning positions into real wins.</p>
             <ul class="plan-list">
-              <li><span>1</span><div>Solve 12-15 themed puzzles. Repeat every miss until you can explain the tactic.</div></li>
-              <li><span>2</span><div>Study one opening line plus the idea behind it: center, development, target, or endgame.</div></li>
-              <li><span>3</span><div>Play one 15+10 game or two 10+5 games. Choose moves using checks, captures, and threats.</div></li>
-              <li><span>4</span><div>Review the first mistake after the opening and list three candidate moves you missed.</div></li>
+              <li><span>1</span><div><a href="#puzzles">Solve 12-15 themed puzzles. Repeat every miss until you can explain the tactic.</a></div></li>
+              <li><span>2</span><div><a href="#openings">Study one opening line plus the idea behind it: center, development, target, or endgame.</a></div></li>
+              <li><span>3</span><div><a href="#play">Play one 15+10 game or two 10+5 games. Choose moves using checks, captures, and threats.</a></div></li>
+              <li><span>4</span><div><a href="#notation">Review the first mistake after the opening and list three candidate moves you missed.</a></div></li>
             </ul>
             <div class="plan-focus">Level up when you can name the plan in your main openings and finish 75 puzzles in a week.</div>
           </article>
@@ -4976,10 +5661,10 @@
             <h3>Train like a serious player</h3>
             <p>Goal: compare candidate moves, respect opponent resources, and convert small advantages.</p>
             <ul class="plan-list">
-              <li><span>1</span><div>Solve 8-10 hard puzzles without moving pieces. Spend 3-5 minutes before checking.</div></li>
-              <li><span>2</span><div>Study one master-game position or accuracy video. Write the plan, not just the move.</div></li>
-              <li><span>3</span><div>Play one slow game. Annotate your plans, critical moments, and time-pressure decisions.</div></li>
-              <li><span>4</span><div>Drill one endgame from both sides: pawn race, rook activity, opposition, or conversion.</div></li>
+              <li><span>1</span><div><a href="#puzzles">Solve 8-10 hard puzzles without moving pieces. Spend 3-5 minutes before checking.</a></div></li>
+              <li><span>2</span><div><a href="#videos">Study one master-game position or accuracy video. Write the plan, not just the move.</a></div></li>
+              <li><span>3</span><div><a href="#play">Play one slow game. Annotate your plans, critical moments, and time-pressure decisions.</a></div></li>
+              <li><span>4</span><div><a href="#videos">Drill one endgame from both sides: pawn race, rook activity, opposition, or conversion.</a></div></li>
             </ul>
             <div class="plan-focus">Level up by deeply reviewing 2 games each week and building an opening file with plans.</div>
           </article>
@@ -5007,8 +5692,8 @@
                 </select>
               </label>
               <label for="trainingMinutes">
-                Time today: <span id="trainingMinutesLabel">35 min</span>
-                <input id="trainingMinutes" name="trainingMinutes" type="range" min="15" max="60" step="15" value="30" />
+                Time today: <span id="trainingMinutesLabel">31 min</span>
+                <input id="trainingMinutes" name="trainingMinutes" type="range" min="15" max="60" step="1" value="31" />
               </label>
               <label for="trainingGoal">
                 Main goal
@@ -5046,41 +5731,41 @@
             <h3>7-day arranger</h3>
             <p>Use this weekly rhythm with your level card above. Keep sessions short, write one lesson after each day, and repeat the weak day next week.</p>
             <div class="weekly-roadmap">
-              <div class="day-card">
+              <a class="day-card" href="#paths">
                 <strong>Day 1</strong>
                 <span>Foundation</span>
                 <p>Watch one lesson, then play one game using only today's main rule.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#puzzles">
                 <strong>Day 2</strong>
                 <span>Tactics</span>
                 <p>Solve by theme. Replay every missed puzzle until the pattern feels automatic.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#play">
                 <strong>Day 3</strong>
                 <span>Slow Game</span>
                 <p>Play one focused game. Afterward, mark the first unclear move and one better plan.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#openings">
                 <strong>Day 4</strong>
                 <span>Opening</span>
                 <p>Study one line and one idea. Do not memorize more than you can explain.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#videos">
                 <strong>Day 5</strong>
                 <span>Endgame</span>
                 <p>Practice a small ending until you know where the king and pawns belong.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#puzzles">
                 <strong>Day 6</strong>
                 <span>Challenge</span>
                 <p>Take a puzzle test, then play a game where you slow down at critical moments.</p>
-              </div>
-              <div class="day-card">
+              </a>
+              <a class="day-card" href="#notation">
                 <strong>Day 7</strong>
                 <span>Review</span>
                 <p>Collect your three biggest mistakes, rewatch one matching lesson, and reset.</p>
-              </div>
+              </a>
             </div>
           </article>
           <article class="plan-panel wide">
@@ -5089,6 +5774,16 @@
               <li><span>A</span><div>One lesson gives you the idea. One game tests it. One review makes it stick.</div></li>
               <li><span>B</span><div>If you have only 15 minutes, solve puzzles and review one mistake. Consistency beats a long random session.</div></li>
               <li><span>C</span><div>Write one sentence after training: today I learned, tomorrow I will watch for, my biggest mistake was.</div></li>
+            </ul>
+          </article>
+          <article class="plan-panel wide">
+            <h3>Learning app roadmap</h3>
+            <ul class="plan-list">
+              <li><span>1</span><div><a href="#paths">Interactive lessons: one tiny idea, one try, one quick win.</a></div></li>
+              <li><span>2</span><div><a href="#puzzles">Puzzle trainer and daily challenges: checks, captures, threats, then celebrate progress.</a></div></li>
+              <li><span>3</span><div><a href="#plan">Progress tracking: XP, achievements, streaks, weekly stats, and clear next steps.</a></div></li>
+              <li><span>4</span><div><a href="#play">AI coach: simple feedback, one helpful tip, and personalized recommendations.</a></div></li>
+              <li><span>5</span><div><a href="#play">Customization and community: board themes first, then friendly competitions, clubs, and leaderboards.</a></div></li>
             </ul>
           </article>
         </div>
@@ -5130,7 +5825,12 @@
       k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟"
     };
 
+    const classicPieceMap = { ...pieceMap };
+    const letterPieceMap = { K: "K", Q: "Q", R: "R", B: "B", N: "N", P: "P", k: "k", q: "q", r: "r", b: "b", n: "n", p: "p" };
+
     function pieceColorClass(piece) {
+      if (/^[KQRBNP]$/.test(piece)) return "white-piece";
+      if (/^[kqrbnp]$/.test(piece)) return "black-piece";
       if ("♔♕♖♗♘♙".includes(piece)) return "white-piece";
       if ("♚♛♜♝♞♟".includes(piece)) return "black-piece";
       return "";
@@ -6737,7 +7437,33 @@
       if (currentPuzzle < 0) currentPuzzle = 0;
     }
     let activeAnswered = false;
+    let puzzleGame = null;
+    let selectedPuzzleSquare = "";
+    let puzzleLegalMoves = [];
+    let puzzleLastMove = null;
+    let puzzleHintStep = 0;
     let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
+    let puzzleXp = Math.max(0, Number(savedPuzzleState.xp) || 0);
+    let bestPuzzleStreak = Math.max(streak, Number(savedPuzzleState.bestStreak) || 0);
+    let puzzleAttempts = Math.max(0, Number(savedPuzzleState.attempts) || 0);
+    let puzzleCorrect = Math.max(0, Number(savedPuzzleState.correct) || 0);
+    let weeklyPuzzleXp = savedPuzzleState.weekly && typeof savedPuzzleState.weekly === "object" ? savedPuzzleState.weekly : {};
+    let favoriteOpening = savedPuzzleState.favoriteOpening || "Italian Game";
+    let gameStats = savedPuzzleState.gameStats && typeof savedPuzzleState.gameStats === "object" ? savedPuzzleState.gameStats : {};
+    gameStats = {
+      played: Math.max(0, Number(gameStats.played) || 0),
+      wins: Math.max(0, Number(gameStats.wins) || 0)
+    };
+    const completedPathLessons = new Set(Array.isArray(savedPuzzleState.completedPathLessons) ? savedPuzzleState.completedPathLessons : []);
+    let dailyHabit = savedPuzzleState.habit && typeof savedPuzzleState.habit === "object" ? savedPuzzleState.habit : {};
+    dailyHabit = {
+      streak: Math.max(0, Number(dailyHabit.streak) || 0),
+      lastDate: dailyHabit.lastDate || "",
+      rewardDate: dailyHabit.rewardDate || ""
+    };
+    if (dailyHabit.lastDate && dailyHabit.lastDate !== getTodayKey() && getDayDistance(dailyHabit.lastDate, getTodayKey()) > 1) {
+      dailyHabit.streak = 0;
+    }
     const solvedPuzzles = new Set((savedPuzzleState.solved || []).map(Number).filter((index) => index >= 0 && index < puzzles.length));
     let currentAdventure = 0;
     let selectedAdventureSquare = "";
@@ -6753,6 +7479,7 @@
     const customBooksStorageKey = "checkmateQuest.localBooks.v1";
     const dailyTrainingStorageKey = "checkmateQuest.dailyTraining.v1";
     const gentleStartStorageKey = "checkmateQuest.gentleStart.v1";
+    const learnerPrefsStorageKey = "checkmateQuest.preferences.v1";
     let activeBookLevel = "all";
     let activeBookCategory = "all";
     let activeReaderBookId = "";
@@ -6917,6 +7644,133 @@
       });
     }
 
+    function getPathLessonId(card, index) {
+      const title = card.querySelector("h3")?.textContent || `Lesson ${index + 1}`;
+      return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    }
+
+    function getActiveLessonPanel() {
+      return [...document.querySelectorAll("#paths .lesson-grid")]
+        .find((panel) => !panel.classList.contains("hidden")) || document.getElementById("beginner");
+    }
+
+    function updateLessonJourney() {
+      const journey = document.getElementById("chessJourney");
+      const panel = getActiveLessonPanel();
+      if (!journey || !panel) return;
+
+      const cards = [...panel.querySelectorAll(".lesson-card")];
+      const firstOpen = cards.findIndex((card) => !completedPathLessons.has(card.dataset.lessonId));
+      const currentIndex = firstOpen < 0 ? cards.length : firstOpen;
+      const steps = document.createElement("div");
+      const title = document.createElement("h3");
+
+      journey.innerHTML = "";
+      title.textContent = "Chess Journey";
+      steps.className = "journey-steps";
+
+      cards.forEach((card, index) => {
+        const id = card.dataset.lessonId;
+        const complete = completedPathLessons.has(id);
+        const locked = !complete && index > currentIndex;
+        const current = !complete && index === currentIndex;
+        const step = document.createElement("button");
+        const done = card.querySelector("[data-lesson-done]");
+        const action = card.querySelector("[data-lesson-action]");
+
+        card.classList.toggle("is-locked", locked);
+        card.setAttribute("aria-disabled", String(locked));
+        if (done) {
+          done.disabled = locked;
+          done.textContent = complete ? "Celebrated" : "Celebrate done";
+        }
+        if (action) {
+          if (locked) action.removeAttribute("href");
+          else action.href = action.dataset.href || "#puzzles";
+          action.setAttribute("aria-disabled", String(locked));
+        }
+
+        step.type = "button";
+        step.className = `journey-step${complete ? " is-complete" : ""}${current ? " is-current" : ""}${locked ? " is-locked" : ""}`;
+        step.disabled = locked;
+        step.textContent = `${complete ? "\u2611" : locked ? "\uD83D\uDD12" : "\u25A1"} Lesson ${index + 1}`;
+        step.addEventListener("click", () => card.scrollIntoView({ behavior: "smooth", block: "center" }));
+        steps.appendChild(step);
+      });
+
+      journey.append(title, steps);
+    }
+
+    function setupLessonFlow() {
+      document.querySelectorAll("#paths .lesson-card").forEach((card, index) => {
+        const title = card.querySelector("h3")?.textContent || `Lesson ${index + 1}`;
+        const isMission = title.startsWith("Mission");
+        const id = getPathLessonId(card, index);
+        card.dataset.lessonId = id;
+
+        if (!card.querySelector(".lesson-lock-note")) {
+          const lockNote = document.createElement("p");
+          lockNote.className = "lesson-lock-note";
+          lockNote.textContent = "Locked. Celebrate the previous lesson to unlock this step.";
+          card.appendChild(lockNote);
+        }
+
+        if (card.querySelector(".lesson-card-footer")) return;
+
+        const footer = document.createElement("div");
+        const time = document.createElement("span");
+        const done = document.createElement("button");
+        const action = document.createElement("a");
+
+        footer.className = "lesson-card-footer";
+        time.className = "lesson-time";
+        time.textContent = isMission ? "2-3 min mission" : "2-3 min lesson";
+        done.type = "button";
+        done.className = "button secondary";
+        done.dataset.lessonDone = id;
+        done.textContent = completedPathLessons.has(id) ? "Celebrated" : "Celebrate done";
+        done.addEventListener("click", () => {
+          if (card.classList.contains("is-locked")) return;
+          if (completedPathLessons.has(id)) return;
+          completedPathLessons.add(id);
+          const xpResult = addPuzzleXp(50);
+          savePuzzleState();
+          renderBeginnerProgress();
+          updateLessonJourney();
+          showCelebration("\uD83C\uDF89 Great Job!", "+50 XP", xpResult.levelUp ? "New Badge Unlocked!" : "Lesson complete!");
+        });
+        action.className = "button secondary";
+        action.href = "#puzzles";
+        action.dataset.href = "#puzzles";
+        action.dataset.lessonAction = id;
+        action.textContent = isMission ? "Try mission puzzle" : "Try one puzzle";
+        footer.append(time, done, action);
+        card.appendChild(footer);
+      });
+      updateLessonJourney();
+    }
+
+    function setupOpeningFavorites() {
+      document.querySelectorAll(".opening-card").forEach((card) => {
+        if (card.querySelector("[data-favorite-opening]")) return;
+        const title = card.querySelector("h3")?.textContent || "Italian Game";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "button secondary";
+        button.dataset.favoriteOpening = title;
+        button.textContent = favoriteOpening === title ? "Favorite opening" : "Set favorite";
+        button.addEventListener("click", () => {
+          favoriteOpening = title;
+          document.querySelectorAll("[data-favorite-opening]").forEach((item) => {
+            item.textContent = item.dataset.favoriteOpening === favoriteOpening ? "Favorite opening" : "Set favorite";
+          });
+          savePuzzleState();
+          renderBeginnerProgress();
+        });
+        card.querySelector(".opening-body")?.appendChild(button);
+      });
+    }
+
     function getActivePuzzleIndexes() {
       return puzzles
         .map((puzzle, index) => activePuzzlePlan === "all" || puzzle.level === activePuzzlePlan ? index : -1)
@@ -6957,11 +7811,12 @@
       document.getElementById("puzzleStreak").textContent = streak;
       document.getElementById("puzzleProgress").style.width = `${((activePuzzlePlan === "all" ? solvedPuzzles.size : solvedInPlan) / total) * 100}%`;
       renderPuzzlePlanButtons();
+      renderBeginnerProgress();
       savePuzzleState();
     }
 
     function readPuzzleState() {
-      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0 };
+      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game" };
       const state = readJsonStorage(puzzleStorageKey, fallback);
       return state && typeof state === "object" ? { ...fallback, ...state } : fallback;
     }
@@ -6971,8 +7826,174 @@
         activePlan: activePuzzlePlan,
         currentPuzzle,
         solved: [...solvedPuzzles],
-        streak
+        streak,
+        xp: puzzleXp,
+        bestStreak: bestPuzzleStreak,
+        attempts: puzzleAttempts,
+        correct: puzzleCorrect,
+        weekly: weeklyPuzzleXp,
+        habit: dailyHabit,
+        gameStats,
+        completedPathLessons: [...completedPathLessons],
+        favoriteOpening
       });
+    }
+
+    function showCelebration(title = "\uD83C\uDF89 Great Job!", xpText = "+50 XP", badgeText = "") {
+      document.querySelector(".celebration-toast")?.remove();
+      fireConfettiBurst();
+      const toast = document.createElement("div");
+      toast.className = "celebration-toast";
+      toast.setAttribute("role", "status");
+      toast.append(
+        createBookText("strong", "", title),
+        createBookText("span", "", xpText)
+      );
+      if (badgeText) toast.append(createBookText("span", "", badgeText));
+      document.body.appendChild(toast);
+      window.setTimeout(() => toast.remove(), 1700);
+    }
+
+    function addPuzzleXp(amount) {
+      const today = getTodayKey();
+      const beforeLevel = getLearnerLevel(puzzleXp).current[0];
+      puzzleXp += amount;
+      weeklyPuzzleXp[today] = (Number(weeklyPuzzleXp[today]) || 0) + amount;
+      return { levelUp: getLearnerLevel(puzzleXp).current[0] !== beforeLevel };
+    }
+
+    function getDayDistance(fromDate, toDate) {
+      const from = new Date(`${fromDate}T00:00:00`);
+      const to = new Date(`${toDate}T00:00:00`);
+      if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) return 999;
+      return Math.round((to - from) / 86400000);
+    }
+
+    function completeDailyHabit() {
+      const today = getTodayKey();
+      if (dailyHabit.rewardDate === today) return false;
+
+      const gap = dailyHabit.lastDate ? getDayDistance(dailyHabit.lastDate, today) : 999;
+      dailyHabit.streak = gap === 1 ? dailyHabit.streak + 1 : 1;
+      dailyHabit.lastDate = today;
+      dailyHabit.rewardDate = today;
+      addPuzzleXp(10);
+      return true;
+    }
+
+    function getLearnerLevel(xp) {
+      const levels = [
+        ["Beginner", 0],
+        ["Learner", 40],
+        ["Student", 100],
+        ["Tactician", 180],
+        ["Strategist", 300],
+        ["Master Apprentice", 450]
+      ];
+      const current = levels.reduce((best, level) => xp >= level[1] ? level : best, levels[0]);
+      const next = levels.find((level) => level[1] > xp);
+      return { current, next };
+    }
+
+    function getDailyChallengeName() {
+      const puzzle = puzzles[getDailyPuzzleIndex()];
+      const text = `${puzzle.title} ${puzzle.prompt}`.toLowerCase();
+      if (text.includes("mate")) return "Win in 2 moves";
+      if (text.includes("fork")) return "Spot the fork";
+      if (text.includes("king") || text.includes("check")) return "Save the king";
+      if (text.includes("pawn") || text.includes("endgame")) return "Endgame challenge";
+      return "Today's Puzzle";
+    }
+
+    function renderBeginnerProgress() {
+      const xpPill = document.getElementById("xpPill");
+      const levelPill = document.getElementById("learnerLevelPill");
+      const gamesPill = document.getElementById("gamesPlayedPill");
+      const winRatePill = document.getElementById("winRatePill");
+      const solvedPill = document.getElementById("puzzlesSolvedPill");
+      const bestPill = document.getElementById("bestStreakPill");
+      const dailyPill = document.getElementById("dailyChallengePill");
+      const dailyStreakPill = document.getElementById("dailyStreakPill");
+      const lessonPill = document.getElementById("lessonCompletePill");
+      const openingPill = document.getElementById("favoriteOpeningPill");
+      const accuracyPill = document.getElementById("puzzleAccuracyPill");
+      const dailyReward = document.getElementById("dailyReward");
+      const coach = document.getElementById("simpleCoach");
+      const badges = document.getElementById("achievementBadges");
+      const chart = document.getElementById("weeklyChart");
+      if (!xpPill || !levelPill || !gamesPill || !winRatePill || !solvedPill || !bestPill || !dailyPill || !dailyStreakPill || !lessonPill || !openingPill || !accuracyPill || !dailyReward || !coach || !badges || !chart) return;
+
+      const completedToday = dailyHabit.rewardDate === getTodayKey();
+      const shortLessonsDone = readShortLessonState().completed.length;
+      const lessonCount = completedPathLessons.size + shortLessonsDone;
+      const accuracy = puzzleCorrect + puzzleAttempts ? Math.round((puzzleCorrect / (puzzleCorrect + puzzleAttempts)) * 100) : 0;
+      const winRate = gameStats.played ? Math.round((gameStats.wins / gameStats.played) * 100) : 0;
+      const level = getLearnerLevel(puzzleXp);
+      xpPill.textContent = `${puzzleXp} XP`;
+      levelPill.textContent = `Level: ${level.current[0]}`;
+      levelPill.title = level.next ? `${level.next[1] - puzzleXp} XP to ${level.next[0]}` : "Top learner title unlocked";
+      gamesPill.textContent = `Games played ${gameStats.played}`;
+      winRatePill.textContent = `Win rate ${winRate}%`;
+      solvedPill.textContent = `Puzzles solved ${solvedPuzzles.size}`;
+      bestPill.textContent = `Best streak ${bestPuzzleStreak}`;
+      dailyPill.textContent = completedToday ? "Daily challenge done" : `Daily: ${getDailyChallengeName()}`;
+      dailyStreakPill.textContent = `Current streak ${dailyHabit.streak}`;
+      lessonPill.textContent = `Missions completed ${lessonCount}`;
+      openingPill.textContent = `Favorite opening: ${favoriteOpening}`;
+      accuracyPill.textContent = `Puzzle confidence ${accuracy}%`;
+      dailyReward.textContent = completedToday ? "Reward unlocked: +10 XP. Come back tomorrow for the next spark." : "Reward locked: finish today's puzzle for +10 XP.";
+      coach.textContent = puzzleAttempts
+        ? `Simple AI coach: You're getting better every day. One helpful idea: ${puzzles[currentPuzzle].hint}`
+        : "Simple AI coach: You're getting better every day. Try one move.";
+
+      const achievements = [
+        ["First Win", gameStats.wins > 0],
+        ["Puzzle Solver", solvedPuzzles.size > 0],
+        ["7-Day Streak", dailyHabit.streak >= 7],
+        ["Knight Master", solvedPuzzles.size >= 3],
+        ["Checkmate Artist", solvedPuzzles.size >= 5],
+        ["Fast Thinker", bestPuzzleStreak >= 3],
+        ["No Blunders", completedToday && puzzleAttempts === 0]
+      ];
+      badges.replaceChildren(...achievements.map(([label, unlocked]) => {
+        const badge = createBookText("span", `achievement-badge${unlocked ? " unlocked" : ""}`, label);
+        badge.setAttribute("aria-label", `${label} ${unlocked ? "unlocked" : "locked"}`);
+        return badge;
+      }));
+
+      const days = [...Array(7)].map((_, offset) => {
+        const date = new Date();
+        date.setDate(date.getDate() - (6 - offset));
+        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+        return [key, date.toLocaleDateString(undefined, { weekday: "short" })];
+      });
+      const max = Math.max(10, ...days.map(([key]) => Number(weeklyPuzzleXp[key]) || 0));
+      chart.replaceChildren(...days.map(([key, label]) => {
+        const value = Number(weeklyPuzzleXp[key]) || 0;
+        const bar = document.createElement("div");
+        const fill = document.createElement("span");
+        bar.className = "week-bar";
+        fill.style.height = `${Math.max(8, (value / max) * 58)}px`;
+        bar.append(fill, document.createTextNode(label));
+        bar.title = `${label}: ${value} XP`;
+        return bar;
+      }));
+    }
+
+    function fireConfettiBurst() {
+      const burst = document.createElement("div");
+      burst.className = "confetti-burst";
+      const colors = ["#7fa650", "#e7b65d", "#6fa8dc", "#f0d9b5"];
+      for (let index = 0; index < 28; index += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = colors[index % colors.length];
+        piece.style.animationDelay = `${Math.random() * 140}ms`;
+        burst.appendChild(piece);
+      }
+      document.body.appendChild(burst);
+      window.setTimeout(() => burst.remove(), 1200);
     }
 
     function getDailyPuzzleIndex() {
@@ -6985,7 +8006,213 @@
       const badge = document.getElementById("dailyPuzzleBadge");
       if (!badge) return;
 
-      badge.textContent = currentPuzzle === getDailyPuzzleIndex() ? "Today's puzzle" : "Practice puzzle";
+      badge.textContent = currentPuzzle === getDailyPuzzleIndex() ? getDailyChallengeName() : "Practice puzzle";
+    }
+
+    function getPuzzleSideColor(puzzle) {
+      return puzzle.side.toLowerCase().includes("black") ? "b" : "w";
+    }
+
+    function getPuzzleFen(puzzle) {
+      return `${puzzle.fen} ${getPuzzleSideColor(puzzle)} - - 0 1`;
+    }
+
+    function cleanPuzzleSan(move) {
+      return String(move || "").replace(/[?!]/g, "");
+    }
+
+    function resetPuzzleGame() {
+      selectedPuzzleSquare = "";
+      puzzleLegalMoves = [];
+      puzzleLastMove = null;
+      if (!CoachChess) {
+        puzzleGame = null;
+        return;
+      }
+
+      try {
+        puzzleGame = new CoachChess(getPuzzleFen(puzzles[currentPuzzle]));
+      } catch {
+        puzzleGame = null;
+      }
+    }
+
+    function getPuzzleSquares() {
+      const flipped = getPuzzleSideColor(puzzles[currentPuzzle]) === "b";
+      const files = flipped ? ["h", "g", "f", "e", "d", "c", "b", "a"] : ["a", "b", "c", "d", "e", "f", "g", "h"];
+      const ranks = flipped ? ["1", "2", "3", "4", "5", "6", "7", "8"] : ["8", "7", "6", "5", "4", "3", "2", "1"];
+      return ranks.flatMap((rank) => files.map((file) => `${file}${rank}`));
+    }
+
+    function findPuzzleKing(color) {
+      return getPuzzleSquares().find((square) => {
+        const piece = puzzleGame?.get(square);
+        return piece && piece.type === "k" && piece.color === color;
+      }) || "";
+    }
+
+    function finishPuzzleMove(move) {
+      const puzzle = puzzles[currentPuzzle];
+      const correct = puzzle.answers.find((answer) => answer.correct);
+      const isCorrect = cleanPuzzleSan(move.san) === cleanPuzzleSan(correct?.move);
+
+      selectedPuzzleSquare = "";
+      puzzleLegalMoves = [];
+      puzzleLastMove = isCorrect ? move : null;
+
+      if (isCorrect) {
+        activeAnswered = true;
+        const firstSolve = !solvedPuzzles.has(currentPuzzle);
+        const habitReward = currentPuzzle === getDailyPuzzleIndex() && completeDailyHabit();
+        if (firstSolve) {
+          solvedPuzzles.add(currentPuzzle);
+          streak += 1;
+        }
+        bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
+        puzzleCorrect += 1;
+        const reward = firstSolve ? 15 : 5;
+        const xpResult = addPuzzleXp(reward);
+        document.getElementById("feedback").textContent = `Great move! +${reward}${habitReward ? " +10 daily reward" : ""} XP. You played ${move.san}. ${puzzle.feedback}`;
+        showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
+      } else {
+        puzzleGame.undo();
+        streak = 0;
+        puzzleAttempts += 1;
+        addPuzzleXp(2);
+        document.getElementById("feedback").textContent = `Good idea! Here's an even stronger move. ${move.san} was legal. Tip: ${puzzle.hint}`;
+      }
+
+      updatePuzzleStats();
+      renderPuzzleBoard();
+    }
+
+    function handlePuzzleSquare(square) {
+      if (!puzzleGame || activeAnswered) return;
+      const piece = puzzleGame.get(square);
+
+      if (selectedPuzzleSquare && square !== selectedPuzzleSquare) {
+        const legalMoves = puzzleGame.moves({ square: selectedPuzzleSquare, verbose: true }).filter((move) => move.to === square);
+        if (legalMoves.length) {
+          const promotion = choosePromotion(legalMoves);
+          const move = puzzleGame.move({ from: selectedPuzzleSquare, to: square, ...(promotion ? { promotion } : {}) });
+          if (move) finishPuzzleMove(move);
+          return;
+        }
+      }
+
+      if (piece && piece.color === puzzleGame.turn()) {
+        selectedPuzzleSquare = square;
+        puzzleLegalMoves = puzzleGame.moves({ square, verbose: true });
+        document.getElementById("feedback").textContent = `${puzzleLegalMoves.length} legal move${puzzleLegalMoves.length === 1 ? "" : "s"} highlighted. Find the forcing move.`;
+      } else {
+        selectedPuzzleSquare = "";
+        puzzleLegalMoves = [];
+        document.getElementById("feedback").textContent = "Pick a piece for the side to move first.";
+      }
+      renderPuzzleBoard();
+    }
+
+    function playPuzzleSolution() {
+      if (!puzzleGame) return null;
+      const correct = puzzles[currentPuzzle].answers.find((answer) => answer.correct);
+      const move = puzzleGame.moves({ verbose: true }).find((item) => cleanPuzzleSan(item.san) === cleanPuzzleSan(correct?.move));
+      if (!move) return null;
+      const played = puzzleGame.move(toCoachMoveInput(move));
+      puzzleLastMove = played;
+      selectedPuzzleSquare = "";
+      puzzleLegalMoves = [];
+      renderPuzzleBoard();
+      return played;
+    }
+
+    function getPuzzleHintText(step) {
+      const puzzle = puzzles[currentPuzzle];
+      const correct = puzzle.answers.find((answer) => answer.correct);
+      const text = `${puzzle.title} ${puzzle.prompt} ${puzzle.hint}`.toLowerCase();
+      if (step === 1) {
+        if (text.includes("fork")) return "Hint 1: Look for a piece attacking two targets.";
+        if (text.includes("mate")) return "Hint 1: Look for a forcing check near the king.";
+        if (text.includes("pawn") || text.includes("endgame")) return "Hint 1: Look for the move that changes the pawn race.";
+        return "Hint 1: Start with checks, captures, and threats.";
+      }
+      if (step === 2) {
+        if (text.includes("knight") || text.includes("fork")) return "Hint 2: Your knight has a fork.";
+        return `Hint 2: ${puzzle.hint}`;
+      }
+      return `Hint 3: Show the move: ${correct?.move || "best move"}.`;
+    }
+
+    function revealPuzzleSolution() {
+      if (activeAnswered) return;
+      const puzzle = puzzles[currentPuzzle];
+      const correct = puzzle.answers.find((answer) => answer.correct);
+      const hint = document.getElementById("puzzleHint");
+      puzzleHintStep = Math.max(puzzleHintStep, 3);
+      hint.textContent = getPuzzleHintText(3);
+      hint.classList.remove("hidden");
+      document.getElementById("hintPuzzle").textContent = "Show Move";
+      const played = playPuzzleSolution();
+      activeAnswered = true;
+      streak = 0;
+      puzzleAttempts += 1;
+      addPuzzleXp(1);
+      lockAnswers(null, false);
+      document.getElementById("feedback").textContent = `Good idea to learn from the answer. +1 XP. Stronger move: ${played?.san || correct.move}. Tip: ${puzzle.hint}`;
+      updatePuzzleStats();
+      renderPuzzleBoard();
+    }
+
+    function showNextPuzzleHint() {
+      if (activeAnswered) return;
+      puzzleHintStep += 1;
+      const hint = document.getElementById("puzzleHint");
+      hint.textContent = getPuzzleHintText(puzzleHintStep);
+      hint.classList.remove("hidden");
+      document.getElementById("hintPuzzle").textContent = puzzleHintStep >= 2 ? "Show Move" : "Next Hint";
+      if (puzzleHintStep >= 3) revealPuzzleSolution();
+      else renderPuzzleBoard();
+    }
+
+    function renderPuzzleBoard() {
+      const puzzle = puzzles[currentPuzzle];
+      const board = document.getElementById("puzzleBoard");
+      const legalByTarget = new Map(puzzleLegalMoves.map((move) => [move.to, move]));
+      const lastSquares = puzzleLastMove ? [puzzleLastMove.from, puzzleLastMove.to] : [];
+      const checkedKing = puzzleGame && callCoachRule(puzzleGame, "isCheck", "in_check") ? findPuzzleKing(puzzleGame.turn()) : "";
+      const hintVisible = puzzleHintStep >= 3 || activeAnswered;
+
+      board.innerHTML = "";
+      if (!puzzleGame) {
+        fenToSquares(puzzle.fen).forEach((piece, index) => {
+          const row = Math.floor(index / 8);
+          const col = index % 8;
+          const square = document.createElement("span");
+          square.className = `puzzle-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
+          const colorClass = pieceColorClass(piece);
+          if (colorClass) square.classList.add(colorClass);
+          square.textContent = piece;
+          board.appendChild(square);
+        });
+        return;
+      }
+
+      getPuzzleSquares().forEach((name) => {
+        const piece = puzzleGame.get(name);
+        const legalMove = legalByTarget.get(name);
+        const square = document.createElement("button");
+        square.type = "button";
+        square.className = `puzzle-square play-square ${isLightCoachSquare(name) ? "light" : "dark"}`;
+        if (piece) square.classList.add(piece.color === "w" ? "white-piece" : "black-piece");
+        if (name === selectedPuzzleSquare) square.classList.add("selected");
+        if (legalMove) square.classList.add(legalMove.captured || legalMove.flags.includes("e") ? "capture" : "legal");
+        if (lastSquares.includes(name)) square.classList.add("last-move");
+        if (name === checkedKing) square.classList.add("in-check");
+        if (hintVisible && puzzle.targets.includes(name)) square.classList.add("target");
+        square.textContent = piece ? coachPieceSymbols[piece.color][piece.type] : "";
+        square.setAttribute("aria-label", `${name}${piece ? ` ${piece.color === "w" ? "white" : "black"} ${piece.type}` : " empty"}`);
+        square.addEventListener("click", () => handlePuzzleSquare(name));
+        board.appendChild(square);
+      });
     }
 
     function lockAnswers(selectedButton, selectedWasCorrect) {
@@ -7011,16 +8238,25 @@
       lockAnswers(button, answer.correct);
 
       if (answer.correct) {
+        const firstSolve = !solvedPuzzles.has(currentPuzzle);
         if (!solvedPuzzles.has(currentPuzzle)) {
           solvedPuzzles.add(currentPuzzle);
           streak += 1;
         }
-        document.getElementById("feedback").textContent = puzzle.feedback;
+        bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
+        puzzleCorrect += 1;
+        const reward = firstSolve ? 15 : 5;
+        const xpResult = addPuzzleXp(reward);
+        document.getElementById("feedback").textContent = `Great move! +${reward} XP. You improved because you found the idea: ${puzzle.feedback}`;
+        showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
       } else {
+        puzzleAttempts += 1;
         streak = 0;
-        document.getElementById("feedback").textContent = `Not quite. ${puzzle.feedback}`;
+        addPuzzleXp(2);
+        document.getElementById("feedback").textContent = `Great Try! +2 XP for practicing. You improved because you checked a candidate move. Tip: ${puzzle.hint}`;
       }
 
+      puzzleAttempts += answer.correct ? 1 : 0;
       updatePuzzleStats();
     }
 
@@ -7031,39 +8267,27 @@
       }
 
       const puzzle = puzzles[currentPuzzle];
-      const board = document.getElementById("puzzleBoard");
       const answers = document.getElementById("answers");
       const feedback = document.getElementById("feedback");
       const hint = document.getElementById("puzzleHint");
-      const squares = fenToSquares(puzzle.fen);
 
       activeAnswered = false;
+      puzzleHintStep = 0;
+      resetPuzzleGame();
       document.getElementById("puzzleLevel").textContent = puzzle.level;
       document.getElementById("puzzleSide").textContent = puzzle.side;
       document.getElementById("puzzleTitle").textContent = puzzle.title;
       document.getElementById("puzzlePrompt").textContent = puzzle.prompt;
       hint.textContent = puzzle.hint;
       hint.classList.add("hidden");
-      feedback.textContent = "Choose the strongest move.";
+      feedback.textContent = CoachChess ? "Move the piece on the board. Legal moves will glow." : "Loading chess.js puzzle rules...";
       document.getElementById("hintPuzzle").disabled = false;
+      document.getElementById("hintPuzzle").textContent = "Hint";
       document.getElementById("revealPuzzle").disabled = false;
+      document.getElementById("revealPuzzle").textContent = "Show Move";
       updatePuzzleStats();
       renderDailyPuzzleMeta();
-
-      board.innerHTML = "";
-      squares.forEach((piece, index) => {
-        const row = Math.floor(index / 8);
-        const col = index % 8;
-        const square = document.createElement("span");
-        const name = squareName(index);
-        square.className = `puzzle-square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
-        if (puzzle.targets.includes(name)) square.classList.add("target");
-        const colorClass = pieceColorClass(piece);
-        if (colorClass) square.classList.add(colorClass);
-        square.textContent = piece;
-        square.setAttribute("aria-label", `${name}${piece ? ` ${piece}` : ""}`);
-        board.appendChild(square);
-      });
+      renderPuzzleBoard();
 
       answers.innerHTML = "";
       puzzle.answers.forEach((answer) => {
@@ -7098,8 +8322,584 @@
       });
     }
 
+    const chessJsUrl = "https://cdn.jsdelivr.net/npm/chess.js@1.0.0/+esm";
+    const coachPieceSymbols = {
+      w: { k: "\u2654", q: "\u2655", r: "\u2656", b: "\u2657", n: "\u2658", p: "\u2659" },
+      b: { k: "\u265A", q: "\u265B", r: "\u265C", b: "\u265D", n: "\u265E", p: "\u265F" }
+    };
+    const classicCoachPieceSymbols = JSON.parse(JSON.stringify(coachPieceSymbols));
+    const letterCoachPieceSymbols = {
+      w: { k: "K", q: "Q", r: "R", b: "B", n: "N", p: "P" },
+      b: { k: "k", q: "q", r: "r", b: "b", n: "n", p: "p" }
+    };
+    const coachPieceValues = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 0 };
+    let CoachChess = null;
+    let coachGame = null;
+    let coachSelected = "";
+    let coachLegalMoves = [];
+    let coachLastMove = null;
+    let coachDifficulty = "easy";
+    let coachFlipped = false;
+    let coachThinking = false;
+    let coachDrawAgreed = false;
+    let coachMessage = "You are White. Select a piece to see legal moves.";
+    let coachMoveToken = 0;
+    let coachThreatMode = false;
+    let coachReplayFen = "";
+    let coachMistakeNote = "";
+    let coachWhyText = "Select or make a move, then ask why.";
+    let coachGameRecorded = false;
+    let chessRulesPromise = null;
+
+    async function loadChessRules() {
+      if (CoachChess) return CoachChess;
+      chessRulesPromise ||= import(chessJsUrl).then((module) => module.Chess || module.default?.Chess || module.default);
+      CoachChess = await chessRulesPromise;
+      return CoachChess;
+    }
+
+    function callCoachRule(game, modernName, legacyName) {
+      const modern = game && game[modernName];
+      const legacy = game && game[legacyName];
+      if (typeof modern === "function") return modern.call(game);
+      if (typeof legacy === "function") return legacy.call(game);
+      return false;
+    }
+
+    function isCoachGameOver() {
+      return coachDrawAgreed || callCoachRule(coachGame, "isGameOver", "game_over");
+    }
+
+    function isCoachCheck() {
+      return callCoachRule(coachGame, "isCheck", "in_check");
+    }
+
+    function toCoachMoveInput(move) {
+      const input = { from: move.from, to: move.to };
+      if (move.promotion) input.promotion = move.promotion;
+      return input;
+    }
+
+    function getCoachSquares() {
+      const files = coachFlipped ? ["h", "g", "f", "e", "d", "c", "b", "a"] : ["a", "b", "c", "d", "e", "f", "g", "h"];
+      const ranks = coachFlipped ? ["1", "2", "3", "4", "5", "6", "7", "8"] : ["8", "7", "6", "5", "4", "3", "2", "1"];
+      return ranks.flatMap((rank) => files.map((file) => `${file}${rank}`));
+    }
+
+    function isLightCoachSquare(square) {
+      return (square.charCodeAt(0) - 97 + Number(square[1])) % 2 === 0;
+    }
+
+    function findCoachKing(color) {
+      return getCoachSquares().find((square) => {
+        const piece = coachGame.get(square);
+        return piece && piece.type === "k" && piece.color === color;
+      }) || "";
+    }
+
+    function getOneCoachSuggestion() {
+      const whiteMoves = coachGame.history({ verbose: true }).filter((move) => move.color === "w");
+      const movedQueenEarly = whiteMoves.slice(0, 4).some((move) => move.piece === "q");
+      const knightMoves = whiteMoves.filter((move) => move.piece === "n").length;
+      if (movedQueenEarly && knightMoves < 2) return "Next time, try developing your knights before moving the queen.";
+      if (!whiteMoves.some((move) => move.flags.includes("k") || move.flags.includes("q"))) return "Next time, try castling before starting an attack.";
+      return "Next time, ask what the coach threatens before you move.";
+    }
+
+    function getCoachThreatSquares() {
+      if (!coachGame || !CoachChess) return new Set();
+      const fenParts = coachGame.fen().split(" ");
+      fenParts[1] = "b";
+      try {
+        const blackView = new CoachChess(fenParts.join(" "));
+        return new Set(blackView.moves({ verbose: true })
+          .filter((move) => coachGame.get(move.to)?.color === "w" || move.san.includes("+"))
+          .map((move) => move.to));
+      } catch {
+        return new Set();
+      }
+    }
+
+    function setCoachDifficulty(level) {
+      coachDifficulty = ["easy", "medium", "hard"].includes(level) ? level : "easy";
+      document.querySelectorAll("[data-game-difficulty]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.gameDifficulty === coachDifficulty));
+      });
+      document.getElementById("gameDifficultyBadge").textContent = `${coachDifficulty[0].toUpperCase()}${coachDifficulty.slice(1)} coach`;
+    }
+
+    function scoreCoachMove(move, careful = false) {
+      let score = Math.random() * 18;
+      if (move.captured) score += coachPieceValues[move.captured] || 0;
+      if (move.promotion) score += coachPieceValues[move.promotion] || 800;
+      if (["d4", "e4", "d5", "e5"].includes(move.to)) score += 24;
+      if (move.san.includes("+")) score += 70;
+      if (move.san.includes("#")) score += 10000;
+
+      try {
+        coachGame.move(toCoachMoveInput(move));
+        if (callCoachRule(coachGame, "isCheckmate", "in_checkmate")) score += 10000;
+        if (callCoachRule(coachGame, "isCheck", "in_check")) score += 80;
+        if (careful) {
+          const replyDanger = Math.max(0, ...coachGame.moves({ verbose: true }).map((reply) => reply.captured ? coachPieceValues[reply.captured] || 0 : 0));
+          score -= replyDanger * 0.45;
+        }
+        coachGame.undo();
+      } catch {
+        score -= 9999;
+      }
+      return score;
+    }
+
+    function chooseCoachMove() {
+      const moves = coachGame.moves({ verbose: true });
+      const scored = moves
+        .map((move) => ({ move, score: scoreCoachMove(move, coachDifficulty === "hard") }))
+        .sort((a, b) => b.score - a.score);
+
+      if (coachDifficulty === "easy") {
+        return Math.random() < 0.35 ? scored[0].move : moves[Math.floor(Math.random() * moves.length)];
+      }
+
+      const poolSize = coachDifficulty === "medium" ? 4 : 2;
+      const pool = scored.slice(0, Math.min(poolSize, scored.length));
+      return pool[Math.floor(Math.random() * pool.length)].move;
+    }
+
+    function choosePromotion(legalMoves) {
+      if (!legalMoves.some((move) => move.promotion)) return undefined;
+      const choice = String(window.prompt("Promote pawn to queen, rook, bishop, or knight? Type q, r, b, or n.", "q") || "q").toLowerCase();
+      return ["q", "r", "b", "n"].includes(choice) ? choice : "q";
+    }
+
+    function explainLearnerMove(move, bestMove, betterGap) {
+      const whiteMoveCount = coachGame.history({ verbose: true }).filter((item) => item.color === "w").length;
+      const cheer = whiteMoveCount === 1 ? "Good!" : whiteMoveCount === 2 ? "Great!" : "Nice try!";
+      let detail = `You played ${move.san}.`;
+      if (move.flags.includes("k") || move.flags.includes("q")) detail = `Nice. ${move.san} castled your king toward safety.`;
+      else if (move.captured) detail = `Good capture. ${move.san} won a ${move.captured.toUpperCase()}.`;
+      else if (move.san.includes("+")) detail = `${move.san} gave check, so the coach must answer the king threat.`;
+
+      if (bestMove && bestMove.san !== move.san && betterGap > 220) {
+        coachWhyText = `${bestMove.san} was safer because forcing moves often give the opponent fewer choices.`;
+        return `${cheer} ${detail} Can you find a safer square next time? Check if every piece is defended before moving.`;
+      }
+      coachWhyText = `${move.san} was playable because it followed the rules and kept the game moving. Now look for the coach's threat.`;
+      return `${cheer} ${detail} Next, ask what the coach threatens.`;
+    }
+
+    function explainCoachMove(move) {
+      if (callCoachRule(coachGame, "isCheckmate", "in_checkmate") || callCoachRule(coachGame, "isDraw", "in_draw")) {
+        return buildCoachSummary();
+      }
+      if (move.captured) {
+        coachWhyText = `${move.san} worked because it captured material with tempo.`;
+        return `The coach played ${move.san} and captured a piece. Great try: now look for checks, captures, and threats.`;
+      }
+      if (move.san.includes("+")) {
+        coachWhyText = `${move.san} is important because checks must be answered immediately.`;
+        return `The coach played ${move.san}. Your king is in check, so answer that first.`;
+      }
+      coachWhyText = `${move.san} improves the coach's position without risking too much.`;
+      return `The coach played ${move.san}. Look for a safe developing move or a forcing move.`;
+    }
+
+    function buildCoachMistakeNote(move, bestMove) {
+      const names = { p: "pawn", n: "knight", b: "bishop", r: "rook", q: "queen", k: "king" };
+      const moveNumber = Math.max(1, Math.ceil(coachGame.history({ verbose: true }).length / 2));
+      const piece = names[move.piece] || "piece";
+      const safer = bestMove ? ` A safer idea was ${bestMove.san}.` : "";
+      return `Your biggest mistake today: Move ${moveNumber}. Your ${piece} needed one more safety check.${safer} Practice: Hanging Pieces, Piece Safety, Defending Pieces.`;
+    }
+
+    function buildCoachSummary() {
+      const moves = coachGame.history({ verbose: true });
+      const whiteMoves = moves.filter((move) => move.color === "w");
+      const captures = whiteMoves.filter((move) => move.captured).length;
+      const castles = whiteMoves.some((move) => move.flags.includes("k") || move.flags.includes("q"));
+      const praise = castles
+        ? "Great work getting your king safer."
+        : captures
+          ? "Great work spotting captures and staying active."
+          : "Great work finishing a real legal game.";
+      const review = coachMistakeNote || "Your biggest mistake today: no major mistake saved. Practice: Hanging Pieces, Piece Safety, Defending Pieces.";
+      return `You found ${whiteMoves.length} good moves today. ${praise} ${getOneCoachSuggestion()} ${review}`;
+    }
+
+    function recordCoachGameResult(playerWon) {
+      if (coachGameRecorded || !coachGame?.history().length) return;
+      coachGameRecorded = true;
+      gameStats.played += 1;
+      let xpResult = { levelUp: false };
+      if (playerWon) {
+        gameStats.wins += 1;
+        xpResult = addPuzzleXp(50);
+        showCelebration("\uD83C\uDF89 Great Job!", "+50 XP", xpResult.levelUp ? "New Badge Unlocked!" : "First Win progress!");
+      }
+      savePuzzleState();
+      renderBeginnerProgress();
+    }
+
+    function getScoredLearnerMoves(moves) {
+      return moves
+        .map((move) => ({ move, score: scoreCoachMove(move, true) }))
+        .sort((a, b) => b.score - a.score);
+    }
+
+    function renderCoachCaptured() {
+      const whiteCaptured = [];
+      const blackCaptured = [];
+      coachGame.history({ verbose: true }).forEach((move) => {
+        if (!move.captured) return;
+        const capturedColor = move.color === "w" ? "b" : "w";
+        const symbol = coachPieceSymbols[capturedColor][move.captured] || "";
+        if (move.color === "w") whiteCaptured.push(symbol);
+        else blackCaptured.push(symbol);
+      });
+      document.getElementById("whiteCaptured").textContent = whiteCaptured.join(" ") || "None";
+      document.getElementById("blackCaptured").textContent = blackCaptured.join(" ") || "None";
+    }
+
+    function renderCoachHistory() {
+      const history = coachGame.history({ verbose: true });
+      const list = document.getElementById("moveHistory");
+      list.innerHTML = "";
+      if (!history.length) {
+        list.textContent = "No moves yet.";
+        return;
+      }
+
+      for (let index = 0; index < history.length; index += 2) {
+        const row = document.createElement("div");
+        row.className = "move-pair";
+        row.append(
+          createBookText("strong", "", `${Math.floor(index / 2) + 1}.`),
+          createBookText("span", "", history[index]?.san || ""),
+          createBookText("span", "", history[index + 1]?.san || "")
+        );
+        list.appendChild(row);
+      }
+    }
+
+    function renderCoachPracticeLinks(show) {
+      const row = document.getElementById("coachPracticeLinks");
+      if (!row) return;
+      row.hidden = !show;
+      if (!show || row.children.length) return;
+      [
+        ["Hanging Pieces", "#puzzles"],
+        ["Piece Safety", "#rules"],
+        ["Defending Pieces", "#puzzles"]
+      ].forEach(([label, href]) => {
+        const link = document.createElement("a");
+        link.className = "button secondary";
+        link.href = href;
+        link.textContent = label;
+        row.appendChild(link);
+      });
+    }
+
+    function updateCoachPanel() {
+      if (!coachGame) return;
+      const statusBadge = document.getElementById("gameStatusBadge");
+      const turnBadge = document.getElementById("gameTurnBadge");
+      const coach = document.getElementById("gameCoach");
+      const turn = coachGame.turn() === "w" ? "White" : "Black";
+      const drawReason = callCoachRule(coachGame, "isStalemate", "in_stalemate") ? "Stalemate"
+        : callCoachRule(coachGame, "isThreefoldRepetition", "in_threefold_repetition") ? "Threefold repetition"
+          : callCoachRule(coachGame, "isDrawByFiftyMoves", "in_draw_by_fifty_moves") ? "Fifty-move draw"
+            : callCoachRule(coachGame, "isInsufficientMaterial", "insufficient_material") ? "Insufficient material"
+              : "";
+      const isMate = callCoachRule(coachGame, "isCheckmate", "in_checkmate");
+      const isDrawn = Boolean(drawReason) || callCoachRule(coachGame, "isDraw", "in_draw");
+
+      if (coachDrawAgreed || isMate || isDrawn) recordCoachGameResult(isMate && coachGame.turn() === "b");
+
+      turnBadge.textContent = coachThinking ? "Coach thinking" : `${turn} to move`;
+      if (coachDrawAgreed) {
+        statusBadge.textContent = "Draw agreed";
+        coach.textContent = `Draw agreed. ${buildCoachSummary()}`;
+      } else if (isMate) {
+        statusBadge.textContent = "Checkmate";
+        coach.textContent = buildCoachSummary();
+      } else if (isDrawn) {
+        statusBadge.textContent = drawReason || "Draw";
+        coach.textContent = `${drawReason || "Draw"}. ${buildCoachSummary()}`;
+      } else {
+        statusBadge.textContent = isCoachCheck() ? "Check" : "Playing";
+        coach.textContent = coachMessage;
+      }
+
+      renderCoachCaptured();
+      renderCoachHistory();
+      renderCoachPracticeLinks(coachDrawAgreed || isMate || isDrawn);
+      document.getElementById("undoGame").disabled = coachThinking || !coachGame.history().length;
+      document.getElementById("replayMistake").disabled = coachThinking || !coachReplayFen;
+      document.getElementById("showThreats").setAttribute("aria-pressed", String(coachThreatMode));
+    }
+
+    function renderCoachBoard() {
+      const board = document.getElementById("coachBoard");
+      if (!board || !coachGame) return;
+      const legalByTarget = new Map(coachLegalMoves.map((move) => [move.to, move]));
+      const lastSquares = coachLastMove ? [coachLastMove.from, coachLastMove.to] : [];
+      const checkedKing = isCoachCheck() ? findCoachKing(coachGame.turn()) : "";
+      const threatSquares = coachThreatMode ? getCoachThreatSquares() : new Set();
+
+      board.innerHTML = "";
+      getCoachSquares().forEach((squareNameValue) => {
+        const piece = coachGame.get(squareNameValue);
+        const legalMove = legalByTarget.get(squareNameValue);
+        const square = document.createElement("button");
+        square.type = "button";
+        square.className = `puzzle-square play-square ${isLightCoachSquare(squareNameValue) ? "light" : "dark"}`;
+        if (piece) square.classList.add(piece.color === "w" ? "white-piece" : "black-piece");
+        if (squareNameValue === coachSelected) square.classList.add("selected");
+        if (legalMove) square.classList.add(legalMove.captured || legalMove.flags.includes("e") ? "capture" : "legal");
+        if (lastSquares.includes(squareNameValue)) square.classList.add("last-move");
+        if (squareNameValue === checkedKing) square.classList.add("in-check");
+        if (threatSquares.has(squareNameValue)) square.classList.add("threat");
+        if (coachThinking) square.classList.add("is-ai-thinking");
+        square.draggable = Boolean(piece && piece.color === "w" && coachGame.turn() === "w" && !coachThinking && !isCoachGameOver());
+        square.textContent = piece ? coachPieceSymbols[piece.color][piece.type] : "";
+        square.setAttribute("aria-label", `${squareNameValue}${piece ? ` ${piece.color === "w" ? "white" : "black"} ${piece.type}` : " empty"}`);
+        square.addEventListener("dragstart", (event) => {
+          if (!square.draggable) return event.preventDefault();
+          coachSelected = squareNameValue;
+          coachLegalMoves = coachGame.moves({ square: squareNameValue, verbose: true });
+          event.dataTransfer.setData("text/plain", squareNameValue);
+          square.classList.add("dragging");
+        });
+        square.addEventListener("dragend", () => square.classList.remove("dragging"));
+        square.addEventListener("dragover", (event) => event.preventDefault());
+        square.addEventListener("drop", (event) => {
+          event.preventDefault();
+          const from = event.dataTransfer.getData("text/plain");
+          if (from) makeCoachMove(from, squareNameValue);
+        });
+        square.addEventListener("click", () => handleCoachSquare(squareNameValue));
+        board.appendChild(square);
+      });
+
+      updateCoachPanel();
+    }
+
+    function makeCoachMove(from, to) {
+      const legalMoves = coachGame.moves({ square: from, verbose: true }).filter((move) => move.to === to);
+      if (!legalMoves.length) {
+        coachMessage = "Good idea to explore. The rules need one of the highlighted squares here.";
+        renderCoachBoard();
+        return false;
+      }
+
+      const promotion = choosePromotion(legalMoves);
+      const scoredMoves = getScoredLearnerMoves(coachGame.moves({ verbose: true }));
+      const bestMove = scoredMoves[0]?.move || null;
+      const pickedScore = scoredMoves.find(({ move }) => (
+        move.from === from && move.to === to && (!move.promotion || move.promotion === (promotion || "q"))
+      ))?.score || 0;
+      const betterGap = (scoredMoves[0]?.score || 0) - pickedScore;
+      const beforeFen = coachGame.fen();
+      let move = null;
+      try {
+        move = coachGame.move({ from, to, ...(promotion ? { promotion } : {}) });
+      } catch {
+        move = null;
+      }
+
+      if (!move) {
+        coachMessage = "Good idea to check it. The rules block that move, so choose a highlighted square.";
+        renderCoachBoard();
+        return false;
+      }
+
+      coachSelected = "";
+      coachLegalMoves = [];
+      coachLastMove = move;
+      if (betterGap > 220) {
+        coachReplayFen = beforeFen;
+        coachMistakeNote = buildCoachMistakeNote(move, bestMove);
+      }
+      coachMessage = explainLearnerMove(move, bestMove, betterGap);
+      renderCoachBoard();
+      queueCoachReply();
+      return true;
+    }
+
+    function handleCoachSquare(square) {
+      if (!coachGame || coachThinking || coachGame.turn() !== "w" || isCoachGameOver()) return;
+      const piece = coachGame.get(square);
+      if (coachSelected && square !== coachSelected && makeCoachMove(coachSelected, square)) return;
+
+      if (piece && piece.color === "w") {
+        coachSelected = square;
+        coachLegalMoves = coachGame.moves({ square, verbose: true });
+        coachMessage = `${coachLegalMoves.length} legal move${coachLegalMoves.length === 1 ? "" : "s"} highlighted. Pick one that keeps your pieces safe.`;
+      } else {
+        coachSelected = "";
+        coachLegalMoves = [];
+        coachMessage = "Choose one of your white pieces first.";
+      }
+      renderCoachBoard();
+    }
+
+    function queueCoachReply() {
+      if (isCoachGameOver() || coachGame.turn() !== "b") return;
+      const token = ++coachMoveToken;
+      coachThinking = true;
+      coachMessage = "Coach is thinking for a moment.";
+      renderCoachBoard();
+
+      window.setTimeout(() => {
+        if (token !== coachMoveToken || !coachGame || coachGame.turn() !== "b" || isCoachGameOver()) return;
+        const reply = chooseCoachMove();
+        const move = reply && coachGame.move(toCoachMoveInput(reply));
+        if (move) {
+          coachLastMove = move;
+          coachMessage = explainCoachMove(move);
+        }
+        coachThinking = false;
+        renderCoachBoard();
+      }, coachDifficulty === "hard" ? 720 : 520);
+    }
+
+    function restartCoachGame() {
+      if (!CoachChess) return;
+      coachMoveToken += 1;
+      coachGame = new CoachChess();
+      coachSelected = "";
+      coachLegalMoves = [];
+      coachLastMove = null;
+      coachThinking = false;
+      coachDrawAgreed = false;
+      coachGameRecorded = false;
+      coachMistakeNote = "";
+      coachMessage = "Fresh game. You are White. Select a piece to see legal moves.";
+      document.getElementById("gamePgn").textContent = "PGN appears here after export.";
+      renderCoachBoard();
+    }
+
+    function undoCoachMove() {
+      if (!coachGame || coachThinking || !coachGame.history().length) return;
+      coachMoveToken += 1;
+      coachGame.undo();
+      if (coachGame.turn() === "b") coachGame.undo();
+      coachSelected = "";
+      coachLegalMoves = [];
+      coachLastMove = null;
+      coachDrawAgreed = false;
+      coachMessage = "Undo complete. Try a calmer move and check what is attacked.";
+      renderCoachBoard();
+    }
+
+    function askCoachWhy() {
+      coachMessage = coachWhyText;
+      renderCoachBoard();
+    }
+
+    function replayCoachMistake() {
+      if (!CoachChess || !coachReplayFen) {
+        coachMessage = "No replay moment yet. Make a few moves and the coach will save one useful mistake.";
+        renderCoachBoard();
+        return;
+      }
+
+      coachMoveToken += 1;
+      coachGame = new CoachChess(coachReplayFen);
+      coachSelected = "";
+      coachLegalMoves = [];
+      coachLastMove = null;
+      coachThinking = false;
+      coachDrawAgreed = false;
+      coachGameRecorded = false;
+      coachMistakeNote = "";
+      coachMessage = "Replay this moment. Try the stronger idea before the coach moves.";
+      renderCoachBoard();
+    }
+
+    function toggleCoachThreats() {
+      coachThreatMode = !coachThreatMode;
+      coachMessage = coachThreatMode
+        ? "Threats highlighted: red marks show white pieces or king checks Black may target."
+        : "Threat highlights off. Keep asking what the coach threatens.";
+      renderCoachBoard();
+    }
+
+    async function exportCoachPgn() {
+      const pgn = coachGame?.pgn() || "No moves yet.";
+      document.getElementById("gamePgn").textContent = pgn;
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(pgn);
+          coachMessage = "PGN copied. Nice for reviewing your game later.";
+        } else {
+          coachMessage = "PGN is shown below. You can select it for review.";
+        }
+      } catch {
+        coachMessage = "PGN is shown below. Your browser blocked auto-copy, but you can still select it.";
+      }
+      renderCoachBoard();
+    }
+
+    async function setupPuzzleChess() {
+      const board = document.getElementById("puzzleBoard");
+      if (!board || setupPuzzleChess.ready) return;
+      setupPuzzleChess.ready = true;
+
+      try {
+        await loadChessRules();
+      } catch {
+        document.getElementById("feedback").textContent = "Could not load chess.js for playable puzzles. Check your connection, then refresh.";
+        return;
+      }
+
+      renderPuzzle();
+    }
+
+    async function setupPlayableChess() {
+      const board = document.getElementById("coachBoard");
+      if (!board || setupPlayableChess.ready) return;
+      setupPlayableChess.ready = true;
+
+      try {
+        await loadChessRules();
+        coachGame = new CoachChess();
+        coachGameRecorded = false;
+        coachMistakeNote = "";
+      } catch {
+        document.getElementById("gameStatusBadge").textContent = "Rules failed";
+        document.getElementById("gameCoach").textContent = "Could not load chess.js. Check your connection, then refresh.";
+        return;
+      }
+
+      setCoachDifficulty(coachDifficulty);
+      document.querySelectorAll("[data-game-difficulty]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setCoachDifficulty(button.dataset.gameDifficulty);
+          coachMessage = `Difficulty set to ${coachDifficulty}. Keep it friendly and focus on one idea.`;
+          renderCoachBoard();
+        });
+      });
+      document.getElementById("undoGame").addEventListener("click", undoCoachMove);
+      document.getElementById("restartGame").addEventListener("click", restartCoachGame);
+      document.getElementById("flipGame").addEventListener("click", () => {
+        coachFlipped = !coachFlipped;
+        renderCoachBoard();
+      });
+      document.getElementById("whyGame").addEventListener("click", askCoachWhy);
+      document.getElementById("replayMistake").addEventListener("click", replayCoachMistake);
+      document.getElementById("showThreats").addEventListener("click", toggleCoachThreats);
+      document.getElementById("offerDraw").addEventListener("click", () => {
+        coachDrawAgreed = true;
+        coachMessage = buildCoachSummary();
+        renderCoachBoard();
+      });
+      document.getElementById("exportPgn").addEventListener("click", exportCoachPgn);
+      renderCoachBoard();
+    }
+
     function setupSiteTabs() {
-      const panelIds = ["paths", "adventures", "rules", "openings", "videos", "books", "notation", "puzzles", "plan"];
+      const panelIds = ["paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
       const links = [...document.querySelectorAll("[data-site-tab]")];
       const panels = panelIds
         .map((id) => document.getElementById(id))
@@ -7243,6 +9043,7 @@
           const level = tab.dataset.level;
           tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
           panels.forEach((panel) => panel.classList.toggle("hidden", panel.id !== level));
+          updateLessonJourney();
         });
       });
     }
@@ -7261,6 +9062,63 @@
       } catch {
         // Storage can be unavailable in private browsing; the page still works without persistence.
       }
+    }
+
+    function readLearnerPrefs() {
+      const fallback = { theme: "dark", board: "wood", pieces: "classic", coords: "on", speed: "normal" };
+      const saved = readJsonStorage(learnerPrefsStorageKey, fallback);
+      return { ...fallback, ...(saved && typeof saved === "object" ? saved : {}) };
+    }
+
+    function applyPiecePreference(style) {
+      const useLetters = style === "letter";
+      Object.assign(pieceMap, useLetters ? letterPieceMap : classicPieceMap);
+      Object.assign(coachPieceSymbols.w, useLetters ? letterCoachPieceSymbols.w : classicCoachPieceSymbols.w);
+      Object.assign(coachPieceSymbols.b, useLetters ? letterCoachPieceSymbols.b : classicCoachPieceSymbols.b);
+    }
+
+    function applyLearnerPrefs(prefs) {
+      document.body.classList.toggle("theme-light", prefs.theme === "light");
+      document.body.classList.toggle("board-wood", prefs.board === "wood");
+      document.body.classList.toggle("board-marble", prefs.board === "marble");
+      document.body.classList.toggle("board-neon", prefs.board === "neon");
+      document.body.classList.toggle("piece-letter", prefs.pieces === "letter");
+      document.body.classList.toggle("coords-off", prefs.coords === "off");
+      document.body.classList.toggle("speed-slow", prefs.speed === "slow");
+      document.body.classList.toggle("speed-fast", prefs.speed === "fast");
+      applyPiecePreference(prefs.pieces);
+    }
+
+    function setupLearnerPreferences() {
+      const prefs = readLearnerPrefs();
+      const fields = {
+        theme: document.getElementById("prefTheme"),
+        board: document.getElementById("prefBoard"),
+        pieces: document.getElementById("prefPieces"),
+        coords: document.getElementById("prefCoords"),
+        speed: document.getElementById("prefSpeed")
+      };
+      const messages = [
+        "Every master was once a beginner.",
+        "One puzzle today is better than none.",
+        "You're improving - keep going!"
+      ];
+      const note = document.getElementById("motivationMessage");
+
+      applyLearnerPrefs(prefs);
+      Object.entries(fields).forEach(([key, field]) => {
+        if (!field) return;
+        field.value = prefs[key];
+        field.addEventListener("change", () => {
+          const next = { ...readLearnerPrefs(), [key]: field.value };
+          writeJsonStorage(learnerPrefsStorageKey, next);
+          applyLearnerPrefs(next);
+          renderMiniBoards();
+          renderPuzzle();
+          renderCoachBoard();
+        });
+      });
+      if (note) note.textContent = messages[new Date().getDate() % messages.length];
     }
 
     function slugify(value) {
@@ -7282,7 +9140,7 @@
       const fallback = {
         date: getTodayKey(),
         level: "Beginner",
-        minutes: 30,
+        minutes: 31,
         goal: "balanced",
         weaknesses: ["tactics"],
         completed: [],
@@ -7356,7 +9214,7 @@
 
     function buildDailyTrainingPlan(state) {
       const level = state.level || "Beginner";
-      const minutes = Math.max(15, Math.min(60, Number(state.minutes) || 30));
+      const minutes = Math.max(15, Math.min(60, Number(state.minutes) || 31));
       const goalLabels = {
         balanced: "Balanced improvement",
         rating: "Win more games",
@@ -7420,14 +9278,14 @@
           detail: level === "Advanced"
             ? "Play slowly and mark every candidate-move decision you were unsure about."
             : "Play one game using today's rule. Before each move, ask what your opponent threatens.",
-          href: "#plan",
-          cta: "Stay on Plan"
+          href: "#play",
+          cta: "Play AI"
         });
       }
 
       tasks.push({
         key: `review-${secondaryKey}`,
-        title: `${secondary.label} review`,
+        title: secondaryKey === "review" ? "Game review" : `${secondary.label} review`,
         minutes: reviewMinutes,
         detail: secondary.detail,
         href: secondary.href,
@@ -7473,6 +9331,7 @@
       const plan = buildDailyTrainingPlan(state);
       const completed = new Set(state.completed || []);
       const doneCount = plan.tasks.filter((task) => completed.has(task.key)).length;
+      const planMinutes = plan.tasks.reduce((total, task) => total + task.minutes, 0);
       const progress = Math.round((doneCount / plan.tasks.length) * 100);
 
       output.innerHTML = "";
@@ -7493,7 +9352,7 @@
 
       [
         [plan.title, "Today's track"],
-        [state.minutes + " min", "Training time"],
+        [planMinutes + " min", "Training time"],
         [doneCount + "/" + plan.tasks.length, "Tasks done"],
         [String((state.history || []).length), "Completed days"]
       ].forEach(([value, label]) => {
@@ -7529,6 +9388,7 @@
           const nextHistory = new Set(nextState.history || []);
           if (nextCompleted.size >= plan.tasks.length) {
             nextHistory.add(nextState.date);
+            fireConfettiBurst();
           }
 
           saveDailyTrainingState({
@@ -7581,7 +9441,7 @@
         const nextState = {
           date: getTodayKey(),
           level: document.getElementById("trainingLevel").value,
-          minutes: Number(document.getElementById("trainingMinutes").value) || 30,
+          minutes: Number(document.getElementById("trainingMinutes").value) || 31,
           goal: document.getElementById("trainingGoal").value,
           weaknesses: getSelectedTrainingWeaknesses(),
           completed: []
@@ -7623,7 +9483,7 @@
       const fallback = {
         date: getTodayKey(),
         mood: "new",
-        minutes: 12,
+        minutes: 5,
         energy: "normal",
         completed: []
       };
@@ -7652,10 +9512,10 @@
     }
 
     function buildGentleQuest(state) {
-      const minutes = Math.max(8, Math.min(25, Number(state.minutes) || 12));
-      const warmup = minutes <= 8 ? 2 : 3;
-      const learn = minutes <= 12 ? 4 : minutes <= 18 ? 6 : 8;
-      const play = Math.max(2, minutes - warmup - learn);
+      const minutes = Math.max(5, Math.min(12, Number(state.minutes) || 5));
+      const warmup = minutes <= 5 ? 1 : 2;
+      const learn = minutes <= 5 ? 2 : 3;
+      const play = minutes <= 5 ? 2 : 3;
       const moodPlans = {
         new: {
           title: "First move confidence",
@@ -7741,6 +9601,8 @@
       const list = document.createElement("ul");
       const doneCount = quest.tasks.filter((task) => completed.has(task.key)).length;
       const progress = createBookText("p", "trainer-note", `${doneCount}/${quest.tasks.length} tiny wins finished today. No rush.`);
+      const nextTask = quest.tasks.find((task) => !completed.has(task.key)) || quest.tasks[0];
+      const continueLink = document.createElement("a");
 
       list.className = "gentle-task-list";
       quest.tasks.forEach((task) => {
@@ -7766,6 +9628,7 @@
             nextCompleted.delete(task.key);
           }
           saveGentleStartState({ completed: [...nextCompleted] });
+          if (nextCompleted.size >= quest.tasks.length) fireConfettiBurst();
           renderGentleStart();
         });
 
@@ -7777,11 +9640,15 @@
         list.appendChild(item);
       });
 
-      output.append(heading, note, list, progress);
+      continueLink.className = "button";
+      continueLink.href = nextTask.href;
+      continueLink.textContent = "Continue Learning";
+      output.append(heading, note, list, progress, continueLink);
     }
 
     function setupGentleStart() {
       const form = document.getElementById("gentleStartForm");
+      const beginnerButton = document.getElementById("newToChessButton");
       if (!form) return;
 
       syncGentleStartForm(readGentleStartState());
@@ -7792,12 +9659,26 @@
         saveGentleStartState({
           date: getTodayKey(),
           mood: document.getElementById("gentleMood").value,
-          minutes: Number(document.getElementById("gentleMinutes").value) || 12,
+          minutes: Number(document.getElementById("gentleMinutes").value) || 5,
           energy: document.getElementById("gentleEnergy").value,
           completed: []
         });
         renderGentleStart();
       });
+
+      if (beginnerButton) {
+        beginnerButton.addEventListener("click", () => {
+          saveGentleStartState({
+            date: getTodayKey(),
+            mood: "new",
+            minutes: 5,
+            energy: "calm",
+            completed: []
+          });
+          syncGentleStartForm(readGentleStartState());
+          renderGentleStart();
+        });
+      }
     }
 
     function createBookTopicList(topics) {
@@ -8392,6 +10273,31 @@
       }
     }
 
+    function getEmbedOrigin() {
+      return /^https?:$/.test(window.location.protocol) && window.location.origin !== "null"
+        ? window.location.origin
+        : "https://nschess.github.io";
+    }
+
+    function getEmbedReferrer() {
+      return /^https?:$/.test(window.location.protocol)
+        ? window.location.href
+        : "https://nschess.github.io/Nschess/";
+    }
+
+    function buildYouTubeEmbedSrc(videoId, params = {}) {
+      const url = new URL(`https://www.youtube.com/embed/${videoId}`);
+      Object.entries({
+        rel: "0",
+        modestbranding: "1",
+        playsinline: "1",
+        origin: getEmbedOrigin(),
+        widget_referrer: getEmbedReferrer(),
+        ...params
+      }).forEach(([key, value]) => url.searchParams.set(key, value));
+      return url.toString();
+    }
+
     function renderShortVideos() {
       const levels = document.getElementById("shortsLevels");
       if (!levels) return;
@@ -8421,13 +10327,12 @@
         durationBadge.className = "badge duration";
 
         iframe.loading = "lazy";
-        iframe.src = `https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1&playsinline=1`;
+        iframe.src = buildYouTubeEmbedSrc(video.id);
         iframe.title = video.title;
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.referrerPolicy = "origin-when-cross-origin";
         iframe.dataset.format = "short";
         iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
 
         runningIndex += 1;
         indexBadge.textContent = `Short ${String(runningIndex).padStart(2, "0")}`;
@@ -8716,21 +10621,13 @@
       }
 
       function buildShortFeedSrc(videoId) {
-        const url = new URL(`https://www.youtube-nocookie.com/embed/${videoId}`);
-        url.searchParams.set("rel", "0");
-        url.searchParams.set("modestbranding", "1");
-        url.searchParams.set("playsinline", "1");
-        url.searchParams.set("enablejsapi", "1");
-        url.searchParams.set("controls", "1");
-        url.searchParams.set("fs", "0");
-        url.searchParams.set("autoplay", "1");
-        url.searchParams.set("mute", "1");
-
-        if (window.location.origin && window.location.origin !== "null") {
-          url.searchParams.set("origin", window.location.origin);
-        }
-
-        return url.toString();
+        return buildYouTubeEmbedSrc(videoId, {
+          enablejsapi: "1",
+          controls: "1",
+          fs: "0",
+          autoplay: "1",
+          mute: "1"
+        });
       }
 
       function createPlaceholder(video) {
@@ -8862,6 +10759,7 @@
         setLessonState(completedLessons, slide.dataset.videoId, shouldComplete);
         persistLessonState();
         refreshLessonState();
+        renderBeginnerProgress();
       }
 
       function toggleLessonAction(button) {
@@ -8881,6 +10779,7 @@
         setLessonState(targetSet, id, !targetSet.has(id));
         persistLessonState();
         refreshLessonState();
+        if (action === "complete") renderBeginnerProgress();
       }
 
       function ensurePlayer(index, priority = "warm") {
@@ -8904,10 +10803,9 @@
         iframe.title = item.video.title;
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         iframe.allowFullscreen = true;
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.referrerPolicy = "origin-when-cross-origin";
         iframe.dataset.preloadPriority = priority;
         iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         iframe.addEventListener("load", () => {
           if (!iframe.isConnected || slide.dataset.loadId !== loadId) return;
 
@@ -9557,13 +11455,18 @@
 
       function buildPlayerSrc(src, isShort) {
         const url = new URL(src, window.location.href);
+        const idMatch = url.pathname.match(/\/embed\/([^/]+)/);
+        if (idMatch) {
+          return buildYouTubeEmbedSrc(idMatch[1], {
+            ...Object.fromEntries(url.searchParams.entries()),
+            autoplay: "1",
+            ...(isShort ? { enablejsapi: "1" } : {})
+          });
+        }
         url.searchParams.set("autoplay", "1");
 
         if (isShort) {
           url.searchParams.set("enablejsapi", "1");
-          if (window.location.origin && window.location.origin !== "null") {
-            url.searchParams.set("origin", window.location.origin);
-          }
         }
 
         return url.toString();
@@ -9633,8 +11536,7 @@
         player.title = title;
         player.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         player.allowFullscreen = true;
-        player.referrerPolicy = "strict-origin-when-cross-origin";
-        player.sandbox = "allow-scripts allow-same-origin allow-presentation";
+        player.referrerPolicy = "origin-when-cross-origin";
         if (isShort) listenForShortEnd(player);
         modalFrame.appendChild(player);
 
@@ -9731,24 +11633,20 @@
     document.getElementById("resetPuzzle").addEventListener("click", () => {
       currentPuzzle = 0;
       streak = 0;
+      puzzleAttempts = 0;
+      puzzleCorrect = 0;
       solvedPuzzles.clear();
       renderPuzzle();
     });
 
     document.getElementById("hintPuzzle").addEventListener("click", () => {
-      document.getElementById("puzzleHint").classList.remove("hidden");
+      showNextPuzzleHint();
     });
 
     document.getElementById("revealPuzzle").addEventListener("click", () => {
       if (activeAnswered) return;
-
-      const puzzle = puzzles[currentPuzzle];
-      const correct = puzzle.answers.find((answer) => answer.correct);
-      activeAnswered = true;
-      streak = 0;
-      lockAnswers(null, false);
-      document.getElementById("feedback").textContent = `Solution: ${correct.move}. ${puzzle.feedback}`;
-      updatePuzzleStats();
+      if (puzzleHintStep < 2) showNextPuzzleHint();
+      else revealPuzzleSolution();
     });
 
     document.getElementById("nextAdventure").addEventListener("click", () => {
@@ -9758,15 +11656,20 @@
 
     document.getElementById("restartAdventure").addEventListener("click", renderAdventureMission);
 
+    setupLearnerPreferences();
     buildHeroBoard();
+    setupLessonFlow();
     renderAdventureMission();
     renderMiniBoards();
+    setupOpeningFavorites();
     renderCoordinates();
     renderPuzzle();
+    setupPuzzleChess();
     wireTabs();
     setupSiteTabs();
     setupGentleStart();
     setupDailyTraining();
+    setupPlayableChess();
     setupBooks();
     renderShortFeed();
     setupVideoTheater();
