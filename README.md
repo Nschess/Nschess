@@ -2700,10 +2700,10 @@
 
     .puzzle-shell {
       display: grid;
-      grid-template-columns: minmax(300px, 520px) 1fr;
-      gap: 28px;
-      padding: 22px;
-      align-items: stretch;
+      grid-template-columns: minmax(300px, 500px) minmax(320px, 1fr);
+      gap: 24px;
+      padding: 18px;
+      align-items: start;
     }
 
     .puzzle-board-wrap {
@@ -2950,8 +2950,8 @@
     }
 
     .puzzle-info {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      gap: 12px;
       min-width: 0;
     }
 
@@ -2959,7 +2959,6 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
-      margin-bottom: 12px;
     }
 
     .puzzle-brief span,
@@ -2973,7 +2972,7 @@
     }
 
     .puzzle-tags {
-      margin-bottom: 12px;
+      margin: 0;
     }
 
     .puzzle-tags span {
@@ -3021,7 +3020,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
     }
 
     .daily-puzzle-badge {
@@ -3030,8 +3028,8 @@
     }
 
     .puzzle-plan-selector {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-bottom: 16px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin: 0;
     }
 
     .badge {
@@ -3050,7 +3048,6 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-bottom: 14px;
     }
 
     .stat-pill {
@@ -3081,7 +3078,6 @@
 
     .progress-track {
       height: 9px;
-      margin-bottom: 18px;
       overflow: hidden;
       border-radius: 999px;
       background: rgba(33, 26, 18, 0.12);
@@ -3099,11 +3095,47 @@
     .beginner-progress {
       display: grid;
       gap: 12px;
-      margin: 0 0 18px;
       padding: 14px;
       border: 1px solid rgba(127, 166, 80, 0.24);
       border-radius: var(--radius);
       background: rgba(127, 166, 80, 0.1);
+    }
+
+    .puzzle-progress-drawer {
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .puzzle-progress-drawer summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      color: #2c261f;
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .puzzle-progress-drawer summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .puzzle-progress-drawer summary::after {
+      content: "+";
+      color: var(--green-dark);
+      font-size: 1.15rem;
+    }
+
+    .puzzle-progress-drawer[open] summary::after {
+      content: "-";
+    }
+
+    .puzzle-progress-drawer .beginner-progress {
+      border-width: 1px 0 0;
+      border-radius: 0 0 var(--radius) var(--radius);
+      background: rgba(127, 166, 80, 0.08);
     }
 
     .progress-mini-stats,
@@ -3363,10 +3395,28 @@
     }
 
     .puzzle-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: auto;
+      display: grid;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .puzzle-action-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .puzzle-action-row.primary {
+      grid-template-columns: 1.2fr 1.2fr 1fr;
+    }
+
+    .puzzle-action-row.utility {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .puzzle-action-row .button {
+      min-height: 42px;
+      padding-inline: 10px;
     }
 
     .study-plan {
@@ -4029,6 +4079,9 @@
       }
 
       .puzzle-actions,
+      .puzzle-action-row,
+      .puzzle-action-row.primary,
+      .puzzle-action-row.utility,
       .coach-levels,
       .progress-mini-stats,
       .achievement-row,
@@ -5885,33 +5938,36 @@
             <div class="progress-track" aria-hidden="true">
               <span class="progress-fill" id="puzzleProgress"></span>
             </div>
-            <div class="beginner-progress" aria-label="Beginner progress">
-              <div class="progress-mini-stats">
-                <span class="xp-pill" id="xpPill">0 XP</span>
-                <span class="xp-pill level-pill" id="learnerLevelPill">Level: Beginner</span>
-                <span class="xp-pill" id="gamesPlayedPill">Games played 0</span>
-                <span class="xp-pill" id="winRatePill">Win rate 0%</span>
-                <span class="xp-pill" id="puzzlesSolvedPill">Puzzles solved 0</span>
-                <span class="xp-pill" id="bestStreakPill">Best streak 0</span>
-                <span class="xp-pill" id="dailyChallengePill">5-minute challenge ready</span>
-                <span class="xp-pill" id="dailyStreakPill">Current streak 0</span>
-                <span class="xp-pill" id="lessonCompletePill">Missions 0</span>
-                <span class="xp-pill" id="favoriteOpeningPill">Favorite opening: Italian Game</span>
-                <span class="xp-pill" id="puzzleAccuracyPill">Puzzle confidence 0%</span>
-                <span class="xp-pill" id="hangingPiecesPill">Hanging pieces/game 0</span>
-                <span class="xp-pill" id="moveQualityPill">Move quality 100%</span>
-                <span class="xp-pill" id="puzzleRatingPill">Puzzle rating 400</span>
-                <span class="xp-pill" id="timeManagementPill">Time: steady</span>
+            <details class="puzzle-progress-drawer">
+              <summary>Progress and rewards</summary>
+              <div class="beginner-progress" aria-label="Beginner progress">
+                <div class="progress-mini-stats">
+                  <span class="xp-pill" id="xpPill">0 XP</span>
+                  <span class="xp-pill level-pill" id="learnerLevelPill">Level: Beginner</span>
+                  <span class="xp-pill" id="gamesPlayedPill">Games played 0</span>
+                  <span class="xp-pill" id="winRatePill">Win rate 0%</span>
+                  <span class="xp-pill" id="puzzlesSolvedPill">Puzzles solved 0</span>
+                  <span class="xp-pill" id="bestStreakPill">Best streak 0</span>
+                  <span class="xp-pill" id="dailyChallengePill">5-minute challenge ready</span>
+                  <span class="xp-pill" id="dailyStreakPill">Current streak 0</span>
+                  <span class="xp-pill" id="lessonCompletePill">Missions 0</span>
+                  <span class="xp-pill" id="favoriteOpeningPill">Favorite opening: Italian Game</span>
+                  <span class="xp-pill" id="puzzleAccuracyPill">Puzzle confidence 0%</span>
+                  <span class="xp-pill" id="hangingPiecesPill">Hanging pieces/game 0</span>
+                  <span class="xp-pill" id="moveQualityPill">Move quality 100%</span>
+                  <span class="xp-pill" id="puzzleRatingPill">Puzzle rating 400</span>
+                  <span class="xp-pill" id="timeManagementPill">Time: steady</span>
+                </div>
+                <p class="habit-reward" id="dailyReward">Reward locked: finish today's puzzle.</p>
+                <p class="simple-coach" id="simpleCoach">Simple coach: Try one move. Learning counts more than winning.</p>
+                <div class="achievement-row" id="achievementBadges" aria-label="Achievement badges"></div>
+                <div class="weekly-chart" id="weeklyChart" aria-label="Weekly progress chart"></div>
+                <div class="mini-game-row" aria-label="Mini-games">
+                  <a class="button secondary" href="#adventures">Piece Mission</a>
+                  <a class="button secondary" href="#shorts">Shorts Sprint</a>
+                </div>
               </div>
-              <p class="habit-reward" id="dailyReward">Reward locked: finish today's puzzle.</p>
-              <p class="simple-coach" id="simpleCoach">Simple coach: Try one move. Learning counts more than winning.</p>
-              <div class="achievement-row" id="achievementBadges" aria-label="Achievement badges"></div>
-              <div class="weekly-chart" id="weeklyChart" aria-label="Weekly progress chart"></div>
-              <div class="mini-game-row" aria-label="Mini-games">
-                <a class="button secondary" href="#adventures">Mini-game: Piece Mission</a>
-                <a class="button secondary" href="#shorts">Mini-game: Shorts Sprint</a>
-              </div>
-            </div>
+            </details>
             <h3 id="puzzleTitle">Puzzle title</h3>
             <p id="puzzlePrompt">Puzzle prompt</p>
             <ul class="gentle-checklist thinking-checklist" aria-label="Thinking checklist">
@@ -5935,17 +5991,23 @@
               <p id="puzzleExplanation">Why the move works appears here.</p>
             </div>
             <div class="puzzle-actions">
-              <button class="button" type="button" id="startPuzzle">Start Puzzle</button>
-              <button class="button" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
-              <button class="button secondary" type="button" id="flipPuzzle">Flip</button>
-              <button class="button secondary" type="button" id="soundPuzzle" aria-pressed="false">Sound Off</button>
-              <button class="button secondary" type="button" id="hintPuzzle">Hint</button>
-              <button class="button secondary" type="button" id="revealPuzzle">Show Move</button>
-              <button class="button secondary" type="button" id="retryPuzzle">Retry</button>
-              <button class="button secondary" type="button" id="analyzePuzzle">Analyze</button>
-              <button class="button secondary" type="button" id="replayPuzzle">Replay</button>
-              <button class="button" type="button" id="nextPuzzle">Next Puzzle</button>
-              <button class="button secondary" type="button" id="resetPuzzle">Reset Score</button>
+              <div class="puzzle-action-row primary">
+                <button class="button" type="button" id="startPuzzle">Start Puzzle</button>
+                <button class="button" type="button" id="nextPuzzle">Next Puzzle</button>
+                <button class="button secondary" type="button" id="dailyPuzzle">Today&apos;s Puzzle</button>
+              </div>
+              <div class="puzzle-action-row">
+                <button class="button secondary" type="button" id="hintPuzzle">Hint</button>
+                <button class="button secondary" type="button" id="revealPuzzle">Show Move</button>
+                <button class="button secondary" type="button" id="retryPuzzle">Retry</button>
+                <button class="button secondary" type="button" id="analyzePuzzle">Analyze</button>
+                <button class="button secondary" type="button" id="replayPuzzle">Replay</button>
+              </div>
+              <div class="puzzle-action-row utility">
+                <button class="button secondary" type="button" id="flipPuzzle">Flip</button>
+                <button class="button secondary" type="button" id="soundPuzzle" aria-pressed="false">Sound Off</button>
+                <button class="button secondary" type="button" id="resetPuzzle">Reset Score</button>
+              </div>
             </div>
           </div>
         </div>
