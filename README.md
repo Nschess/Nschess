@@ -547,6 +547,99 @@
       background: rgba(127, 166, 80, 0.14);
     }
 
+    .login-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .login-card,
+    .login-pass {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: var(--shadow);
+    }
+
+    .login-card {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .login-card p,
+    .login-pass p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .login-perks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .login-perks span,
+    .login-avatar {
+      display: grid;
+      place-items: center;
+      min-height: 54px;
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.16);
+      color: var(--gold);
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .login-pass {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(127, 166, 80, 0.22), rgba(111, 168, 220, 0.12)),
+        rgba(255, 255, 255, 0.07);
+    }
+
+    .login-avatar {
+      width: 72px;
+      height: 72px;
+      min-height: 72px;
+      border: 2px solid rgba(231, 182, 93, 0.5);
+      font-size: 1.45rem;
+    }
+
+    .login-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .login-form label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .login-form input,
+    .login-form select {
+      min-height: 44px;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0.18);
+      color: var(--text);
+      padding: 0 12px;
+      font: inherit;
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .metric {
       min-height: 88px;
       padding: 16px;
@@ -1055,6 +1148,84 @@
       border-color: rgba(33, 26, 18, 0.16);
       color: #5d5144;
       background: rgba(181, 136, 99, 0.12);
+    }
+
+    .story-mode-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+      padding: 20px;
+      border: 1px solid rgba(33, 26, 18, 0.16);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(127, 166, 80, 0.16), rgba(231, 182, 93, 0.18));
+      box-shadow: 0 18px 38px rgba(82, 55, 25, 0.12);
+    }
+
+    .story-mode-card h3,
+    .story-mode-card p {
+      margin-bottom: 8px;
+    }
+
+    .story-detail {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 248, 235, 0.62);
+    }
+
+    .story-detail strong,
+    .story-detail span {
+      display: block;
+    }
+
+    .story-detail small {
+      color: #5d5144;
+      line-height: 1.42;
+    }
+
+    .story-map {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .story-node {
+      min-height: 66px;
+      padding: 9px;
+      border: 1px solid rgba(33, 26, 18, 0.15);
+      border-radius: 7px;
+      background: rgba(255, 248, 235, 0.76);
+      color: #2c261f;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .story-node span {
+      display: block;
+      margin-top: 4px;
+      color: inherit;
+      font-size: 0.76rem;
+      opacity: 0.78;
+    }
+
+    .story-node:hover,
+    .story-node:focus-visible,
+    .story-node.is-current {
+      transform: translateY(-2px);
+      background: #dfeecf;
+      outline: none;
+    }
+
+    .story-node.is-complete {
+      background: var(--green);
+      color: #10150d;
     }
 
     .adventure-grid {
@@ -3152,6 +3323,45 @@
       transition: width 180ms ease;
     }
 
+    .xp-meter {
+      display: grid;
+      gap: 6px;
+      font-weight: 900;
+      color: #3a3127;
+    }
+
+    .xp-meter .progress-fill {
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 420ms ease;
+    }
+
+    .rpg-level-path {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .rpg-level-path span {
+      padding: 7px 9px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.48);
+      color: #5d5144;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .rpg-level-path .is-current {
+      background: var(--gold);
+      color: #241b12;
+      animation: unlockPop 520ms ease both;
+    }
+
+    .rpg-level-path .is-unlocked {
+      background: rgba(127, 166, 80, 0.2);
+      color: #26351b;
+    }
+
     .beginner-progress {
       display: grid;
       gap: 12px;
@@ -3237,6 +3447,22 @@
     .achievement-badge.unlocked {
       background: var(--green);
       color: #10150d;
+      animation: unlockPop 520ms ease both;
+    }
+
+    @keyframes unlockPop {
+      0% {
+        transform: scale(0.92);
+        filter: brightness(1);
+      }
+      55% {
+        transform: scale(1.08);
+        filter: brightness(1.16);
+      }
+      100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
     }
 
     .game-reward-row {
@@ -3362,6 +3588,40 @@
       to {
         opacity: 0;
         transform: translate(-50%, -16px);
+      }
+    }
+
+    .coin-fly {
+      position: fixed;
+      z-index: 2200;
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #2a2118;
+      font-weight: 1000;
+      pointer-events: none;
+      box-shadow: 0 8px 18px rgba(33, 26, 18, 0.22);
+      animation: coinFly 760ms ease-in forwards;
+    }
+
+    @keyframes coinFly {
+      to {
+        transform: translate(var(--coin-x), var(--coin-y)) scale(0.6);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .progress-fill,
+      .achievement-badge.unlocked,
+      .coin-fly,
+      .celebration-toast,
+      .confetti-piece {
+        animation: none !important;
+        transition: none !important;
       }
     }
 
@@ -3892,6 +4152,8 @@
       }
 
       .adventure-play,
+      .story-mode-card,
+      .login-shell,
       .puzzle-shell,
       .book-detail-grid,
       .study-plan,
@@ -4033,6 +4295,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .login-perks {
+        grid-template-columns: 1fr;
+      }
+
       .reader-toolbar,
       .reader-controls {
         display: grid;
@@ -4115,6 +4381,10 @@
 
       .weekly-roadmap {
         grid-template-columns: 1fr;
+      }
+
+      .story-map {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .trainer-head,
@@ -4459,6 +4729,10 @@
           <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
           <a class="is-quick-tab" href="#plan" data-site-tab="plan" data-site-panel="plan">Plan</a>
         </div>
+        <div class="nav-group" aria-label="Account">
+          <span class="nav-group-label">You</span>
+          <a href="#login" data-site-tab="login" data-site-panel="login" id="loginNavLink">Login</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -4501,6 +4775,64 @@
             <p id="homeInsight">One puzzle today is better than none.</p>
             <div class="game-reward-row" id="homeUnlocks" aria-label="Unlocked rewards"></div>
             <div class="recommendation-list" id="homeRecommendations" aria-label="Recommended practice"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="login" class="section-dark login-section" aria-labelledby="login-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Player pass</p>
+            <h2 id="login-title">Save your chess adventure</h2>
+          </div>
+          <p class="section-intro">Make a local profile for this device. No password, no pressure, just your name, goal, and next step.</p>
+        </div>
+        <div class="login-shell">
+          <div class="login-card">
+            <p class="eyebrow">Start friendly</p>
+            <h3>Your quest remembers you</h3>
+            <p>Pick a chess name and the site will greet you, keep your progress visible, and guide you to the next tiny win.</p>
+            <div class="login-perks" aria-label="Profile perks">
+              <span>XP path</span>
+              <span>Daily streak</span>
+              <span>Coach tips</span>
+            </div>
+            <a class="button secondary" href="#plan">See Today's Plan</a>
+          </div>
+          <div class="login-pass">
+            <div class="login-avatar" id="loginAvatar" aria-hidden="true">CQ</div>
+            <div>
+              <h3 id="loginDisplayName">Guest Explorer</h3>
+              <p id="loginDisplayMeta">Create your Player Pass to personalize the journey.</p>
+            </div>
+            <form class="login-form" id="loginForm">
+              <label for="loginName">Chess name
+                <input id="loginName" name="loginName" autocomplete="nickname" maxlength="24" placeholder="Example: Alex" required />
+              </label>
+              <label for="loginLevel">Current level
+                <select id="loginLevel" name="loginLevel">
+                  <option value="New Explorer">I'm brand new</option>
+                  <option value="Piece Mover">I know how pieces move</option>
+                  <option value="Puzzle Rookie">I can solve simple puzzles</option>
+                  <option value="Game Starter">I want to play better games</option>
+                </select>
+              </label>
+              <label for="loginGoal">Today's goal
+                <select id="loginGoal" name="loginGoal">
+                  <option value="Learn one easy idea">Learn one easy idea</option>
+                  <option value="Stop losing free pieces">Stop losing free pieces</option>
+                  <option value="Solve a checkmate puzzle">Solve a checkmate puzzle</option>
+                  <option value="Play one calm game">Play one calm game</option>
+                </select>
+              </label>
+              <div class="login-actions">
+                <button class="button" type="submit">Save Player Pass</button>
+                <button class="button secondary" type="button" id="clearLoginProfile">Reset</button>
+              </div>
+            </form>
+            <p id="loginStatus" aria-live="polite">Saved only in this browser.</p>
           </div>
         </div>
       </div>
@@ -4734,6 +5066,21 @@
             <h2 id="adventures-title">Turn lessons into adventures</h2>
           </div>
           <p class="section-intro">Every piece becomes a character in Chess Kingdom, and every rule becomes a mission the player can picture before they move.</p>
+        </div>
+
+        <div class="story-mode-card" aria-labelledby="storyModeTitle">
+          <div>
+            <p class="section-kicker">Story mode</p>
+            <h3 id="storyModeTitle">Chess Kingdom Quest</h3>
+            <p>Clear tiny levels, earn stars, unlock character moves, and learn without boring theory.</p>
+            <div class="gentle-badges" aria-label="Story rewards">
+              <span class="gentle-badge" id="storyStars">0 stars</span>
+              <span class="gentle-badge" id="storyProgress">0/8 chapters</span>
+              <span class="gentle-badge">No pressure</span>
+            </div>
+            <div class="story-detail" id="storyDetail" aria-live="polite"></div>
+          </div>
+          <div class="story-map" id="storyMap" aria-label="Story level map"></div>
         </div>
 
         <div class="adventure-grid">
@@ -6009,7 +6356,14 @@
               <button class="mission-button" type="button" data-puzzle-plan="Forks" aria-pressed="false">Fork Ninja</button>
               <button class="mission-button" type="button" data-puzzle-plan="Pins" aria-pressed="false">Pin Rescue</button>
               <button class="mission-button" type="button" data-puzzle-plan="Back-rank mates" aria-pressed="false">Back Rank</button>
-              <button class="mission-button" type="button" data-puzzle-plan="Checkmates" aria-pressed="false">Mate Sprint</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Checkmates" aria-pressed="false">Mate 1-5</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Tactics" aria-pressed="false">Tactics</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Endgames" aria-pressed="false">Endgames</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Defense" aria-pressed="false">Defense</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Opening tactics" aria-pressed="false">Openings</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Puzzle Rush" aria-pressed="false">Puzzle Rush</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Puzzle Adventure" aria-pressed="false">Adventure</button>
+              <button class="mission-button" type="button" data-puzzle-plan="Boss Puzzle" aria-pressed="false">Boss</button>
             </div>
             <div class="puzzle-stats" aria-label="Puzzle progress">
               <div class="stat-pill">
@@ -6033,6 +6387,10 @@
               <div class="beginner-progress" aria-label="Beginner progress">
                 <div class="progress-mini-stats">
                   <span class="xp-pill" id="xpPill">0 XP</span>
+                  <span class="xp-pill" id="coinPill">0 coins</span>
+                  <span class="xp-pill" id="starPill">0 stars</span>
+                  <span class="xp-pill" id="keyPill">0 keys</span>
+                  <span class="xp-pill" id="chestPill">0 chests</span>
                   <span class="xp-pill level-pill" id="learnerLevelPill">Level: Beginner</span>
                   <span class="xp-pill" id="gamesPlayedPill">Games played 0</span>
                   <span class="xp-pill" id="winRatePill">Win rate 0%</span>
@@ -6048,13 +6406,24 @@
                   <span class="xp-pill" id="puzzleRatingPill">Puzzle rating 400</span>
                   <span class="xp-pill" id="timeManagementPill">Time: steady</span>
                 </div>
+                <div class="xp-meter" aria-label="XP progress to next RPG level">
+                  <span id="learnerXpGoal">Next level: 0 XP</span>
+                  <div class="progress-track"><span class="progress-fill" id="learnerXpFill"></span></div>
+                </div>
+                <div class="rpg-level-path" id="rpgLevelPath" aria-label="RPG level ladder"></div>
                 <p class="habit-reward" id="dailyReward">Reward locked: finish today's puzzle.</p>
                 <p class="simple-coach" id="simpleCoach">Simple coach: Try one move. Learning counts more than winning.</p>
                 <div class="achievement-row" id="achievementBadges" aria-label="Achievement badges"></div>
                 <div class="weekly-chart" id="weeklyChart" aria-label="Weekly progress chart"></div>
                 <div class="mini-game-row" aria-label="Mini-games">
-                  <a class="button secondary" href="#adventures">Piece Mission</a>
-                  <a class="button secondary" href="#shorts">Shorts Sprint</a>
+                  <button class="button secondary" type="button" data-mini-plan="Defense">Save the king</button>
+                  <button class="button secondary" type="button" data-mini-plan="Checkmates">Find checkmate</button>
+                  <button class="button secondary" type="button" data-mini-plan="Winning material">Treasure hunt</button>
+                  <button class="button secondary" type="button" data-mini-plan="Endgames">Escape castle</button>
+                  <button class="button secondary" type="button" data-mini-plan="Forks">Knight challenge</button>
+                  <button class="button secondary" type="button" data-mini-plan="Puzzle Rush">Puzzle race</button>
+                  <button class="button secondary" type="button" data-mini-plan="Boss Puzzle">Boss battle</button>
+                  <a class="button secondary" href="#adventures">Queen rescue</a>
                 </div>
               </div>
             </details>
@@ -6425,10 +6794,491 @@
     const puzzles = [
       {
         level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Village Bell: Mate in 1",
+        prompt: "One idea: climb the open file and ring the final bell.",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/3R2K1",
+        targets: ["d8"],
+        hint: "Check with the rook on the back rank.",
+        line: ["Rd8#"],
+        answers: [
+          { move: "Rd8#", correct: true },
+          { move: "Rd7", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rd8# works because the rook controls the rank and the pawns trap the king."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Forest Lantern: Mate in 2",
+        prompt: "Light the path with one check, then finish beside your king.",
+        fen: "7k/5K2/4Q3/8/8/8/8/8",
+        targets: ["f6", "g7"],
+        hint: "Start with Qf6+. The king protects the final queen landing.",
+        line: ["Qf6+", "Kh7", "Qg7#"],
+        answers: [
+          { move: "Qf6+", correct: true },
+          { move: "Qg8+", correct: false },
+          { move: "Qh3+", correct: false }
+        ],
+        feedback: "Qf6+ forces Kh7. Qg7# is protected by the king on f7."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Castle Steps: Mate in 3",
+        prompt: "Use queen checks like stairs until the king has no door.",
+        fen: "7k/8/4QK2/8/8/8/8/8",
+        targets: ["e8", "g6", "g7"],
+        hint: "Start with Qe8+, then keep the queen close to your king.",
+        line: ["Qe8+", "Kh7", "Qg6+", "Kh8", "Qg7#"],
+        answers: [
+          { move: "Qe8+", correct: true },
+          { move: "Qg8+", correct: false },
+          { move: "Qh3+", correct: false }
+        ],
+        feedback: "Qe8+ starts the staircase, Qg6+ boxes the king, and Qg7# ends it."
+      },
+      {
+        level: "Advanced",
+        mode: "Boss Puzzle",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Dragon Gate: Mate in 4",
+        prompt: "A boss escort mission: move the queen and king together until the gate shuts.",
+        fen: "8/8/8/8/8/k7/8/KQ6",
+        targets: ["b7", "b2", "c3", "b4"],
+        hint: "Start with Qb7. Keep the king close enough to protect the final queen check.",
+        line: ["Qb7", "Ka4", "Kb2", "Ka5", "Kc3", "Ka4", "Qb4#"],
+        answers: [
+          { move: "Qb7", correct: true },
+          { move: "Qa2", correct: false },
+          { move: "Kc2", correct: false }
+        ],
+        feedback: "Qb7 starts the net. The king walks closer, then Qb4# closes the dragon gate."
+      },
+      {
+        level: "Advanced",
+        mode: "Boss Puzzle",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Grandmaster Citadel: Mate in 5",
+        prompt: "Long boss path: build the net slowly, then finish with the queen on d1.",
+        fen: "8/8/8/8/8/8/3k4/KQ6",
+        targets: ["e4", "d4", "a2", "b3", "d1"],
+        hint: "Start with Qe4. Do not rush; every step shrinks the king's room.",
+        line: ["Qe4", "Kc1", "Qd4", "Kc2", "Ka2", "Kc1", "Kb3", "Kb1", "Qd1#"],
+        answers: [
+          { move: "Qe4", correct: true },
+          { move: "Qa2", correct: false },
+          { move: "Qh1", correct: false }
+        ],
+        feedback: "Qe4 and Qd4 build the wall. The king joins, then Qd1# seals the citadel."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Rush",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Tactic Spark: Knight Fork",
+        prompt: "One knight jump attacks king and queen.",
+        fen: "8/8/4k3/7q/8/3N4/8/4K3",
+        targets: ["f4"],
+        hint: "Find the knight check that also touches h5.",
+        answers: [
+          { move: "Nf4+", correct: true },
+          { move: "Nc5+", correct: false },
+          { move: "Nf2", correct: false }
+        ],
+        feedback: "Nf4+ is a fork: check first, queen next."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Rush",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Tactic Spark: Frozen Queen",
+        prompt: "The queen is pinned to the king. Take it with tempo.",
+        fen: "4k3/4q3/8/8/8/8/8/4R1K1",
+        targets: ["e7"],
+        hint: "A pinned piece cannot run away from the rook.",
+        answers: [
+          { move: "Rxe7+", correct: true },
+          { move: "Re8+", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rxe7+ wins the pinned queen and keeps the move forcing."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Tactic Spark: Bishop Grab",
+        prompt: "Capture the queen with check.",
+        fen: "r3k2r/pppq1ppp/5N2/1B6/8/8/PPPP1PPP/R3K2R",
+        targets: ["d7"],
+        hint: "Your bishop can take on d7 and the knight helps.",
+        answers: [
+          { move: "Bxd7+", correct: true },
+          { move: "Nxd7", correct: false },
+          { move: "Bf1", correct: false }
+        ],
+        feedback: "Bxd7+ wins the queen with check."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Tactics",
+        side: "Black to move",
+        title: "Tactic Spark: Battery Strike",
+        prompt: "The bishop guards the target. Let the queen strike.",
+        fen: "6k1/5ppp/8/2b5/8/6q1/5PPP/6K1",
+        targets: ["f2"],
+        hint: "The queen can capture on f2 because the bishop protects it.",
+        answers: [
+          { move: "Qxf2+", correct: true },
+          { move: "Qg4", correct: false },
+          { move: "Bxf2+", correct: false }
+        ],
+        feedback: "Qxf2+ works because the queen is protected and the check is forcing."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Tactic Spark: Loose Bishop",
+        prompt: "Win the loose bishop with check.",
+        fen: "4k3/8/8/8/4b3/8/8/4R1K1",
+        targets: ["e4"],
+        hint: "Take the undefended piece while checking the king.",
+        answers: [
+          { move: "Rxe4+", correct: true },
+          { move: "Re8+", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rxe4+ wins material and keeps the initiative."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "Endgame Trail: Pawn Push",
+        prompt: "Use your king to support a forcing pawn push.",
+        fen: "8/4k3/8/3P4/3K4/8/8/8",
+        targets: ["d6"],
+        hint: "Advance with check so the king must step back.",
+        answers: [
+          { move: "d6+", correct: true },
+          { move: "Kc5", correct: false },
+          { move: "Ke4", correct: false }
+        ],
+        feedback: "d6+ gains time in the pawn race."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "Endgame Trail: Promotion Light",
+        prompt: "Reach the last rank and make a queen.",
+        fen: "k7/7P/5K2/8/8/8/8/8",
+        targets: ["h8"],
+        hint: "Promote the h-pawn.",
+        answers: [
+          { move: "h8=Q+", correct: true },
+          { move: "Kg7", correct: false },
+          { move: "h8=N", correct: false }
+        ],
+        feedback: "h8=Q+ creates a new queen and gives check along the diagonal."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "Endgame Trail: Two-Step Tempo",
+        prompt: "The pawn can move two squares and check.",
+        fen: "8/8/8/3k4/8/3K4/4P3/8",
+        targets: ["e4"],
+        hint: "The king on d3 protects the pawn's landing square.",
+        answers: [
+          { move: "e4+", correct: true },
+          { move: "Kc3", correct: false },
+          { move: "Kd4", correct: false }
+        ],
+        feedback: "e4+ uses king support and gains a tempo."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "Endgame Trail: Rook Cut",
+        prompt: "Cut the king off with one rook check.",
+        fen: "6k1/6p1/7p/8/8/8/6PP/R5K1",
+        targets: ["a8"],
+        hint: "Use the open a-file to check along the back rank.",
+        answers: [
+          { move: "Ra8+", correct: true },
+          { move: "Kf2", correct: false },
+          { move: "Ra7", correct: false }
+        ],
+        feedback: "Ra8+ cuts the king off and makes the rook active."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "Endgame Trail: Safe Break",
+        prompt: "Use a protected pawn check to push the king away.",
+        fen: "8/8/8/8/3k4/8/3KP3/8",
+        targets: ["e3"],
+        hint: "Your king protects e3.",
+        answers: [
+          { move: "e3+", correct: true },
+          { move: "Kc2", correct: false },
+          { move: "Kd1", correct: false }
+        ],
+        feedback: "e3+ is safe because the king protects the pawn."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Shield Drill: Catch the Queen",
+        prompt: "The attacker came too close. Capture it calmly.",
+        fen: "k7/8/8/8/8/8/6qP/7K",
+        targets: ["g2"],
+        hint: "Your king can capture the loose queen.",
+        answers: [
+          { move: "Kxg2", correct: true },
+          { move: "Kh2", correct: false },
+          { move: "Kf1", correct: false }
+        ],
+        feedback: "Kxg2 removes the attacker. Defense can be a capture."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "Black to move",
+        title: "Shield Drill: King Capture",
+        prompt: "White's queen is checking, but it is not protected.",
+        fen: "7k/6Q1/8/8/8/8/8/K7",
+        targets: ["g7"],
+        hint: "Capture the checking queen.",
+        answers: [
+          { move: "Kxg7", correct: true },
+          { move: "Kh7", correct: false },
+          { move: "Qg1", correct: false }
+        ],
+        feedback: "Kxg7 removes the check and wins the queen."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Shield Drill: Rook Rescue",
+        prompt: "The queen attacks your king. Take away the danger.",
+        fen: "6k1/8/8/8/8/8/5q2/5RK1",
+        targets: ["f2"],
+        hint: "Your rook can capture on f2.",
+        answers: [
+          { move: "Rxf2", correct: true },
+          { move: "Kh1", correct: false },
+          { move: "Rf1", correct: false }
+        ],
+        feedback: "Rxf2 removes the queen and makes the king safe."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Shield Drill: Pawn Guard",
+        prompt: "A bishop is attacking your corner. Use the pawn.",
+        fen: "6k1/8/8/8/8/5b2/6PP/6K1",
+        targets: ["f3"],
+        hint: "The g-pawn can capture the bishop.",
+        answers: [
+          { move: "gxf3", correct: true },
+          { move: "Kh1", correct: false },
+          { move: "g3", correct: false }
+        ],
+        feedback: "gxf3 removes the attacker and keeps the king safer."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Shield Drill: Knight Blocker",
+        prompt: "The queen is active. Your knight can erase the threat.",
+        fen: "6k1/8/8/8/3q4/5N2/8/6K1",
+        targets: ["d4"],
+        hint: "Knights can capture on d4 from f3.",
+        answers: [
+          { move: "Nxd4", correct: true },
+          { move: "Kf1", correct: false },
+          { move: "Ne5", correct: false }
+        ],
+        feedback: "Nxd4 wins the queen and ends the danger."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "Black to move",
+        title: "Opening Spark: Fool's Mate",
+        prompt: "White opened the king too early. Finish the opening lesson.",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR",
+        targets: ["h4"],
+        hint: "The queen can fly to h4.",
+        answers: [
+          { move: "Qh4#", correct: true },
+          { move: "Nc6", correct: false },
+          { move: "d5", correct: false }
+        ],
+        feedback: "Qh4# works because the diagonal is open and the king has no safe square."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Opening Spark: Scholar Finish",
+        prompt: "Queen and bishop team up on f7.",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR",
+        targets: ["f7"],
+        hint: "The bishop protects f7.",
+        answers: [
+          { move: "Qxf7#", correct: true },
+          { move: "Qxf7+", correct: false },
+          { move: "Bb5", correct: false }
+        ],
+        feedback: "Qxf7# is mate because the queen is protected by the bishop."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Opening Spark: Scandinavian Gift",
+        prompt: "The queen wandered too far. Take it.",
+        fen: "rnb1kbnr/ppp1pppp/8/3q4/4P3/2N5/PPPP1PPP/R1BQKBNR",
+        targets: ["d5"],
+        hint: "The knight on c3 can capture d5.",
+        answers: [
+          { move: "Nxd5", correct: true },
+          { move: "exd5", correct: false },
+          { move: "Nf3", correct: false }
+        ],
+        feedback: "Nxd5 wins the queen. Development with tempo is powerful."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Opening Spark: Bishop Takes Queen",
+        prompt: "The queen is lined up with the king. Capture with check.",
+        fen: "r3kbnr/pppq1ppp/8/1B6/8/5N2/PPPP1PPP/RNBQK2R",
+        targets: ["d7"],
+        hint: "The bishop on b5 can take d7.",
+        answers: [
+          { move: "Bxd7+", correct: true },
+          { move: "Nxd7", correct: false },
+          { move: "Bxc6", correct: false }
+        ],
+        feedback: "Bxd7+ wins the queen and checks the king."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Opening Spark: Fried Liver Fork",
+        prompt: "The knight jumps into f7 and attacks two treasures.",
+        fen: "rnbqkb1r/pppp1ppp/5n2/6N1/2B1P3/8/PPPP1PPP/RNBQK2R",
+        targets: ["f7"],
+        hint: "Nxf7 attacks the queen and rook.",
+        answers: [
+          { move: "Nxf7", correct: true },
+          { move: "Bxf7+", correct: false },
+          { move: "Nxh7", correct: false }
+        ],
+        feedback: "Nxf7 forks the queen on d8 and rook on h8."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Lava Gate: Back-Rank Zap",
+        prompt: "Puzzle #CQ-001. The king is trapped by its own guards. Find the one-move finish.",
+        fen: "6k1/5ppp/8/8/8/8/5PPP/3R2K1",
+        targets: ["d8"],
+        hint: "Scan checks first. The rook can climb the open d-file.",
+        answers: [
+          { move: "Rd8#", correct: true },
+          { move: "Rd7", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rd8# locks the back rank. The rook cuts the escape squares while the pawns trap the king."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Forks",
+        side: "White to move",
+        title: "Crystal Fork: Two Targets Glow",
+        prompt: "Puzzle #CQ-002. Make one knight jump that checks the king and attacks the queen.",
+        fen: "8/8/4k3/7q/8/3N4/8/4K3",
+        targets: ["f4"],
+        hint: "The knight wants a square where it touches e6 and h5 at the same time.",
+        answers: [
+          { move: "Nf4+", correct: true },
+          { move: "Nc5+", correct: false },
+          { move: "Nf2", correct: false }
+        ],
+        feedback: "Nf4+ is a fork: check first, queen next. Forcing moves make tactics easier to see."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Shadow Rescue: Catch the Queen",
+        prompt: "Puzzle #CQ-003. Your king is under pressure, but the attacker stepped too close.",
+        fen: "k7/8/8/8/8/8/6qP/7K",
+        targets: ["g2"],
+        hint: "A safe capture can be the best defense.",
+        answers: [
+          { move: "Kxg2", correct: true },
+          { move: "Kh2", correct: false },
+          { move: "Qg1", correct: false }
+        ],
+        feedback: "Kxg2 removes the queen. Great defense often means calmly taking away the threat."
+      },
+      {
+        level: "Beginner",
         side: "White to move",
         title: "Back-rank mate",
         prompt: "Black's king is trapped by its own pawns. Which move ends the game?",
-        fen: "r5k1/pppp1ppp/8/8/8/8/PPPP1PPP/4R1K1",
+        fen: "6k1/pppp1ppp/8/8/8/8/PPPP1PPP/4R1K1",
         targets: ["e8"],
         hint: "Look for a rook move that uses the open file and attacks the king from the back rank.",
         answers: [
@@ -6518,7 +7368,7 @@
         side: "White to move",
         title: "Scholar's finish",
         prompt: "The queen and bishop are aimed at f7. Which move is checkmate?",
-        fen: "rnb1kbnr/pppp1ppp/8/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR",
         targets: ["f7"],
         hint: "The bishop on c4 protects the queen when she lands beside the king.",
         answers: [
@@ -6552,18 +7402,18 @@
         targets: ["f2"],
         hint: "The bishop guards f2, so the queen can move there with force.",
         answers: [
-          { move: "Qxf2#", correct: true },
+          { move: "Qxf2+", correct: true },
           { move: "Qg4", correct: false },
           { move: "Bxf2+", correct: false }
         ],
-        feedback: "Qxf2# is mate because the bishop on c5 protects the queen and the king has no capture or flight square."
+        feedback: "Qxf2+ is the forcing strike because the bishop on c5 protects the queen and the king must answer the check."
       },
       {
         level: "Intermediate",
         side: "White to move",
         title: "Remove the defender",
         prompt: "The knight is pinned and the king is boxed in. Which capture finishes the attack?",
-        fen: "6k1/5ppp/8/8/2B5/5Q2/5PPP/6K1",
+        fen: "6kr/5ppp/8/8/2B5/5Q2/5PPP/6K1",
         targets: ["f7"],
         hint: "The queen can capture on f7 with bishop support.",
         answers: [
@@ -6623,15 +7473,15 @@
         side: "White to move",
         title: "Fork warm-up",
         prompt: "The knight can check the king and attack the queen.",
-        fen: "4k3/8/5N2/7q/8/8/8/4K3",
-        targets: ["g8"],
-        hint: "Look for a knight check that also points at h6 or h4.",
+        fen: "8/8/4k3/7q/8/3N4/8/4K3",
+        targets: ["f4"],
+        hint: "Look for a knight check that also points at h5.",
         answers: [
-          { move: "Ng8+", correct: true },
-          { move: "Nd7", correct: false },
-          { move: "Nh7", correct: false }
+          { move: "Nf4+", correct: true },
+          { move: "Nc5+", correct: false },
+          { move: "Nf2", correct: false }
         ],
-        feedback: "Ng8+ checks the king first. After the king moves, White can collect the queen."
+        feedback: "Nf4+ checks the king first and attacks the queen on h5. One knight move creates two threats."
       },
       {
         level: "Intermediate",
@@ -6770,6 +7620,8 @@
       },
       {
         level: "Advanced",
+        mode: "Puzzle Rush",
+        theme: "Endgames",
         side: "White to move",
         title: "Promotion race",
         prompt: "Use the king's support to make the pawn break decisive.",
@@ -6860,29 +7712,33 @@
       },
       {
         level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
         side: "White to move",
         title: "Mate in 2: corner trap",
         prompt: "Play the first quiet-looking check, watch the king step out, then finish with the protected queen.",
         fen: "7k/5K2/4Q3/8/8/8/8/8",
-        targets: ["e8", "g8"],
-        hint: "Put the queen on e8 first. Your king protects the final landing square.",
-        line: ["Qe8", "Kh7", "Qg8"],
+        targets: ["f6", "g7"],
+        hint: "Put the queen on f6 first. Your king protects the final landing square.",
+        line: ["Qf6+", "Kh7", "Qg7#"],
         answers: [
-          { move: "Qe8+", correct: true },
+          { move: "Qf6+", correct: true },
           { move: "Qg8+", correct: false },
           { move: "Qh3+", correct: false }
         ],
-        feedback: "Qe8+ forces Kh7, then Qg8# works because the queen is protected by the king on f7."
+        feedback: "Qf6+ forces Kh7, then Qg7# works because the queen is protected by the king on f7."
       },
       {
         level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
         side: "White to move",
         title: "Mate in 3: staircase queen",
         prompt: "Use checks like steps. Each queen move pushes the king closer to the final square.",
         fen: "7k/8/4QK2/8/8/8/8/8",
         targets: ["e8", "g6", "g7"],
         hint: "Start with Qe8+. After the king escapes, keep the queen close to your king.",
-        line: ["Qe8", "Kh7", "Qg6", "Kh8", "Qg7"],
+        line: ["Qe8+", "Kh7", "Qg6+", "Kh8", "Qg7#"],
         answers: [
           { move: "Qe8+", correct: true },
           { move: "Qg8+", correct: false },
@@ -6892,19 +7748,72 @@
       },
       {
         level: "Advanced",
+        mode: "Boss Puzzle",
+        theme: "Checkmates",
         side: "White to move",
-        title: "Mate in 4: king escort",
-        prompt: "Advanced line: bring the king closer first, then use the same queen staircase finish.",
-        fen: "7k/8/3QK3/8/8/8/8/8",
-        targets: ["f7", "e6", "e8", "g8"],
-        hint: "First improve the king. The queen mate only works when the final square is protected.",
-        line: ["Kf7", "Kh7", "Qe6", "Kh8", "Qe8", "Kh7", "Qg8"],
+        title: "Boss Puzzle: Dragon Staircase Mate",
+        prompt: "Boss line: every queen move is a check. Walk the king into the final protected mate.",
+        fen: "7k/8/5K2/4Q3/8/8/8/8",
+        targets: ["e8", "g6", "g7"],
+        hint: "Start with Qe8+. Keep the queen close enough for your king to protect the final square.",
+        line: ["Qe8+", "Kh7", "Qg6+", "Kh8", "Qg7#"],
         answers: [
-          { move: "Kf7", correct: true },
-          { move: "Qe7", correct: false },
-          { move: "Qd8+", correct: false }
+          { move: "Qe8+", correct: true },
+          { move: "Qg5", correct: false },
+          { move: "Qh5+", correct: false }
         ],
-        feedback: "Kf7 escorts the queen. After Qe6 and Qe8+, Qg8# is protected and the king is trapped."
+        feedback: "Qe8+ starts the staircase. Qg6+ keeps the king boxed in, then Qg7# is protected by the king on f6."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Winning material",
+        side: "White to move",
+        title: "Village treasure: win the queen",
+        prompt: "The queen dropped a treasure chest on the open file. Grab it with check.",
+        fen: "4k3/8/8/8/8/8/4q3/4R1K1",
+        targets: ["e2"],
+        hint: "Use the rook on the same file as the loose queen.",
+        answers: [
+          { move: "Rxe2+", correct: true },
+          { move: "Re8+", correct: false },
+          { move: "Kf2", correct: false }
+        ],
+        feedback: "Rxe2+ wins the queen and checks the king. That is the cleanest treasure grab."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Forest shield: capture the danger",
+        prompt: "The queen is too close to your king. Save the day by taking the attacker.",
+        fen: "6k1/5ppp/8/8/8/8/5qPP/6K1",
+        targets: ["f2"],
+        hint: "Your king can capture the loose queen if the square is safe.",
+        answers: [
+          { move: "Kxf2", correct: true },
+          { move: "Kh1", correct: false },
+          { move: "Kf1", correct: false }
+        ],
+        feedback: "Kxf2 removes the attacker. Defense can feel heroic when you take away the threat."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Rush",
+        theme: "Opening tactics",
+        side: "Black to move",
+        title: "Castle alarm: opening mate",
+        prompt: "White opened the king's door too early. Finish the opening tactic.",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR",
+        targets: ["h4"],
+        hint: "The queen can fly to h4 because the diagonal is open.",
+        answers: [
+          { move: "Qh4#", correct: true },
+          { move: "Nc6", correct: false },
+          { move: "d5", correct: false }
+        ],
+        feedback: "Qh4# is the classic opening alarm. The king has no safe answer."
       }
     ];
 
@@ -8048,8 +8957,19 @@
 
     const puzzleStorageKey = "checkmateQuest.puzzles.v1";
     const puzzlePlanLevels = ["Beginner", "Intermediate", "Advanced"];
-    const puzzlePatternPlans = ["Forks", "Pins", "Back-rank mates", "Checkmates"];
-    const puzzlePlanOptions = ["all", "adaptive", ...puzzlePlanLevels, ...puzzlePatternPlans];
+    const puzzlePatternPlans = ["Forks", "Pins", "Back-rank mates", "Checkmates", "Tactics", "Defense", "Opening tactics", "Endgames", "Winning material"];
+    const puzzleModePlans = ["Puzzle Rush", "Puzzle Adventure", "Boss Puzzle"];
+    const puzzlePlanOptions = ["all", "adaptive", ...puzzlePlanLevels, ...puzzlePatternPlans, ...puzzleModePlans];
+    const learnerLevels = [
+      ["Level 1 Explorer", 0],
+      ["Level 5 Adventurer", 80],
+      ["Level 10 Knight", 180],
+      ["Level 20 Guardian", 360],
+      ["Level 35 Champion", 700],
+      ["Level 50 Master", 1100],
+      ["Level 75 Grandmaster", 1700],
+      ["Level 100 Legend", 2500]
+    ];
     const savedPuzzleState = readPuzzleState();
     let currentPuzzle = Math.max(0, Math.min(puzzles.length - 1, Number(savedPuzzleState.currentPuzzle) || 0));
     let activePuzzlePlan = puzzlePlanOptions.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
@@ -8073,10 +8993,15 @@
     let puzzleTimerId = 0;
     let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
     let puzzleXp = Math.max(0, Number(savedPuzzleState.xp) || 0);
+    let puzzleCoins = Math.max(0, Number(savedPuzzleState.coins) || 0);
+    let puzzleStars = Math.max(0, Number(savedPuzzleState.stars) || 0);
+    let puzzleKeys = Math.max(0, Number(savedPuzzleState.keys) || 0);
+    let puzzleChests = Math.max(0, Number(savedPuzzleState.chests) || 0);
     let bestPuzzleStreak = Math.max(streak, Number(savedPuzzleState.bestStreak) || 0);
     let puzzleAttempts = Math.max(0, Number(savedPuzzleState.attempts) || 0);
     let puzzleCorrect = Math.max(0, Number(savedPuzzleState.correct) || 0);
     let spacedReview = savedPuzzleState.spacedReview && typeof savedPuzzleState.spacedReview === "object" ? savedPuzzleState.spacedReview : null;
+    let puzzleWeaknesses = savedPuzzleState.weaknesses && typeof savedPuzzleState.weaknesses === "object" ? savedPuzzleState.weaknesses : {};
     let weeklyPuzzleXp = savedPuzzleState.weekly && typeof savedPuzzleState.weekly === "object" ? savedPuzzleState.weekly : {};
     let favoriteOpening = savedPuzzleState.favoriteOpening || "Italian Game";
     let gameStats = savedPuzzleState.gameStats && typeof savedPuzzleState.gameStats === "object" ? savedPuzzleState.gameStats : {};
@@ -8104,6 +9029,17 @@
     let currentAdventure = 0;
     let selectedAdventureSquare = "";
     let adventureBoardState = [];
+    let currentStoryChapter = 0;
+    const storyChapters = [
+      ["Village", "The mayor needs one brave move.", "NPC: Welcome, rookie. Save one piece and earn your first star.", "5 puzzle gates", "Mini boss: Sneaky Pawn", "Reward: Pawn Rookie badge", "The village cheers for your first clear move."],
+      ["Forest", "The knight trail twists through hidden jumps.", "NPC: Follow the hoofprints. The best path is not straight.", "6 puzzle gates", "Mini boss: Trickster Knight", "Reward: Knight avatar", "You found the secret jump route."],
+      ["Castle", "Guard the nervous king inside the walls.", "NPC: Keep the boss safe and open the castle gate.", "6 puzzle gates", "Mini boss: Rook Guardian", "Reward: Castle board theme", "The gate opens with a happy trumpet."],
+      ["Mountain", "Bishops climb diagonal paths through fog.", "NPC: Look along the color trail. The mountain has one clean line.", "7 puzzle gates", "Mini boss: Bishop Sniper", "Reward: Vision badge", "The fog clears and the diagonal glows."],
+      ["Volcano", "Tactics heat up, but you only need one calm move.", "NPC: Breathe first. Checks, captures, threats.", "7 puzzle gates", "Mini boss: Lava Queen", "Reward: Fire badge", "The volcano cools after your best move."],
+      ["Sky Kingdom", "Queens fly, rooks patrol, and every move feels lighter.", "NPC: Teamwork beats power. Pair your pieces.", "8 puzzle gates", "Mini boss: Cloud Queen", "Reward: Sky avatar", "The clouds form a giant check mark."],
+      ["Dragon Realm", "The dragon loves traps. You win by spotting danger.", "NPC: Nice try is still progress. Scan before you leap.", "8 puzzle gates", "Mini boss: Dragon Fork", "Reward: Dragon shield", "The dragon becomes your training buddy."],
+      ["Grandmaster Castle", "The final castle asks for patience, not pressure.", "NPC: One idea at a time. You are ready.", "10 puzzle gates", "Mini boss: Grandmaster Door", "Reward: Master Apprentice crown", "The castle lights up: your journey continues."]
+    ];
     const bookLevels = ["Beginner", "Intermediate", "Advanced"];
     const bookLevelNotes = {
       Beginner: "Start here for rules, board confidence, simple mates, and first strategy habits.",
@@ -8115,7 +9051,10 @@
     const customBooksStorageKey = "checkmateQuest.localBooks.v1";
     const dailyTrainingStorageKey = "checkmateQuest.dailyTraining.v1";
     const gentleStartStorageKey = "checkmateQuest.gentleStart.v1";
+    const storyStorageKey = "checkmateQuest.story.v1";
     const learnerPrefsStorageKey = "checkmateQuest.preferences.v1";
+    const learnerProfileStorageKey = "checkmateQuest.profile.v1";
+    let storyState = readJsonStorage(storyStorageKey, { completed: [], stars: 0 });
     let activeBookLevel = "all";
     let activeBookCategory = "all";
     let activeReaderBookId = "";
@@ -8165,6 +9104,39 @@
       const file = files.indexOf(square[0]);
       const rank = Number(square[1]);
       return (8 - rank) * 8 + file;
+    }
+
+    function saveStoryState() {
+      writeJsonStorage(storyStorageKey, storyState);
+    }
+
+    function renderStoryMap() {
+      const map = document.getElementById("storyMap");
+      const detail = document.getElementById("storyDetail");
+      if (!map || !detail) return;
+      const completed = new Set(storyState.completed || []);
+      document.getElementById("storyStars").textContent = `${Number(storyState.stars) || 0} stars`;
+      document.getElementById("storyProgress").textContent = `${completed.size}/${storyChapters.length} chapters`;
+      map.replaceChildren(...storyChapters.map((chapter, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `story-node${index === currentStoryChapter ? " is-current" : ""}${completed.has(index) ? " is-complete" : ""}`;
+        button.innerHTML = `${chapter[0]}<span>${completed.has(index) ? "Cleared" : chapter[3]}</span>`;
+        button.addEventListener("click", () => {
+          currentStoryChapter = index;
+          currentAdventure = index % adventureMissions.length;
+          renderAdventureMission();
+        });
+        return button;
+      }));
+      const chapter = storyChapters[currentStoryChapter];
+      detail.replaceChildren(
+        createBookText("strong", "", chapter[0]),
+        createBookText("small", "", chapter[1]),
+        createBookText("small", "", chapter[2]),
+        createBookText("span", "mission-label", `${chapter[3]} · ${chapter[4]}`),
+        createBookText("small", "", `${chapter[5]}. ${chapter[6]}`)
+      );
     }
 
     function renderAdventureMissionList() {
@@ -8224,6 +9196,7 @@
       document.getElementById("adventureFeedback").textContent = "Select the highlighted character piece, then choose the glowing target square.";
 
       renderAdventureMissionList();
+      renderStoryMap();
       renderAdventureBoard();
     }
 
@@ -8236,9 +9209,9 @@
       if (!selectedAdventureSquare) {
         if (name === mission.from && clickedPiece) {
           selectedAdventureSquare = name;
-          document.getElementById("adventureFeedback").textContent = `Good. Now send the piece to ${mission.to}.`;
+          document.getElementById("adventureFeedback").textContent = `Great choice. Now send the character to ${mission.to}.`;
         } else {
-          document.getElementById("adventureFeedback").textContent = `Start with the character on ${mission.from}.`;
+          document.getElementById("adventureFeedback").textContent = `Nice try! This level begins with the glowing character on ${mission.from}.`;
         }
         renderAdventureBoard();
         return;
@@ -8255,12 +9228,22 @@
         adventureBoardState[toIndex] = adventureBoardState[fromIndex];
         adventureBoardState[fromIndex] = "";
         selectedAdventureSquare = "";
-        document.getElementById("adventureFeedback").textContent = mission.success;
+        const completed = new Set(storyState.completed || []);
+        const firstClear = !completed.has(currentStoryChapter);
+        completed.add(currentStoryChapter);
+        storyState = { completed: [...completed], stars: completed.size * 3 };
+        saveStoryState();
+        if (firstClear) {
+          addPuzzleXp(12);
+          showCelebration("Quest cleared!", "+12 XP", storyChapters[currentStoryChapter]?.[5] || "New reward!");
+        }
+        document.getElementById("adventureFeedback").textContent = `${mission.success} ${storyChapters[currentStoryChapter]?.[6] || "You unlocked the next sparkle."}`;
+        renderStoryMap();
         renderAdventureBoard();
         return;
       }
 
-      document.getElementById("adventureFeedback").textContent = `That is not this mission's square. Try ${mission.to}.`;
+      document.getElementById("adventureFeedback").textContent = `Almost! Let's discover a stronger move. Aim for ${mission.to}.`;
     }
 
     function renderMiniBoards() {
@@ -8413,18 +9396,32 @@
 
     function getAdaptivePuzzleLevel() {
       const accuracy = getPuzzleAccuracy(0);
-      if (accuracy >= 90 && solvedPuzzles.size >= 8) return "Advanced";
-      if (accuracy >= 70 && solvedPuzzles.size >= 3) return "Intermediate";
+      if (accuracy >= 90 && streak >= 4 && solvedPuzzles.size >= 10) return "Advanced";
+      if (accuracy >= 70 && streak >= 2 && solvedPuzzles.size >= 4) return "Intermediate";
       return "Beginner";
     }
 
+    function getAdaptiveNudge() {
+      const accuracy = getPuzzleAccuracy(100);
+      if (puzzleMistakeCount >= 2 || (puzzleAttempts >= 3 && accuracy < 55)) {
+        return "No pressure: use hints, slower replay, and Adaptive will pick easier puzzles.";
+      }
+      if (bestPuzzleStreak >= 3 && accuracy >= 80) {
+        return "You're on a streak. Bonus speed runs and boss battles are ready.";
+      }
+      return "One tiny win at a time. Try a hint before it feels frustrating.";
+    }
+
     function getPuzzlePattern(puzzle) {
+      if (puzzle.theme) return puzzle.theme;
       const text = `${puzzle.title} ${puzzle.prompt} ${puzzle.hint}`.toLowerCase();
       if (text.includes("fork")) return "Forks";
       if (text.includes("pin")) return "Pins";
       if (text.includes("skewer")) return "Skewers";
       if (text.includes("defender")) return "Removing the defender";
       if (text.includes("back-rank") || text.includes("back rank")) return "Back-rank mates";
+      if (text.includes("opening")) return "Opening tactics";
+      if (text.includes("defense") || text.includes("save")) return "Defense";
       if (text.includes("mate")) return "Checkmates";
       if (text.includes("bishop")) return "Bishop vision";
       return "Tactics";
@@ -8443,16 +9440,66 @@
       spacedReview = { label, interval, due: addDaysKey(interval) };
     }
 
+    function rememberCoachTheme(wasCorrect) {
+      const label = getPuzzlePattern(puzzles[currentPuzzle]);
+      const score = Math.max(0, Number(puzzleWeaknesses[label]) || 0);
+      puzzleWeaknesses[label] = wasCorrect ? Math.max(0, score - 1) : score + 2;
+    }
+
+    function getStrongPuzzleTheme() {
+      const solvedThemes = [...solvedPuzzles].reduce((totals, index) => {
+        const theme = getPuzzlePattern(puzzles[index]);
+        totals[theme] = (totals[theme] || 0) + 1;
+        return totals;
+      }, {});
+      return Object.entries(solvedThemes).sort((a, b) => b[1] - a[1])[0]?.[0] || getPuzzlePattern(puzzles[currentPuzzle]);
+    }
+
+    function getCoachWeakTheme() {
+      return Object.entries(puzzleWeaknesses).sort((a, b) => b[1] - a[1])[0]?.[0] || getPuzzlePattern(puzzles[currentPuzzle]);
+    }
+
+    function getCoachNextLesson() {
+      const theme = getCoachWeakTheme();
+      if (/opening/i.test(theme)) return { label: "Opening principles", href: "#openings" };
+      if (/endgame|promotion/i.test(theme)) return { label: "Endgame essentials", href: "#videos" };
+      if (/defense|hanging/i.test(theme)) return { label: "Board vision", href: "#puzzles" };
+      if (/mate/i.test(theme)) return { label: "Checkmate patterns", href: "#puzzles" };
+      return { label: `${theme} practice`, href: "#puzzles" };
+    }
+
+    function getSmartPuzzleRecommendation() {
+      const weak = getCoachWeakTheme();
+      const strong = getStrongPuzzleTheme();
+      const accuracy = getPuzzleAccuracy(100);
+      const nextType = accuracy >= 75 && strong !== weak ? weak : weak || "Tactics";
+      const level = getAdaptivePuzzleLevel();
+      return {
+        type: nextType,
+        level,
+        message: `You're improving with ${strong}. Next, let's practice ${nextType} at ${level} level.`
+      };
+    }
+
     function getActivePuzzleIndexes() {
       let level = activePuzzlePlan;
       if (activePuzzlePlan === "adaptive") level = getAdaptivePuzzleLevel();
       const patternPlan = puzzlePatternPlans.includes(activePuzzlePlan);
+      const modePlan = puzzleModePlans.includes(activePuzzlePlan);
       let indexes = puzzles
-        .map((puzzle, index) => activePuzzlePlan === "all" || puzzle.level === level || (patternPlan && getPuzzlePattern(puzzle) === activePuzzlePlan) ? index : -1)
+        .map((puzzle, index) => activePuzzlePlan === "all"
+          || puzzle.level === level
+          || (patternPlan && getPuzzlePattern(puzzle) === activePuzzlePlan)
+          || (modePlan && puzzle.mode === activePuzzlePlan)
+          ? index : -1)
         .filter((index) => index >= 0);
       if (activePuzzlePlan === "adaptive" && spacedReview?.due <= getTodayKey()) {
         const reviewIndexes = indexes.filter((index) => getPuzzlePattern(puzzles[index]) === spacedReview.label);
         if (reviewIndexes.length) indexes = reviewIndexes;
+      } else if (activePuzzlePlan === "adaptive") {
+        const smart = getSmartPuzzleRecommendation();
+        const recommendedIndexes = indexes.filter((index) => getPuzzlePattern(puzzles[index]) === smart.type);
+        if (recommendedIndexes.length) indexes = recommendedIndexes;
       }
       return indexes;
     }
@@ -8480,6 +9527,22 @@
       renderPuzzle();
     }
 
+    function startMiniGame(plan) {
+      const names = {
+        Defense: "Save the king",
+        Checkmates: "Find checkmate",
+        "Winning material": "Treasure hunt",
+        Endgames: "Escape castle",
+        Forks: "Knight challenge",
+        "Puzzle Rush": "Puzzle race",
+        "Boss Puzzle": "Boss battle"
+      };
+      setPuzzlePlan(plan);
+      document.getElementById("feedback").textContent = `${names[plan] || "Mini-game"} started. No pressure: solve one position and collect rewards.`;
+      startPuzzle();
+      document.getElementById("puzzles")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function updatePuzzleStats() {
       const indexes = getActivePuzzleIndexes();
       const solvedInPlan = indexes.filter((index) => solvedPuzzles.has(index)).length;
@@ -8496,7 +9559,7 @@
     }
 
     function readPuzzleState() {
-      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game", spacedReview: null };
+      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, coins: 0, stars: 0, keys: 0, chests: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game", spacedReview: null, weaknesses: {} };
       const state = readJsonStorage(puzzleStorageKey, fallback);
       return state && typeof state === "object" ? { ...fallback, ...state } : fallback;
     }
@@ -8508,6 +9571,10 @@
         solved: [...solvedPuzzles],
         streak,
         xp: puzzleXp,
+        coins: puzzleCoins,
+        stars: puzzleStars,
+        keys: puzzleKeys,
+        chests: puzzleChests,
         bestStreak: bestPuzzleStreak,
         attempts: puzzleAttempts,
         correct: puzzleCorrect,
@@ -8516,13 +9583,36 @@
         gameStats,
         completedPathLessons: [...completedPathLessons],
         favoriteOpening,
-        spacedReview
+        spacedReview,
+        weaknesses: puzzleWeaknesses
       });
+    }
+
+    function animateCoinsToInventory() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const target = document.getElementById("coinPill");
+      if (!target) return;
+      const targetBox = target.getBoundingClientRect();
+      const startX = window.innerWidth / 2;
+      const startY = 150;
+      for (let index = 0; index < 5; index += 1) {
+        const coin = document.createElement("span");
+        coin.className = "coin-fly";
+        coin.textContent = "$";
+        coin.style.left = `${startX + (index - 2) * 12}px`;
+        coin.style.top = `${startY + index * 3}px`;
+        coin.style.setProperty("--coin-x", `${targetBox.left - startX}px`);
+        coin.style.setProperty("--coin-y", `${targetBox.top - startY}px`);
+        document.body.appendChild(coin);
+        window.setTimeout(() => coin.remove(), 820);
+      }
     }
 
     function showCelebration(title = "\uD83C\uDF89 Great Job!", xpText = "+50 XP", badgeText = "") {
       document.querySelector(".celebration-toast")?.remove();
       fireConfettiBurst();
+      animateCoinsToInventory();
+      playPuzzleTone("correct");
       const toast = document.createElement("div");
       toast.className = "celebration-toast";
       toast.setAttribute("role", "status");
@@ -8541,6 +9631,28 @@
       puzzleXp += amount;
       weeklyPuzzleXp[today] = (Number(weeklyPuzzleXp[today]) || 0) + amount;
       return { levelUp: getLearnerLevel(puzzleXp).current[0] !== beforeLevel };
+    }
+
+    function addPuzzleCoins(amount) {
+      puzzleCoins += Math.max(0, amount);
+      return puzzleCoins;
+    }
+
+    function addExtraRewards(reward = {}) {
+      puzzleStars += Math.max(0, reward.stars || 0);
+      puzzleKeys += Math.max(0, reward.keys || 0);
+      const earnedChests = Math.floor(puzzleCoins / 60);
+      if (earnedChests > puzzleChests) puzzleChests = earnedChests;
+    }
+
+    function formatRewardText(reward = {}) {
+      return [`+${reward.xp || 0} XP`, `+${reward.coins || 0} coins`, reward.stars ? `+${reward.stars} star` : "", reward.keys ? `+${reward.keys} key` : ""].filter(Boolean).join(" | ");
+    }
+
+    function getPuzzleReward(puzzle = puzzles[currentPuzzle]) {
+      const lineBonus = Math.max(0, getPuzzleLine(puzzle).length - 1);
+      const bossBonus = puzzle.mode === "Boss Puzzle" ? 12 : 0;
+      return { xp: 15 + lineBonus * 2 + bossBonus, coins: 5 + lineBonus + bossBonus, stars: 1, keys: puzzle.mode === "Boss Puzzle" ? 1 : 0 };
     }
 
     function getDayDistance(fromDate, toDate) {
@@ -8563,16 +9675,8 @@
     }
 
     function getLearnerLevel(xp) {
-      const levels = [
-        ["Beginner", 0],
-        ["Learner", 40],
-        ["Student", 100],
-        ["Tactician", 180],
-        ["Strategist", 300],
-        ["Master Apprentice", 450]
-      ];
-      const current = levels.reduce((best, level) => xp >= level[1] ? level : best, levels[0]);
-      const next = levels.find((level) => level[1] > xp);
+      const current = learnerLevels.reduce((best, level) => xp >= level[1] ? level : best, learnerLevels[0]);
+      const next = learnerLevels.find((level) => level[1] > xp);
       return { current, next };
     }
 
@@ -8617,6 +9721,10 @@
       return [
         `Avatar: ${puzzleXp >= 40 ? "Knight Rookie" : "Pawn Rookie"}`,
         `Theme: ${puzzleXp >= 100 ? "Neon Board" : "Wood Board"}`,
+        `Piece skin: ${puzzleStars >= 10 ? "Golden Knights" : "Classic Wood"}`,
+        `Title: ${puzzleKeys ? "Boss Tamer" : level}`,
+        `Pet: ${puzzleChests ? "Tiny Dragon Coach" : "Training Egg"}`,
+        `Collectible: ${storyState?.completed?.length || 0}/8 story relics`,
         `Badge: ${solvedPuzzles.size >= 5 ? "Puzzle Spark" : level}`
       ];
     }
@@ -8652,6 +9760,7 @@
       const completedToday = dailyHabit.rewardDate === getTodayKey();
       const nextLesson = Math.max(1, lessonCount + 1);
       const focus = getSingleCoachFocus();
+      const profileName = String(readLearnerProfile().name || "").trim();
       const recommendations = [
         [`Continue Lesson ${nextLesson}`, "#paths"],
         [completedToday ? "Continue Learning" : "Puzzle of the Day", "#puzzles"],
@@ -8659,9 +9768,9 @@
         ["Practice Mistakes", "#play"]
       ];
 
-      welcome.textContent = lessonCount || puzzleXp ? "Welcome back!" : "Welcome! Start with one tiny win.";
+      welcome.textContent = profileName ? `Welcome back, ${profileName}!` : lessonCount || puzzleXp ? "Welcome back!" : "Welcome! Start with one tiny win.";
       document.getElementById("homeStreak").textContent = `${dailyHabit.streak}-day streak`;
-      document.getElementById("homeLevel").textContent = `Level: ${level}`;
+      document.getElementById("homeLevel").textContent = level;
       document.getElementById("homeXp").textContent = `${puzzleXp} XP`;
       document.getElementById("homeProgress").textContent = `${lessonCount} lessons done`;
       document.getElementById("homeInsight").textContent = needsTactics
@@ -8680,6 +9789,10 @@
 
     function renderBeginnerProgress() {
       const xpPill = document.getElementById("xpPill");
+      const coinPill = document.getElementById("coinPill");
+      const starPill = document.getElementById("starPill");
+      const keyPill = document.getElementById("keyPill");
+      const chestPill = document.getElementById("chestPill");
       const levelPill = document.getElementById("learnerLevelPill");
       const gamesPill = document.getElementById("gamesPlayedPill");
       const winRatePill = document.getElementById("winRatePill");
@@ -8698,6 +9811,9 @@
       const coach = document.getElementById("simpleCoach");
       const badges = document.getElementById("achievementBadges");
       const chart = document.getElementById("weeklyChart");
+      const xpFill = document.getElementById("learnerXpFill");
+      const xpGoal = document.getElementById("learnerXpGoal");
+      const rpgPath = document.getElementById("rpgLevelPath");
       if (!xpPill || !levelPill || !gamesPill || !winRatePill || !solvedPill || !bestPill || !dailyPill || !dailyStreakPill || !lessonPill || !openingPill || !accuracyPill || !dailyReward || !coach || !badges || !chart) return;
 
       const completedToday = dailyHabit.rewardDate === getTodayKey();
@@ -8710,8 +9826,26 @@
       const puzzleRating = 400 + (solvedPuzzles.size * 12) + (bestPuzzleStreak * 8) + Math.floor(puzzleXp / 10);
       const level = getLearnerLevel(puzzleXp);
       xpPill.textContent = `${puzzleXp} XP`;
-      levelPill.textContent = `Level: ${level.current[0]}`;
+      if (coinPill) coinPill.textContent = `${puzzleCoins} coins`;
+      if (starPill) starPill.textContent = `${puzzleStars + Math.max(0, Number(storyState?.stars) || 0)} stars`;
+      if (keyPill) keyPill.textContent = `${puzzleKeys} keys`;
+      if (chestPill) chestPill.textContent = `${puzzleChests} chests`;
+      levelPill.textContent = level.current[0];
       levelPill.title = level.next ? `${level.next[1] - puzzleXp} XP to ${level.next[0]}` : "Top learner title unlocked";
+      if (xpFill && xpGoal) {
+        const currentXp = level.current[1];
+        const nextXp = level.next?.[1] || Math.max(puzzleXp, currentXp + 1);
+        const fill = Math.min(100, Math.max(8, ((puzzleXp - currentXp) / (nextXp - currentXp)) * 100));
+        xpFill.style.width = `${fill}%`;
+        xpGoal.textContent = level.next ? `${level.next[1] - puzzleXp} XP to ${level.next[0]}` : "Legend path complete";
+      }
+      if (rpgPath) {
+        rpgPath.replaceChildren(...learnerLevels.map(([name, need]) => {
+          const item = createBookText("span", need === level.current[1] ? "is-current" : puzzleXp >= need ? "is-unlocked" : "", name);
+          item.title = puzzleXp >= need ? "Unlocked" : `${need - puzzleXp} XP needed`;
+          return item;
+        }));
+      }
       gamesPill.textContent = `Games played ${gameStats.played}`;
       winRatePill.textContent = `Win rate ${winRate}%`;
       solvedPill.textContent = `Puzzles solved ${solvedPuzzles.size}`;
@@ -8725,10 +9859,16 @@
       if (moveQualityPill) moveQualityPill.textContent = `Move quality ${moveQuality}%`;
       if (puzzleRatingPill) puzzleRatingPill.textContent = `Puzzle rating ${puzzleRating}`;
       if (timePill) timePill.textContent = `Time: ${moveQuality >= 75 ? "steady" : "slow scan"}`;
-      dailyReward.textContent = completedToday ? "Reward unlocked: +10 XP. Come back tomorrow for the next spark." : "Reward locked: finish today's puzzle for +10 XP.";
+      const weeklyXp = Object.values(weeklyPuzzleXp).reduce((sum, value) => sum + (Number(value) || 0), 0);
+      const weakTheme = getCoachWeakTheme();
+      const nextLesson = getCoachNextLesson();
+      const smart = getSmartPuzzleRecommendation();
+      dailyReward.textContent = completedToday
+        ? `Daily reward unlocked. Weekly ${weeklyXp}/120 XP. Monthly chests ${puzzleChests}.`
+        : `Daily mission: solve 1 ${smart.type} puzzle, then open ${nextLesson.label}. Weekly ${weeklyXp}/120 XP.`;
       coach.textContent = puzzleAttempts
-        ? `Simple AI coach: You're getting better every day. ${activePuzzlePlan === "adaptive" ? `Adaptive is giving you ${getAdaptivePuzzleLevel()} puzzles. ` : ""}One helpful idea: ${puzzles[currentPuzzle].hint}`
-        : "Simple AI coach: You're getting better every day. Try one move.";
+        ? `Simple AI coach: Nice effort. ${activePuzzlePlan === "adaptive" ? `Adaptive is giving you ${smart.level} puzzles. ` : ""}${smart.message} One helpful idea: ${puzzles[currentPuzzle].hint}`
+        : `Simple AI coach: You're getting better every day. ${smart.message}`;
 
       const achievements = [
         ["First Win", gameStats.wins > 0],
@@ -8739,7 +9879,11 @@
         ["Fast Thinker", bestPuzzleStreak >= 3],
         ["No Hanging Pieces", gameStats.cleanGames > 0],
         ["Opening Principles", gameStats.principleGames > 0],
-        ["Endgame Winner", gameStats.endgameWins > 0]
+        ["Endgame Winner", gameStats.endgameWins > 0],
+        ["Coin Collector", puzzleCoins >= 50],
+        ["Treasure Key", puzzleKeys > 0],
+        ["Chest Opener", puzzleChests > 0],
+        ["Boss Breaker", [...solvedPuzzles].some((index) => puzzles[index]?.mode === "Boss Puzzle")]
       ];
       badges.replaceChildren(...achievements.map(([label, unlocked]) => {
         const badge = createBookText("span", `achievement-badge${unlocked ? " unlocked" : ""}`, label);
@@ -8970,6 +10114,7 @@
     function getPuzzleTags(puzzle = puzzles[currentPuzzle]) {
       const text = `${puzzle.title} ${puzzle.prompt} ${puzzle.hint}`.toLowerCase();
       const tags = [getPuzzlePattern(puzzle)];
+      if (puzzle.mode) tags.push(puzzle.mode);
       [
         [/mate|checkmate/, "Mate"],
         [/back-rank|back rank/, "Back rank"],
@@ -8982,7 +10127,13 @@
       ].forEach(([pattern, label]) => {
         if (pattern.test(text)) tags.push(label);
       });
-      return [...new Set(tags)].slice(0, 4);
+      return [...new Set(tags)].slice(0, 5);
+    }
+
+    function getNextRecommendedPuzzle() {
+      const currentTheme = getPuzzlePattern(puzzles[currentPuzzle]);
+      return puzzles.find((puzzle, index) => index !== currentPuzzle && !solvedPuzzles.has(index) && getPuzzlePattern(puzzle) === currentTheme)
+        || puzzles[getNextPuzzleIndex()];
     }
 
     function formatPuzzleTime(ms) {
@@ -9051,8 +10202,10 @@
       const accuracy = puzzleMistakeCount ? Math.max(20, 100 - puzzleMistakeCount * 25) : 100;
       stopPuzzleTimer();
       panel.hidden = false;
+      const next = getNextRecommendedPuzzle();
+      const smart = getSmartPuzzleRecommendation();
       summary.textContent = `Accuracy ${accuracy}%. Time ${document.getElementById("puzzleClock").textContent}. Rating ${getPuzzleRating()}. Themes: ${tags}. Solution: ${getPuzzleLine().join(" ")}`;
-      explanation.textContent = `Why it works: ${puzzles[currentPuzzle].feedback}`;
+      explanation.textContent = `Why it works: ${puzzles[currentPuzzle].feedback} ${smart.message} Try next: ${next?.title || "Daily Puzzle"}.`;
     }
 
     function startPuzzle() {
@@ -9062,7 +10215,7 @@
       activeAnswered = false;
       document.getElementById("puzzleComplete").hidden = true;
       document.getElementById("startPuzzle").textContent = "Solving";
-      document.getElementById("feedback").textContent = "Find the best move. Use checks, captures, threats.";
+      document.getElementById("feedback").textContent = `Find the best move. ${getSmartPuzzleRecommendation().message}`;
       startPuzzleTimer();
       renderPuzzleBoard();
     }
@@ -9093,11 +10246,14 @@
           bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
           puzzleCorrect += 1;
           scheduleSpacedReview(true);
-          const reward = firstSolve ? 15 : 5;
-          const xpResult = addPuzzleXp(reward);
-          document.getElementById("feedback").textContent = `Solved! +${reward}${habitReward ? " +10 daily reward" : ""} XP. ${puzzle.feedback}`;
+          rememberCoachTheme(true);
+          const reward = firstSolve ? getPuzzleReward(puzzle) : { xp: 5, coins: 1, stars: 0, keys: 0 };
+          const xpResult = addPuzzleXp(reward.xp);
+          addPuzzleCoins(reward.coins);
+          addExtraRewards(reward);
+          document.getElementById("feedback").textContent = `Solved! ${formatRewardText(reward)}${habitReward ? " +10 daily reward" : ""}. ${puzzle.feedback}`;
           showPuzzleComplete();
-          showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
+          showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : puzzle.mode === "Boss Puzzle" ? "Boss cleared!" : "Puzzle solved!");
         } else {
           document.getElementById("feedback").textContent = `Good move: ${move.san}. ${reply ? `Coach reply: ${reply.san}. ` : ""}Keep following the line.`;
         }
@@ -9107,8 +10263,11 @@
         puzzleAttempts += 1;
         puzzleMistakeCount += 1;
         scheduleSpacedReview(false);
+        rememberCoachTheme(false);
         addPuzzleXp(2);
-        document.getElementById("feedback").textContent = `Good idea! Here's an even stronger move. ${move.san} was legal. Tip: ${puzzle.hint}`;
+        addPuzzleCoins(1);
+        addExtraRewards({ coins: 1 });
+        document.getElementById("feedback").textContent = `Good idea! +2 XP, +1 coin. ${move.san} was legal. Tip: ${puzzle.hint} ${getAdaptiveNudge()}`;
         document.getElementById("puzzleMistakes").textContent = `${puzzleMistakeCount} mistake${puzzleMistakeCount === 1 ? "" : "s"}`;
         flashPuzzleBoard("is-wrong");
         playPuzzleTone("wrong");
@@ -9167,6 +10326,32 @@
       return played;
     }
 
+    function wait(ms) {
+      return new Promise((resolve) => window.setTimeout(resolve, ms));
+    }
+
+    function getPuzzleReplayDelay() {
+      const accuracy = getPuzzleAccuracy(100);
+      if (puzzleMistakeCount >= 2 || accuracy < 55) return 760;
+      if (bestPuzzleStreak >= 3 && accuracy >= 80) return 360;
+      return 520;
+    }
+
+    async function playPuzzleSolutionAnimated() {
+      if (!puzzleGame) return null;
+      const line = getPuzzleLine();
+      let played = null;
+      while (puzzleLineStep < line.length) {
+        played = playPuzzleSan(line[puzzleLineStep]);
+        if (!played) break;
+        puzzleLineStep += 1;
+        document.getElementById("feedback").textContent = `Solution step ${puzzleLineStep}/${line.length}: ${played.san}`;
+        renderPuzzleBoard();
+        await wait(getPuzzleReplayDelay());
+      }
+      return played;
+    }
+
     function getPuzzleHintText(step) {
       const puzzle = puzzles[currentPuzzle];
       const correct = puzzle.answers.find((answer) => answer.correct);
@@ -9199,9 +10384,12 @@
       puzzleAttempts += 1;
       puzzleMistakeCount += 1;
       addPuzzleXp(1);
+      addPuzzleCoins(1);
+      addExtraRewards({ coins: 1 });
       scheduleSpacedReview(false);
+      rememberCoachTheme(false);
       lockAnswers(null, false);
-      document.getElementById("feedback").textContent = `Good idea to learn from the answer. +1 XP. Stronger move: ${played?.san || correct.move}. Tip: ${puzzle.hint}`;
+      document.getElementById("feedback").textContent = `Good idea to learn from the answer. +1 XP, +1 coin. Stronger move: ${played?.san || correct.move}. Tip: ${puzzle.hint}`;
       showPuzzleComplete();
       updatePuzzleStats();
       renderPuzzleBoard();
@@ -9214,6 +10402,13 @@
       hint.textContent = getPuzzleHintText(puzzleHintStep);
       hint.classList.remove("hidden");
       document.getElementById("hintPuzzle").textContent = puzzleHintStep >= 2 ? "Show Move" : "Next Hint";
+      if (puzzleHintStep <= 2) {
+        addPuzzleXp(1);
+        addPuzzleCoins(1);
+        addExtraRewards({ coins: 1 });
+        document.getElementById("feedback").textContent = `Helpful hint unlocked. +1 XP, +1 coin. ${getAdaptiveNudge()}`;
+        updatePuzzleStats();
+      }
       if (puzzleHintStep >= 3) revealPuzzleSolution();
       else renderPuzzleBoard();
     }
@@ -9308,20 +10503,26 @@
         bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
         puzzleCorrect += 1;
         scheduleSpacedReview(true);
-        const reward = firstSolve ? 15 : 5;
-        const xpResult = addPuzzleXp(reward);
-        document.getElementById("feedback").textContent = `Great move! +${reward} XP. You improved because you found the idea: ${puzzle.feedback}`;
+        rememberCoachTheme(true);
+        const reward = firstSolve ? getPuzzleReward(puzzle) : { xp: 5, coins: 1, stars: 0, keys: 0 };
+        const xpResult = addPuzzleXp(reward.xp);
+        addPuzzleCoins(reward.coins);
+        addExtraRewards(reward);
+        document.getElementById("feedback").textContent = `Great move! ${formatRewardText(reward)}. You improved because you found the idea: ${puzzle.feedback}`;
         flashPuzzleBoard("is-correct");
         playPuzzleTone("correct");
         showPuzzleComplete();
-        showCelebration("\uD83C\uDF89 Great Job!", `+${reward} XP`, xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
+        showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
       } else {
         puzzleAttempts += 1;
         streak = 0;
         puzzleMistakeCount += 1;
         scheduleSpacedReview(false);
+        rememberCoachTheme(false);
         addPuzzleXp(2);
-        document.getElementById("feedback").textContent = `Great Try! +2 XP for practicing. You improved because you checked a candidate move. Tip: ${puzzle.hint}`;
+        addPuzzleCoins(1);
+        addExtraRewards({ coins: 1 });
+        document.getElementById("feedback").textContent = `Great Try! +2 XP, +1 coin for practicing. Tip: ${puzzle.hint} ${getAdaptiveNudge()}`;
         document.getElementById("puzzleMistakes").textContent = `${puzzleMistakeCount} mistake${puzzleMistakeCount === 1 ? "" : "s"}`;
         flashPuzzleBoard("is-wrong");
         playPuzzleTone("wrong");
@@ -9403,10 +10604,10 @@
       renderPuzzleBoard();
     }
 
-    function replayPuzzleSolution() {
+    async function replayPuzzleSolution() {
       retryPuzzle();
       puzzleStarted = true;
-      const played = playPuzzleSolution();
+      const played = await playPuzzleSolutionAnimated();
       activeAnswered = true;
       document.getElementById("feedback").textContent = `Replay: ${played?.san || "best move"}. ${puzzles[currentPuzzle].feedback}`;
       showPuzzleComplete();
@@ -10113,7 +11314,7 @@
     }
 
     function setupSiteTabs() {
-      const panelIds = ["paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
+      const panelIds = ["login", "paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
       const links = [...document.querySelectorAll("[data-site-tab]")];
       const panels = panelIds
         .map((id) => document.getElementById(id))
@@ -10276,6 +11477,63 @@
       } catch {
         // Storage can be unavailable in private browsing; the page still works without persistence.
       }
+    }
+
+    function readLearnerProfile() {
+      const fallback = { name: "", level: "New Explorer", goal: "Learn one easy idea" };
+      const saved = readJsonStorage(learnerProfileStorageKey, fallback);
+      return { ...fallback, ...(saved && typeof saved === "object" ? saved : {}) };
+    }
+
+    function renderLearnerProfile() {
+      const profile = readLearnerProfile();
+      const name = String(profile.name || "").trim();
+      const initials = name ? name.slice(0, 2).toUpperCase() : "CQ";
+      const nav = document.getElementById("loginNavLink");
+      const avatar = document.getElementById("loginAvatar");
+      const displayName = document.getElementById("loginDisplayName");
+      const displayMeta = document.getElementById("loginDisplayMeta");
+      const status = document.getElementById("loginStatus");
+      const nameField = document.getElementById("loginName");
+      const levelField = document.getElementById("loginLevel");
+      const goalField = document.getElementById("loginGoal");
+
+      if (nav) nav.textContent = name ? `Hi, ${name.slice(0, 10)}` : "Login";
+      if (avatar) avatar.textContent = initials;
+      if (displayName) displayName.textContent = name ? `${name}'s Player Pass` : "Guest Explorer";
+      if (displayMeta) displayMeta.textContent = name ? `${profile.level} - ${profile.goal}` : "Create your Player Pass to personalize the journey.";
+      if (status) status.textContent = name ? "Ready. Your next tiny win is waiting." : "Saved only in this browser.";
+      if (nameField && document.activeElement !== nameField) nameField.value = name;
+      if (levelField) levelField.value = profile.level;
+      if (goalField) goalField.value = profile.goal;
+    }
+
+    function setupLoginProfile() {
+      const form = document.getElementById("loginForm");
+      const reset = document.getElementById("clearLoginProfile");
+      renderLearnerProfile();
+      if (!form) return;
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const name = String(data.get("loginName") || "").trim().slice(0, 24);
+        if (!name) return;
+        writeJsonStorage(learnerProfileStorageKey, {
+          name,
+          level: String(data.get("loginLevel") || "New Explorer"),
+          goal: String(data.get("loginGoal") || "Learn one easy idea"),
+          updatedAt: new Date().toISOString()
+        });
+        renderLearnerProfile();
+        renderHomeDashboard();
+      });
+
+      reset?.addEventListener("click", () => {
+        writeJsonStorage(learnerProfileStorageKey, { name: "", level: "New Explorer", goal: "Learn one easy idea" });
+        renderLearnerProfile();
+        renderHomeDashboard();
+      });
     }
 
     function readLearnerPrefs() {
@@ -12915,6 +14173,10 @@
       button.addEventListener("click", () => setPuzzlePlan(button.dataset.puzzlePlan));
     });
 
+    document.querySelectorAll("[data-mini-plan]").forEach((button) => {
+      button.addEventListener("click", () => startMiniGame(button.dataset.miniPlan));
+    });
+
     document.getElementById("dailyPuzzle").addEventListener("click", () => {
       activePuzzlePlan = "all";
       currentPuzzle = getDailyPuzzleIndex();
@@ -12926,7 +14188,11 @@
       streak = 0;
       puzzleAttempts = 0;
       puzzleCorrect = 0;
+      puzzleStars = 0;
+      puzzleKeys = 0;
+      puzzleChests = 0;
       spacedReview = null;
+      puzzleWeaknesses = {};
       solvedPuzzles.clear();
       renderPuzzle();
     });
@@ -12949,12 +14215,14 @@
 
     document.getElementById("nextAdventure").addEventListener("click", () => {
       currentAdventure = (currentAdventure + 1) % adventureMissions.length;
+      currentStoryChapter = (currentStoryChapter + 1) % storyChapters.length;
       renderAdventureMission();
     });
 
     document.getElementById("restartAdventure").addEventListener("click", renderAdventureMission);
 
     setupLearnerPreferences();
+    setupLoginProfile();
     buildHeroBoard();
     setupLessonFlow();
     renderAdventureMission();
