@@ -160,10 +160,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: flex-end;
       min-width: 0;
-      padding: 5px;
+      overflow: visible;
+      padding: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius);
       background: rgba(255, 255, 255, 0.04);
@@ -171,32 +172,81 @@
     }
 
     .nav-group {
-      display: inline-flex;
-      align-items: center;
+      position: relative;
+      display: block;
       flex: 0 0 auto;
-      gap: 4px;
-      padding: 3px;
-      border-radius: 7px;
-      background: rgba(0, 0, 0, 0.12);
     }
 
     .nav-group-label {
-      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 248, 237, 0.1);
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0.16);
       color: var(--gold);
-      font-size: 0.68rem;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.74rem;
       font-weight: 1000;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      list-style: none;
+      transition: background var(--move-speed) ease, color var(--move-speed) ease, transform var(--move-speed) ease;
+    }
+
+    .nav-group-label::-webkit-details-marker {
+      display: none;
+    }
+
+    .nav-group-label::after {
+      content: "v";
+      color: var(--muted);
+      font-size: 0.7rem;
+      text-transform: none;
+    }
+
+    .nav-group[open] > .nav-group-label,
+    .nav-group.is-active-group > .nav-group-label,
+    .nav-group-label:hover,
+    .nav-group-label:focus-visible {
+      color: #10150d;
+      background: var(--green);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      z-index: 30;
+      display: grid;
+      min-width: 190px;
+      gap: 6px;
+      padding: 8px;
+      border: 1px solid rgba(255, 248, 237, 0.13);
+      border-radius: var(--radius);
+      background: rgba(38, 34, 30, 0.98);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.34);
+    }
+
+    .nav-group:last-of-type .nav-menu {
+      right: 0;
+      left: auto;
     }
 
     .nav-links a {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       min-height: 36px;
-      padding: 0 10px;
+      padding: 0 11px;
       border-radius: 6px;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       font-weight: 900;
       white-space: nowrap;
       transition: background var(--move-speed) ease, color var(--move-speed) ease, box-shadow var(--move-speed) ease, transform var(--move-speed) ease;
@@ -205,6 +255,19 @@
     .nav-links a.is-quick-tab {
       color: var(--text);
       background: rgba(127, 166, 80, 0.16);
+    }
+
+    .nav-links > a {
+      min-height: 38px;
+      border: 1px solid rgba(255, 248, 237, 0.1);
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .nav-menu a {
+      justify-content: flex-start;
+      width: 100%;
+      min-height: 38px;
+      padding: 0 12px;
     }
 
     .nav-links a:hover,
@@ -246,6 +309,10 @@
     }
 
     body.site-tab-mode main > .site-panel:not(.is-active-panel) {
+      display: none;
+    }
+
+    body:not(.site-tab-mode) main > .site-panel {
       display: none;
     }
 
@@ -497,20 +564,251 @@
       gap: 14px;
       margin: 0;
       padding: 18px;
+      position: relative;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(47, 43, 39, 0.78);
+      background:
+        radial-gradient(circle at 92% 8%, rgba(231, 182, 93, 0.18), transparent 30%),
+        linear-gradient(145deg, rgba(54, 50, 44, 0.92), rgba(35, 31, 28, 0.86));
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
       backdrop-filter: blur(12px);
+    }
+
+    .home-dashboard::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: linear-gradient(var(--gold), var(--green));
+      opacity: 0.9;
     }
 
     body.theme-light .home-dashboard {
       background: rgba(255, 250, 240, 0.82);
     }
 
+    .home-dashboard > * {
+      position: relative;
+    }
+
     .home-dashboard h3,
     .home-dashboard p {
       margin: 0;
+    }
+
+    .home-dashboard h3 {
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .player-profile {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(231, 182, 93, 0.38);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 88% 0%, rgba(231, 182, 93, 0.22), transparent 34%),
+        linear-gradient(135deg, rgba(127, 166, 80, 0.22), rgba(111, 168, 220, 0.14)),
+        rgba(255, 255, 255, 0.07);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .player-profile-top,
+    .player-profile-row,
+    .player-profile-progress-labels,
+    .player-profile-save {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .player-profile-avatar {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex: 0 0 auto;
+      border-radius: var(--radius);
+      border: 1px solid rgba(231, 182, 93, 0.45);
+      background:
+        radial-gradient(circle at 68% 22%, rgba(231, 182, 93, 0.9) 0 13%, transparent 14%),
+        linear-gradient(145deg, rgba(127, 166, 80, 0.95), rgba(21, 96, 79, 0.95));
+      box-shadow: inset 0 -12px 24px rgba(0, 0, 0, 0.22), 0 10px 24px rgba(0, 0, 0, 0.2);
+      font-size: 2.15rem;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .player-profile-avatar.is-levelup {
+      animation: profileAvatarPop 650ms ease;
+      filter: drop-shadow(0 0 14px rgba(231, 182, 93, 0.45));
+    }
+
+    @keyframes profileAvatarPop {
+      0% { transform: scale(0.92) rotate(-4deg); }
+      55% { transform: scale(1.12) rotate(3deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    .player-profile-title {
+      min-width: 0;
+    }
+
+    .player-profile-kicker {
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+
+    .player-profile-name {
+      display: block;
+      margin-top: 2px;
+      overflow-wrap: anywhere;
+      color: var(--text);
+      font-size: 1.35rem;
+      font-weight: 1000;
+      line-height: 1.1;
+    }
+
+    .player-profile-level {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .player-profile-save {
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .player-profile-save:hover,
+    .player-profile-save:focus-visible {
+      background: rgba(255, 255, 255, 0.14);
+      outline: none;
+    }
+
+    .player-profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .player-profile-stat {
+      min-height: 64px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .player-profile-stat strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.08rem;
+      line-height: 1.15;
+    }
+
+    .player-profile-stat span,
+    .player-profile-progress-labels,
+    .player-profile-next,
+    .player-profile-mission span:last-child {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .player-profile-rank {
+      color: var(--gold);
+      font-weight: 950;
+    }
+
+    .player-profile-progress-labels {
+      margin-bottom: 7px;
+    }
+
+    .player-profile-progress {
+      height: 13px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .player-profile-progress span {
+      display: block;
+      width: 68%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+    }
+
+    .player-profile-missions {
+      display: grid;
+      gap: 6px;
+    }
+
+    .player-profile-mission {
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 10px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .player-profile-mission span:first-child {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .player-profile-achievements {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(34px, 1fr));
+      gap: 7px;
+    }
+
+    .player-profile-achievement {
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.13);
+      font-size: 1.25rem;
+    }
+
+    .player-profile-achievement.is-locked {
+      filter: grayscale(1);
+      opacity: 0.45;
+    }
+
+    .login-player-profile {
+      margin-top: 2px;
+      color: var(--text);
+    }
+
+    .login-player-profile::before {
+      content: "Player Profile";
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 1000;
+      text-transform: uppercase;
     }
 
     .home-stat-grid,
@@ -532,14 +830,75 @@
     .home-stat {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-height: 32px;
-      padding: 0 10px;
+      justify-content: flex-start;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(231, 182, 93, 0.14);
       border-radius: 7px;
-      background: rgba(231, 182, 93, 0.15);
+      background: rgba(231, 182, 93, 0.12);
       color: var(--gold);
       font-size: 0.84rem;
       font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .trust-strip,
+    .next-step-card {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .trust-strip {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .trust-strip span,
+    .next-step-card {
+      border: 1px solid rgba(231, 182, 93, 0.24);
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.11);
+      color: var(--soft);
+    }
+
+    .trust-strip span {
+      display: grid;
+      place-items: center;
+      min-height: 38px;
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .next-step-card {
+      margin-top: 0;
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .next-step-card strong {
+      color: var(--gold);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+
+    .next-step-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .next-step-card .button {
+      justify-self: start;
+      min-height: 38px;
+      padding: 0 14px;
+    }
+
+    .quick-practice .button {
+      justify-content: flex-start;
+      min-height: 50px;
+      padding: 0 14px;
+      text-align: left;
     }
 
     .recommendation-list a {
@@ -566,12 +925,24 @@
       display: grid;
       gap: 16px;
       padding: 24px;
+      position: relative;
+      overflow: hidden;
+      align-content: start;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(231, 182, 93, 0.16), transparent 28%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(127, 166, 80, 0.08));
     }
 
     .login-card p,
     .login-pass p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .login-card h3 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      line-height: 1.05;
     }
 
     .login-perks {
@@ -592,6 +963,102 @@
       text-align: center;
     }
 
+    .login-perks span {
+      place-items: start;
+      align-content: start;
+      min-height: 96px;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .login-perks strong,
+    .login-perks small {
+      display: block;
+    }
+
+    .login-perks strong {
+      color: var(--soft);
+      line-height: 1.15;
+    }
+
+    .login-perks small {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .login-quest-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .login-quest-list li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: center;
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255, 248, 237, 0.1);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .login-quest-list b {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: rgba(127, 166, 80, 0.2);
+      color: var(--gold);
+    }
+
+    .login-progress-preview {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid rgba(127, 166, 80, 0.26);
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.1);
+    }
+
+    .login-progress-preview span {
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+
+    .login-progress-preview div {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .login-progress-preview i {
+      display: block;
+      width: 34%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+    }
+
+    .login-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
     .login-pass {
       display: grid;
       gap: 16px;
@@ -606,7 +1073,12 @@
       height: 72px;
       min-height: 72px;
       border: 2px solid rgba(231, 182, 93, 0.5);
-      font-size: 1.45rem;
+      background:
+        radial-gradient(circle at 72% 20%, rgba(231, 182, 93, 0.95) 0 12%, transparent 13%),
+        linear-gradient(145deg, rgba(127, 166, 80, 0.94), rgba(21, 96, 79, 0.94));
+      color: #fff8eb;
+      box-shadow: inset 0 -12px 24px rgba(0, 0, 0, 0.22);
+      font-size: 2.25rem;
     }
 
     .login-form {
@@ -675,8 +1147,14 @@
     }
 
     body.theme-light .nav-links,
-    body.theme-light .nav-group {
+    body.theme-light .nav-group-label,
+    body.theme-light .nav-links > a {
       background: rgba(33, 26, 18, 0.04);
+    }
+
+    body.theme-light .nav-menu {
+      background: rgba(255, 250, 240, 0.98);
+      box-shadow: 0 18px 36px rgba(65, 48, 30, 0.18);
     }
 
     body.theme-light .section-dark,
@@ -1266,8 +1744,15 @@
     }
 
     .mission-card {
+      display: grid;
+      align-content: start;
       padding: 20px;
       min-height: 190px;
+    }
+
+    .mission-card .button {
+      justify-self: start;
+      margin-top: 12px;
     }
 
     .mission-label {
@@ -2931,20 +3416,75 @@
 
     .puzzle-shell {
       display: grid;
-      grid-template-columns: minmax(300px, 500px) minmax(320px, 1fr);
-      gap: 24px;
-      padding: 18px;
+      grid-template-columns: minmax(320px, 560px) minmax(300px, 1fr);
+      gap: 18px;
+      padding: 16px;
       align-items: start;
+    }
+
+    .puzzle-side-nav {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px;
+      overflow-x: auto;
+      border-radius: var(--radius);
+      background: rgba(55, 50, 43, 0.82);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .puzzle-side-nav button {
+      min-height: 42px;
+      border: 1px solid rgba(255, 248, 237, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #f7f1e6;
+      padding: 0 14px;
+      text-align: center;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .puzzle-side-nav button[aria-pressed="true"] {
+      border-color: rgba(231, 182, 93, 0.72);
+      background: linear-gradient(135deg, rgba(231, 182, 93, 0.24), rgba(127, 166, 80, 0.18));
+      color: #fff8ed;
+    }
+
+    .puzzle-side-nav button:hover,
+    .puzzle-side-nav button:focus-visible {
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
     }
 
     .puzzle-board-wrap {
       position: relative;
       align-self: start;
+      max-width: 560px;
+      width: 100%;
       border: 8px solid #211a12;
       border-radius: var(--radius);
       background: #211a12;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.26);
       overflow: hidden;
+    }
+
+    .play-shell {
+      grid-template-columns: minmax(280px, 520px) minmax(320px, 1fr);
+      max-width: 1120px;
+      margin-inline: auto;
+      border: 1px solid rgba(255, 248, 237, 0.1);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .play-board-wrap {
+      justify-self: center;
+      max-width: min(520px, 100%);
     }
 
     .puzzle-board {
@@ -2971,6 +3511,7 @@
       border: 0;
       padding: 0;
       cursor: pointer;
+      touch-action: manipulation;
       transition: background var(--move-speed) ease, box-shadow var(--move-speed) ease, transform var(--move-speed) ease;
     }
 
@@ -3033,8 +3574,17 @@
     }
 
     .coach-levels {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       margin-bottom: 0;
+    }
+
+    .play-actions {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .play-actions .button {
+      min-height: 44px;
+      padding-inline: 10px;
     }
 
     .preference-panel {
@@ -3182,7 +3732,7 @@
 
     .puzzle-info {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       min-width: 0;
     }
 
@@ -3258,9 +3808,41 @@
       color: #704d13;
     }
 
-    .puzzle-plan-selector {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+    .puzzle-plan-selector:not(.coach-levels) {
+      display: none;
+      grid-template-columns: 1fr;
       margin: 0;
+      padding: 6px;
+      border-radius: var(--radius);
+      background: #37322b;
+    }
+
+    .puzzle-plan-selector.is-open,
+    .puzzle-plan-selector.coach-levels {
+      display: grid;
+    }
+
+    .puzzle-plan-selector:not(.coach-levels) .mission-button {
+      justify-content: flex-start;
+      min-height: 38px;
+      border-color: transparent;
+      background: transparent;
+      color: #f7f1e6;
+      text-align: left;
+    }
+
+    .puzzle-plan-selector:not(.coach-levels) .mission-button[aria-pressed="true"] {
+      background: #171512;
+      color: #fff8ed;
+    }
+
+    .puzzle-mode-tabs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 0;
+      padding: 4px;
+      border: 1px solid rgba(33, 26, 18, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.46);
     }
 
     .badge {
@@ -4192,27 +4774,49 @@
 
     @media (max-width: 760px) {
       .nav {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 13px 0;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 10px 0;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        background-size: 16px 16px;
+        background-position: 0 0, 8px 8px;
+      }
+
+      .brand span:last-child {
+        display: none;
       }
 
       .nav-links {
-        width: 100%;
-        justify-content: flex-start;
-        overflow-x: auto;
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        gap: 4px;
+        overflow: visible;
         flex-wrap: nowrap;
-        padding-bottom: 5px;
-        scroll-snap-type: x proximity;
+        padding: 4px;
       }
 
-      .nav-group {
-        flex: 0 0 auto;
-        scroll-snap-align: start;
-      }
-
+      .nav-links > a,
       .nav-group-label {
-        padding-left: 6px;
+        min-height: 34px;
+        padding: 0 8px;
+        font-size: 0.74rem;
+      }
+
+      .nav-group-label::after {
+        display: none;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 58px;
+        right: 12px;
+        left: 12px;
+        min-width: 0;
       }
 
       .hero {
@@ -4371,7 +4975,8 @@
 
       .home-start-flow,
       .home-stat-grid,
-      .quick-practice {
+      .quick-practice,
+      .trust-strip {
         grid-template-columns: 1fr;
       }
 
@@ -4600,6 +5205,25 @@
       .nav-group-label {
         font-size: 0.62rem;
       }
+
+      .player-profile-top {
+        display: grid;
+        align-items: start;
+        justify-content: stretch;
+      }
+
+      .player-profile-save {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .player-profile-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .player-profile-stat:last-child {
+        grid-column: 1 / -1;
+      }
     }
 
     @media print {
@@ -4709,30 +5333,34 @@
         <span>Checkmate Quest</span>
       </a>
       <div class="nav-links" aria-label="Course section tabs">
-        <div class="nav-group" aria-label="Learn">
-          <span class="nav-group-label">Learn</span>
+        <a class="is-quick-tab" href="#top" data-home-link>Home</a>
+        <details class="nav-group" aria-label="Learn">
+          <summary class="nav-group-label">Learn</summary>
+          <div class="nav-menu">
           <a href="#paths" data-site-tab="paths" data-site-panel="paths">Lessons</a>
           <a href="#adventures" data-site-tab="adventures" data-site-panel="adventures">Adventures</a>
           <a href="#rules" data-site-tab="rules" data-site-panel="rules">Rules</a>
           <a href="#openings" data-site-tab="openings" data-site-panel="openings">Openings</a>
-        </div>
-        <div class="nav-group" aria-label="Practice">
-          <span class="nav-group-label">Play</span>
+          </div>
+        </details>
+        <details class="nav-group" aria-label="Practice">
+          <summary class="nav-group-label">Play</summary>
+          <div class="nav-menu">
           <a class="is-quick-tab" href="#play" data-site-tab="play" data-site-panel="play">Play AI</a>
           <a class="is-quick-tab" href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
           <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
-        </div>
-        <div class="nav-group" aria-label="Study">
-          <span class="nav-group-label">Study</span>
+          </div>
+        </details>
+        <details class="nav-group" aria-label="Study">
+          <summary class="nav-group-label">Study</summary>
+          <div class="nav-menu">
           <a href="#videos" data-site-tab="videos" data-site-panel="videos">Videos</a>
           <a href="#books" data-site-tab="books" data-site-panel="books">Books</a>
           <a href="#notation" data-site-tab="notation" data-site-panel="notation">Notation</a>
           <a class="is-quick-tab" href="#plan" data-site-tab="plan" data-site-panel="plan">Plan</a>
-        </div>
-        <div class="nav-group" aria-label="Account">
-          <span class="nav-group-label">You</span>
-          <a href="#login" data-site-tab="login" data-site-panel="login" id="loginNavLink">Login</a>
-        </div>
+          </div>
+        </details>
+        <a href="#login" data-site-tab="login" data-site-panel="login" id="loginNavLink">Login</a>
       </div>
     </nav>
   </header>
@@ -4750,12 +5378,18 @@
             <p>Start with tiny missions, 60-second tricks, friendly puzzles, and a coach that rewards progress instead of pressure.</p>
             <div class="hero-actions">
               <a class="button" href="#paths" id="newToChessButton">I'm new to chess</a>
-              <a class="button secondary" href="#puzzles">Try a Puzzle</a>
+              <a class="button secondary" href="#puzzles" data-home-action="daily-puzzle">Try a Puzzle</a>
             </div>
             <div class="home-start-flow" aria-label="Start here">
               <a class="home-step" href="#paths"><strong>1. Learn</strong><span>One tiny mission.</span></a>
-              <a class="home-step" href="#puzzles"><strong>2. Try</strong><span>One mini puzzle.</span></a>
+              <a class="home-step" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="adaptive"><strong>2. Try</strong><span>One mini puzzle.</span></a>
               <a class="home-step" href="#play"><strong>3. Play</strong><span>Ask the coach why.</span></a>
+            </div>
+            <div class="trust-strip" aria-label="Site promises">
+              <span>Free learning</span>
+              <span>No account required</span>
+              <span>Legal book sources</span>
+              <span>Official chess rules</span>
             </div>
           </div>
           <div class="home-dashboard" aria-label="Personal chess dashboard">
@@ -4766,11 +5400,16 @@
               <span class="home-stat" id="homeXp">0 XP</span>
               <span class="home-stat" id="homeProgress">0 lessons done</span>
             </div>
+            <div class="next-step-card" aria-live="polite">
+              <strong>Next best step</strong>
+              <span id="homeNextReason">Solve one puzzle, then stop while it still feels fun.</span>
+              <a class="button" href="#puzzles" id="homeNextAction">Start 3-minute quest</a>
+            </div>
             <div class="quick-practice" aria-label="Quick practice">
-              <a class="button secondary" href="#puzzles">2-minute practice</a>
-              <a class="button secondary" href="#puzzles">5 puzzles</a>
-              <a class="button secondary" href="#videos">One endgame</a>
-              <a class="button secondary" href="#puzzles">Checkmate challenge</a>
+              <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="adaptive">2-minute practice</a>
+              <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="Puzzle Rush">5 puzzles</a>
+              <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="Endgames">One endgame</a>
+              <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="Checkmates">Checkmate challenge</a>
             </div>
             <p id="homeInsight">One puzzle today is better than none.</p>
             <div class="game-reward-row" id="homeUnlocks" aria-label="Unlocked rewards"></div>
@@ -4793,20 +5432,75 @@
           <div class="login-card">
             <p class="eyebrow">Start friendly</p>
             <h3>Your quest remembers you</h3>
-            <p>Pick a chess name and the site will greet you, keep your progress visible, and guide you to the next tiny win.</p>
+            <p>Pick a chess name and Checkmate Quest turns your practice into a tiny RPG: one goal, one reward, one friendly coach tip at a time.</p>
             <div class="login-perks" aria-label="Profile perks">
-              <span>XP path</span>
-              <span>Daily streak</span>
-              <span>Coach tips</span>
+              <span><strong>XP path</strong><small>Level up from Explorer to Legend with lessons, puzzles, and calm games.</small></span>
+              <span><strong>Daily streak</strong><small>Keep a small habit alive with short no-pressure practice.</small></span>
+              <span><strong>Coach tips</strong><small>Get one simple next step instead of confusing analysis.</small></span>
             </div>
-            <a class="button secondary" href="#plan">See Today's Plan</a>
+            <ul class="login-quest-list" aria-label="Player pass benefits">
+              <li><b>1</b><span>Resume your last lesson and recommended puzzle instantly.</span></li>
+              <li><b>2</b><span>Unlock avatars, board themes, badges, and titles as you improve.</span></li>
+              <li><b>3</b><span>Turn mistakes into practice: forks, hanging pieces, king safety, or endgames.</span></li>
+            </ul>
+            <div class="login-progress-preview" aria-label="Sample player progress">
+              <span>Next tiny win: +20 XP</span>
+              <div aria-hidden="true"><i></i></div>
+              <p>Save your pass, solve one puzzle, then the coach suggests tomorrow's move.</p>
+            </div>
+            <div class="login-card-actions">
+              <a class="button" href="#plan">See Today's Plan</a>
+              <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="adaptive">Try 2-minute practice</a>
+            </div>
           </div>
           <div class="login-pass">
-            <div class="login-avatar" id="loginAvatar" aria-hidden="true">CQ</div>
+            <div class="login-avatar" id="loginAvatar" aria-hidden="true">🐉</div>
             <div>
               <h3 id="loginDisplayName">Guest Explorer</h3>
               <p id="loginDisplayMeta">Create your Player Pass to personalize the journey.</p>
             </div>
+            <aside class="player-profile login-player-profile" aria-label="Player profile">
+              <div class="player-profile-top">
+                <div class="player-profile-row">
+                  <div class="player-profile-avatar" aria-hidden="true">🐉</div>
+                  <div class="player-profile-title">
+                    <span class="player-profile-kicker">Pawn Rookie Avatar</span>
+                    <strong class="player-profile-name" data-profile-field="name">Guest Explorer</strong>
+                    <span class="player-profile-level" data-profile-field="level">Level 1 Explorer</span>
+                  </div>
+                </div>
+                <button class="player-profile-save" type="button" data-player-profile-save>
+                  <span aria-hidden="true">💾</span>
+                  <span data-profile-save-state>Saved</span>
+                </button>
+              </div>
+              <div class="player-profile-stats" aria-label="Profile stats">
+                <div class="player-profile-stat">
+                  <strong data-profile-field="streak">0</strong>
+                  <span>Day Streak</span>
+                </div>
+                <div class="player-profile-stat">
+                  <strong data-profile-field="xp">0</strong>
+                  <span>XP</span>
+                </div>
+                <div class="player-profile-stat">
+                  <strong data-profile-field="tokens">0</strong>
+                  <span>Dragon Tokens</span>
+                </div>
+              </div>
+              <div>
+                <div class="player-profile-progress-labels">
+                  <strong class="player-profile-rank" data-profile-field="rank">Rank: Explorer</strong>
+                  <span data-profile-field="progress">0%</span>
+                </div>
+                <div class="player-profile-progress" aria-hidden="true">
+                  <span data-profile-progress-fill></span>
+                </div>
+                <p class="player-profile-next" data-profile-field="next">Next Level: 80 XP</p>
+              </div>
+              <div class="player-profile-missions" data-profile-missions aria-label="Today's Mission"></div>
+              <div class="player-profile-achievements" data-profile-achievements aria-label="Achievements"></div>
+            </aside>
             <form class="login-form" id="loginForm">
               <label for="loginName">Chess name
                 <input id="loginName" name="loginName" autocomplete="nickname" maxlength="24" placeholder="Example: Alex" required />
@@ -5151,31 +5845,37 @@
             <span class="mission-label">Lesson 1 replacement</span>
             <h3>&#128052; The Knight's Secret Jump Mission</h3>
             <p>The trickster jumper must rescue a trapped pawn by leaping over two guards and landing in the perfect L-shaped hideout.</p>
+            <button class="button secondary" type="button" data-open-puzzle="The Knight's Secret Jump Mission">Play Puzzle</button>
           </article>
           <article class="mission-card">
             <span class="mission-label">Movement story</span>
             <h3>&#128120; The Queen's Superhero Rescue</h3>
             <p>The queen races down a file, cuts across a diagonal, and saves the nervous boss by attacking the enemy's strongest piece.</p>
+            <button class="button secondary" type="button" data-open-puzzle="The Queen's Superhero Rescue">Play Puzzle</button>
           </article>
           <article class="mission-card">
             <span class="mission-label">Board control</span>
             <h3>&#127984; The Rook's Castle Wall Patrol</h3>
             <p>The rook opens a file like a castle gate, then patrols the whole hallway so no enemy can sneak through.</p>
+            <button class="button secondary" type="button" data-open-puzzle="The Rook's Castle Wall Patrol">Play Puzzle</button>
           </article>
           <article class="mission-card">
             <span class="mission-label">Diagonal vision</span>
             <h3>&#9962; The Bishop's Hidden Sniper Trail</h3>
             <p>The bishop waits on a quiet diagonal until one pawn moves, revealing a long-range attack across the kingdom.</p>
+            <button class="button secondary" type="button" data-open-puzzle="The Bishop's Hidden Sniper Trail">Play Puzzle</button>
           </article>
           <article class="mission-card">
             <span class="mission-label">Pawn power</span>
             <h3>&#9823;&#65039; The Rookie Soldier's Promotion Quest</h3>
             <p>The pawn survives one square at a time, dodges captures, and reaches the final rank to become a new hero.</p>
+            <button class="button secondary" type="button" data-open-puzzle="The Rookie Soldier's Promotion Quest">Play Puzzle</button>
           </article>
           <article class="mission-card">
             <span class="mission-label">King safety</span>
             <h3>&#128081; Protect the Nervous Boss</h3>
             <p>The whole team builds a shield, castles the king away from danger, and checks every move for hidden threats.</p>
+            <button class="button secondary" type="button" data-open-puzzle="Protect the Nervous Boss">Play Puzzle</button>
           </article>
         </div>
 
@@ -6285,6 +6985,7 @@
               <button class="mission-button" type="button" data-game-difficulty="easy" aria-pressed="true">Easy</button>
               <button class="mission-button" type="button" data-game-difficulty="medium" aria-pressed="false">Medium</button>
               <button class="mission-button" type="button" data-game-difficulty="hard" aria-pressed="false">Hard</button>
+              <button class="mission-button" type="button" data-game-difficulty="strong" aria-pressed="false">2000 Bot</button>
             </div>
             <p class="simple-coach" id="gameCoach">Loading chess.js so every move follows official chess rules.</p>
             <div class="guided-review" id="guidedReview" hidden aria-live="polite">
@@ -6304,8 +7005,9 @@
             </div>
             <div class="move-history" id="moveHistory" aria-label="Move history"></div>
             <p class="trainer-note" id="gamePgn">PGN appears here after export.</p>
-            <div class="puzzle-actions">
+            <div class="puzzle-actions play-actions">
               <button class="button secondary" type="button" id="undoGame">Undo</button>
+              <button class="button secondary" type="button" id="toggleBot">Bot On</button>
               <button class="button secondary" type="button" id="restartGame">Restart</button>
               <button class="button secondary" type="button" id="flipGame">Flip Board</button>
               <button class="button secondary" type="button" id="whyGame">Why?</button>
@@ -6330,6 +7032,13 @@
         </div>
 
         <div class="puzzle-shell">
+          <nav class="puzzle-side-nav" aria-label="Puzzle menu">
+            <button type="button" data-puzzle-plan="main" aria-pressed="true">Puzzles</button>
+            <button type="button" data-puzzle-focus="themes">Puzzle Themes</button>
+            <button type="button" data-puzzle-focus="dashboard">Puzzle Dashboard</button>
+            <button type="button" data-puzzle-plan="Puzzle Streaks" aria-pressed="false">Puzzle Streak</button>
+            <button type="button" data-puzzle-plan="Puzzle Rush" aria-pressed="false">Puzzle Storm</button>
+          </nav>
           <div class="puzzle-board-wrap" aria-label="Chess puzzle position">
             <div class="puzzle-board" id="puzzleBoard"></div>
             <div class="coordinates" aria-hidden="true" id="coordinates"></div>
@@ -6348,7 +7057,6 @@
             </div>
             <div class="trainer-patterns puzzle-tags" id="puzzleTags" aria-label="Puzzle themes"></div>
             <div class="mission-selector puzzle-plan-selector" role="group" aria-label="Study plan puzzle track">
-              <button class="mission-button" type="button" data-puzzle-plan="all" aria-pressed="true">All</button>
               <button class="mission-button" type="button" data-puzzle-plan="adaptive" aria-pressed="false">Adaptive</button>
               <button class="mission-button" type="button" data-puzzle-plan="Beginner" aria-pressed="false">Beginner</button>
               <button class="mission-button" type="button" data-puzzle-plan="Intermediate" aria-pressed="false">Intermediate</button>
@@ -6361,7 +7069,6 @@
               <button class="mission-button" type="button" data-puzzle-plan="Endgames" aria-pressed="false">Endgames</button>
               <button class="mission-button" type="button" data-puzzle-plan="Defense" aria-pressed="false">Defense</button>
               <button class="mission-button" type="button" data-puzzle-plan="Opening tactics" aria-pressed="false">Openings</button>
-              <button class="mission-button" type="button" data-puzzle-plan="Puzzle Rush" aria-pressed="false">Puzzle Rush</button>
               <button class="mission-button" type="button" data-puzzle-plan="Puzzle Adventure" aria-pressed="false">Adventure</button>
               <button class="mission-button" type="button" data-puzzle-plan="Boss Puzzle" aria-pressed="false">Boss</button>
             </div>
@@ -6791,7 +7498,226 @@
       }
     ];
 
+    function buildQuickPuzzleBatch(mode, seeds) {
+      return seeds.map(([title, level, theme, fen, target, move, hint, feedback], index) => ({
+        level,
+        mode,
+        theme,
+        side: "White to move",
+        title: `${mode} ${String(index + 1).padStart(2, "0")}: ${title}`,
+        prompt: "Fast mission: find the one move that wins the moment.",
+        fen,
+        targets: [target],
+        hint,
+        line: [move],
+        answers: [
+          { move, correct: true },
+          { move: "Look again", correct: false },
+          { move: "Try safer", correct: false }
+        ],
+        feedback
+      }));
+    }
+
     const puzzles = [
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Forks",
+        side: "White to move",
+        title: "The Knight's Secret Jump Mission",
+        prompt: "Jump to the L-shaped hideout and attack two big targets.",
+        fen: "r2qkbnr/pppp2pp/8/6N1/8/8/PPPPPPPP/RNBQKB1R",
+        targets: ["f7"],
+        hint: "The knight on g5 can jump to f7.",
+        line: ["Nf7"],
+        answers: [
+          { move: "Nf7", correct: true },
+          { move: "Nh7", correct: false },
+          { move: "Ne4", correct: false }
+        ],
+        feedback: "Nf7 uses the knight's L-shape to fork the queen on d8 and rook on h8."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Winning material",
+        side: "White to move",
+        title: "The Queen's Superhero Rescue",
+        prompt: "The queen removes the strongest attacker and gives check.",
+        fen: "4k3/8/8/4q2Q/8/8/8/4K3",
+        targets: ["e5"],
+        hint: "Move the queen straight left from h5 to e5.",
+        line: ["Qxe5+"],
+        answers: [
+          { move: "Qxe5+", correct: true },
+          { move: "Qh8+", correct: false },
+          { move: "Qh3", correct: false }
+        ],
+        feedback: "Qxe5+ wins the enemy queen and turns defense into a safe checking move."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Winning material",
+        side: "White to move",
+        title: "The Rook's Castle Wall Patrol",
+        prompt: "Use the open file like a hallway and capture the treasure.",
+        fen: "4k3/q7/8/8/8/8/8/R3K3",
+        targets: ["a7"],
+        hint: "The a-file is open for the rook.",
+        line: ["Rxa7"],
+        answers: [
+          { move: "Rxa7", correct: true },
+          { move: "Ra8+", correct: false },
+          { move: "Rh1", correct: false }
+        ],
+        feedback: "Rxa7 shows the rook's superpower: straight-line control on an open file."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Tactics",
+        side: "White to move",
+        title: "The Bishop's Hidden Sniper Trail",
+        prompt: "Follow the diagonal trail and catch the hidden queen.",
+        fen: "4k3/8/7q/8/8/8/8/2B1K3",
+        targets: ["h6"],
+        hint: "Bishops move diagonally. Trace c1-d2-e3-f4-g5-h6.",
+        line: ["Bxh6"],
+        answers: [
+          { move: "Bxh6", correct: true },
+          { move: "Bg5", correct: false },
+          { move: "Bb2", correct: false }
+        ],
+        feedback: "Bxh6 follows one clean diagonal and wins the queen."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Endgames",
+        side: "White to move",
+        title: "The Rookie Soldier's Promotion Quest",
+        prompt: "Reach the final rank and become a queen.",
+        fen: "k7/7P/5K2/8/8/8/8/8",
+        targets: ["h8"],
+        hint: "Push the h-pawn to h8 and choose queen.",
+        line: ["h8=Q+"],
+        answers: [
+          { move: "h8=Q+", correct: true },
+          { move: "Kf7", correct: false },
+          { move: "hxa8=Q", correct: false }
+        ],
+        feedback: "h8=Q+ shows why passed pawns are heroes: they can become a new queen."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Protect the Nervous Boss",
+        prompt: "Castle the king into shelter before the adventure gets wild.",
+        fen: "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+        targets: ["g1"],
+        hint: "Move the king two squares toward the rook: castle kingside.",
+        line: ["O-O"],
+        answers: [
+          { move: "O-O", correct: true },
+          { move: "Kd2", correct: false },
+          { move: "Rh1", correct: false }
+        ],
+        feedback: "O-O moves the king to safety and brings the rook closer to the game."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Classic Game 1: Legal's Trap",
+        prompt: "Real-game mini mission: ignore the queen loss and finish with a knight mate.",
+        fen: "rn1qkbnr/ppp2p1p/3p2p1/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6",
+        targets: ["f7", "d5"],
+        hint: "Start with Bxf7+. The bishop pulls the king onto a square where the knight can jump.",
+        line: ["Bxf7+", "Ke7", "Nd5#"],
+        answers: [
+          { move: "Bxf7+", correct: true },
+          { move: "Nxd1", correct: false },
+          { move: "Bxf7", correct: false }
+        ],
+        feedback: "Bxf7+ forces the king to e7, then Nd5# closes every escape square. This is the Legal mate pattern."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Classic Game 2: Morphy Opera Finale",
+        prompt: "Real-game continuation: every move is forcing, and the rook delivers the curtain call.",
+        fen: "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 0 16",
+        targets: ["b8", "d8"],
+        hint: "Start with Qb8+. If the knight captures, the rook owns the open file.",
+        line: ["Qb8+", "Nxb8", "Rd8#"],
+        answers: [
+          { move: "Qb8+", correct: true },
+          { move: "Rd8+", correct: false },
+          { move: "Qxe6+", correct: false }
+        ],
+        feedback: "Qb8+ deflects the knight. After Nxb8, Rd8# uses the pinned back rank from Morphy's Opera Game."
+      },
+      {
+        level: "Intermediate",
+        mode: "Puzzle Adventure",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Classic Game 3: Reti's King Walk",
+        prompt: "Real-game puzzle: sacrifice the queen, pull the king forward, then lock the diagonal.",
+        fen: "rnb1kb1r/pp3ppp/2p5/4q3/4n3/3Q4/PPPB1PPP/2KR1BNR w kq - 0 9",
+        targets: ["d8", "g5", "d8"],
+        hint: "Begin with Qd8+. The queen is bait; the bishop pair finishes the chase.",
+        line: ["Qd8+", "Kxd8", "Bg5+", "Kc7", "Bd8#"],
+        answers: [
+          { move: "Qd8+", correct: true },
+          { move: "Qxe4", correct: false },
+          { move: "Bg5", correct: false }
+        ],
+        feedback: "Qd8+ forces Kxd8, then Bg5+ drives the king to c7 and Bd8# seals the famous Reti-Tartakower finish."
+      },
+      {
+        level: "Advanced",
+        mode: "Puzzle Adventure",
+        theme: "Tactics",
+        side: "White to move",
+        title: "Classic Game 4: Immortal Spark",
+        prompt: "Real-game attack: sacrifice the queen and let the bishop give the final check.",
+        fen: "r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22",
+        targets: ["f6", "e7"],
+        hint: "Qf6+ looks impossible, but the bishop on d6 is waiting for the final square.",
+        line: ["Qf6+", "Nxf6", "Be7#"],
+        answers: [
+          { move: "Qf6+", correct: true },
+          { move: "Be7+", correct: false },
+          { move: "Nf6", correct: false }
+        ],
+        feedback: "Qf6+ deflects the knight. After Nxf6, Be7# completes Anderssen's Immortal Game mating picture."
+      },
+      {
+        level: "Advanced",
+        mode: "Boss Puzzle",
+        theme: "Tactics",
+        side: "Black to move",
+        title: "Classic Boss: Mate in 4 Trap",
+        prompt: "Continuation boss: four black moves, one clean trap line, no random guessing.",
+        fen: "r1bqkbnr/pppp1ppp/8/4N3/2BnP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 4",
+        targets: ["g5", "g2", "e4", "f3"],
+        hint: "Start with Qg5. Keep checking and pulling defenders away until Nf3# lands.",
+        line: ["Qg5", "Nxf7", "Qxg2", "Rf1", "Qxe4+", "Be2", "Nf3#"],
+        answers: [
+          { move: "Qg5", correct: true },
+          { move: "Qf6", correct: false },
+          { move: "Nxc2+", correct: false }
+        ],
+        feedback: "Qg5 attacks g2 and keeps threats alive. The line finishes with Qxe4+ and Nf3#, a classic mate-in-4 trap."
+      },
       {
         level: "Beginner",
         mode: "Puzzle Adventure",
@@ -7814,7 +8740,53 @@
           { move: "d5", correct: false }
         ],
         feedback: "Qh4# is the classic opening alarm. The king has no safe answer."
-      }
+      },
+      ...buildQuickPuzzleBatch("Puzzle Streaks", [
+        ["Back-rank bell", "Beginner", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/3R2K1", "d8", "Rd8#", "Use the open d-file.", "The rook reaches d8 and traps the boxed-in king."],
+        ["Corner hallway", "Beginner", "Checkmates", "7k/6pp/8/8/8/8/6PP/3R2K1", "d8", "Rd8#", "Slide the rook to the back rank.", "The rook controls the last rank while the pawns block escapes."],
+        ["A-file patrol", "Beginner", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/R5K1", "a8", "Ra8#", "The a-file is clear.", "Ra8# shows how a rook patrols a whole rank."],
+        ["Quiet rook climb", "Beginner", "Checkmates", "7k/6pp/8/8/8/8/6PP/R5K1", "a8", "Ra8#", "Climb to a8.", "The rook climbs the file and closes every door."],
+        ["Queen rescue", "Beginner", "Winning material", "4k3/8/8/4q2Q/8/8/8/4K3", "e5", "Qxe5+", "Capture the loose queen.", "Qxe5+ wins the strongest attacker with check."],
+        ["Diagonal queen grab", "Beginner", "Winning material", "4q2k/8/8/8/Q7/8/8/4K3", "e8", "Qxe8+", "Trace a4-b5-c6-d7-e8.", "The queen follows the diagonal and wins material."],
+        ["Castle treasure", "Beginner", "Winning material", "4k3/q7/8/8/8/8/8/R3K3", "a7", "Rxa7", "Move straight up the file.", "Rxa7 wins the queen because rooks love open files."],
+        ["H-file treasure", "Beginner", "Winning material", "4k3/7q/8/8/8/8/8/4K2R", "h7", "Rxh7", "The h-file is open.", "The rook races up the file and collects the queen."],
+        ["Sniper diagonal", "Beginner", "Tactics", "4k3/8/7q/8/8/8/8/2B1K3", "h6", "Bxh6", "Follow c1-d2-e3-f4-g5-h6.", "The bishop uses one clean diagonal to win the queen."],
+        ["Long bishop trail", "Beginner", "Tactics", "k7/6q1/8/8/8/8/1B6/4K3", "g7", "Bxg7", "Trace b2-c3-d4-e5-f6-g7.", "Bishops become powerful when the diagonal is open."],
+        ["Knight fork jump", "Beginner", "Forks", "r2qkbnr/pppp2pp/8/6N1/8/8/PPPPPPPP/RNBQKB1R", "f7", "Nf7", "Jump from g5 to f7.", "Nf7 attacks both the queen on d8 and rook on h8."],
+        ["Rook saves the day", "Beginner", "Defense", "4k3/8/8/8/8/8/4q3/4R1K1", "e2", "Rxe2+", "Take the queen on your file.", "Rxe2+ removes the threat and gives check."],
+        ["King captures danger", "Beginner", "Defense", "6k1/5ppp/8/8/8/8/5qPP/6K1", "f2", "Kxf2", "The queen on f2 is loose.", "Kxf2 is calm defense: remove the attacker."],
+        ["Promotion spark", "Beginner", "Endgames", "k7/7P/5K2/8/8/8/8/8", "h8", "h8=Q+", "Push to the final rank.", "h8=Q+ turns the rookie pawn into a queen."],
+        ["Queen back-rank", "Intermediate", "Checkmates", "4q2k/6pp/8/7Q/8/8/8/4K3", "e8", "Qxe8#", "Capture on e8.", "Qxe8# wins the queen and finishes the king."],
+        ["Rook checkpoint", "Intermediate", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/4R1K1", "e8", "Re8#", "The e-file is open.", "Re8# is a clean back-rank finish."],
+        ["Bishop treasure map", "Intermediate", "Winning material", "k7/7q/8/8/8/8/2B5/4K3", "h7", "Bxh7", "Follow c2-d3-e4-f5-g6-h7.", "The bishop follows the treasure map and wins material."],
+        ["Queen straight rescue", "Intermediate", "Winning material", "4k3/8/8/7q/8/8/8/4K2Q", "h5", "Qxh5", "Move straight up the h-file.", "Qxh5 removes the loose queen."],
+        ["Rook file snack", "Intermediate", "Winning material", "4k3/8/8/r7/8/8/8/R3K3", "a5", "Rxa5", "The rook moves straight up.", "Rxa5 wins the rook on the open file."],
+        ["Last-rank hero", "Intermediate", "Endgames", "7k/6P1/5K2/8/8/8/8/8", "g8", "g8=Q+", "Promote the g-pawn.", "g8=Q+ rewards the passed pawn."
+        ]
+      ]),
+      ...buildQuickPuzzleBatch("Puzzle Rush", [
+        ["Speed mate d-file", "Beginner", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/3R2K1", "d8", "Rd8#", "Open file, back rank.", "Fast eyes spot the back-rank mate."],
+        ["Speed mate a-file", "Beginner", "Checkmates", "7k/6pp/8/8/8/8/6PP/R5K1", "a8", "Ra8#", "Race to a8.", "The rook hits the final rank before the king can breathe."],
+        ["Rush queen capture", "Beginner", "Winning material", "4k3/8/8/4q2Q/8/8/8/4K3", "e5", "Qxe5+", "Take with check.", "Qxe5+ is the quickest safe win."],
+        ["Rush diagonal capture", "Beginner", "Tactics", "4k3/8/7q/8/8/8/8/2B1K3", "h6", "Bxh6", "One diagonal wins.", "The bishop wins the queen in one move."],
+        ["Rush rook treasure", "Beginner", "Winning material", "4k3/q7/8/8/8/8/8/R3K3", "a7", "Rxa7", "Open file.", "The rook grabs treasure on a7."],
+        ["Rush knight fork", "Beginner", "Forks", "r2qkbnr/pppp2pp/8/6N1/8/8/PPPPPPPP/RNBQKB1R", "f7", "Nf7", "Jump to f7.", "The knight attacks two heavy pieces."],
+        ["Rush shield", "Beginner", "Defense", "6k1/5ppp/8/8/8/8/5qPP/6K1", "f2", "Kxf2", "Capture the attacker.", "Defense is easy when the attacker is loose."],
+        ["Rush promotion", "Beginner", "Endgames", "k7/7P/5K2/8/8/8/8/8", "h8", "h8=Q+", "Promote now.", "A pawn becomes a queen and changes the game."],
+        ["Speed queen mate", "Intermediate", "Checkmates", "4q2k/6pp/8/7Q/8/8/8/4K3", "e8", "Qxe8#", "Capture with mate.", "Qxe8# is a winning capture and checkmate."],
+        ["Speed rook mate", "Intermediate", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/4R1K1", "e8", "Re8#", "Use the e-file.", "The rook finishes on e8."],
+        ["Speed bishop map", "Intermediate", "Winning material", "k7/7q/8/8/8/8/2B5/4K3", "h7", "Bxh7", "Trace the diagonal.", "The bishop wins the corner treasure."],
+        ["Speed queen file", "Intermediate", "Winning material", "4k3/8/8/7q/8/8/8/4K2Q", "h5", "Qxh5", "Same file.", "The queen climbs and captures."],
+        ["Speed rook file", "Intermediate", "Winning material", "4k3/8/8/r7/8/8/8/R3K3", "a5", "Rxa5", "Same file.", "The rook wins the rook."],
+        ["Speed g-pawn", "Intermediate", "Endgames", "7k/6P1/5K2/8/8/8/8/8", "g8", "g8=Q+", "Push to g8.", "Promotion gives you a new queen."],
+        ["Speed h-file", "Intermediate", "Winning material", "4k3/7q/8/8/8/8/8/4K2R", "h7", "Rxh7", "Straight up.", "The rook wins along the open h-file."],
+        ["Speed diagonal queen", "Intermediate", "Winning material", "4q2k/8/8/8/Q7/8/8/4K3", "e8", "Qxe8+", "Diagonal capture.", "The queen wins material with tempo."],
+        ["Speed bishop long", "Intermediate", "Tactics", "k7/6q1/8/8/8/8/1B6/4K3", "g7", "Bxg7", "Long diagonal.", "The bishop uses distance as power."],
+        ["Speed rook check", "Intermediate", "Defense", "4k3/8/8/8/8/8/4q3/4R1K1", "e2", "Rxe2+", "Remove the queen.", "Rxe2+ defends and checks."],
+        ["Speed corner mate", "Advanced", "Checkmates", "7k/6pp/8/8/8/8/6PP/3R2K1", "d8", "Rd8#", "Back rank.", "The final rank is locked."],
+        ["Speed final hero", "Advanced", "Endgames", "k7/7P/5K2/8/8/8/8/8", "h8", "h8=Q+", "Promote with confidence.", "The pawn reaches the finish line."
+        ]
+      ])
     ];
 
     const freeChessBooks = [
@@ -8958,8 +9930,8 @@
     const puzzleStorageKey = "checkmateQuest.puzzles.v1";
     const puzzlePlanLevels = ["Beginner", "Intermediate", "Advanced"];
     const puzzlePatternPlans = ["Forks", "Pins", "Back-rank mates", "Checkmates", "Tactics", "Defense", "Opening tactics", "Endgames", "Winning material"];
-    const puzzleModePlans = ["Puzzle Rush", "Puzzle Adventure", "Boss Puzzle"];
-    const puzzlePlanOptions = ["all", "adaptive", ...puzzlePlanLevels, ...puzzlePatternPlans, ...puzzleModePlans];
+    const puzzleModePlans = ["Puzzle Streaks", "Puzzle Rush", "Puzzle Adventure", "Boss Puzzle"];
+    const puzzlePlanOptions = ["all", "main", "adaptive", ...puzzlePlanLevels, ...puzzlePatternPlans, ...puzzleModePlans];
     const learnerLevels = [
       ["Level 1 Explorer", 0],
       ["Level 5 Adventurer", 80],
@@ -8970,9 +9942,20 @@
       ["Level 75 Grandmaster", 1700],
       ["Level 100 Legend", 2500]
     ];
+    const profileAvatars = [
+      { xp: 0, icon: "♙", label: "Pawn Rookie Avatar" },
+      { xp: 80, icon: "♞", label: "Knight Adventurer Avatar" },
+      { xp: 180, icon: "♜", label: "Castle Guardian Avatar" },
+      { xp: 360, icon: "♛", label: "Queen Hero Avatar" },
+      { xp: 700, icon: "♚", label: "King Defender Avatar" },
+      { xp: 1100, icon: "💎", label: "Crystal Master Avatar" },
+      { xp: 1700, icon: "🐉", label: "Pet Dragon Avatar" },
+      { xp: 2500, icon: "👑", label: "Legend Crown Avatar" }
+    ];
     const savedPuzzleState = readPuzzleState();
     let currentPuzzle = Math.max(0, Math.min(puzzles.length - 1, Number(savedPuzzleState.currentPuzzle) || 0));
     let activePuzzlePlan = puzzlePlanOptions.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
+    if (activePuzzlePlan === "all") activePuzzlePlan = "main";
     if (puzzlePlanLevels.includes(activePuzzlePlan) && puzzles[currentPuzzle]?.level !== activePuzzlePlan) {
       currentPuzzle = puzzles.findIndex((puzzle) => puzzle.level === activePuzzlePlan);
       if (currentPuzzle < 0) currentPuzzle = 0;
@@ -8991,6 +9974,7 @@
     let puzzleLineStep = 0;
     let puzzleStartAt = 0;
     let puzzleTimerId = 0;
+    let puzzleAutoNextTimer = 0;
     let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
     let puzzleXp = Math.max(0, Number(savedPuzzleState.xp) || 0);
     let puzzleCoins = Math.max(0, Number(savedPuzzleState.coins) || 0);
@@ -9054,6 +10038,7 @@
     const storyStorageKey = "checkmateQuest.story.v1";
     const learnerPrefsStorageKey = "checkmateQuest.preferences.v1";
     const learnerProfileStorageKey = "checkmateQuest.profile.v1";
+    const dragonProfileStorageKey = "checkmateQuest.dragonProfile.v1";
     let storyState = readJsonStorage(storyStorageKey, { completed: [], stars: 0 });
     let activeBookLevel = "all";
     let activeBookCategory = "all";
@@ -9488,6 +10473,7 @@
       const modePlan = puzzleModePlans.includes(activePuzzlePlan);
       let indexes = puzzles
         .map((puzzle, index) => activePuzzlePlan === "all"
+          || (activePuzzlePlan === "main" && !["Puzzle Rush", "Puzzle Streaks"].includes(puzzle.mode))
           || puzzle.level === level
           || (patternPlan && getPuzzlePattern(puzzle) === activePuzzlePlan)
           || (modePlan && puzzle.mode === activePuzzlePlan)
@@ -9501,6 +10487,15 @@
         const recommendedIndexes = indexes.filter((index) => getPuzzlePattern(puzzles[index]) === smart.type);
         if (recommendedIndexes.length) indexes = recommendedIndexes;
       }
+      if (!["Puzzle Rush", "Puzzle Streaks"].includes(activePuzzlePlan)) {
+        const seenFens = new Set();
+        indexes = indexes.filter((index) => {
+          const key = puzzles[index].fen;
+          if (seenFens.has(key)) return false;
+          seenFens.add(key);
+          return true;
+        });
+      }
       return indexes;
     }
 
@@ -9513,18 +10508,44 @@
     }
 
     function renderPuzzlePlanButtons() {
+      document.querySelectorAll(".puzzle-side-nav button").forEach((button) => {
+        button.setAttribute("aria-pressed", "false");
+      });
       document.querySelectorAll("[data-puzzle-plan]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.puzzlePlan === activePuzzlePlan));
       });
     }
 
     function setPuzzlePlan(plan) {
-      activePuzzlePlan = puzzlePlanOptions.includes(plan) ? plan : "all";
+      activePuzzlePlan = puzzlePlanOptions.includes(plan) ? plan : "main";
+      document.querySelector(".puzzle-plan-selector")?.classList.remove("is-open");
       const indexes = getActivePuzzleIndexes();
       if (!indexes.includes(currentPuzzle)) {
         currentPuzzle = indexes.find((index) => !solvedPuzzles.has(index)) ?? indexes[0] ?? 0;
       }
       renderPuzzle();
+    }
+
+    function focusPuzzlePanel(target, button) {
+      document.querySelectorAll(".puzzle-side-nav button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      const themes = document.querySelector(".puzzle-plan-selector");
+      const panel = target === "dashboard" ? document.querySelector(".puzzle-progress-drawer") : themes;
+      themes?.classList.toggle("is-open", target === "themes");
+      if (target === "dashboard" && panel) panel.open = true;
+      panel?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function openPuzzleByTitle(title) {
+      const index = puzzles.findIndex((puzzle) => puzzle.title === title);
+      if (index < 0) return;
+      activePuzzlePlan = "Puzzle Adventure";
+      currentPuzzle = index;
+      renderPuzzle();
+      document.querySelector('[data-site-tab="puzzles"]')?.click();
+      window.setTimeout(() => {
+        document.getElementById("feedback").textContent = `${title} loaded. Make the hero move to finish the mission.`;
+        if (CoachChess) startPuzzle();
+      }, 140);
     }
 
     function startMiniGame(plan) {
@@ -9541,6 +10562,24 @@
       document.getElementById("feedback").textContent = `${names[plan] || "Mini-game"} started. No pressure: solve one position and collect rewards.`;
       startPuzzle();
       document.getElementById("puzzles")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function runHomeAction(action, plan = "main") {
+      if (action === "daily-puzzle") {
+        document.querySelector('[data-site-tab="puzzles"]')?.click();
+        window.setTimeout(() => {
+          activePuzzlePlan = "main";
+          currentPuzzle = getDailyPuzzleIndex();
+          renderPuzzle();
+          startPuzzle();
+        }, 120);
+        return;
+      }
+
+      if (action === "puzzle-plan") {
+        document.querySelector('[data-site-tab="puzzles"]')?.click();
+        window.setTimeout(() => startMiniGame(plan || "main"), 120);
+      }
     }
 
     function updatePuzzleStats() {
@@ -9630,7 +10669,9 @@
       const beforeLevel = getLearnerLevel(puzzleXp).current[0];
       puzzleXp += amount;
       weeklyPuzzleXp[today] = (Number(weeklyPuzzleXp[today]) || 0) + amount;
-      return { levelUp: getLearnerLevel(puzzleXp).current[0] !== beforeLevel };
+      const levelUp = getLearnerLevel(puzzleXp).current[0] !== beforeLevel;
+      requestAnimationFrame(() => renderPlayerProfile());
+      return { levelUp };
     }
 
     function addPuzzleCoins(amount) {
@@ -9678,6 +10719,163 @@
       const current = learnerLevels.reduce((best, level) => xp >= level[1] ? level : best, learnerLevels[0]);
       const next = learnerLevels.find((level) => level[1] > xp);
       return { current, next };
+    }
+
+    function getProfileAvatar(xp) {
+      return profileAvatars.reduce((best, avatar) => xp >= avatar.xp ? avatar : best, profileAvatars[0]);
+    }
+
+    function formatProfileNumber(value) {
+      return new Intl.NumberFormat("en-US").format(Math.max(0, Math.round(Number(value) || 0)));
+    }
+
+    function readDragonProfile() {
+      const fallback = {
+        name: "Guest Explorer",
+        level: "Level 1 Explorer",
+        rank: "Explorer",
+        streak: 0,
+        xp: 0,
+        tokens: 0,
+        progress: 0,
+        nextLevelXp: 80,
+        missions: { puzzles: false, win: false, forks: false }
+      };
+      const saved = readJsonStorage(dragonProfileStorageKey, null);
+      const savedProfile = saved && typeof saved === "object" ? saved : {};
+      const isOldDemo = savedProfile.name === "Nana Casey" && Number(savedProfile.xp) === 2450 && Number(savedProfile.tokens) === 320;
+      const profileSource = isOldDemo ? {} : savedProfile;
+      return {
+        ...fallback,
+        ...profileSource,
+        missions: {
+          ...fallback.missions,
+          ...((profileSource && profileSource.missions) || {})
+        }
+      };
+    }
+
+    function saveDragonProfileSnapshot(snapshot) {
+      if (!snapshot) return;
+      writeJsonStorage(dragonProfileStorageKey, {
+        name: snapshot.name,
+        level: snapshot.level,
+        rank: snapshot.rank,
+        streak: snapshot.streak,
+        xp: snapshot.xp,
+        tokens: snapshot.tokens,
+        avatar: snapshot.avatar,
+        avatarLabel: snapshot.avatarLabel,
+        progress: snapshot.progress,
+        nextLevelXp: snapshot.nextLevelXp,
+        missions: snapshot.missionState,
+        updatedAt: new Date().toISOString()
+      });
+    }
+
+    function getDragonProfileSnapshot() {
+      const profile = readDragonProfile();
+      const learnerName = String(readLearnerProfile().name || "").trim();
+      const profileXp = Math.max(0, Number(profile.xp) || 0);
+      const xp = Math.max(profileXp, puzzleXp);
+      const tokens = Math.max(Math.max(0, Number(profile.tokens) || 0), puzzleCoins);
+      const profileStreak = Math.max(0, Number(profile.streak) || 0);
+      const dayStreak = Math.max(profileStreak, dailyHabit.streak);
+      const levelState = getLearnerLevel(xp);
+      const currentXp = levelState.current[1];
+      const nextXpTarget = levelState.next?.[1] || Math.max(xp, currentXp + 1);
+      const progressFill = levelState.next ? ((xp - currentXp) / (nextXpTarget - currentXp)) * 100 : 100;
+      const level = levelState.current[0];
+      const avatar = getProfileAvatar(xp);
+      const rank = xp >= 700 || gameStats.wins > 0 ? "Castle Defender" : solvedPuzzles.size >= 5 ? "Puzzle Defender" : "Explorer";
+      const progress = Math.round(Math.min(100, Math.max(0, progressFill)));
+      const nextLevelXp = levelState.next ? Math.max(0, levelState.next[1] - xp) : 0;
+      const missionState = {
+        puzzles: Boolean(profile.missions.puzzles) || solvedPuzzles.size >= 5,
+        win: Boolean(profile.missions.win) || gameStats.wins >= 1,
+        forks: Boolean(profile.missions.forks) || getSolvedPuzzleCountByPattern("Forks") > 0
+      };
+      const missions = [
+        ["puzzles", "Solve 5 puzzles", missionState.puzzles, missionState.puzzles ? "Done" : `${Math.min(5, solvedPuzzles.size)}/5`],
+        ["win", "Win 1 game", missionState.win, missionState.win ? "Done" : `${Math.min(1, gameStats.wins)}/1`],
+        ["forks", "Learn Forks", missionState.forks, missionState.forks ? "Done" : "Ready"]
+      ].map(([id, label, done, meta]) => ({ id, label, done, meta }));
+      const achievements = [
+        ["🏅", "Puzzle Medal", missionState.puzzles],
+        ["🎖", "Streak Ribbon", dayStreak >= 14],
+        ["👑", "Castle Crown", /castle/i.test(rank) || gameStats.wins > 0],
+        ["💎", "Token Gem", tokens >= 320],
+        ["⚔", "Fork Blade", missionState.forks || bestPuzzleStreak >= 3]
+      ].map(([icon, label, unlocked]) => ({ icon, label, unlocked }));
+
+      return {
+        name: learnerName || profile.name,
+        level,
+        avatar: avatar.icon,
+        avatarLabel: avatar.label,
+        rank,
+        streak: dayStreak,
+        xp,
+        tokens,
+        progress,
+        nextLevelXp,
+        missionState,
+        missions,
+        achievements
+      };
+    }
+
+    function renderPlayerProfile() {
+      const profile = getDragonProfileSnapshot();
+      const setProfileText = (selector, value) => {
+        document.querySelectorAll(selector).forEach((element) => {
+          element.textContent = value;
+        });
+      };
+
+      saveDragonProfileSnapshot(profile);
+      setProfileText('[data-profile-field="name"]', profile.name);
+      setProfileText(".player-profile-avatar", profile.avatar);
+      setProfileText(".player-profile-kicker", profile.avatarLabel);
+      setProfileText("#loginAvatar", profile.avatar);
+      setProfileText('[data-profile-field="level"]', `⭐ ${profile.level}`);
+      setProfileText('[data-profile-field="streak"]', formatProfileNumber(profile.streak));
+      setProfileText('[data-profile-field="xp"]', formatProfileNumber(profile.xp));
+      setProfileText('[data-profile-field="tokens"]', formatProfileNumber(profile.tokens));
+      setProfileText('[data-profile-field="rank"]', `Rank: ${profile.rank}`);
+      setProfileText('[data-profile-field="progress"]', `${profile.progress}%`);
+      setProfileText('[data-profile-field="next"]', profile.nextLevelXp ? `Next Level: ${formatProfileNumber(profile.nextLevelXp)} XP` : "Legend path complete");
+      setProfileText("[data-profile-save-state]", "Saved");
+      document.querySelectorAll("[data-profile-progress-fill]").forEach((fill) => {
+        fill.style.width = `${profile.progress}%`;
+      });
+      document.querySelectorAll(".player-profile-avatar").forEach((avatar) => {
+        if (avatar.dataset.profileLevel === profile.level) return;
+        avatar.dataset.profileLevel = profile.level;
+        avatar.classList.remove("is-levelup");
+        void avatar.offsetWidth;
+        avatar.classList.add("is-levelup");
+      });
+      document.querySelectorAll("[data-profile-missions]").forEach((missionList) => {
+        missionList.replaceChildren(...profile.missions.map((mission) => {
+          const row = document.createElement("div");
+          row.className = "player-profile-mission";
+          row.append(
+            createBookText("span", "", `${mission.done ? "✓" : "□"} ${mission.label}`),
+            createBookText("span", "", mission.meta)
+          );
+          return row;
+        }));
+      });
+      document.querySelectorAll("[data-profile-achievements]").forEach((achievementList) => {
+        achievementList.replaceChildren(...profile.achievements.map((achievement) => {
+          const badge = createBookText("span", `player-profile-achievement${achievement.unlocked ? "" : " is-locked"}`, achievement.icon);
+          badge.title = `${achievement.label}: ${achievement.unlocked ? "unlocked" : "locked"}`;
+          badge.setAttribute("aria-label", badge.title);
+          return badge;
+        }));
+      });
+      return profile;
     }
 
     function getDailyChallengeName() {
@@ -9751,38 +10949,69 @@
       const welcome = document.getElementById("homeWelcome");
       const recs = document.getElementById("homeRecommendations");
       const unlocks = document.getElementById("homeUnlocks");
+      const nextReason = document.getElementById("homeNextReason");
+      const nextAction = document.getElementById("homeNextAction");
       if (!welcome || !recs) return;
 
       const shortLessonsDone = readShortLessonState().completed.length;
       const lessonCount = completedPathLessons.size + shortLessonsDone;
-      const level = getLearnerLevel(puzzleXp).current[0];
+      const profileSnapshot = renderPlayerProfile();
+      const level = profileSnapshot?.level || getLearnerLevel(puzzleXp).current[0];
       const needsTactics = puzzleAttempts > puzzleCorrect;
       const completedToday = dailyHabit.rewardDate === getTodayKey();
       const nextLesson = Math.max(1, lessonCount + 1);
       const focus = getSingleCoachFocus();
-      const profileName = String(readLearnerProfile().name || "").trim();
+      const profileName = String(profileSnapshot?.name || readLearnerProfile().name || "").trim();
+      const focusPuzzlePlan = needsTactics ? "Forks"
+        : puzzlePlanOptions.includes(focus.skill) ? focus.skill
+        : /endgame/i.test(focus.skill) ? "Endgames"
+          : /mate/i.test(focus.skill) ? "Checkmates"
+            : /opening/i.test(focus.skill) ? "Opening tactics"
+              : "adaptive";
+      const nextStep = needsTactics
+        ? ["Practice one tactic pattern before playing. This stops free-piece losses fast.", "#puzzles", "Train tactics", "puzzle-plan", "Tactics"]
+        : completedToday
+          ? [`Open Lesson ${nextLesson} and learn one tiny rule.`, "#paths", "Continue learning", "", ""]
+          : ["Solve today's puzzle for XP, coins, and a calmer board scan.", "#puzzles", "Start daily puzzle", "daily-puzzle", ""];
       const recommendations = [
-        [`Continue Lesson ${nextLesson}`, "#paths"],
-        [completedToday ? "Continue Learning" : "Puzzle of the Day", "#puzzles"],
-        [needsTactics ? "Fork Practice" : focus.related, needsTactics ? "#puzzles" : focus.href],
-        ["Practice Mistakes", "#play"]
+        { label: `Continue Lesson ${nextLesson}`, href: "#paths" },
+        { label: completedToday ? "Continue Learning" : "Puzzle of the Day", href: "#puzzles", action: completedToday ? "" : "daily-puzzle" },
+        { label: needsTactics ? "Fork Practice" : focus.related, href: needsTactics ? "#puzzles" : focus.href, action: needsTactics || focus.href === "#puzzles" ? "puzzle-plan" : "", plan: focusPuzzlePlan },
+        { label: "Practice Mistakes", href: "#play" }
       ];
 
       welcome.textContent = profileName ? `Welcome back, ${profileName}!` : lessonCount || puzzleXp ? "Welcome back!" : "Welcome! Start with one tiny win.";
-      document.getElementById("homeStreak").textContent = `${dailyHabit.streak}-day streak`;
+      document.getElementById("homeStreak").textContent = `${profileSnapshot?.streak ?? dailyHabit.streak}-day streak`;
       document.getElementById("homeLevel").textContent = level;
-      document.getElementById("homeXp").textContent = `${puzzleXp} XP`;
+      document.getElementById("homeXp").textContent = `${formatProfileNumber(profileSnapshot?.xp ?? puzzleXp)} XP`;
       document.getElementById("homeProgress").textContent = `${lessonCount} lessons done`;
       document.getElementById("homeInsight").textContent = needsTactics
         ? "You struggled with tactics recently. Try one quick pattern."
         : `Single focus today: ${focus.practice}.`;
+      if (nextReason && nextAction) {
+        nextReason.textContent = nextStep[0];
+        nextAction.href = nextStep[1];
+        nextAction.textContent = nextStep[2];
+        if (nextStep[3]) nextAction.dataset.homeAction = nextStep[3];
+        else delete nextAction.dataset.homeAction;
+        if (nextStep[4]) nextAction.dataset.homePlan = nextStep[4];
+        else delete nextAction.dataset.homePlan;
+      }
 
-      if (unlocks) unlocks.replaceChildren(...getGameUnlocks().map((item) => createBookText("span", "game-unlock", item)));
-      recs.replaceChildren(...recommendations.map(([label, href]) => {
+      if (unlocks) unlocks.replaceChildren(...getGameUnlocks().slice(0, 4).map((item) => createBookText("span", "game-unlock", item)));
+      const seenRecommendations = new Set();
+      recs.replaceChildren(...recommendations.filter((item) => {
+        const key = `${item.label}|${item.href}`;
+        if (seenRecommendations.has(key)) return false;
+        seenRecommendations.add(key);
+        return true;
+      }).slice(0, 3).map((item) => {
         const link = document.createElement("a");
         link.className = "button secondary";
-        link.href = href;
-        link.textContent = label;
+        link.href = item.href;
+        link.textContent = item.label;
+        if (item.action) link.dataset.homeAction = item.action;
+        if (item.plan) link.dataset.homePlan = item.plan;
         return link;
       }));
     }
@@ -9945,7 +11174,9 @@
     }
 
     function getPuzzleFen(puzzle) {
-      return `${puzzle.fen} ${getPuzzleSideColor(puzzle)} - - 0 1`;
+      const fen = String(puzzle.fen || "").trim();
+      if (fen.split(/\s+/).length > 1) return fen;
+      return `${fen} ${getPuzzleSideColor(puzzle)} ${puzzle.castling || "-"} ${puzzle.enPassant || "-"} 0 1`;
     }
 
     function cleanPuzzleSan(move) {
@@ -10208,13 +11439,26 @@
       explanation.textContent = `Why it works: ${puzzles[currentPuzzle].feedback} ${smart.message} Try next: ${next?.title || "Daily Puzzle"}.`;
     }
 
+    function scheduleNextPuzzle() {
+      window.clearTimeout(puzzleAutoNextTimer);
+      puzzleAutoNextTimer = window.setTimeout(() => {
+        if (!activeAnswered || puzzleAnalyzeMode) return;
+        currentPuzzle = getNextPuzzleIndex();
+        renderPuzzle();
+      }, 1400);
+    }
+
     function startPuzzle() {
+      if (activeAnswered) {
+        retryPuzzle();
+        return;
+      }
       if (puzzleStarted && !activeAnswered) return;
       puzzleStarted = true;
       puzzleAnalyzeMode = false;
       activeAnswered = false;
       document.getElementById("puzzleComplete").hidden = true;
-      document.getElementById("startPuzzle").textContent = "Solving";
+      document.getElementById("startPuzzle").textContent = "Restart";
       document.getElementById("feedback").textContent = `Find the best move. ${getSmartPuzzleRecommendation().message}`;
       startPuzzleTimer();
       renderPuzzleBoard();
@@ -10253,6 +11497,7 @@
           addExtraRewards(reward);
           document.getElementById("feedback").textContent = `Solved! ${formatRewardText(reward)}${habitReward ? " +10 daily reward" : ""}. ${puzzle.feedback}`;
           showPuzzleComplete();
+          scheduleNextPuzzle();
           showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : puzzle.mode === "Boss Puzzle" ? "Boss cleared!" : "Puzzle solved!");
         } else {
           document.getElementById("feedback").textContent = `Good move: ${move.san}. ${reply ? `Coach reply: ${reply.san}. ` : ""}Keep following the line.`;
@@ -10512,6 +11757,7 @@
         flashPuzzleBoard("is-correct");
         playPuzzleTone("correct");
         showPuzzleComplete();
+        scheduleNextPuzzle();
         showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
       } else {
         puzzleAttempts += 1;
@@ -10548,6 +11794,7 @@
       puzzleMistakeCount = 0;
       puzzleStartAt = 0;
       puzzleHintStep = 0;
+      window.clearTimeout(puzzleAutoNextTimer);
       stopPuzzleTimer();
       resetPuzzleGame();
       document.getElementById("puzzleLevel").textContent = activePuzzlePlan === "adaptive"
@@ -10557,11 +11804,11 @@
       document.getElementById("puzzleTitle").textContent = puzzle.title;
       document.getElementById("puzzlePrompt").textContent = puzzle.prompt;
       document.getElementById("puzzleComplete").hidden = true;
-      document.getElementById("startPuzzle").textContent = "Start Puzzle";
+      document.getElementById("startPuzzle").textContent = CoachChess ? "Restart" : "Loading";
       document.getElementById("analyzePuzzle").setAttribute("aria-pressed", "false");
       hint.textContent = puzzle.hint;
       hint.classList.add("hidden");
-      feedback.textContent = CoachChess ? "Press Start Puzzle when you are ready." : "Loading chess.js puzzle rules...";
+      feedback.textContent = CoachChess ? "Auto-starting puzzle..." : "Loading chess.js puzzle rules...";
       document.getElementById("hintPuzzle").disabled = false;
       document.getElementById("hintPuzzle").textContent = "Hint";
       document.getElementById("revealPuzzle").disabled = false;
@@ -10581,6 +11828,7 @@
         button.addEventListener("click", () => handleAnswer(answer, button));
         answers.appendChild(button);
       });
+      if (CoachChess && puzzleGame) startPuzzle();
     }
 
     function retryPuzzle() {
@@ -10645,6 +11893,13 @@
     }
 
     const chessJsUrl = "https://cdn.jsdelivr.net/npm/chess.js@1.0.0/+esm";
+    const stockfishUrl = "https://cdn.jsdelivr.net/npm/stockfish@16.0.0/src/stockfish-nnue-16.js";
+    const stockfishLevels = {
+      easy: { skill: 1, elo: 1320, movetime: 350, label: "Easy engine" },
+      medium: { skill: 5, elo: 1500, movetime: 650, label: "Medium engine" },
+      hard: { skill: 10, elo: 1750, movetime: 1200, label: "Hard engine" },
+      strong: { skill: 16, elo: 2000, movetime: 3000, label: "2000 Elo engine" }
+    };
     const coachPieceSymbols = {
       w: { k: "\u2654", q: "\u2655", r: "\u2656", b: "\u2657", n: "\u2658", p: "\u2659" },
       b: { k: "\u265A", q: "\u265B", r: "\u265C", b: "\u265D", n: "\u265E", p: "\u265F" }
@@ -10663,6 +11918,7 @@
     let coachDifficulty = "easy";
     let coachFlipped = false;
     let coachThinking = false;
+    let coachBotPaused = false;
     let coachDrawAgreed = false;
     let coachMessage = "You are White. Select a piece to see legal moves.";
     let coachMoveToken = 0;
@@ -10674,6 +11930,11 @@
     let coachReviewMoments = [];
     let coachCurrentHanging = 0;
     let chessRulesPromise = null;
+    let stockfishWorker = null;
+    let stockfishReady = false;
+    let stockfishFailed = false;
+    let stockfishInitResolve = null;
+    let stockfishPending = null;
 
     async function loadChessRules() {
       if (CoachChess) return CoachChess;
@@ -10745,11 +12006,111 @@
     }
 
     function setCoachDifficulty(level) {
-      coachDifficulty = ["easy", "medium", "hard"].includes(level) ? level : "easy";
+      coachDifficulty = ["easy", "medium", "hard", "strong"].includes(level) ? level : "easy";
       document.querySelectorAll("[data-game-difficulty]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.gameDifficulty === coachDifficulty));
       });
-      document.getElementById("gameDifficultyBadge").textContent = `${coachDifficulty[0].toUpperCase()}${coachDifficulty.slice(1)} coach`;
+      const labels = { easy: "Easy coach", medium: "Medium coach", hard: "Hard coach", strong: "2000 Elo bot" };
+      document.getElementById("gameDifficultyBadge").textContent = labels[coachDifficulty] || "Easy coach";
+    }
+
+    function isCoachPlayablePiece(piece) {
+      if (!piece || !coachGame) return false;
+      return coachBotPaused ? piece.color === coachGame.turn() : piece.color === "w" && coachGame.turn() === "w";
+    }
+
+    function updateBotToggle() {
+      const button = document.getElementById("toggleBot");
+      if (!button) return;
+      button.textContent = coachBotPaused ? "Free Play" : "Bot On";
+      button.setAttribute("aria-pressed", String(coachBotPaused));
+    }
+
+    function moveToUci(move) {
+      return `${move.from}${move.to}${move.promotion || ""}`;
+    }
+
+    function findMoveByUci(moves, uci) {
+      return moves.find((move) => moveToUci(move) === uci) || null;
+    }
+
+    function handleStockfishLine(line) {
+      if (line === "uciok") {
+        stockfishWorker?.postMessage("isready");
+        return;
+      }
+      if (line === "readyok" && stockfishInitResolve) {
+        stockfishReady = true;
+        stockfishInitResolve(stockfishWorker);
+        stockfishInitResolve = null;
+        return;
+      }
+      if (line === "readyok" && stockfishPending?.stage === "config") {
+        stockfishPending.stage = "search";
+        stockfishWorker.postMessage(`position fen ${stockfishPending.fen}`);
+        stockfishWorker.postMessage(`go movetime ${stockfishPending.config.movetime}`);
+        return;
+      }
+      if (line.startsWith("bestmove ") && stockfishPending) {
+        const pending = stockfishPending;
+        stockfishPending = null;
+        window.clearTimeout(pending.timeout);
+        pending.resolve(line.split(/\s+/)[1] || "");
+      }
+    }
+
+    function loadStockfishWorker() {
+      if (stockfishFailed) return Promise.resolve(null);
+      if (stockfishReady && stockfishWorker) return Promise.resolve(stockfishWorker);
+      return new Promise((resolve) => {
+        try {
+          stockfishWorker = new Worker(stockfishUrl);
+          stockfishWorker.onmessage = (event) => handleStockfishLine(String(event.data || "").trim());
+          stockfishWorker.onerror = () => {
+            stockfishFailed = true;
+            if (stockfishPending) {
+              window.clearTimeout(stockfishPending.timeout);
+              stockfishPending.resolve("");
+              stockfishPending = null;
+            }
+            stockfishWorker = null;
+            if (stockfishInitResolve) stockfishInitResolve(null);
+            stockfishInitResolve = null;
+          };
+          stockfishInitResolve = resolve;
+          stockfishWorker.postMessage("uci");
+          window.setTimeout(() => {
+            if (!stockfishReady) {
+              stockfishFailed = true;
+              stockfishInitResolve?.(null);
+              stockfishInitResolve = null;
+            }
+          }, 2500);
+        } catch {
+          stockfishFailed = true;
+          resolve(null);
+        }
+      });
+    }
+
+    async function getStockfishMove(moves) {
+      const worker = await loadStockfishWorker();
+      if (!worker || !moves.length || stockfishPending) return null;
+      const config = stockfishLevels[coachDifficulty] || stockfishLevels.easy;
+      const fen = coachGame.fen();
+      const uci = await new Promise((resolve) => {
+        const timeout = window.setTimeout(() => {
+          stockfishPending = null;
+          try { worker.postMessage("stop"); } catch {}
+          resolve("");
+        }, config.movetime + 1300);
+        stockfishPending = { stage: "config", fen, config, resolve, timeout };
+        worker.postMessage(`setoption name Skill Level value ${config.skill}`);
+        worker.postMessage("setoption name UCI_LimitStrength value true");
+        worker.postMessage(`setoption name UCI_Elo value ${config.elo}`);
+        worker.postMessage("isready");
+      });
+      return findMoveByUci(moves, uci);
     }
 
     function scoreCoachMove(move, careful = false) {
@@ -10765,8 +12126,11 @@
         if (callCoachRule(coachGame, "isCheckmate", "in_checkmate")) score += 10000;
         if (callCoachRule(coachGame, "isCheck", "in_check")) score += 80;
         if (careful) {
-          const replyDanger = Math.max(0, ...coachGame.moves({ verbose: true }).map((reply) => reply.captured ? coachPieceValues[reply.captured] || 0 : 0));
-          score -= replyDanger * 0.45;
+          const replyMoves = coachGame.moves({ verbose: true });
+          const replyDanger = Math.max(0, ...replyMoves.map((reply) => reply.captured ? coachPieceValues[reply.captured] || 0 : 0));
+          const replyMate = replyMoves.some((reply) => reply.san.includes("#"));
+          score -= replyDanger * (coachDifficulty === "strong" ? 0.9 : 0.45);
+          if (replyMate) score -= 9000;
         }
         coachGame.undo();
       } catch {
@@ -10775,10 +12139,187 @@
       return score;
     }
 
+    function evaluateCoachPosition() {
+      if (callCoachRule(coachGame, "isCheckmate", "in_checkmate")) return coachGame.turn() === "w" ? 999999 : -999999;
+      if (callCoachRule(coachGame, "isDraw", "in_draw")) return 0;
+      let score = 0;
+      coachGame.board().forEach((row, r) => row.forEach((piece, c) => {
+        if (!piece) return;
+        const center = 18 - (Math.abs(3.5 - r) + Math.abs(3.5 - c)) * 4;
+        const advance = piece.color === "b" ? r : 7 - r;
+        const bonus = piece.type === "p" ? advance * 5 : ["n", "b"].includes(piece.type) ? center * 2 : piece.type === "q" ? center : 0;
+        score += (piece.color === "b" ? 1 : -1) * ((coachPieceValues[piece.type] || 0) + bonus);
+      }));
+      const mobility = coachGame.moves({ verbose: true }).length * 2;
+      return score + (coachGame.turn() === "b" ? mobility : -mobility) + getImmediateMaterialLoss("w") * 1.2 - getImmediateMaterialLoss("b") * 1.8;
+    }
+
+    function getCoachMovesForColor(color) {
+      if (coachGame.turn() === color) return coachGame.moves({ verbose: true });
+      if (!CoachChess) return [];
+      const fenParts = coachGame.fen().split(" ");
+      fenParts[1] = color;
+      try {
+        return new CoachChess(fenParts.join(" ")).moves({ verbose: true });
+      } catch {
+        return [];
+      }
+    }
+
+    function getCaptureDangerMap(color) {
+      const danger = new Map();
+      const enemy = color === "b" ? "w" : "b";
+      getCoachMovesForColor(enemy).forEach((move) => {
+        const target = coachGame.get(move.to);
+        if (target?.color === color) danger.set(move.to, Math.max(danger.get(move.to) || 0, coachPieceValues[target.type] || 0));
+      });
+      return danger;
+    }
+
+    function getReplyDanger(color) {
+      const enemy = color === "b" ? "w" : "b";
+      return Math.max(0, ...getCoachMovesForColor(enemy).map((move) => {
+        const target = coachGame.get(move.to);
+        if (move.san.includes("#")) return 200000;
+        return target?.color === color ? (coachPieceValues[target.type] || 0) * 12 - (coachPieceValues[move.piece] || 0) : 0;
+      }));
+    }
+
+    function getImmediateMaterialLoss(color) {
+      if (!CoachChess) return 0;
+      const enemy = color === "b" ? "w" : "b";
+      const fenParts = coachGame.fen().split(" ");
+      fenParts[1] = enemy;
+      try {
+        const testGame = new CoachChess(fenParts.join(" "));
+        return Math.max(0, ...testGame.moves({ verbose: true }).map((move) => {
+          const target = testGame.get(move.to);
+          if (target?.color !== color) return 0;
+          const targetValue = coachPieceValues[target.type] || 0;
+          testGame.move(toCoachMoveInput(move));
+          const recapture = testGame.moves({ verbose: true }).some((reply) => reply.to === move.to && reply.captured);
+          testGame.undo();
+          return recapture ? Math.max(0, targetValue - (coachPieceValues[move.piece] || 0)) : targetValue;
+        }));
+      } catch {
+        return 0;
+      }
+    }
+
+    function getStrongBookMove(moves) {
+      const line = coachGame.history().join(" ");
+      const book = {
+        e4: ["c5", "e5"],
+        d4: ["Nf6", "d5"],
+        c4: ["e5", "Nf6"],
+        Nf3: ["Nf6", "d5"],
+        "e4 c5 Nf3": ["d6", "Nc6"],
+        "e4 c5 Nf3 d6 d4": ["cxd4"],
+        "e4 c5 Nf3 d6 d4 cxd4 Nxd4": ["Nf6"],
+        "e4 e5 Nf3": ["Nc6", "Nf6"],
+        "e4 e5 Nf3 Nc6 Bb5": ["a6"],
+        "e4 e5 Nf3 Nc6 Bc4": ["Bc5", "Nf6"],
+        "d4 Nf6 c4": ["e6", "g6"],
+        "d4 Nf6 c4 e6 Nc3": ["Bb4"],
+        "d4 d5 c4": ["e6", "c6"],
+        "d4 d5 c4 e6 Nc3": ["Nf6", "Be7"],
+        "c4 e5 Nc3": ["Nf6", "Bb4"],
+        "Nf3 Nf6 c4": ["e6", "g6"]
+      };
+      return (book[line] || []).map((san) => moves.find((move) => move.san === san)).find(Boolean) || null;
+    }
+
+    function rankStrongMove(move, dangerMap = null) {
+      let score = getStrongOpeningBonus(move);
+      if (move.san.includes("#")) score += 100000;
+      if (move.san.includes("+")) score += 900;
+      if (move.captured) score += (coachPieceValues[move.captured] || 0) * 10 - (coachPieceValues[move.piece] || 0);
+      if (move.promotion) score += (coachPieceValues[move.promotion] || 800) * 8;
+      if (dangerMap?.has(move.from)) score += dangerMap.get(move.from) * 7;
+      if (["d4", "e4", "d5", "e5", "c4", "c5", "f4", "f5"].includes(move.to)) score += 45;
+      return score;
+    }
+
+    function getStrongCandidates(moves, limit, dangerMap = null) {
+      return moves
+        .map((move) => ({ move, rank: rankStrongMove(move, dangerMap) }))
+        .sort((a, b) => b.rank - a.rank)
+        .slice(0, Math.min(limit, moves.length))
+        .map((item) => item.move);
+    }
+
+    function searchCoachPosition(depth, alpha, beta, deadline) {
+      if (depth <= 0 || isCoachGameOver() || Date.now() > deadline) return evaluateCoachPosition();
+      const maximizing = coachGame.turn() === "b";
+      const moves = getStrongCandidates(coachGame.moves({ verbose: true }), depth > 2 ? 12 : depth > 1 ? 14 : 18);
+      let best = maximizing ? -Infinity : Infinity;
+      for (const move of moves) {
+        if (Date.now() > deadline) break;
+        coachGame.move(toCoachMoveInput(move));
+        const score = searchCoachPosition(depth - 1, alpha, beta, deadline);
+        coachGame.undo();
+        if (maximizing) {
+          best = Math.max(best, score);
+          alpha = Math.max(alpha, score);
+        } else {
+          best = Math.min(best, score);
+          beta = Math.min(beta, score);
+        }
+        if (beta <= alpha) break;
+      }
+      return best;
+    }
+
+    function getStrongOpeningBonus(move) {
+      if (coachGame.history().length > 16) return 0;
+      let bonus = 0;
+      if (move.flags.includes("k") || move.flags.includes("q")) bonus += 220;
+      if (move.piece === "n" && ["f6", "c6", "d7"].includes(move.to)) bonus += 120;
+      if (move.piece === "b" && ["e7", "d6", "b4", "g7"].includes(move.to)) bonus += 90;
+      if (move.piece === "p" && ["d5", "e5", "c5"].includes(move.to)) bonus += 70;
+      if (move.piece === "p" && move.from[1] !== "7" && !move.captured && !move.san.includes("+")) bonus -= 150;
+      if (move.piece === "q") bonus -= 120;
+      if (coachGame.history({ verbose: true }).some((old) => old.color === "b" && old.to === move.from)) bonus -= 70;
+      return bonus;
+    }
+
+    function chooseStrongCoachMove(moves) {
+      const bookMove = getStrongBookMove(moves);
+      if (bookMove) return bookMove;
+      const deadline = Date.now() + 3000;
+      const depth = coachGame.history().length < 36 ? 4 : 3;
+      const dangerMap = getCaptureDangerMap("b");
+      const beforeLoss = getImmediateMaterialLoss("b");
+      let bestMove = getStrongCandidates(moves, 1, dangerMap)[0] || moves[0];
+      let bestScore = -Infinity;
+      const safeCandidates = getStrongCandidates(moves, 24, dangerMap).filter((move) => {
+        if (move.san.includes("#")) return true;
+        coachGame.move(toCoachMoveInput(move));
+        const loss = getImmediateMaterialLoss("b");
+        coachGame.undo();
+        const gain = move.captured ? coachPieceValues[move.captured] || 0 : 0;
+        return loss <= Math.max(beforeLoss + 90, gain + (move.san.includes("+") ? 260 : 120));
+      });
+      for (const move of (safeCandidates.length ? safeCandidates : getStrongCandidates(moves, 8, dangerMap))) {
+        if (Date.now() > deadline) break;
+        coachGame.move(toCoachMoveInput(move));
+        const score = searchCoachPosition(depth - 1, -Infinity, Infinity, deadline);
+        const danger = getReplyDanger("b") + getImmediateMaterialLoss("b") * 9;
+        coachGame.undo();
+        const total = score + rankStrongMove(move, dangerMap) * 0.05 - danger * 1.4;
+        if (total > bestScore) {
+          bestScore = total;
+          bestMove = move;
+        }
+      }
+      return bestMove;
+    }
+
     function chooseCoachMove() {
       const moves = coachGame.moves({ verbose: true });
+      if (coachDifficulty === "strong") return chooseStrongCoachMove(moves);
       const scored = moves
-        .map((move) => ({ move, score: scoreCoachMove(move, coachDifficulty === "hard") }))
+        .map((move) => ({ move, score: scoreCoachMove(move, ["hard", "strong"].includes(coachDifficulty)) }))
         .sort((a, b) => b.score - a.score);
 
       if (coachDifficulty === "easy") {
@@ -10788,6 +12329,11 @@
       const poolSize = coachDifficulty === "medium" ? 4 : 2;
       const pool = scored.slice(0, Math.min(poolSize, scored.length));
       return pool[Math.floor(Math.random() * pool.length)].move;
+    }
+
+    async function chooseCoachMoveAsync() {
+      const moves = coachGame.moves({ verbose: true });
+      return await getStockfishMove(moves) || chooseCoachMove();
     }
 
     function choosePromotion(legalMoves) {
@@ -11024,7 +12570,7 @@
         statusBadge.textContent = drawReason || "Draw";
         coach.textContent = `${drawReason || "Draw"}. ${buildCoachSummary()}`;
       } else {
-        statusBadge.textContent = isCoachCheck() ? "Check" : "Playing";
+        statusBadge.textContent = coachBotPaused ? "Free play" : isCoachCheck() ? "Check" : "Playing";
         coach.textContent = coachMessage;
       }
 
@@ -11035,6 +12581,7 @@
       document.getElementById("undoGame").disabled = coachThinking || !coachGame.history().length;
       document.getElementById("replayMistake").disabled = coachThinking || !coachReplayFen;
       document.getElementById("showThreats").setAttribute("aria-pressed", String(coachThreatMode));
+      updateBotToggle();
     }
 
     function renderCoachBoard() {
@@ -11059,7 +12606,7 @@
         if (squareNameValue === checkedKing) square.classList.add("in-check");
         if (threatSquares.has(squareNameValue)) square.classList.add("threat");
         if (coachThinking) square.classList.add("is-ai-thinking");
-        square.draggable = Boolean(piece && piece.color === "w" && coachGame.turn() === "w" && !coachThinking && !isCoachGameOver());
+        square.draggable = Boolean(piece && isCoachPlayablePiece(piece) && !coachThinking && !isCoachGameOver());
         square.textContent = piece ? coachPieceSymbols[piece.color][piece.type] : "";
         square.setAttribute("aria-label", `${squareNameValue}${piece ? ` ${piece.color === "w" ? "white" : "black"} ${piece.type}` : " empty"}`);
         square.addEventListener("dragstart", (event) => {
@@ -11131,40 +12678,62 @@
     }
 
     function handleCoachSquare(square) {
-      if (!coachGame || coachThinking || coachGame.turn() !== "w" || isCoachGameOver()) return;
+      if (!coachGame || coachThinking || isCoachGameOver()) return;
       const piece = coachGame.get(square);
-      if (coachSelected && square !== coachSelected && makeCoachMove(coachSelected, square)) return;
 
-      if (piece && piece.color === "w") {
+      if (coachSelected && square !== coachSelected && coachLegalMoves.some((move) => move.to === square)) {
+        makeCoachMove(coachSelected, square);
+        return;
+      }
+
+      if (coachSelected === square) {
+        coachSelected = "";
+        coachLegalMoves = [];
+        coachMessage = "Selection cleared. Choose a piece when you are ready.";
+        renderCoachBoard();
+        return;
+      }
+
+      if (piece && isCoachPlayablePiece(piece)) {
         coachSelected = square;
         coachLegalMoves = coachGame.moves({ square, verbose: true });
         coachMessage = `${coachLegalMoves.length} legal move${coachLegalMoves.length === 1 ? "" : "s"} highlighted. Pick one that keeps your pieces safe.`;
-      } else {
-        coachSelected = "";
-        coachLegalMoves = [];
-        coachMessage = "Choose one of your white pieces first.";
+        renderCoachBoard();
+        return;
       }
+
+      coachSelected = "";
+      coachLegalMoves = [];
+      coachMessage = coachBotPaused
+        ? `Choose a ${coachGame.turn() === "w" ? "white" : "black"} piece to move.`
+        : "Choose one of your white pieces first.";
       renderCoachBoard();
     }
 
     function queueCoachReply() {
-      if (isCoachGameOver() || coachGame.turn() !== "b") return;
+      if (coachBotPaused || isCoachGameOver() || coachGame.turn() !== "b") return;
       const token = ++coachMoveToken;
       coachThinking = true;
-      coachMessage = "Coach is thinking for a moment.";
+      const engineLabel = stockfishLevels[coachDifficulty]?.label || "Coach";
+      coachMessage = `${engineLabel} is calculating.`;
       renderCoachBoard();
 
-      window.setTimeout(() => {
+      window.setTimeout(async () => {
         if (token !== coachMoveToken || !coachGame || coachGame.turn() !== "b" || isCoachGameOver()) return;
-        const reply = chooseCoachMove();
-        const move = reply && coachGame.move(toCoachMoveInput(reply));
-        if (move) {
-          coachLastMove = move;
-          coachMessage = explainCoachMove(move);
+        try {
+          const reply = await chooseCoachMoveAsync();
+          if (token !== coachMoveToken || !coachGame || coachGame.turn() !== "b" || isCoachGameOver()) return;
+          const move = reply && coachGame.move(toCoachMoveInput(reply));
+          if (move) {
+            coachLastMove = move;
+            coachMessage = explainCoachMove(move);
+          }
+        } catch {
+          coachMessage = "The coach paused safely. Try another move or restart the game.";
         }
         coachThinking = false;
         renderCoachBoard();
-      }, coachDifficulty === "hard" ? 720 : 520);
+      }, 80);
     }
 
     function restartCoachGame() {
@@ -11175,6 +12744,7 @@
       coachLegalMoves = [];
       coachLastMove = null;
       coachThinking = false;
+      coachBotPaused = false;
       coachDrawAgreed = false;
       coachGameRecorded = false;
       coachMistakeNote = "";
@@ -11291,11 +12861,25 @@
       document.querySelectorAll("[data-game-difficulty]").forEach((button) => {
         button.addEventListener("click", () => {
           setCoachDifficulty(button.dataset.gameDifficulty);
-          coachMessage = `Difficulty set to ${coachDifficulty}. Keep it friendly and focus on one idea.`;
+          coachMessage = coachDifficulty === "strong"
+            ? "2000 bot ready. No pressure: try to survive, ask Why, and learn one idea."
+            : `Difficulty set to ${coachDifficulty}. Keep it friendly and focus on one idea.`;
           renderCoachBoard();
         });
       });
       document.getElementById("undoGame").addEventListener("click", undoCoachMove);
+      document.getElementById("toggleBot").addEventListener("click", () => {
+        coachBotPaused = !coachBotPaused;
+        coachMoveToken += 1;
+        coachThinking = false;
+        coachSelected = "";
+        coachLegalMoves = [];
+        coachMessage = coachBotPaused
+          ? "Free Play on. Move either side and test your ideas."
+          : "Bot on. You play White; the coach replies for Black.";
+        renderCoachBoard();
+        if (!coachBotPaused && coachGame.turn() === "b") queueCoachReply();
+      });
       document.getElementById("restartGame").addEventListener("click", restartCoachGame);
       document.getElementById("flipGame").addEventListener("click", () => {
         coachFlipped = !coachFlipped;
@@ -11316,6 +12900,7 @@
     function setupSiteTabs() {
       const panelIds = ["login", "paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
       const links = [...document.querySelectorAll("[data-site-tab]")];
+      const tabLinks = [...document.querySelectorAll("[data-site-tab], [data-home-link]")];
       const panels = panelIds
         .map((id) => document.getElementById(id))
         .filter(Boolean);
@@ -11349,18 +12934,45 @@
       }
 
       function clearActiveTabs() {
-        links.forEach((link) => {
+        tabLinks.forEach((link) => {
           link.classList.remove("is-active-tab");
           link.removeAttribute("aria-current");
         });
+        document.querySelectorAll(".nav-group").forEach((group) => {
+          group.classList.remove("is-active-group");
+        });
       }
+
+      function closeNavMenus() {
+        document.querySelectorAll(".nav-group[open]").forEach((group) => {
+          group.removeAttribute("open");
+        });
+      }
+
+      document.querySelectorAll(".nav-group").forEach((group) => {
+        group.addEventListener("toggle", () => {
+          if (!group.open) return;
+          document.querySelectorAll(".nav-group[open]").forEach((otherGroup) => {
+            if (otherGroup !== group) otherGroup.removeAttribute("open");
+          });
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        if (!target?.closest(".nav-links")) closeNavMenus();
+      });
 
       function showHome(shouldScroll = false) {
         document.body.classList.remove("site-tab-mode");
         clearActiveTabs();
+        const homeLink = document.querySelector("[data-home-link]");
+        homeLink?.classList.add("is-active-tab");
+        homeLink?.setAttribute("aria-current", "page");
+        closeNavMenus();
         panels.forEach((panel) => {
           panel.classList.remove("is-active-panel");
-          panel.removeAttribute("aria-hidden");
+          panel.setAttribute("aria-hidden", "true");
         });
 
         if (shouldScroll) {
@@ -11392,6 +13004,8 @@
         if (activeLink) {
           activeLink.classList.add("is-active-tab");
           activeLink.setAttribute("aria-current", "page");
+          activeLink.closest(".nav-group")?.classList.add("is-active-group");
+          closeNavMenus();
           activeLink.scrollIntoView({
             behavior: reduceMotion ? "auto" : "smooth",
             block: "nearest",
@@ -11487,8 +13101,8 @@
 
     function renderLearnerProfile() {
       const profile = readLearnerProfile();
+      const adventureProfile = renderPlayerProfile();
       const name = String(profile.name || "").trim();
-      const initials = name ? name.slice(0, 2).toUpperCase() : "CQ";
       const nav = document.getElementById("loginNavLink");
       const avatar = document.getElementById("loginAvatar");
       const displayName = document.getElementById("loginDisplayName");
@@ -11499,9 +13113,9 @@
       const goalField = document.getElementById("loginGoal");
 
       if (nav) nav.textContent = name ? `Hi, ${name.slice(0, 10)}` : "Login";
-      if (avatar) avatar.textContent = initials;
+      if (avatar) avatar.textContent = adventureProfile.avatar;
       if (displayName) displayName.textContent = name ? `${name}'s Player Pass` : "Guest Explorer";
-      if (displayMeta) displayMeta.textContent = name ? `${profile.level} - ${profile.goal}` : "Create your Player Pass to personalize the journey.";
+      if (displayMeta) displayMeta.textContent = name ? `${adventureProfile.level} - ${profile.goal}` : "Create your Player Pass to personalize the journey.";
       if (status) status.textContent = name ? "Ready. Your next tiny win is waiting." : "Saved only in this browser.";
       if (nameField && document.activeElement !== nameField) nameField.value = name;
       if (levelField) levelField.value = profile.level;
@@ -14173,12 +15787,28 @@
       button.addEventListener("click", () => setPuzzlePlan(button.dataset.puzzlePlan));
     });
 
+    document.querySelectorAll("[data-puzzle-focus]").forEach((button) => {
+      button.addEventListener("click", () => focusPuzzlePanel(button.dataset.puzzleFocus, button));
+    });
+
+    document.querySelectorAll("[data-open-puzzle]").forEach((button) => {
+      button.addEventListener("click", () => openPuzzleByTitle(button.dataset.openPuzzle));
+    });
+
     document.querySelectorAll("[data-mini-plan]").forEach((button) => {
       button.addEventListener("click", () => startMiniGame(button.dataset.miniPlan));
     });
 
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+      const trigger = target?.closest("[data-home-action]");
+      if (!trigger) return;
+      event.preventDefault();
+      runHomeAction(trigger.dataset.homeAction, trigger.dataset.homePlan);
+    });
+
     document.getElementById("dailyPuzzle").addEventListener("click", () => {
-      activePuzzlePlan = "all";
+      activePuzzlePlan = "main";
       currentPuzzle = getDailyPuzzleIndex();
       renderPuzzle();
     });
@@ -14211,6 +15841,19 @@
       const answer = document.getElementById("visionAnswerText");
       answer.hidden = !answer.hidden;
       document.getElementById("visionAnswer").textContent = answer.hidden ? "Show Answer" : "Hide Answer";
+    });
+
+    document.querySelectorAll("[data-player-profile-save]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-profile-save-state]").forEach((state) => {
+          state.textContent = "Saving";
+        });
+        const snapshot = renderPlayerProfile();
+        saveDragonProfileSnapshot(snapshot);
+        document.querySelectorAll("[data-profile-save-state]").forEach((state) => {
+          state.textContent = "Saved";
+        });
+      });
     });
 
     document.getElementById("nextAdventure").addEventListener("click", () => {
