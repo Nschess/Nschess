@@ -56,6 +56,21 @@
       --board-dark: #245cff;
     }
 
+    body.board-forest {
+      --board-light: #dce8c6;
+      --board-dark: #5f7f4a;
+    }
+
+    body.board-dragon {
+      --board-light: #f7dba7;
+      --board-dark: #8f3f2e;
+    }
+
+    body.board-sky {
+      --board-light: #e9f7ff;
+      --board-dark: #5f91c9;
+    }
+
     body.coords-off .coordinates {
       display: none;
     }
@@ -63,6 +78,42 @@
     body.piece-letter .puzzle-square {
       font-family: Inter, ui-sans-serif, system-ui, sans-serif;
       font-weight: 1000;
+    }
+
+    body.skin-gold .white-piece {
+      color: #fff3bf;
+      -webkit-text-stroke-color: rgba(104, 66, 20, 0.8);
+      text-shadow: 0 2px 8px rgba(231, 182, 93, 0.52), 0 3px 9px rgba(0, 0, 0, 0.34);
+    }
+
+    body.skin-gold .black-piece {
+      color: #4b2b13;
+      -webkit-text-stroke-color: rgba(255, 232, 157, 0.62);
+      text-shadow: 0 2px 8px rgba(231, 182, 93, 0.42), 0 3px 9px rgba(0, 0, 0, 0.34);
+    }
+
+    body.skin-crystal .white-piece {
+      color: #eafcff;
+      -webkit-text-stroke-color: rgba(38, 103, 142, 0.78);
+      text-shadow: 0 2px 10px rgba(111, 168, 220, 0.64), 0 3px 9px rgba(0, 0, 0, 0.34);
+    }
+
+    body.skin-crystal .black-piece {
+      color: #12364d;
+      -webkit-text-stroke-color: rgba(220, 251, 255, 0.62);
+      text-shadow: 0 2px 9px rgba(111, 168, 220, 0.45), 0 3px 9px rgba(0, 0, 0, 0.34);
+    }
+
+    body.skin-shadow .white-piece {
+      color: #f4ead9;
+      -webkit-text-stroke-color: rgba(34, 27, 23, 0.86);
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.42));
+    }
+
+    body.skin-shadow .black-piece {
+      color: #090706;
+      -webkit-text-stroke-color: rgba(244, 234, 217, 0.5);
+      filter: drop-shadow(0 0 7px rgba(231, 182, 93, 0.28));
     }
 
     body.speed-slow {
@@ -122,7 +173,7 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 24px;
+      gap: 14px;
       width: min(100% - 32px, var(--max));
       margin: 0 auto;
       min-height: 68px;
@@ -297,6 +348,115 @@
     .nav-links::-webkit-scrollbar-thumb {
       background: rgba(240, 217, 181, 0.42);
       border-radius: 999px;
+    }
+
+    .player-flex-chip {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: auto minmax(92px, 1fr) auto;
+      align-items: center;
+      gap: 9px;
+      min-width: 220px;
+      max-width: 320px;
+      padding: 6px 9px 6px 6px;
+      border: 1px solid rgba(231, 182, 93, 0.34);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(231, 182, 93, 0.2), transparent 34%),
+        linear-gradient(135deg, rgba(127, 166, 80, 0.18), rgba(111, 168, 220, 0.1)),
+        rgba(0, 0, 0, 0.22);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 26px rgba(0, 0, 0, 0.22);
+      transition: transform var(--move-speed) ease, border-color var(--move-speed) ease;
+    }
+
+    .player-flex-chip:hover,
+    .player-flex-chip:focus-visible,
+    .player-flex-chip.is-active-tab,
+    .player-flex-chip[aria-current="page"] {
+      border-color: rgba(231, 182, 93, 0.72);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .player-flex-chip .player-profile-avatar {
+      width: 42px;
+      height: 42px;
+      min-height: 42px;
+      border-radius: 10px;
+      font-size: 1.45rem;
+    }
+
+    .player-flex-main {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .player-flex-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 1000;
+      line-height: 1.05;
+    }
+
+    .player-flex-name [data-profile-field="name"] {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .player-flex-title {
+      overflow: hidden;
+      color: var(--gold);
+      font-size: 0.62rem;
+      font-weight: 1000;
+      letter-spacing: 0.05em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .player-flex-meta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .player-flex-progress {
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .player-flex-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .player-flex-achievements {
+      display: flex;
+      gap: 4px;
+    }
+
+    .player-flex-achievements .player-profile-achievement {
+      width: 24px;
+      min-height: 24px;
+      border-radius: 7px;
+      font-size: 0.9rem;
     }
 
     .site-panel,
@@ -602,6 +762,75 @@
       line-height: 1.2;
     }
 
+    .welcome-delta {
+      margin-top: -8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .welcome-delta.is-new {
+      color: var(--gold);
+    }
+
+    .coach-quote {
+      display: grid;
+      gap: 6px;
+      margin: 0 0 18px;
+      padding: 13px 15px;
+      border: 1px solid rgba(231, 182, 93, 0.25);
+      border-left: 5px solid var(--gold);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(231, 182, 93, 0.13), rgba(127, 166, 80, 0.08)),
+        rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+
+    .hero-copy .coach-quote,
+    .home-dashboard .coach-quote {
+      margin-top: 14px;
+      margin-bottom: 0;
+    }
+
+    .coach-quote strong {
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 1000;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .coach-quote p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .home-progress-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 2px;
+      color: var(--text);
+    }
+
+    .home-progress-title strong {
+      font-size: 0.9rem;
+      font-weight: 1000;
+    }
+
+    .home-progress-title span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-align: right;
+    }
+
     .player-profile {
       display: grid;
       gap: 14px;
@@ -613,6 +842,20 @@
         linear-gradient(135deg, rgba(127, 166, 80, 0.22), rgba(111, 168, 220, 0.14)),
         rgba(255, 255, 255, 0.07);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .login-pass-hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid rgba(231, 182, 93, 0.22);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    .login-pass-title {
+      min-width: 0;
     }
 
     .player-profile-top,
@@ -699,6 +942,55 @@
       outline: none;
     }
 
+    .player-avatar-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 8px;
+      scroll-snap-type: x proximity;
+    }
+
+    .avatar-choice {
+      min-width: 68px;
+      min-height: 64px;
+      display: grid;
+      place-items: center;
+      gap: 3px;
+      padding: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9px;
+      background: rgba(0, 0, 0, 0.16);
+      color: var(--text);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      scroll-snap-align: start;
+    }
+
+    .avatar-choice strong {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .avatar-choice span {
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .avatar-choice[aria-pressed="true"] {
+      border-color: rgba(231, 182, 93, 0.68);
+      background: rgba(231, 182, 93, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(231, 182, 93, 0.22);
+    }
+
+    .avatar-choice:disabled {
+      cursor: not-allowed;
+      filter: grayscale(1);
+      opacity: 0.48;
+    }
+
     .player-profile-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -747,10 +1039,25 @@
     }
 
     .player-profile-progress span {
+      position: relative;
       display: block;
       width: 68%;
       height: 100%;
+      overflow: hidden;
       background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .player-profile-progress span::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+      transform: translateX(-110%);
+    }
+
+    .player-profile-progress span.is-gaining::after {
+      animation: xpShine 760ms ease;
     }
 
     .player-profile-missions {
@@ -828,11 +1135,11 @@
     }
 
     .home-stat {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 38px;
-      padding: 0 12px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      min-height: 58px;
+      padding: 10px 12px;
       border: 1px solid rgba(231, 182, 93, 0.14);
       border-radius: 7px;
       background: rgba(231, 182, 93, 0.12);
@@ -840,6 +1147,24 @@
       font-size: 0.84rem;
       font-weight: 900;
       line-height: 1.2;
+    }
+
+    .home-stat strong {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .home-stat small {
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .home-stat.is-highlight {
+      border-color: rgba(127, 166, 80, 0.34);
+      background: rgba(127, 166, 80, 0.16);
     }
 
     .trust-strip,
@@ -1363,15 +1688,24 @@
       opacity: 0.72;
     }
 
-    .lesson-card.is-locked p:not(.lesson-lock-note),
     .lesson-card.is-locked .topic-list,
+    .lesson-card.is-locked .lesson-mission-note,
     .lesson-card.is-locked .lesson-card-footer {
       display: none;
+    }
+
+    .lesson-card.is-locked > p:not(.lesson-lock-note) {
+      color: var(--muted);
+      opacity: 0.78;
     }
 
     .lesson-lock-note {
       display: none;
       margin-top: auto;
+      padding: 10px 12px;
+      border: 1px solid rgba(231, 182, 93, 0.18);
+      border-radius: 7px;
+      background: rgba(231, 182, 93, 0.08);
       color: var(--muted);
       font-weight: 800;
     }
@@ -1380,16 +1714,34 @@
       display: block;
     }
 
+    .lesson-mission-note {
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(127, 166, 80, 0.28);
+      border-radius: 7px;
+      background: rgba(127, 166, 80, 0.1);
+      color: var(--soft);
+      font-size: 0.86rem;
+      font-weight: 850;
+    }
+
     .lesson-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin-top: auto;
       padding-top: 16px;
     }
 
+    .lesson-card-footer .button {
+      width: 100%;
+      min-height: 44px;
+      padding-inline: 10px;
+      text-align: center;
+    }
+
     .lesson-time {
+      grid-column: 1 / -1;
       color: var(--gold);
       font-size: 0.82rem;
       font-weight: 900;
@@ -3631,6 +3983,180 @@
       font-weight: 900;
     }
 
+    .store-shell {
+      display: grid;
+      gap: 16px;
+    }
+
+    .store-wallet {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid rgba(231, 182, 93, 0.28);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 92% 0%, rgba(231, 182, 93, 0.22), transparent 28%),
+        linear-gradient(135deg, rgba(127, 166, 80, 0.16), rgba(111, 168, 220, 0.12)),
+        var(--panel);
+    }
+
+    .store-wallet h3,
+    .store-wallet p,
+    .store-status {
+      margin: 0;
+    }
+
+    .store-balance {
+      min-width: 128px;
+      display: grid;
+      justify-items: center;
+      padding: 12px;
+      border: 1px solid rgba(231, 182, 93, 0.32);
+      border-radius: var(--radius);
+      background: rgba(231, 182, 93, 0.13);
+      color: var(--gold);
+      font-weight: 1000;
+    }
+
+    .store-balance strong {
+      color: var(--text);
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .store-card {
+      display: grid;
+      gap: 11px;
+      align-content: start;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .store-card.is-owned {
+      border-color: rgba(127, 166, 80, 0.46);
+    }
+
+    .store-card.is-equipped {
+      box-shadow: inset 0 0 0 2px rgba(231, 182, 93, 0.34);
+    }
+
+    .store-card h3,
+    .store-card p {
+      margin: 0;
+    }
+
+    .store-card h3 {
+      font-size: 1rem;
+    }
+
+    .store-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .store-preview {
+      min-height: 88px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    .store-preview-board {
+      width: 78px;
+      aspect-ratio: 1;
+      border: 4px solid rgba(0, 0, 0, 0.28);
+      border-radius: 6px;
+      background-color: var(--preview-light, var(--board-light));
+      background-image:
+        linear-gradient(45deg, var(--preview-dark, var(--board-dark)) 25%, transparent 25% 75%, var(--preview-dark, var(--board-dark)) 75%),
+        linear-gradient(45deg, var(--preview-dark, var(--board-dark)) 25%, transparent 25% 75%, var(--preview-dark, var(--board-dark)) 75%);
+      background-position: 0 0, 19.5px 19.5px;
+      background-size: 39px 39px;
+    }
+
+    .store-preview-pieces {
+      display: flex;
+      gap: 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .store-preview-pieces.skin-gold .white-piece {
+      color: #fff3bf;
+      -webkit-text-stroke-color: rgba(104, 66, 20, 0.8);
+    }
+
+    .store-preview-pieces.skin-gold .black-piece {
+      color: #4b2b13;
+      -webkit-text-stroke-color: rgba(255, 232, 157, 0.62);
+    }
+
+    .store-preview-pieces.skin-crystal .white-piece {
+      color: #eafcff;
+      -webkit-text-stroke-color: rgba(38, 103, 142, 0.78);
+    }
+
+    .store-preview-pieces.skin-crystal .black-piece {
+      color: #12364d;
+      -webkit-text-stroke-color: rgba(220, 251, 255, 0.62);
+    }
+
+    .store-preview-pieces.skin-shadow .white-piece {
+      color: #f4ead9;
+      -webkit-text-stroke-color: rgba(34, 27, 23, 0.86);
+    }
+
+    .store-preview-pieces.skin-shadow .black-piece {
+      color: #090706;
+      -webkit-text-stroke-color: rgba(244, 234, 217, 0.5);
+    }
+
+    .store-preview-flair {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(231, 182, 93, 0.15);
+      color: var(--gold);
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .store-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .store-meta span {
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .store-status {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
     .captured-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3897,12 +4423,26 @@
     }
 
     .progress-fill {
+      position: relative;
       display: block;
       width: 0;
       height: 100%;
+      overflow: hidden;
       border-radius: inherit;
       background: var(--green);
-      transition: width 180ms ease;
+      transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+      transform: translateX(-110%);
+    }
+
+    .progress-fill.is-gaining::after {
+      animation: xpShine 760ms ease;
     }
 
     .xp-meter {
@@ -3914,7 +4454,12 @@
 
     .xp-meter .progress-fill {
       background: linear-gradient(90deg, var(--green), var(--gold));
-      transition: width 420ms ease;
+    }
+
+    @keyframes xpShine {
+      to {
+        transform: translateX(110%);
+      }
     }
 
     .rpg-level-path {
@@ -4127,6 +4672,18 @@
       animation: confettiFall 900ms ease-out forwards;
     }
 
+    body.trail-stars .confetti-piece {
+      border-radius: 999px;
+      box-shadow: 0 0 10px rgba(231, 182, 93, 0.7);
+    }
+
+    body.trail-sparks .confetti-piece {
+      width: 5px;
+      height: 18px;
+      background: var(--gold) !important;
+      box-shadow: 0 0 12px rgba(231, 182, 93, 0.8);
+    }
+
     @keyframes confettiFall {
       to {
         transform: translateY(105vh) rotate(540deg);
@@ -4160,6 +4717,17 @@
 
     .celebration-toast span {
       font-weight: 900;
+    }
+
+    .celebration-toast.is-subtle {
+      border-color: rgba(127, 166, 80, 0.28);
+      background: rgba(35, 31, 28, 0.9);
+      animation-duration: 1200ms;
+    }
+
+    body.trail-sparks .celebration-toast,
+    body.trail-stars .celebration-toast {
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35), 0 0 22px rgba(231, 182, 93, 0.18);
     }
 
     @keyframes celebrationPop {
@@ -4775,9 +5343,17 @@
     @media (max-width: 760px) {
       .nav {
         align-items: center;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
         padding: 10px 0;
+      }
+
+      .player-flex-chip {
+        flex: 1 1 calc(100% - 46px);
+        min-width: 0;
+        max-width: none;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        order: 1;
       }
 
       .brand-mark {
@@ -4792,10 +5368,12 @@
       }
 
       .nav-links {
-        flex: 1 1 auto;
-        justify-content: flex-end;
+        flex: 1 0 100%;
+        order: 2;
+        justify-content: flex-start;
         gap: 4px;
-        overflow: visible;
+        overflow-x: auto;
+        overflow-y: visible;
         flex-wrap: nowrap;
         padding: 4px;
       }
@@ -4997,6 +5575,8 @@
       .trainer-summary,
       .trainer-check-grid,
       .preference-grid,
+      .store-wallet,
+      .store-grid,
       .training-task,
       .lesson-card-footer,
       .gentle-form,
@@ -5202,6 +5782,26 @@
         padding: 0 10px;
       }
 
+      .player-flex-chip {
+        padding-right: 7px;
+      }
+
+      .player-flex-chip .player-profile-avatar {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+        font-size: 1.28rem;
+      }
+
+      .player-flex-title,
+      .player-flex-achievements .player-profile-achievement:nth-child(n+4) {
+        display: none;
+      }
+
+      .player-flex-meta {
+        font-size: 0.6rem;
+      }
+
       .nav-group-label {
         font-size: 0.62rem;
       }
@@ -5215,6 +5815,19 @@
       .player-profile-save {
         width: 100%;
         justify-content: center;
+      }
+
+      .login-pass-hero,
+      .player-profile-row {
+        align-items: flex-start;
+      }
+
+      .login-avatar,
+      .player-profile-avatar {
+        width: 58px;
+        height: 58px;
+        min-height: 58px;
+        font-size: 1.9rem;
       }
 
       .player-profile-stats {
@@ -5241,6 +5854,7 @@
       .site-header,
       .hero,
       #paths,
+      #store,
       #adventures,
       #rules,
       #openings,
@@ -5332,6 +5946,21 @@
         <span class="brand-mark" aria-hidden="true">CQ</span>
         <span>Checkmate Quest</span>
       </a>
+      <a class="player-flex-chip" href="#login" data-site-tab="login" data-site-panel="login" aria-label="Open Player Pass">
+        <span class="player-profile-avatar" aria-hidden="true">♙</span>
+        <span class="player-flex-main">
+          <span class="player-flex-name">
+            <span data-profile-field="name">Guest Explorer</span>
+          </span>
+          <span class="player-flex-title" data-profile-field="rank">Rank: Explorer</span>
+          <span class="player-flex-progress" aria-hidden="true"><span data-profile-progress-fill></span></span>
+        </span>
+        <span class="player-flex-main">
+          <span class="player-flex-meta"><span data-profile-field="level">Level 1 Explorer</span></span>
+          <span class="player-flex-meta"><span data-profile-field="xp">0</span> XP · <span data-profile-field="tokens">0</span> coins</span>
+          <span class="player-flex-achievements" data-profile-achievements aria-label="Current badges"></span>
+        </span>
+      </a>
       <div class="nav-links" aria-label="Course section tabs">
         <a class="is-quick-tab" href="#top" data-home-link>Home</a>
         <details class="nav-group" aria-label="Learn">
@@ -5348,6 +5977,7 @@
           <div class="nav-menu">
           <a class="is-quick-tab" href="#play" data-site-tab="play" data-site-panel="play">Play AI</a>
           <a class="is-quick-tab" href="#puzzles" data-site-tab="puzzles" data-site-panel="puzzles">Puzzles</a>
+          <a href="#store" data-site-tab="store" data-site-panel="store">Store</a>
           <a href="#shorts" data-site-tab="shorts" data-site-panel="videos" data-site-focus="shorts">Shorts</a>
           </div>
         </details>
@@ -5360,7 +5990,6 @@
           <a class="is-quick-tab" href="#plan" data-site-tab="plan" data-site-panel="plan">Plan</a>
           </div>
         </details>
-        <a href="#login" data-site-tab="login" data-site-panel="login" id="loginNavLink">Login</a>
       </div>
     </nav>
   </header>
@@ -5394,11 +6023,18 @@
           </div>
           <div class="home-dashboard" aria-label="Personal chess dashboard">
             <h3 id="homeWelcome">Welcome back!</h3>
-            <div class="home-stat-grid">
-              <span class="home-stat" id="homeStreak">0-day streak</span>
-              <span class="home-stat" id="homeLevel">Level: Beginner</span>
-              <span class="home-stat" id="homeXp">0 XP</span>
-              <span class="home-stat" id="homeProgress">0 lessons done</span>
+            <div class="home-progress-title">
+              <strong>Progress Dashboard</strong>
+              <span>Small wins, real growth</span>
+            </div>
+            <p class="welcome-delta" id="homeWelcomeDelta">Your next tiny win is ready.</p>
+            <div class="home-stat-grid" aria-label="Progress dashboard">
+              <span class="home-stat"><strong id="homeGamesPlayed">0</strong><small>Games played</small></span>
+              <span class="home-stat"><strong id="homeThemesMastered">0</strong><small>Tactical themes mastered</small></span>
+              <span class="home-stat is-highlight"><strong id="homeStreak">0 days</strong><small>Current streak</small></span>
+              <span class="home-stat"><strong id="homeLearningTime">0 min</strong><small>Time spent learning</small></span>
+              <span class="home-stat"><strong id="homeSkillsUnlocked">0</strong><small>Skills unlocked</small></span>
+              <span class="home-stat"><strong id="homeXp">0 XP</strong><small>XP earned</small></span>
             </div>
             <div class="next-step-card" aria-live="polite">
               <strong>Next best step</strong>
@@ -5454,10 +6090,12 @@
             </div>
           </div>
           <div class="login-pass">
-            <div class="login-avatar" id="loginAvatar" aria-hidden="true">🐉</div>
-            <div>
-              <h3 id="loginDisplayName">Guest Explorer</h3>
-              <p id="loginDisplayMeta">Create your Player Pass to personalize the journey.</p>
+            <div class="login-pass-hero">
+              <div class="login-avatar" id="loginAvatar" aria-hidden="true">🐉</div>
+              <div class="login-pass-title">
+                <h3 id="loginDisplayName">Guest Explorer</h3>
+                <p id="loginDisplayMeta">Create your Player Pass to personalize the journey.</p>
+              </div>
             </div>
             <aside class="player-profile login-player-profile" aria-label="Player profile">
               <div class="player-profile-top">
@@ -5474,6 +6112,7 @@
                   <span data-profile-save-state>Saved</span>
                 </button>
               </div>
+              <div class="player-avatar-strip" data-avatar-strip aria-label="Choose profile avatar"></div>
               <div class="player-profile-stats" aria-label="Profile stats">
                 <div class="player-profile-stat">
                   <strong data-profile-field="streak">0</strong>
@@ -5528,6 +6167,34 @@
             </form>
             <p id="loginStatus" aria-live="polite">Saved only in this browser.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="store" class="section-dark" aria-labelledby="store-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Reward store</p>
+            <h2 id="store-title">Spend coins on your chess style</h2>
+          </div>
+          <p class="section-intro">Use coins from puzzles and games to unlock boards, piece skins, titles, and celebration effects. Everything is cosmetic and beginner-friendly.</p>
+        </div>
+        <div class="store-shell">
+          <div class="store-wallet" aria-live="polite">
+            <div>
+              <h3>Adventure wallet</h3>
+              <p>Earn coins by solving puzzles, using hints, reviewing mistakes, and finishing daily challenges.</p>
+              <p class="store-status" id="storeStatus">Pick a reward to unlock or equip.</p>
+            </div>
+            <div class="store-balance">
+              <strong id="storeCoinBalance">0</strong>
+              <span>coins</span>
+            </div>
+          </div>
+          <div class="game-reward-row" id="storeInventory" aria-label="Equipped rewards"></div>
+          <div class="store-grid" id="storeGrid" aria-label="Reward store items"></div>
+          <a class="button secondary" href="#puzzles" data-home-action="puzzle-plan" data-home-plan="adaptive">Earn more coins</a>
         </div>
       </div>
     </section>
@@ -6599,7 +7266,7 @@
               <div class="video-body">
                 <span class="badge">Mate</span><span class="badge duration">21:46</span>
                 <h3>Six checkmate patterns</h3>
-                <p>Learn mating shapes that come back again and again in real games.</p>
+                <p>Learn mating shapes that come back again and again in practical play.</p>
               </div>
             </article>
             <article class="video-card">
@@ -6940,6 +7607,9 @@
                 <option value="wood">Wooden</option>
                 <option value="marble">Marble</option>
                 <option value="neon">Neon</option>
+                <option value="forest">Forest Quest</option>
+                <option value="sky">Sky Kingdom</option>
+                <option value="dragon">Dragon Realm</option>
               </select>
             </label>
             <label>Pieces
@@ -7519,6 +8189,27 @@
       }));
     }
 
+    function buildGamePuzzleBatch(seeds) {
+      return seeds.map(([title, level, theme, side, fen, targets, line, hint, feedback], index) => ({
+        level,
+        mode: "Puzzle Adventure",
+        theme,
+        side,
+        title: `Game Puzzle ${String(index + 1).padStart(2, "0")}: ${title}`,
+        prompt: "Game-style mission: find the forcing move, then follow the continuation.",
+        fen,
+        targets,
+        hint,
+        line,
+        answers: [
+          { move: line[0], correct: true },
+          { move: "Check first", correct: false },
+          { move: "Try safer", correct: false }
+        ],
+        feedback
+      }));
+    }
+
     const puzzles = [
       {
         level: "Beginner",
@@ -7631,10 +8322,100 @@
       {
         level: "Beginner",
         mode: "Puzzle Adventure",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Mission Puzzle 1: Center Spark",
+        prompt: "Control the center with one brave pawn move.",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+        targets: ["e4"],
+        hint: "Put a pawn on e4 so it controls d5 and f5.",
+        line: ["e4"],
+        answers: [
+          { move: "e4", correct: true },
+          { move: "h4", correct: false },
+          { move: "a3", correct: false }
+        ],
+        feedback: "e4 grabs space and controls two center squares. That is the first opening habit."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Opening tactics",
+        side: "White to move",
+        title: "Mission Puzzle 2: Knight Wake-Up",
+        prompt: "Develop a piece toward the center before chasing attacks.",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+        targets: ["f3"],
+        hint: "The g1 knight wants f3, where it attacks e5 and d4.",
+        line: ["Nf3"],
+        answers: [
+          { move: "Nf3", correct: true },
+          { move: "Qh5", correct: false },
+          { move: "a4", correct: false }
+        ],
+        feedback: "Nf3 develops a knight, fights the center, and helps the king castle soon."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Mission Puzzle 3: Castle Shelter",
+        prompt: "Your path is clear. Move the king into safety.",
+        fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPPBPPP/RNBQK2R w KQkq - 2 3",
+        targets: ["g1"],
+        hint: "Castle kingside: the king moves two squares toward the rook.",
+        line: ["O-O"],
+        answers: [
+          { move: "O-O", correct: true },
+          { move: "Kd1", correct: false },
+          { move: "Ng5", correct: false }
+        ],
+        feedback: "O-O tucks the king away and brings the rook closer to the game."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Defense",
+        side: "White to move",
+        title: "Mission Puzzle 4: Save the Rook",
+        prompt: "The queen is attacking your rook. Protect your piece by removing the attacker.",
+        fen: "4k3/8/8/8/8/6q1/7P/6RK w - - 0 1",
+        targets: ["g3"],
+        hint: "Your rook can climb the g-file and capture the queen.",
+        line: ["Rxg3"],
+        answers: [
+          { move: "Rxg3", correct: true },
+          { move: "Kh1", correct: false },
+          { move: "Rg2", correct: false }
+        ],
+        feedback: "Rxg3 saves the rook and wins the queen. Protecting pieces often starts by checking what attacks them."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
+        theme: "Checkmates",
+        side: "White to move",
+        title: "Mission Puzzle 5: First Checkmate",
+        prompt: "Use developed pieces together and finish the game in one move.",
+        fen: "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/5N2/PPPP1PPP/RNB1K2R w KQkq - 0 4",
+        targets: ["f7"],
+        hint: "The bishop on c4 protects f7, so the queen can land there.",
+        line: ["Qxf7#"],
+        answers: [
+          { move: "Qxf7#", correct: true },
+          { move: "Qxe5+", correct: false },
+          { move: "Ng5", correct: false }
+        ],
+        feedback: "Qxf7# works because the queen attacks the king and the bishop protects the queen."
+      },
+      {
+        level: "Beginner",
+        mode: "Puzzle Adventure",
         theme: "Tactics",
         side: "White to move",
         title: "Classic Game 1: Legal's Trap",
-        prompt: "Real-game mini mission: ignore the queen loss and finish with a knight mate.",
+        prompt: "Classic-game mini mission: ignore the queen loss and finish with a knight mate.",
         fen: "rn1qkbnr/ppp2p1p/3p2p1/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6",
         targets: ["f7", "d5"],
         hint: "Start with Bxf7+. The bishop pulls the king onto a square where the knight can jump.",
@@ -7652,7 +8433,7 @@
         theme: "Tactics",
         side: "White to move",
         title: "Classic Game 2: Morphy Opera Finale",
-        prompt: "Real-game continuation: every move is forcing, and the rook delivers the curtain call.",
+        prompt: "Classic-game continuation: every move is forcing, and the rook delivers the curtain call.",
         fen: "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 0 16",
         targets: ["b8", "d8"],
         hint: "Start with Qb8+. If the knight captures, the rook owns the open file.",
@@ -7670,7 +8451,7 @@
         theme: "Tactics",
         side: "White to move",
         title: "Classic Game 3: Reti's King Walk",
-        prompt: "Real-game puzzle: sacrifice the queen, pull the king forward, then lock the diagonal.",
+        prompt: "Classic-game tactic: sacrifice the queen, pull the king forward, then lock the diagonal.",
         fen: "rnb1kb1r/pp3ppp/2p5/4q3/4n3/3Q4/PPPB1PPP/2KR1BNR w kq - 0 9",
         targets: ["d8", "g5", "d8"],
         hint: "Begin with Qd8+. The queen is bait; the bishop pair finishes the chase.",
@@ -7688,7 +8469,7 @@
         theme: "Tactics",
         side: "White to move",
         title: "Classic Game 4: Immortal Spark",
-        prompt: "Real-game attack: sacrifice the queen and let the bishop give the final check.",
+        prompt: "Classic-game attack: sacrifice the queen and let the bishop give the final check.",
         fen: "r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22",
         targets: ["f6", "e7"],
         hint: "Qf6+ looks impossible, but the bishop on d6 is waiting for the final square.",
@@ -7915,17 +8696,18 @@
         mode: "Puzzle Adventure",
         theme: "Endgames",
         side: "White to move",
-        title: "Endgame Trail: Promotion Light",
-        prompt: "Reach the last rank and make a queen.",
-        fen: "k7/7P/5K2/8/8/8/8/8",
-        targets: ["h8"],
-        hint: "Promote the h-pawn.",
+        title: "Endgame Trail: Opposition Step",
+        prompt: "Use your king first, then your pawn can run safely.",
+        fen: "8/8/4k3/3P4/2K5/8/8/8",
+        targets: ["c5"],
+        hint: "Step beside the pawn and take the important squares away.",
+        line: ["Kc5"],
         answers: [
-          { move: "h8=Q+", correct: true },
-          { move: "Kg7", correct: false },
-          { move: "h8=N", correct: false }
+          { move: "Kc5", correct: true },
+          { move: "d6", correct: false },
+          { move: "Kb4", correct: false }
         ],
-        feedback: "h8=Q+ creates a new queen and gives check along the diagonal."
+        feedback: "Kc5 uses opposition: the king protects the passer and blocks the defender."
       },
       {
         level: "Intermediate",
@@ -8153,11 +8935,12 @@
         mode: "Puzzle Adventure",
         theme: "Checkmates",
         side: "White to move",
-        title: "Lava Gate: Back-Rank Zap",
-        prompt: "Puzzle #CQ-001. The king is trapped by its own guards. Find the one-move finish.",
-        fen: "6k1/5ppp/8/8/8/8/5PPP/3R2K1",
+        title: "Lava Gate: Corner Zap",
+        prompt: "Puzzle #CQ-001. The king is trapped in the corner. Slide the rook to close the gate.",
+        fen: "7k/5ppp/8/8/8/8/5PPP/3R2K1",
         targets: ["d8"],
         hint: "Scan checks first. The rook can climb the open d-file.",
+        line: ["Rd8#"],
         answers: [
           { move: "Rd8#", correct: true },
           { move: "Rd7", correct: false },
@@ -8187,17 +8970,18 @@
         mode: "Puzzle Adventure",
         theme: "Defense",
         side: "White to move",
-        title: "Shadow Rescue: Catch the Queen",
-        prompt: "Puzzle #CQ-003. Your king is under pressure, but the attacker stepped too close.",
-        fen: "k7/8/8/8/8/8/6qP/7K",
-        targets: ["g2"],
-        hint: "A safe capture can be the best defense.",
+        title: "Shadow Rescue: Rook Shield",
+        prompt: "Puzzle #CQ-003. Your king is checked, but the rook can erase the danger.",
+        fen: "7k/8/8/8/8/6q1/7K/6R1",
+        targets: ["g3"],
+        hint: "Move the rook up the open file and capture the checking queen.",
+        line: ["Rxg3"],
         answers: [
-          { move: "Kxg2", correct: true },
-          { move: "Kh2", correct: false },
-          { move: "Qg1", correct: false }
+          { move: "Rxg3", correct: true },
+          { move: "Kh1", correct: false },
+          { move: "Rg2", correct: false }
         ],
-        feedback: "Kxg2 removes the queen. Great defense often means calmly taking away the threat."
+        feedback: "Rxg3 removes the checking queen. The fastest defense is often a calm capture."
       },
       {
         level: "Beginner",
@@ -8262,11 +9046,12 @@
       {
         level: "Intermediate",
         side: "White to move",
-        title: "Capture the pinned queen",
-        prompt: "Black's queen is lined up with the king. Which capture wins material with check?",
-        fen: "r3k2r/pppq1ppp/5N2/1B6/8/8/PPPP1PPP/R3K2R",
+        title: "Opera Pin: Capture the Queen",
+        prompt: "The queen is lined up with the king. Capture it, but only with the protected bishop.",
+        fen: "4k3/3q4/5N2/1B6/8/8/8/4K3",
         targets: ["d7"],
         hint: "Your bishop can take the queen, and your knight protects the bishop afterward.",
+        line: ["Bxd7+"],
         answers: [
           { move: "Bxd7+", correct: true },
           { move: "Nxd7", correct: false },
@@ -8292,11 +9077,12 @@
       {
         level: "Beginner",
         side: "White to move",
-        title: "Scholar's finish",
-        prompt: "The queen and bishop are aimed at f7. Which move is checkmate?",
-        fen: "rnbqkbnr/pppp1ppp/8/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR",
+        title: "Scholar's Warning",
+        prompt: "The queen and bishop are aimed at f7. One opening mistake is enough.",
+        fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 3",
         targets: ["f7"],
         hint: "The bishop on c4 protects the queen when she lands beside the king.",
+        line: ["Qxf7#"],
         answers: [
           { move: "Qxf7#", correct: true },
           { move: "Qxf7+", correct: false },
@@ -8322,11 +9108,12 @@
       {
         level: "Intermediate",
         side: "Black to move",
-        title: "Queen and bishop battery",
-        prompt: "White's king is exposed on g1. Which queen move ends it?",
-        fen: "6k1/5ppp/8/2b5/8/6q1/5PPP/6K1",
+        title: "Battery Strike: Long Diagonal",
+        prompt: "The bishop quietly guards the target. Let the queen strike with check.",
+        fen: "6k1/5ppp/1b6/8/8/6q1/5PPP/6K1",
         targets: ["f2"],
         hint: "The bishop guards f2, so the queen can move there with force.",
+        line: ["Qxf2+"],
         answers: [
           { move: "Qxf2+", correct: true },
           { move: "Qg4", correct: false },
@@ -8397,17 +9184,18 @@
       {
         level: "Intermediate",
         side: "White to move",
-        title: "Fork warm-up",
+        title: "Fork warm-up: Royal Jump",
         prompt: "The knight can check the king and attack the queen.",
-        fen: "8/8/4k3/7q/8/3N4/8/4K3",
-        targets: ["f4"],
-        hint: "Look for a knight check that also points at h5.",
+        fen: "4k3/5q2/8/5N2/8/8/8/4K3",
+        targets: ["d6"],
+        hint: "Jump to a square that touches both e8 and f7.",
+        line: ["Nd6+"],
         answers: [
-          { move: "Nf4+", correct: true },
-          { move: "Nc5+", correct: false },
-          { move: "Nf2", correct: false }
+          { move: "Nd6+", correct: true },
+          { move: "Nh6", correct: false },
+          { move: "Ne7", correct: false }
         ],
-        feedback: "Nf4+ checks the king first and attacks the queen on h5. One knight move creates two threats."
+        feedback: "Nd6+ checks the king on e8 and attacks the queen on f7. One knight jump creates two threats."
       },
       {
         level: "Intermediate",
@@ -8442,11 +9230,12 @@
       {
         level: "Intermediate",
         side: "White to move",
-        title: "Back-rank theme",
-        prompt: "The king is boxed in by pawns. Which rook move uses the open file?",
-        fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1",
+        title: "Back-rank theme: Corner Gate",
+        prompt: "The king is boxed in by pawns. Which rook move closes the corner?",
+        fen: "7k/5ppp/8/8/8/8/5PPP/4R1K1",
         targets: ["e8"],
         hint: "Move the rook to the eighth rank.",
+        line: ["Re8#"],
         answers: [
           { move: "Re8#", correct: true },
           { move: "Re7", correct: false },
@@ -8472,17 +9261,18 @@
       {
         level: "Intermediate",
         side: "White to move",
-        title: "Hanging piece check",
-        prompt: "A loose piece can be taken with tempo. Find the forcing capture.",
-        fen: "4k3/8/8/8/4b3/8/8/4R1K1",
-        targets: ["e4"],
-        hint: "Use the rook to take the loose bishop.",
+        title: "Hanging piece check: File Pin",
+        prompt: "A loose piece sits on the open file. Capture it with tempo.",
+        fen: "4k3/8/8/8/8/8/4b3/4R1K1",
+        targets: ["e2"],
+        hint: "Take the bishop and keep the rook on the e-file.",
+        line: ["Rxe2+"],
         answers: [
-          { move: "Rxe4+", correct: true },
+          { move: "Rxe2+", correct: true },
           { move: "Re8+", correct: false },
           { move: "Kf2", correct: false }
         ],
-        feedback: "Rxe4+ wins material while keeping the initiative."
+        feedback: "Rxe2+ wins material and keeps the open-file check."
       },
       {
         level: "Intermediate",
@@ -8532,17 +9322,18 @@
       {
         level: "Advanced",
         side: "Black to move",
-        title: "Deflection finish",
-        prompt: "White's rook is the only defender. Which queen move overloads it?",
-        fen: "6k1/5ppp/8/2b5/8/5q2/5PPP/4R1K1",
-        targets: ["f2"],
-        hint: "Force the king to face a protected queen capture.",
+        title: "Deflection finish: Remove the Guard",
+        prompt: "White's rook guards the corner. Capture it and finish the attack.",
+        fen: "6k1/6pp/8/8/8/8/5qPP/5R1K b - - 0 1",
+        targets: ["f1"],
+        hint: "Take the rook on f1. The queen controls the king's only doorway.",
+        line: ["Qxf1#"],
         answers: [
-          { move: "Qxf2+", correct: true },
-          { move: "Bxf2+", correct: false },
-          { move: "Qg4", correct: false }
+          { move: "Qxf1#", correct: true },
+          { move: "Qxg2+", correct: false },
+          { move: "Qg1+", correct: false }
         ],
-        feedback: "Qxf2+ deflects the defense because the queen is protected and the check is forcing."
+        feedback: "Qxf1# removes the defender and seals the corner. The king has no safe square."
       },
       {
         level: "Advanced",
@@ -8594,17 +9385,18 @@
       {
         level: "Beginner",
         side: "White to move",
-        title: "Pin Rescue in 60",
-        prompt: "The queen is stuck in front of the king. Take the pinned piece.",
-        fen: "4k3/4q3/8/8/8/8/8/4R1K1",
-        targets: ["e7"],
+        title: "Pin Rescue in 60: File Freeze",
+        prompt: "The queen is frozen on the open file. Take it with check.",
+        fen: "4k3/8/4q3/8/8/8/8/4R1K1",
+        targets: ["e6"],
         hint: "A pinned piece cannot move without exposing the king.",
+        line: ["Rxe6+"],
         answers: [
-          { move: "Rxe7+", correct: true },
+          { move: "Rxe6+", correct: true },
           { move: "Re8+", correct: false },
           { move: "Kf2", correct: false }
         ],
-        feedback: "Rxe7+ wins the queen because it was pinned to the king. Pins make defenders freeze."
+        feedback: "Rxe6+ wins the queen because it was pinned to the king. Pins make defenders freeze."
       },
       {
         level: "Beginner",
@@ -8641,36 +9433,36 @@
         mode: "Puzzle Adventure",
         theme: "Checkmates",
         side: "White to move",
-        title: "Mate in 2: corner trap",
-        prompt: "Play the first quiet-looking check, watch the king step out, then finish with the protected queen.",
-        fen: "7k/5K2/4Q3/8/8/8/8/8",
-        targets: ["f6", "g7"],
-        hint: "Put the queen on f6 first. Your king protects the final landing square.",
-        line: ["Qf6+", "Kh7", "Qg7#"],
+        title: "Corner Trap: Queen Net",
+        prompt: "Play one forcing queen check, then finish beside your king.",
+        fen: "7k/4Q3/5K2/8/8/8/8/8",
+        targets: ["f8", "g7"],
+        hint: "Put the queen on f8 first. The king has only one doorway.",
+        line: ["Qf8+", "Kh7", "Qg7#"],
         answers: [
-          { move: "Qf6+", correct: true },
+          { move: "Qf8+", correct: true },
           { move: "Qg8+", correct: false },
-          { move: "Qh3+", correct: false }
+          { move: "Qe8", correct: false }
         ],
-        feedback: "Qf6+ forces Kh7, then Qg7# works because the queen is protected by the king on f7."
+        feedback: "Qf8+ forces Kh7, then Qg7# works because the queen is protected by the king on f6."
       },
       {
         level: "Intermediate",
         mode: "Puzzle Adventure",
         theme: "Checkmates",
         side: "White to move",
-        title: "Mate in 3: staircase queen",
-        prompt: "Use checks like steps. Each queen move pushes the king closer to the final square.",
-        fen: "7k/8/4QK2/8/8/8/8/8",
-        targets: ["e8", "g6", "g7"],
-        hint: "Start with Qe8+. After the king escapes, keep the queen close to your king.",
-        line: ["Qe8+", "Kh7", "Qg6+", "Kh8", "Qg7#"],
+        title: "Staircase Rescue",
+        prompt: "Use the queen and king together. One check starts the final net.",
+        fen: "8/7k/5K2/4Q3/8/8/8/8",
+        targets: ["e7", "g7"],
+        hint: "Start with Qe7+. Keep the queen close enough for your king to protect her.",
+        line: ["Qe7+", "Kh8", "Qg7#"],
         answers: [
-          { move: "Qe8+", correct: true },
-          { move: "Qg8+", correct: false },
-          { move: "Qh3+", correct: false }
+          { move: "Qe7+", correct: true },
+          { move: "Qg5+", correct: false },
+          { move: "Qh5+", correct: false }
         ],
-        feedback: "The queen walks from e8 to g6 to g7. The king on f6 protects the final mate."
+        feedback: "Qe7+ forces the king back, then Qg7# lands on a protected square."
       },
       {
         level: "Advanced",
@@ -8695,17 +9487,18 @@
         mode: "Puzzle Adventure",
         theme: "Winning material",
         side: "White to move",
-        title: "Village treasure: win the queen",
-        prompt: "The queen dropped a treasure chest on the open file. Grab it with check.",
-        fen: "4k3/8/8/8/8/8/4q3/4R1K1",
-        targets: ["e2"],
+        title: "Village treasure: rook claims queen",
+        prompt: "The queen wandered onto your rook's road. Take the clean material.",
+        fen: "4k3/8/8/8/8/8/3q4/3R2K1",
+        targets: ["d2"],
         hint: "Use the rook on the same file as the loose queen.",
+        line: ["Rxd2"],
         answers: [
-          { move: "Rxe2+", correct: true },
+          { move: "Rxd2", correct: true },
           { move: "Re8+", correct: false },
           { move: "Kf2", correct: false }
         ],
-        feedback: "Rxe2+ wins the queen and checks the king. That is the cleanest treasure grab."
+        feedback: "Rxd2 wins the loose queen. Clean captures are progress too."
       },
       {
         level: "Beginner",
@@ -8741,6 +9534,140 @@
         ],
         feedback: "Qh4# is the classic opening alarm. The king has no safe answer."
       },
+      ...buildGamePuzzleBatch([
+        [
+          "Back-Rank Door",
+          "Beginner",
+          "Back-rank mates",
+          "White to move",
+          "6k1/p4ppp/8/8/8/8/P4PPP/1R4K1 w - - 0 1",
+          ["b8"],
+          ["Rb8#"],
+          "The b-file is open. Put the rook on the last rank.",
+          "Rb8# works because the rook controls the rank and Black's own pawns close every escape."
+        ],
+        [
+          "Loose Queen Scan",
+          "Beginner",
+          "Winning material",
+          "White to move",
+          "4k3/8/8/3q4/2B5/5N2/5PPP/6K1 w - - 0 1",
+          ["d5"],
+          ["Bxd5"],
+          "Scan diagonals first. The bishop on c4 sees d5.",
+          "Bxd5 wins the loose queen. Fast improvement starts with noticing undefended pieces."
+        ],
+        [
+          "Knight Alarm",
+          "Beginner",
+          "Forks",
+          "White to move",
+          "8/8/8/7k/8/3N4/4q3/6K1 w - - 0 1",
+          ["f4"],
+          ["Nf4+"],
+          "Jump with check and attack the queen at the same time.",
+          "Nf4+ checks the king on h5 and attacks the queen on e2. One knight move creates two jobs."
+        ],
+        [
+          "Take the Attacker",
+          "Beginner",
+          "Defense",
+          "White to move",
+          "6k1/6pp/8/8/8/8/5qPP/5RK1 w - - 0 1",
+          ["f2"],
+          ["Rxf2"],
+          "Defense can be a capture. Remove the queen beside your king.",
+          "Rxf2 wins the attacking queen. Beginners improve fast when they learn to capture danger calmly."
+        ],
+        [
+          "Corner Staircase",
+          "Intermediate",
+          "Checkmates",
+          "White to move",
+          "7k/p7/5K2/4Q3/8/8/8/8 w - - 0 1",
+          ["e8", "g6", "g7"],
+          ["Qe8+", "Kh7", "Qg6+", "Kh8", "Qg7#"],
+          "Use queen checks like stairs. Keep the queen protected by the king.",
+          "Qe8+ starts the staircase. Qg6+ boxes the king, and Qg7# lands on a protected square."
+        ],
+        [
+          "Deflect the Guard",
+          "Intermediate",
+          "Tactics",
+          "White to move",
+          "4k3/3r1ppp/8/8/8/8/3R1PPP/6K1 w - - 0 1",
+          ["d7"],
+          ["Rxd7"],
+          "The defender on d7 is loose. Win it before looking for fancy moves.",
+          "Rxd7 wins material and removes an active defender. Clean captures are practical tactics too."
+        ],
+        [
+          "Open King Alarm",
+          "Intermediate",
+          "Opening tactics",
+          "Black to move",
+          "rnb1k1nr/pppp1ppp/3b4/4p3/6Pq/5P2/PPPPP2P/RNBQ1RK1 b kq - 0 3",
+          ["h2"],
+          ["Qxh2+"],
+          "The bishop on d6 guards h2. The queen can safely strike there.",
+          "Qxh2+ is strong because the queen is protected by the bishop. Opening attacks work when pieces cooperate."
+        ],
+        [
+          "Rook Cutoff",
+          "Intermediate",
+          "Endgames",
+          "White to move",
+          "8/8/8/8/8/6k1/8/4R1K1 w - - 0 1",
+          ["e3"],
+          ["Re3+"],
+          "In rook endings, checks that cut the king off are gold.",
+          "Re3+ cuts across the third rank and pushes the king away. Rooks get stronger when they control files and ranks."
+        ],
+        [
+          "Queen Box Mate",
+          "Advanced",
+          "Checkmates",
+          "White to move",
+          "8/p7/8/8/8/k7/8/KQ6 w - - 0 1",
+          ["b7", "b2", "c3", "b4"],
+          ["Qb7", "Ka4", "Kb2", "Ka5", "Kc3", "Ka4", "Qb4#"],
+          "Do not rush. Box the king, walk closer, then finish.",
+          "Qb7 starts the net. The king joins the queen, and Qb4# closes the final escape."
+        ],
+        [
+          "Back-Rank Deflection",
+          "Advanced",
+          "Tactics",
+          "Black to move",
+          "6k1/6pp/8/8/8/8/5qPP/4RR1K b - - 0 1",
+          ["f1"],
+          ["Qxf1+"],
+          "Capture the defender with check before White can organize.",
+          "Qxf1+ removes a key rook and forces the king to respond. Deflection means pulling away a defender."
+        ],
+        [
+          "Promotion Timing",
+          "Advanced",
+          "Endgames",
+          "White to move",
+          "8/4k3/3P4/3K4/8/8/8/8 w - - 0 1",
+          ["c6"],
+          ["Kc6"],
+          "Before pushing, improve the king and control the promotion path.",
+          "Kc6 supports the passed pawn and controls key squares. Endgames reward calm king activity."
+        ],
+        [
+          "Final Net",
+          "Advanced",
+          "Checkmates",
+          "Black to move",
+          "6k1/5ppp/8/8/8/5q2/6PP/5R1K b - - 0 1",
+          ["f1"],
+          ["Qxf1#"],
+          "Remove the last defender and keep the king boxed in.",
+          "Qxf1# captures the rook and seals the first rank. The king has no capture, block, or escape."
+        ]
+      ]),
       ...buildQuickPuzzleBatch("Puzzle Streaks", [
         ["Back-rank bell", "Beginner", "Checkmates", "6k1/5ppp/8/8/8/8/5PPP/3R2K1", "d8", "Rd8#", "Use the open d-file.", "The rook reaches d8 and traps the boxed-in king."],
         ["Corner hallway", "Beginner", "Checkmates", "7k/6pp/8/8/8/8/6PP/3R2K1", "d8", "Rd8#", "Slide the rook to the back rank.", "The rook controls the last rank while the pawns block escapes."],
@@ -9928,10 +10855,36 @@
     }
 
     const puzzleStorageKey = "checkmateQuest.puzzles.v1";
+    const visitSnapshotStorageKey = "checkmateQuest.visitSnapshot.v1";
+    const soundPrefsStorageKey = "checkmateQuest.sound.v1";
     const puzzlePlanLevels = ["Beginner", "Intermediate", "Advanced"];
     const puzzlePatternPlans = ["Forks", "Pins", "Back-rank mates", "Checkmates", "Tactics", "Defense", "Opening tactics", "Endgames", "Winning material"];
     const puzzleModePlans = ["Puzzle Streaks", "Puzzle Rush", "Puzzle Adventure", "Boss Puzzle"];
     const puzzlePlanOptions = ["all", "main", "adaptive", ...puzzlePlanLevels, ...puzzlePatternPlans, ...puzzleModePlans];
+    const storeItems = [
+      { id: "board-forest", type: "board", value: "forest", name: "Forest Quest Board", cost: 35, tag: "Board", description: "Soft green squares for calm puzzle grinding.", preview: ["#dce8c6", "#5f7f4a"] },
+      { id: "board-sky", type: "board", value: "sky", name: "Sky Kingdom Board", cost: 55, tag: "Board", description: "Bright blue squares for light, fast practice.", preview: ["#e9f7ff", "#5f91c9"] },
+      { id: "board-dragon", type: "board", value: "dragon", name: "Dragon Realm Board", cost: 70, tag: "Board", description: "A warm boss-battle board for brave streaks.", preview: ["#f7dba7", "#8f3f2e"] },
+      { id: "skin-shadow", type: "skin", value: "shadow", name: "Shadow Tactics Pieces", cost: 40, tag: "Piece skin", description: "High-contrast pieces for serious calculation.", previewText: "\u2654 \u265B" },
+      { id: "skin-gold", type: "skin", value: "gold", name: "Golden Knights Pieces", cost: 45, tag: "Piece skin", description: "A shiny reward skin for puzzle streaks.", previewText: "\u2658 \u265E" },
+      { id: "skin-crystal", type: "skin", value: "crystal", name: "Crystal Vision Pieces", cost: 60, tag: "Piece skin", description: "Cool blue pieces for board-vision training.", previewText: "\u2655 \u265C" },
+      { id: "avatar-knight", type: "avatar", value: "\u2658", name: "Knight Scout Avatar", cost: 30, tag: "Avatar", description: "Show that your first tactic weapon is the fork.", previewText: "\u2658" },
+      { id: "avatar-queen", type: "avatar", value: "\u2655", name: "Queen Hero Avatar", cost: 65, tag: "Avatar", description: "A superhero avatar for confident attacks.", previewText: "\u2655" },
+      { id: "avatar-pawn-spark", type: "avatar", value: "\u265F", name: "Pawn Spark Avatar", cost: 18, tag: "Avatar", description: "A tiny starter flex for learners who show up every day.", previewText: "\u265F" },
+      { id: "avatar-bishop-vision", type: "avatar", value: "\u2657", name: "Bishop Vision Avatar", cost: 42, tag: "Avatar", description: "For players who see diagonals before trouble arrives.", previewText: "\u2657" },
+      { id: "avatar-rook-shield", type: "avatar", value: "\u2656", name: "Rook Shield Avatar", cost: 52, tag: "Avatar", description: "A clean defensive flex for protecting pieces and files.", previewText: "\u2656" },
+      { id: "avatar-check-flame", type: "avatar", value: "\uD83D\uDD25", name: "Check Flame Avatar", cost: 78, tag: "Avatar", description: "Unlock this when your attacks start heating up.", previewText: "\uD83D\uDD25" },
+      { id: "avatar-fork-bolt", type: "avatar", value: "\u26A1", name: "Fork Bolt Avatar", cost: 86, tag: "Avatar", description: "A fast badge for spotting double attacks.", previewText: "\u26A1" },
+      { id: "avatar-center-star", type: "avatar", value: "\u2B50", name: "Center Star Avatar", cost: 95, tag: "Avatar", description: "For learners who control the middle and make space.", previewText: "\u2B50" },
+      { id: "avatar-brain-coach", type: "avatar", value: "\uD83E\uDDE0", name: "Calm Thinker Avatar", cost: 120, tag: "Avatar", description: "A cool flex for players who pause, scan, then move.", previewText: "\uD83E\uDDE0" },
+      { id: "avatar-moon-tactician", type: "avatar", value: "\uD83C\uDF19", name: "Moon Tactician Avatar", cost: 135, tag: "Avatar", description: "A smooth night-mode avatar for quiet puzzle streaks.", previewText: "\uD83C\uDF19" },
+      { id: "avatar-rocket-learner", type: "avatar", value: "\uD83D\uDE80", name: "Rocket Learner Avatar", cost: 160, tag: "Avatar", description: "For beginners leveling up fast without pressure.", previewText: "\uD83D\uDE80" },
+      { id: "avatar-key-master", type: "avatar", value: "\uD83D\uDD11", name: "Key Master Avatar", cost: 190, tag: "Avatar", description: "A rare avatar for unlocking chapters, habits, and wins.", previewText: "\uD83D\uDD11" },
+      { id: "title-tactician", type: "title", value: "Puzzle Tactician", name: "Puzzle Tactician Title", cost: 25, tag: "Title", description: "A profile title for learners who love patterns.", previewText: "Puzzle Tactician" },
+      { id: "title-guardian", type: "title", value: "Castle Guardian", name: "Castle Guardian Title", cost: 50, tag: "Title", description: "A calm defender title for safer games.", previewText: "Castle Guardian" },
+      { id: "trail-stars", type: "trail", value: "stars", name: "Star Confetti Trail", cost: 30, tag: "Celebration", description: "Make lesson and puzzle celebrations sparkle.", previewText: "Star burst" },
+      { id: "trail-sparks", type: "trail", value: "sparks", name: "Boss Spark Trail", cost: 45, tag: "Celebration", description: "A sharper victory effect for boss clears.", previewText: "Boss sparks" }
+    ];
     const learnerLevels = [
       ["Level 1 Explorer", 0],
       ["Level 5 Adventurer", 80],
@@ -9952,7 +10905,15 @@
       { xp: 1700, icon: "🐉", label: "Pet Dragon Avatar" },
       { xp: 2500, icon: "👑", label: "Legend Crown Avatar" }
     ];
+    const lessonMissionPuzzles = {
+      "mission-1-control-the-center": ["Mission Puzzle 1: Center Spark", "Play Center", "Puzzle goal: place a center pawn and win more room."],
+      "mission-2-develop-pieces": ["Mission Puzzle 2: Knight Wake-Up", "Play Develop", "Puzzle goal: bring a knight out before queen adventures."],
+      "mission-3-castle": ["Mission Puzzle 3: Castle Shelter", "Play Castle", "Puzzle goal: castle when the path is clear."],
+      "mission-4-protect-pieces": ["Mission Puzzle 4: Save the Rook", "Play Safety", "Puzzle goal: notice the attack and save material."],
+      "mission-5-win-your-first-game": ["Mission Puzzle 5: First Checkmate", "Play Mate", "Puzzle goal: use teamwork to finish with checkmate."]
+    };
     const savedPuzzleState = readPuzzleState();
+    let storeState = normalizeStoreState(savedPuzzleState.store);
     let currentPuzzle = Math.max(0, Math.min(puzzles.length - 1, Number(savedPuzzleState.currentPuzzle) || 0));
     let activePuzzlePlan = puzzlePlanOptions.includes(savedPuzzleState.activePlan) ? savedPuzzleState.activePlan : "all";
     if (activePuzzlePlan === "all") activePuzzlePlan = "main";
@@ -9969,7 +10930,7 @@
     let puzzleStarted = false;
     let puzzleAnalyzeMode = false;
     let puzzleFlipped = false;
-    let puzzleSoundOn = false;
+    let puzzleSoundOn = Boolean(readJsonStorage(soundPrefsStorageKey, { puzzle: false }).puzzle);
     let puzzleMistakeCount = 0;
     let puzzleLineStep = 0;
     let puzzleStartAt = 0;
@@ -9978,6 +10939,10 @@
     let streak = Math.max(0, Number(savedPuzzleState.streak) || 0);
     let puzzleXp = Math.max(0, Number(savedPuzzleState.xp) || 0);
     let puzzleCoins = Math.max(0, Number(savedPuzzleState.coins) || 0);
+    let videoRewardState = {
+      shorts: Array.isArray(savedPuzzleState.videoRewards?.shorts) ? savedPuzzleState.videoRewards.shorts : [],
+      videos: Array.isArray(savedPuzzleState.videoRewards?.videos) ? savedPuzzleState.videoRewards.videos : []
+    };
     let puzzleStars = Math.max(0, Number(savedPuzzleState.stars) || 0);
     let puzzleKeys = Math.max(0, Number(savedPuzzleState.keys) || 0);
     let puzzleChests = Math.max(0, Number(savedPuzzleState.chests) || 0);
@@ -10310,13 +11275,26 @@
         const title = card.querySelector("h3")?.textContent || `Lesson ${index + 1}`;
         const isMission = title.startsWith("Mission");
         const id = getPathLessonId(card, index);
+        const missionPuzzle = lessonMissionPuzzles[id] || null;
         card.dataset.lessonId = id;
 
         if (!card.querySelector(".lesson-lock-note")) {
           const lockNote = document.createElement("p");
           lockNote.className = "lesson-lock-note";
-          lockNote.textContent = "Locked. Celebrate the previous lesson to unlock this step.";
+          lockNote.textContent = "Next step locked. Celebrate the previous mission to unlock this puzzle.";
           card.appendChild(lockNote);
+        }
+
+        if (missionPuzzle) {
+          let missionNote = card.querySelector(".lesson-mission-note");
+          if (!missionNote) {
+            missionNote = document.createElement("p");
+            missionNote.className = "lesson-mission-note";
+            const topicList = card.querySelector(".topic-list");
+            if (topicList) topicList.after(missionNote);
+            else card.appendChild(missionNote);
+          }
+          missionNote.textContent = missionPuzzle[2];
         }
 
         if (card.querySelector(".lesson-card-footer")) return;
@@ -10347,7 +11325,17 @@
         action.href = "#puzzles";
         action.dataset.href = "#puzzles";
         action.dataset.lessonAction = id;
-        action.textContent = isMission ? "Try mission puzzle" : "Try one puzzle";
+        if (missionPuzzle) action.dataset.lessonPuzzle = missionPuzzle[0];
+        action.textContent = missionPuzzle ? missionPuzzle[1] : isMission ? "Try mission puzzle" : "Try one puzzle";
+        action.addEventListener("click", (event) => {
+          if (card.classList.contains("is-locked")) {
+            event.preventDefault();
+            return;
+          }
+          if (!missionPuzzle) return;
+          event.preventDefault();
+          openPuzzleByTitle(missionPuzzle[0]);
+        });
         footer.append(time, done, action);
         card.appendChild(footer);
       });
@@ -10466,17 +11454,61 @@
       };
     }
 
+    let playablePuzzleIndexes = null;
+
+    function puzzleHasBothKings(game) {
+      let whiteKings = 0;
+      let blackKings = 0;
+      ["a", "b", "c", "d", "e", "f", "g", "h"].forEach((file) => {
+        for (let rank = 1; rank <= 8; rank += 1) {
+          const piece = game.get(`${file}${rank}`);
+          if (piece?.type === "k") {
+            if (piece.color === "w") whiteKings += 1;
+            if (piece.color === "b") blackKings += 1;
+          }
+        }
+      });
+      return whiteKings === 1 && blackKings === 1;
+    }
+
+    function isPuzzlePlayable(index) {
+      if (!CoachChess) return true;
+      const puzzle = puzzles[index];
+      const fen = getPuzzleFen(puzzle);
+      try {
+        const game = new CoachChess(fen);
+        if (!puzzleHasBothKings(game) || fen.split(/\s+/)[1] !== getPuzzleSideColor(puzzle)) return false;
+        for (const expected of getPuzzleLine(puzzle)) {
+          const move = game.moves({ verbose: true }).find((item) => cleanPuzzleSan(item.san) === cleanPuzzleSan(expected));
+          if (!move) return false;
+          game.move(toCoachMoveInput(move));
+          if (String(expected).includes("#") && !callCoachRule(game, "isCheckmate", "in_checkmate")) return false;
+          if (String(expected).includes("+") && !String(move.san).includes("+") && !String(move.san).includes("#")) return false;
+        }
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function getPlayablePuzzleIndexes() {
+      if (!CoachChess) return puzzles.map((_, index) => index);
+      playablePuzzleIndexes ||= puzzles.map((_, index) => isPuzzlePlayable(index) ? index : -1).filter((index) => index >= 0);
+      return playablePuzzleIndexes.length ? playablePuzzleIndexes : puzzles.map((_, index) => index);
+    }
+
     function getActivePuzzleIndexes() {
       let level = activePuzzlePlan;
       if (activePuzzlePlan === "adaptive") level = getAdaptivePuzzleLevel();
       const patternPlan = puzzlePatternPlans.includes(activePuzzlePlan);
       const modePlan = puzzleModePlans.includes(activePuzzlePlan);
+      const playable = new Set(getPlayablePuzzleIndexes());
       let indexes = puzzles
-        .map((puzzle, index) => activePuzzlePlan === "all"
+        .map((puzzle, index) => playable.has(index) && (activePuzzlePlan === "all"
           || (activePuzzlePlan === "main" && !["Puzzle Rush", "Puzzle Streaks"].includes(puzzle.mode))
           || puzzle.level === level
           || (patternPlan && getPuzzlePattern(puzzle) === activePuzzlePlan)
-          || (modePlan && puzzle.mode === activePuzzlePlan)
+          || (modePlan && puzzle.mode === activePuzzlePlan))
           ? index : -1)
         .filter((index) => index >= 0);
       if (activePuzzlePlan === "adaptive" && spacedReview?.due <= getTodayKey()) {
@@ -10487,15 +11519,13 @@
         const recommendedIndexes = indexes.filter((index) => getPuzzlePattern(puzzles[index]) === smart.type);
         if (recommendedIndexes.length) indexes = recommendedIndexes;
       }
-      if (!["Puzzle Rush", "Puzzle Streaks"].includes(activePuzzlePlan)) {
-        const seenFens = new Set();
-        indexes = indexes.filter((index) => {
-          const key = puzzles[index].fen;
-          if (seenFens.has(key)) return false;
-          seenFens.add(key);
-          return true;
-        });
-      }
+      const seenFens = new Set();
+      indexes = indexes.filter((index) => {
+        const key = getPuzzleFen(puzzles[index]).split(/\s+/).slice(0, 4).join(" ");
+        if (seenFens.has(key)) return false;
+        seenFens.add(key);
+        return true;
+      });
       return indexes;
     }
 
@@ -10598,7 +11628,7 @@
     }
 
     function readPuzzleState() {
-      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, coins: 0, stars: 0, keys: 0, chests: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game", spacedReview: null, weaknesses: {} };
+      const fallback = { activePlan: "all", currentPuzzle: 0, solved: [], streak: 0, xp: 0, coins: 0, stars: 0, keys: 0, chests: 0, bestStreak: 0, attempts: 0, correct: 0, weekly: {}, habit: {}, gameStats: {}, completedPathLessons: [], favoriteOpening: "Italian Game", spacedReview: null, weaknesses: {}, store: {}, videoRewards: { shorts: [], videos: [] } };
       const state = readJsonStorage(puzzleStorageKey, fallback);
       return state && typeof state === "object" ? { ...fallback, ...state } : fallback;
     }
@@ -10623,8 +11653,152 @@
         completedPathLessons: [...completedPathLessons],
         favoriteOpening,
         spacedReview,
-        weaknesses: puzzleWeaknesses
+        weaknesses: puzzleWeaknesses,
+        store: storeState,
+        videoRewards: videoRewardState
       });
+    }
+
+    function normalizeStoreState(saved = {}) {
+      const validIds = new Set(storeItems.map((item) => item.id));
+      const owned = Array.isArray(saved?.owned) ? saved.owned.filter((id) => validIds.has(id)) : [];
+      return {
+        owned: [...new Set(owned)],
+        equipped: saved?.equipped && typeof saved.equipped === "object" ? saved.equipped : {}
+      };
+    }
+
+    function getStoreItem(id) {
+      return storeItems.find((item) => item.id === id);
+    }
+
+    function getEquippedStoreId(type) {
+      const prefs = readLearnerPrefs();
+      if (type === "board") return `board-${prefs.board}`;
+      if (type === "skin") return `skin-${prefs.pieceSkin || "classic"}`;
+      if (type === "trail") return `trail-${prefs.trail || "none"}`;
+      if (type === "avatar") return prefs.avatar && prefs.avatar !== "auto" ? storeItems.find((item) => item.type === "avatar" && item.value === prefs.avatar)?.id || "" : "";
+      if (type === "title") return prefs.title ? storeItems.find((item) => item.type === "title" && item.value === prefs.title)?.id || "" : "";
+      return "";
+    }
+
+    function syncPreferenceLocks() {
+      const owned = new Set(storeState.owned);
+      document.querySelectorAll("#prefBoard option").forEach((option) => {
+        const storeItem = getStoreItem(`board-${option.value}`);
+        option.disabled = Boolean(storeItem && !owned.has(storeItem.id));
+      });
+    }
+
+    function buildStorePreview(item) {
+      const preview = document.createElement("div");
+      preview.className = "store-preview";
+      if (item.type === "board") {
+        const board = document.createElement("span");
+        board.className = "store-preview-board";
+        board.style.setProperty("--preview-light", item.preview[0]);
+        board.style.setProperty("--preview-dark", item.preview[1]);
+        preview.appendChild(board);
+      } else if (item.type === "skin") {
+        const pieces = document.createElement("span");
+        pieces.className = `store-preview-pieces skin-${item.value}`;
+        pieces.innerHTML = `<span class="white-piece">${item.previewText.split(" ")[0]}</span><span class="black-piece">${item.previewText.split(" ")[1]}</span>`;
+        preview.appendChild(pieces);
+      } else {
+        preview.appendChild(createBookText("span", "store-preview-flair", item.previewText || item.name));
+      }
+      return preview;
+    }
+
+    function equipStoreItem(item) {
+      const prefs = readLearnerPrefs();
+      const nextPrefs = { ...prefs };
+      if (item.type === "board") nextPrefs.board = item.value;
+      if (item.type === "skin") nextPrefs.pieceSkin = item.value;
+      if (item.type === "trail") nextPrefs.trail = item.value;
+      if (item.type === "avatar") nextPrefs.avatar = item.value;
+      if (item.type === "title") nextPrefs.title = item.value;
+      storeState.equipped = { ...storeState.equipped, [item.type]: item.id };
+      writeJsonStorage(learnerPrefsStorageKey, nextPrefs);
+      const boardField = document.getElementById("prefBoard");
+      if (boardField && item.type === "board") boardField.value = item.value;
+      applyLearnerPrefs(nextPrefs);
+      syncPreferenceLocks();
+      renderMiniBoards();
+      renderPuzzle();
+      renderCoachBoard();
+      renderPlayerProfile();
+    }
+
+    function buyOrEquipStoreItem(itemId) {
+      const item = getStoreItem(itemId);
+      if (!item) return;
+      const owned = new Set(storeState.owned);
+      const status = document.getElementById("storeStatus");
+      if (!owned.has(item.id)) {
+        if (puzzleCoins < item.cost) {
+          if (status) status.textContent = `Need ${formatProfileNumber(item.cost - puzzleCoins)} more coins for ${item.name}.`;
+          return;
+        }
+        puzzleCoins -= item.cost;
+        owned.add(item.id);
+        storeState.owned = [...owned];
+        showCelebration("Reward unlocked!", `-${item.cost} coins`, item.name);
+      }
+      equipStoreItem(item);
+      savePuzzleState();
+      renderStore();
+      renderBeginnerProgress();
+      if (status) status.textContent = `${item.name} equipped. Looking sharp.`;
+    }
+
+    function renderStore() {
+      const grid = document.getElementById("storeGrid");
+      const balance = document.getElementById("storeCoinBalance");
+      const inventory = document.getElementById("storeInventory");
+      if (!grid || !balance || !inventory) return;
+      const owned = new Set(storeState.owned);
+      balance.textContent = formatProfileNumber(puzzleCoins);
+      syncPreferenceLocks();
+      const prefs = readLearnerPrefs();
+      const inventoryItems = [
+        `Board: ${prefs.board || "wood"}`,
+        `Skin: ${prefs.pieceSkin || "classic"}`,
+        prefs.title ? `Title: ${prefs.title}` : "Title: Explorer",
+        prefs.avatar && prefs.avatar !== "auto" ? "Avatar: custom" : "Avatar: level based",
+        `Trail: ${prefs.trail || "none"}`
+      ];
+      inventory.replaceChildren(...inventoryItems.map((item) => createBookText("span", "game-unlock", item)));
+      grid.replaceChildren(...storeItems.map((item) => {
+        const isOwned = owned.has(item.id);
+        const isEquipped = getEquippedStoreId(item.type) === item.id;
+        const card = document.createElement("article");
+        card.className = `store-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
+        const meta = document.createElement("div");
+        meta.className = "store-meta";
+        meta.append(
+          createBookText("span", "", item.tag),
+          createBookText("span", "", isOwned ? "Owned" : `${item.cost} coins`)
+        );
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = isOwned ? "button secondary" : "button";
+        button.textContent = isEquipped ? "Equipped" : isOwned ? "Equip" : `Unlock ${item.cost}`;
+        button.disabled = isEquipped;
+        button.addEventListener("click", () => buyOrEquipStoreItem(item.id));
+        card.append(
+          buildStorePreview(item),
+          createBookText("h3", "", item.name),
+          createBookText("p", "", item.description),
+          meta,
+          button
+        );
+        return card;
+      }));
+    }
+
+    function setupStore() {
+      renderStore();
     }
 
     function animateCoinsToInventory() {
@@ -10647,13 +11821,30 @@
       }
     }
 
-    function showCelebration(title = "\uD83C\uDF89 Great Job!", xpText = "+50 XP", badgeText = "") {
+    function isMajorCelebration(title = "", badgeText = "") {
+      return /level|badge|boss|quest|first win|reward unlocked|legend|chest|streak 7/i.test(`${title} ${badgeText}`);
+    }
+
+    function pulseXpBars() {
+      requestAnimationFrame(() => {
+        document.querySelectorAll("#learnerXpFill, [data-profile-progress-fill]").forEach((fill) => {
+          fill.classList.remove("is-gaining");
+          void fill.offsetWidth;
+          fill.classList.add("is-gaining");
+          window.setTimeout(() => fill.classList.remove("is-gaining"), 820);
+        });
+      });
+    }
+
+    function showCelebration(title = "\uD83C\uDF89 Great Job!", xpText = "+50 XP", badgeText = "", options = {}) {
       document.querySelector(".celebration-toast")?.remove();
-      fireConfettiBurst();
-      animateCoinsToInventory();
-      playPuzzleTone("correct");
+      const major = options.major ?? isMajorCelebration(title, badgeText);
+      const subtle = options.subtle ?? !major;
+      if (major) fireConfettiBurst();
+      if (major || /coin/i.test(xpText)) animateCoinsToInventory();
+      playPuzzleTone(major ? "milestone" : "correct");
       const toast = document.createElement("div");
-      toast.className = "celebration-toast";
+      toast.className = `celebration-toast${subtle ? " is-subtle" : ""}`;
       toast.setAttribute("role", "status");
       toast.append(
         createBookText("strong", "", title),
@@ -10664,12 +11855,20 @@
       window.setTimeout(() => toast.remove(), 1700);
     }
 
+    function getPuzzleSolveBadge(xpResult, puzzle, personalBest) {
+      if (xpResult.levelUp) return "New Badge Unlocked!";
+      if (puzzle.mode === "Boss Puzzle") return "Boss cleared!";
+      if (personalBest) return `Personal best streak: ${streak}`;
+      return "Puzzle solved!";
+    }
+
     function addPuzzleXp(amount) {
       const today = getTodayKey();
       const beforeLevel = getLearnerLevel(puzzleXp).current[0];
       puzzleXp += amount;
       weeklyPuzzleXp[today] = (Number(weeklyPuzzleXp[today]) || 0) + amount;
       const levelUp = getLearnerLevel(puzzleXp).current[0] !== beforeLevel;
+      if (amount > 0) pulseXpBars();
       requestAnimationFrame(() => renderPlayerProfile());
       return { levelUp };
     }
@@ -10677,6 +11876,24 @@
     function addPuzzleCoins(amount) {
       puzzleCoins += Math.max(0, amount);
       return puzzleCoins;
+    }
+
+    function rewardWatchedVideo(videoId, type = "video", title = "Chess lesson") {
+      if (!videoId) return false;
+      const bucket = type === "short" ? "shorts" : "videos";
+      const amount = type === "short" ? 10 : 20;
+      const watched = new Set(videoRewardState[bucket] || []);
+      if (watched.has(videoId)) return false;
+      watched.add(videoId);
+      videoRewardState = { ...videoRewardState, [bucket]: [...watched] };
+      addPuzzleCoins(amount);
+      addExtraRewards({ coins: amount });
+      savePuzzleState();
+      renderBeginnerProgress();
+      renderStore();
+      renderPlayerProfile();
+      showCelebration(type === "short" ? "Short watched!" : "Video watched!", `+${amount} coins`, title);
+      return true;
     }
 
     function addExtraRewards(reward = {}) {
@@ -10723,6 +11940,78 @@
 
     function getProfileAvatar(xp) {
       return profileAvatars.reduce((best, avatar) => xp >= avatar.xp ? avatar : best, profileAvatars[0]);
+    }
+
+    function getSelectedProfileAvatar(prefs, xp) {
+      const levelAvatar = getProfileAvatar(xp);
+      if (!prefs.avatar || prefs.avatar === "auto") return levelAvatar;
+      const levelChoice = profileAvatars.find((avatar) => avatar.icon === prefs.avatar && xp >= avatar.xp);
+      if (levelChoice) return levelChoice;
+      const storeChoice = storeItems.find((item) => item.type === "avatar" && item.value === prefs.avatar && storeState.owned.includes(item.id));
+      return storeChoice ? { icon: storeChoice.value, label: storeChoice.name } : levelAvatar;
+    }
+
+    function getProfileAvatarChoices(xp) {
+      const owned = new Set(storeState.owned);
+      const levelChoices = profileAvatars.map((avatar) => ({
+        value: avatar.icon,
+        icon: avatar.icon,
+        label: avatar.label.replace(/\s+Avatar$/i, ""),
+        locked: xp < avatar.xp,
+        lockLabel: `${formatProfileNumber(avatar.xp)} XP`
+      }));
+      const storeChoices = storeItems
+        .filter((item) => item.type === "avatar" && owned.has(item.id))
+        .map((item) => ({
+          value: item.value,
+          icon: item.value,
+          label: item.name.replace(/\s+Avatar$/i, ""),
+          locked: false,
+          lockLabel: "Owned"
+        }));
+      return [...storeChoices, ...levelChoices]
+        .filter((choice, index, list) => list.findIndex((item) => item.value === choice.value) === index);
+    }
+
+    function setProfileAvatarPreference(value) {
+      const prefs = readLearnerPrefs();
+      writeJsonStorage(learnerPrefsStorageKey, { ...prefs, avatar: value || "auto" });
+      renderPlayerProfile();
+      renderStore();
+    }
+
+    function renderProfileAvatarChoices(profile) {
+      const prefs = readLearnerPrefs();
+      const choices = getProfileAvatarChoices(profile.xp);
+      const customAvailable = prefs.avatar && prefs.avatar !== "auto" && choices.some((choice) => !choice.locked && choice.value === prefs.avatar);
+      const activeValue = customAvailable ? prefs.avatar : "auto";
+
+      document.querySelectorAll("[data-avatar-strip]").forEach((strip) => {
+        const autoButton = document.createElement("button");
+        autoButton.type = "button";
+        autoButton.className = "avatar-choice";
+        autoButton.setAttribute("aria-pressed", String(activeValue === "auto"));
+        autoButton.title = "Auto: changes as you level up";
+        autoButton.append(createBookText("strong", "", "Auto"), createBookText("span", "", "Level avatar"));
+        autoButton.addEventListener("click", () => setProfileAvatarPreference("auto"));
+
+        const buttons = choices.map((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "avatar-choice";
+          button.disabled = choice.locked;
+          button.setAttribute("aria-pressed", String(activeValue === choice.value));
+          button.title = choice.locked ? `Unlock at ${choice.lockLabel}` : choice.label;
+          button.append(
+            createBookText("strong", "", choice.icon),
+            createBookText("span", "", choice.locked ? choice.lockLabel : choice.label)
+          );
+          button.addEventListener("click", () => setProfileAvatarPreference(choice.value));
+          return button;
+        });
+
+        strip.replaceChildren(autoButton, ...buttons);
+      });
     }
 
     function formatProfileNumber(value) {
@@ -10775,10 +12064,11 @@
 
     function getDragonProfileSnapshot() {
       const profile = readDragonProfile();
+      const prefs = readLearnerPrefs();
       const learnerName = String(readLearnerProfile().name || "").trim();
       const profileXp = Math.max(0, Number(profile.xp) || 0);
       const xp = Math.max(profileXp, puzzleXp);
-      const tokens = Math.max(Math.max(0, Number(profile.tokens) || 0), puzzleCoins);
+      const tokens = Math.max(0, Number(puzzleCoins) || 0);
       const profileStreak = Math.max(0, Number(profile.streak) || 0);
       const dayStreak = Math.max(profileStreak, dailyHabit.streak);
       const levelState = getLearnerLevel(xp);
@@ -10786,8 +12076,8 @@
       const nextXpTarget = levelState.next?.[1] || Math.max(xp, currentXp + 1);
       const progressFill = levelState.next ? ((xp - currentXp) / (nextXpTarget - currentXp)) * 100 : 100;
       const level = levelState.current[0];
-      const avatar = getProfileAvatar(xp);
-      const rank = xp >= 700 || gameStats.wins > 0 ? "Castle Defender" : solvedPuzzles.size >= 5 ? "Puzzle Defender" : "Explorer";
+      const avatar = getSelectedProfileAvatar(prefs, xp);
+      const rank = prefs.title || (xp >= 700 || gameStats.wins > 0 ? "Castle Defender" : solvedPuzzles.size >= 5 ? "Puzzle Defender" : "Explorer");
       const progress = Math.round(Math.min(100, Math.max(0, progressFill)));
       const nextLevelXp = levelState.next ? Math.max(0, levelState.next[1] - xp) : 0;
       const missionState = {
@@ -10875,6 +12165,7 @@
           return badge;
         }));
       });
+      renderProfileAvatarChoices(profile);
       return profile;
     }
 
@@ -10916,15 +12207,56 @@
 
     function getGameUnlocks() {
       const level = getLearnerLevel(puzzleXp).current[0];
+      const prefs = readLearnerPrefs();
       return [
-        `Avatar: ${puzzleXp >= 40 ? "Knight Rookie" : "Pawn Rookie"}`,
-        `Theme: ${puzzleXp >= 100 ? "Neon Board" : "Wood Board"}`,
-        `Piece skin: ${puzzleStars >= 10 ? "Golden Knights" : "Classic Wood"}`,
-        `Title: ${puzzleKeys ? "Boss Tamer" : level}`,
+        `Avatar: ${prefs.avatar && prefs.avatar !== "auto" ? "Store Avatar" : puzzleXp >= 40 ? "Knight Rookie" : "Pawn Rookie"}`,
+        `Theme: ${prefs.board || "wood"} board`,
+        `Piece skin: ${prefs.pieceSkin || "classic"}`,
+        `Title: ${prefs.title || (puzzleKeys ? "Boss Tamer" : level)}`,
         `Pet: ${puzzleChests ? "Tiny Dragon Coach" : "Training Egg"}`,
         `Collectible: ${storyState?.completed?.length || 0}/8 story relics`,
         `Badge: ${solvedPuzzles.size >= 5 ? "Puzzle Spark" : level}`
       ];
+    }
+
+    function getSolvedThemeCounts() {
+      return [...solvedPuzzles].reduce((counts, index) => {
+        const theme = getPuzzlePattern(puzzles[index]);
+        counts[theme] = (counts[theme] || 0) + 1;
+        return counts;
+      }, {});
+    }
+
+    function getMasteredTacticalThemes() {
+      return Object.entries(getSolvedThemeCounts())
+        .filter(([, count]) => count >= 2)
+        .sort((a, b) => b[1] - a[1])
+        .map(([theme]) => theme);
+    }
+
+    function getLearningMinutes(lessonCount) {
+      return Math.round((solvedPuzzles.size * 2.5) + (lessonCount * 3) + (gameStats.played * 8) + (puzzleAttempts * 0.75));
+    }
+
+    function formatLearningTime(minutes) {
+      if (minutes < 60) return `${Math.max(0, minutes)} min`;
+      const hours = Math.floor(minutes / 60);
+      const remainder = minutes % 60;
+      return remainder ? `${hours}h ${remainder}m` : `${hours}h`;
+    }
+
+    function getUnlockedLearningSkills() {
+      const counts = getSolvedThemeCounts();
+      return [
+        ["Board scanner", solvedPuzzles.size >= 1],
+        ["Fork finder", (counts.Forks || 0) >= 2],
+        ["Mate hunter", (counts.Checkmates || 0) >= 2],
+        ["Endgame starter", (counts.Endgames || 0) >= 2],
+        ["King safety guard", (counts.Defense || 0) >= 2 || gameStats.cleanGames > 0],
+        ["Opening explorer", (counts["Opening tactics"] || 0) >= 2 || gameStats.principleGames > 0],
+        ["Calm calculator", bestPuzzleStreak >= 3 || getMoveQualityScore() >= 80],
+        ["Daily finisher", dailyHabit.streak >= 3]
+      ].filter(([, unlocked]) => unlocked).map(([label]) => label);
     }
 
     function getSingleCoachFocus() {
@@ -10945,8 +12277,76 @@
       return { skill, weaknessKey, practice: `raise ${skill.toLowerCase()} above ${Math.max(60, score + 10)}%`, related: getDailyChallengeName(), href: weaknessKey === "openings" ? "#openings" : weaknessKey === "endgame" ? "#videos" : "#puzzles" };
     }
 
+    function getDailyMotivation() {
+      const messages = [
+        "One calm scan can save a whole game.",
+        "Tiny practice beats waiting for perfect time.",
+        "Before moving, ask what changed on the board.",
+        "Good chess starts with safe pieces.",
+        "A mistake is just tomorrow's practice plan.",
+        "Checks, captures, threats: one simple rhythm.",
+        "You improve by noticing one more thing today."
+      ];
+      const date = new Date(`${getTodayKey()}T00:00:00`);
+      return messages[Math.abs(Math.floor(date / 86400000)) % messages.length];
+    }
+
+    function getCoachLearnerName() {
+      return String(readLearnerProfile().name || "").trim().split(/\s+/)[0]?.slice(0, 18) || "";
+    }
+
+    function coachMemoryStatus() {
+      const name = getCoachLearnerName();
+      return name ? `Coach remembers ${name}.` : "Save your chess name and the coach will remember you.";
+    }
+
+    function coachMemoryLine(message) {
+      const name = getCoachLearnerName();
+      const text = String(message || "").trim();
+      if (!name || !text) return text;
+      if (text.startsWith(`${name},`) || text.startsWith(`Coach remembers ${name}`)) return text;
+      const body = /^[A-Z]{2,}\b/.test(text) ? text : `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
+      return `${name}, ${body}`;
+    }
+
+    function getCurrentVisitSnapshot(lessonCount = completedPathLessons.size + readShortLessonState().completed.length) {
+      return {
+        date: getTodayKey(),
+        xp: puzzleXp,
+        solved: solvedPuzzles.size,
+        coins: puzzleCoins,
+        streak: dailyHabit.streak,
+        best: bestPuzzleStreak,
+        lessons: lessonCount,
+        games: gameStats.played
+      };
+    }
+
+    function getWelcomeBackDelta(lessonCount) {
+      const previous = readJsonStorage(visitSnapshotStorageKey, null);
+      const current = getCurrentVisitSnapshot(lessonCount);
+      if (!previous || typeof previous !== "object") {
+        return { changed: true, text: `${getDailyMotivation()} Start with one tiny win.` };
+      }
+      const changes = [
+        current.xp > previous.xp ? `+${current.xp - previous.xp} XP` : "",
+        current.solved > previous.solved ? `+${current.solved - previous.solved} puzzle${current.solved - previous.solved === 1 ? "" : "s"}` : "",
+        current.coins > previous.coins ? `+${current.coins - previous.coins} coins` : "",
+        current.lessons > previous.lessons ? `+${current.lessons - previous.lessons} lesson${current.lessons - previous.lessons === 1 ? "" : "s"}` : "",
+        current.best > previous.best ? `best streak ${current.best}` : ""
+      ].filter(Boolean);
+      if (changes.length) return { changed: true, text: `Since last visit: ${changes.slice(0, 3).join(", ")}. Nice steady progress.` };
+      if (previous.date !== current.date) return { changed: false, text: `New day, fresh board. ${getDailyMotivation()}` };
+      return { changed: false, text: getDailyMotivation() };
+    }
+
+    function rememberVisitSnapshot() {
+      writeJsonStorage(visitSnapshotStorageKey, getCurrentVisitSnapshot());
+    }
+
     function renderHomeDashboard() {
       const welcome = document.getElementById("homeWelcome");
+      const delta = document.getElementById("homeWelcomeDelta");
       const recs = document.getElementById("homeRecommendations");
       const unlocks = document.getElementById("homeUnlocks");
       const nextReason = document.getElementById("homeNextReason");
@@ -10956,12 +12356,22 @@
       const shortLessonsDone = readShortLessonState().completed.length;
       const lessonCount = completedPathLessons.size + shortLessonsDone;
       const profileSnapshot = renderPlayerProfile();
-      const level = profileSnapshot?.level || getLearnerLevel(puzzleXp).current[0];
       const needsTactics = puzzleAttempts > puzzleCorrect;
       const completedToday = dailyHabit.rewardDate === getTodayKey();
       const nextLesson = Math.max(1, lessonCount + 1);
       const focus = getSingleCoachFocus();
       const profileName = String(profileSnapshot?.name || readLearnerProfile().name || "").trim();
+      const currentStreak = profileSnapshot?.streak ?? dailyHabit.streak;
+      const masteredThemes = getMasteredTacticalThemes();
+      const unlockedSkills = getUnlockedLearningSkills();
+      const learningMinutes = getLearningMinutes(lessonCount);
+      const welcomeDelta = getWelcomeBackDelta(lessonCount);
+      const setHomeStat = (id, value, detail = "") => {
+        const stat = document.getElementById(id);
+        if (!stat) return;
+        stat.textContent = value;
+        if (detail) stat.closest(".home-stat")?.setAttribute("title", detail);
+      };
       const focusPuzzlePlan = needsTactics ? "Forks"
         : puzzlePlanOptions.includes(focus.skill) ? focus.skill
         : /endgame/i.test(focus.skill) ? "Endgames"
@@ -10981,13 +12391,21 @@
       ];
 
       welcome.textContent = profileName ? `Welcome back, ${profileName}!` : lessonCount || puzzleXp ? "Welcome back!" : "Welcome! Start with one tiny win.";
-      document.getElementById("homeStreak").textContent = `${profileSnapshot?.streak ?? dailyHabit.streak}-day streak`;
-      document.getElementById("homeLevel").textContent = level;
-      document.getElementById("homeXp").textContent = `${formatProfileNumber(profileSnapshot?.xp ?? puzzleXp)} XP`;
-      document.getElementById("homeProgress").textContent = `${lessonCount} lessons done`;
+      if (delta) {
+        delta.textContent = welcomeDelta.text;
+        delta.classList.toggle("is-new", welcomeDelta.changed);
+      }
+      setHomeStat("homeGamesPlayed", formatProfileNumber(gameStats.played), gameStats.played ? `${gameStats.wins || 0} wins recorded` : "Play one friendly AI game to start this stat.");
+      setHomeStat("homeThemesMastered", formatProfileNumber(masteredThemes.length), masteredThemes.length ? masteredThemes.join(", ") : "Solve two puzzles from one theme to master it.");
+      setHomeStat("homeStreak", `${formatProfileNumber(currentStreak)} days`, currentStreak ? "Keep the tiny daily habit alive." : "Finish one daily puzzle to start a streak.");
+      setHomeStat("homeLearningTime", formatLearningTime(learningMinutes), "Estimated from completed lessons, puzzles, attempts, and games.");
+      setHomeStat("homeSkillsUnlocked", formatProfileNumber(unlockedSkills.length), unlockedSkills.length ? unlockedSkills.join(", ") : "First unlock: solve one puzzle.");
+      setHomeStat("homeXp", `${formatProfileNumber(profileSnapshot?.xp ?? puzzleXp)} XP`, `${lessonCount} lessons done`);
       document.getElementById("homeInsight").textContent = needsTactics
         ? "You struggled with tactics recently. Try one quick pattern."
-        : `Single focus today: ${focus.practice}.`;
+        : masteredThemes.length
+          ? `Mastered: ${masteredThemes.slice(0, 2).join(", ")}. Next focus: ${focus.practice}.`
+          : `Single focus today: ${focus.practice}.`;
       if (nextReason && nextAction) {
         nextReason.textContent = nextStep[0];
         nextAction.href = nextStep[1];
@@ -11095,9 +12513,10 @@
       dailyReward.textContent = completedToday
         ? `Daily reward unlocked. Weekly ${weeklyXp}/120 XP. Monthly chests ${puzzleChests}.`
         : `Daily mission: solve 1 ${smart.type} puzzle, then open ${nextLesson.label}. Weekly ${weeklyXp}/120 XP.`;
-      coach.textContent = puzzleAttempts
-        ? `Simple AI coach: Nice effort. ${activePuzzlePlan === "adaptive" ? `Adaptive is giving you ${smart.level} puzzles. ` : ""}${smart.message} One helpful idea: ${puzzles[currentPuzzle].hint}`
-        : `Simple AI coach: You're getting better every day. ${smart.message}`;
+      const homeCoachMessage = puzzleAttempts
+        ? `Nice effort. ${activePuzzlePlan === "adaptive" ? `Adaptive is giving you ${smart.level} puzzles. ` : ""}${smart.message} One helpful idea: ${puzzles[currentPuzzle].hint}`
+        : `You're getting better every day. ${smart.message}`;
+      coach.textContent = `${coachMemoryStatus()} ${homeCoachMessage}`;
 
       const achievements = [
         ["First Win", gameStats.wins > 0],
@@ -11137,6 +12556,7 @@
         bar.title = `${label}: ${value} XP`;
         return bar;
       }));
+      renderStore();
       renderHomeDashboard();
     }
 
@@ -11393,17 +12813,19 @@
     function playPuzzleTone(type) {
       if (!puzzleSoundOn || !window.AudioContext) return;
       const context = new AudioContext();
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      oscillator.frequency.value = type === "correct" ? 660 : 180;
-      gain.gain.value = 0.025;
-      oscillator.connect(gain);
-      gain.connect(context.destination);
-      oscillator.start();
-      window.setTimeout(() => {
-        oscillator.stop();
-        context.close();
-      }, 110);
+      const notes = type === "wrong" ? [220, 196] : type === "milestone" ? [660, 880, 990] : [523, 659];
+      notes.forEach((frequency, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.frequency.value = frequency;
+        oscillator.type = "sine";
+        gain.gain.value = 0.018;
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(context.currentTime + index * 0.075);
+        oscillator.stop(context.currentTime + index * 0.075 + 0.12);
+      });
+      window.setTimeout(() => context.close(), 420);
     }
 
     function flashPuzzleBoard(className) {
@@ -11459,7 +12881,7 @@
       activeAnswered = false;
       document.getElementById("puzzleComplete").hidden = true;
       document.getElementById("startPuzzle").textContent = "Restart";
-      document.getElementById("feedback").textContent = `Find the best move. ${getSmartPuzzleRecommendation().message}`;
+      document.getElementById("feedback").textContent = coachMemoryLine(`Find the best move. ${getSmartPuzzleRecommendation().message}`);
       startPuzzleTimer();
       renderPuzzleBoard();
     }
@@ -11483,11 +12905,13 @@
           activeAnswered = true;
           const firstSolve = !solvedPuzzles.has(currentPuzzle);
           const habitReward = currentPuzzle === getDailyPuzzleIndex() && completeDailyHabit();
+          const previousBest = bestPuzzleStreak;
           if (firstSolve) {
             solvedPuzzles.add(currentPuzzle);
             streak += 1;
           }
           bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
+          const personalBest = firstSolve && streak > previousBest && streak > 1;
           puzzleCorrect += 1;
           scheduleSpacedReview(true);
           rememberCoachTheme(true);
@@ -11498,7 +12922,7 @@
           document.getElementById("feedback").textContent = `Solved! ${formatRewardText(reward)}${habitReward ? " +10 daily reward" : ""}. ${puzzle.feedback}`;
           showPuzzleComplete();
           scheduleNextPuzzle();
-          showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : puzzle.mode === "Boss Puzzle" ? "Boss cleared!" : "Puzzle solved!");
+          showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), getPuzzleSolveBadge(xpResult, puzzle, personalBest));
         } else {
           document.getElementById("feedback").textContent = `Good move: ${move.san}. ${reply ? `Coach reply: ${reply.san}. ` : ""}Keep following the line.`;
         }
@@ -11741,11 +13165,13 @@
 
       if (answer.correct) {
         const firstSolve = !solvedPuzzles.has(currentPuzzle);
+        const previousBest = bestPuzzleStreak;
         if (!solvedPuzzles.has(currentPuzzle)) {
           solvedPuzzles.add(currentPuzzle);
           streak += 1;
         }
         bestPuzzleStreak = Math.max(bestPuzzleStreak, streak);
+        const personalBest = firstSolve && streak > previousBest && streak > 1;
         puzzleCorrect += 1;
         scheduleSpacedReview(true);
         rememberCoachTheme(true);
@@ -11758,7 +13184,7 @@
         playPuzzleTone("correct");
         showPuzzleComplete();
         scheduleNextPuzzle();
-        showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), xpResult.levelUp ? "New Badge Unlocked!" : "Puzzle solved!");
+        showCelebration("\uD83C\uDF89 Great Job!", formatRewardText(reward), getPuzzleSolveBadge(xpResult, puzzle, personalBest));
       } else {
         puzzleAttempts += 1;
         streak = 0;
@@ -11808,7 +13234,7 @@
       document.getElementById("analyzePuzzle").setAttribute("aria-pressed", "false");
       hint.textContent = puzzle.hint;
       hint.classList.add("hidden");
-      feedback.textContent = CoachChess ? "Auto-starting puzzle..." : "Loading chess.js puzzle rules...";
+      feedback.textContent = CoachChess ? coachMemoryLine("Auto-starting puzzle...") : "Loading chess.js puzzle rules...";
       document.getElementById("hintPuzzle").disabled = false;
       document.getElementById("hintPuzzle").textContent = "Hint";
       document.getElementById("revealPuzzle").disabled = false;
@@ -11862,11 +13288,18 @@
       renderPuzzleBoard();
     }
 
-    function togglePuzzleSound() {
-      puzzleSoundOn = !puzzleSoundOn;
+    function syncPuzzleSoundButton() {
       const button = document.getElementById("soundPuzzle");
+      if (!button) return;
       button.textContent = puzzleSoundOn ? "Sound On" : "Sound Off";
       button.setAttribute("aria-pressed", String(puzzleSoundOn));
+      button.setAttribute("aria-label", puzzleSoundOn ? "Mute friendly sounds" : "Turn on friendly sounds");
+    }
+
+    function togglePuzzleSound() {
+      puzzleSoundOn = !puzzleSoundOn;
+      writeJsonStorage(soundPrefsStorageKey, { puzzle: puzzleSoundOn });
+      syncPuzzleSoundButton();
       playPuzzleTone("correct");
     }
 
@@ -12573,6 +14006,7 @@
         statusBadge.textContent = coachBotPaused ? "Free play" : isCoachCheck() ? "Check" : "Playing";
         coach.textContent = coachMessage;
       }
+      coach.textContent = coachMemoryLine(coach.textContent);
 
       renderCoachCaptured();
       renderCoachHistory();
@@ -12897,8 +14331,56 @@
       renderCoachBoard();
     }
 
+    function buildCoachQuote(label, text) {
+      const quote = document.createElement("aside");
+      quote.className = "coach-quote";
+      quote.setAttribute("aria-label", label);
+      quote.append(
+        createBookText("strong", "", label),
+        createBookText("p", "", text)
+      );
+      return quote;
+    }
+
+    function setupCoachQuotes() {
+      const quotes = {
+        home: ["Coach note", "Before every move, ask: is my king safe, is a piece hanging, and do I have a forcing move?"],
+        login: ["Player pass tip", "A small goal measured every day beats a giant plan you only open once."],
+        store: ["Reward rule", "Cosmetics are rewards; better moves still come from calm checks, captures, and threats."],
+        paths: ["Lesson focus", "One mastered idea is stronger than ten half-remembered rules."],
+        adventures: ["Adventure clue", "A piece becomes powerful when it has a job, a safe square, and a teammate."],
+        rules: ["Rules first", "Legal moves come first; good moves appear after you see checks, captures, and threats."],
+        openings: ["Opening compass", "Openings are not memory tests: control the center, develop pieces, castle, then make a plan."],
+        videos: ["Video habit", "Watch one short idea, pause, and use it on a board before watching the next."],
+        shorts: ["Shorts sprint", "One fast clip is enough if you replay the key move and name the pattern."],
+        books: ["Reading plan", "Read for patterns, not pages: copy one position and explain the plan in your own words."],
+        notation: ["Review map", "Notation is a map of your thinking; mark the first moment the position changed."],
+        play: ["Game routine", "Do not rush the reply. First find your opponent's threat, then choose your move."],
+        puzzles: ["Puzzle method", "Solve like a detective: checks first, captures second, threats third, quiet moves last."],
+        plan: ["Daily rhythm", "Improvement sticks when practice is short enough to repeat tomorrow."]
+      };
+
+      const homeTarget = document.querySelector(".hero-copy");
+      if (homeTarget && !homeTarget.querySelector(".coach-quote")) {
+        homeTarget.querySelector(".hero-actions")?.before(buildCoachQuote(...quotes.home));
+      }
+
+      Object.entries(quotes).forEach(([id, quoteData]) => {
+        if (id === "home" || id === "shorts") return;
+        const section = document.getElementById(id);
+        const head = section?.querySelector(".section-head");
+        if (!section || !head || section.querySelector(".coach-quote")) return;
+        head.after(buildCoachQuote(...quoteData));
+      });
+
+      const shorts = document.getElementById("shorts");
+      if (shorts && !shorts.querySelector(".coach-quote")) {
+        shorts.querySelector(".shorts-toolbar")?.before(buildCoachQuote(...quotes.shorts));
+      }
+    }
+
     function setupSiteTabs() {
-      const panelIds = ["login", "paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
+      const panelIds = ["login", "store", "paths", "adventures", "rules", "openings", "videos", "books", "notation", "play", "puzzles", "plan"];
       const links = [...document.querySelectorAll("[data-site-tab]")];
       const tabLinks = [...document.querySelectorAll("[data-site-tab], [data-home-link]")];
       const panels = panelIds
@@ -13006,11 +14488,13 @@
           activeLink.setAttribute("aria-current", "page");
           activeLink.closest(".nav-group")?.classList.add("is-active-group");
           closeNavMenus();
-          activeLink.scrollIntoView({
-            behavior: reduceMotion ? "auto" : "smooth",
-            block: "nearest",
-            inline: "center"
-          });
+          if (activeLink.closest(".nav-links")) {
+            activeLink.scrollIntoView({
+              behavior: reduceMotion ? "auto" : "smooth",
+              block: "nearest",
+              inline: "center"
+            });
+          }
         }
 
         if (shouldScroll) {
@@ -13103,7 +14587,6 @@
       const profile = readLearnerProfile();
       const adventureProfile = renderPlayerProfile();
       const name = String(profile.name || "").trim();
-      const nav = document.getElementById("loginNavLink");
       const avatar = document.getElementById("loginAvatar");
       const displayName = document.getElementById("loginDisplayName");
       const displayMeta = document.getElementById("loginDisplayMeta");
@@ -13112,11 +14595,10 @@
       const levelField = document.getElementById("loginLevel");
       const goalField = document.getElementById("loginGoal");
 
-      if (nav) nav.textContent = name ? `Hi, ${name.slice(0, 10)}` : "Login";
       if (avatar) avatar.textContent = adventureProfile.avatar;
       if (displayName) displayName.textContent = name ? `${name}'s Player Pass` : "Guest Explorer";
       if (displayMeta) displayMeta.textContent = name ? `${adventureProfile.level} - ${profile.goal}` : "Create your Player Pass to personalize the journey.";
-      if (status) status.textContent = name ? "Ready. Your next tiny win is waiting." : "Saved only in this browser.";
+      if (status) status.textContent = name ? `Coach remembers you as ${name}. Your next tiny win is waiting.` : "Saved only in this browser.";
       if (nameField && document.activeElement !== nameField) nameField.value = name;
       if (levelField) levelField.value = profile.level;
       if (goalField) goalField.value = profile.goal;
@@ -13141,17 +14623,19 @@
         });
         renderLearnerProfile();
         renderHomeDashboard();
+        updateCoachPanel();
       });
 
       reset?.addEventListener("click", () => {
         writeJsonStorage(learnerProfileStorageKey, { name: "", level: "New Explorer", goal: "Learn one easy idea" });
         renderLearnerProfile();
         renderHomeDashboard();
+        updateCoachPanel();
       });
     }
 
     function readLearnerPrefs() {
-      const fallback = { theme: "dark", board: "wood", pieces: "classic", coords: "on", speed: "normal", pressure: "on" };
+      const fallback = { theme: "dark", board: "wood", pieces: "classic", pieceSkin: "classic", coords: "on", speed: "normal", pressure: "on", trail: "none", avatar: "auto", title: "" };
       const saved = readJsonStorage(learnerPrefsStorageKey, fallback);
       return { ...fallback, ...(saved && typeof saved === "object" ? saved : {}) };
     }
@@ -13168,11 +14652,19 @@
       document.body.classList.toggle("board-wood", prefs.board === "wood");
       document.body.classList.toggle("board-marble", prefs.board === "marble");
       document.body.classList.toggle("board-neon", prefs.board === "neon");
+      document.body.classList.toggle("board-forest", prefs.board === "forest");
+      document.body.classList.toggle("board-sky", prefs.board === "sky");
+      document.body.classList.toggle("board-dragon", prefs.board === "dragon");
       document.body.classList.toggle("piece-letter", prefs.pieces === "letter");
+      document.body.classList.toggle("skin-gold", prefs.pieceSkin === "gold");
+      document.body.classList.toggle("skin-crystal", prefs.pieceSkin === "crystal");
+      document.body.classList.toggle("skin-shadow", prefs.pieceSkin === "shadow");
       document.body.classList.toggle("coords-off", prefs.coords === "off");
       document.body.classList.toggle("speed-slow", prefs.speed === "slow");
       document.body.classList.toggle("speed-fast", prefs.speed === "fast");
       document.body.classList.toggle("no-pressure", prefs.pressure !== "off");
+      document.body.classList.toggle("trail-stars", prefs.trail === "stars");
+      document.body.classList.toggle("trail-sparks", prefs.trail === "sparks");
       applyPiecePreference(prefs.pieces);
     }
 
@@ -13186,14 +14678,10 @@
         speed: document.getElementById("prefSpeed"),
         pressure: document.getElementById("prefPressure")
       };
-      const messages = [
-        "Every master was once a beginner.",
-        "One puzzle today is better than none.",
-        "You're improving - keep going!"
-      ];
       const note = document.getElementById("motivationMessage");
 
       applyLearnerPrefs(prefs);
+      syncPreferenceLocks();
       Object.entries(fields).forEach(([key, field]) => {
         if (!field) return;
         field.value = prefs[key];
@@ -13206,7 +14694,7 @@
           renderCoachBoard();
         });
       });
-      if (note) note.textContent = messages[new Date().getDate() % messages.length];
+      if (note) note.textContent = getDailyMotivation();
     }
 
     function slugify(value) {
@@ -13543,7 +15031,7 @@
           const nextHistory = new Set(nextState.history || []);
           if (nextCompleted.size >= plan.tasks.length) {
             nextHistory.add(nextState.date);
-            fireConfettiBurst();
+            showCelebration("Daily training complete!", "Plan finished", "Streak protected", { major: true });
           }
 
           saveDailyTrainingState({
@@ -13784,7 +15272,7 @@
             nextCompleted.delete(task.key);
           }
           saveGentleStartState({ completed: [...nextCompleted] });
-          if (nextCompleted.size >= quest.tasks.length) fireConfettiBurst();
+          if (nextCompleted.size >= quest.tasks.length) showCelebration("Quest complete!", "Tiny win finished", "Next step unlocked", { major: true });
           renderGentleStart();
         });
 
@@ -15583,6 +17071,7 @@
         }
         const ended = directState === 0 || deliveryState === 0;
         if (ended && Number(iframe.closest(".short-slide")?.dataset.index) === activeIndex) {
+          rewardWatchedVideo(owningSlide?.dataset.videoId, "short", owningSlide?.dataset.title || "Short lesson");
           markLessonCompleted(activeIndex);
           window.setTimeout(() => {
             scrollToShort(activeIndex + 1);
@@ -15608,6 +17097,12 @@
       let activeVideoCard = null;
       let activeVideoWasShort = false;
       let activeVideoEnded = false;
+      let activeVideoId = "";
+
+      function getVideoIdFromSrc(src) {
+        const url = new URL(src, window.location.href);
+        return url.pathname.match(/\/embed\/([^/]+)/)?.[1] || "";
+      }
 
       function buildPlayerSrc(src, isShort) {
         const url = new URL(src, window.location.href);
@@ -15616,15 +17111,11 @@
           return buildYouTubeEmbedSrc(idMatch[1], {
             ...Object.fromEntries(url.searchParams.entries()),
             autoplay: "1",
-            ...(isShort ? { enablejsapi: "1" } : {})
+            enablejsapi: "1"
           });
         }
         url.searchParams.set("autoplay", "1");
-
-        if (isShort) {
-          url.searchParams.set("enablejsapi", "1");
-        }
-
+        url.searchParams.set("enablejsapi", "1");
         return url.toString();
       }
 
@@ -15648,13 +17139,14 @@
         }, 80);
       }
 
-      function finishShortVideo() {
-        if (!activeVideoWasShort || activeVideoEnded || modal.hidden) return;
+      function finishModalVideo() {
+        if (activeVideoEnded || modal.hidden) return;
         activeVideoEnded = true;
-        closeVideo();
+        rewardWatchedVideo(activeVideoId, activeVideoWasShort ? "short" : "video", modalTitle.textContent || "Chess lesson");
+        if (activeVideoWasShort) closeVideo();
       }
 
-      function listenForShortEnd(player) {
+      function listenForVideoEnd(player) {
         const command = JSON.stringify({
           event: "command",
           func: "addEventListener",
@@ -15686,6 +17178,7 @@
         activeVideoCard = trigger?.closest(".video-card") || null;
         activeVideoWasShort = isShort;
         activeVideoEnded = false;
+        activeVideoId = getVideoIdFromSrc(src);
 
         const player = document.createElement("iframe");
         player.src = buildPlayerSrc(src, isShort);
@@ -15693,7 +17186,7 @@
         player.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
         player.allowFullscreen = true;
         player.referrerPolicy = "origin-when-cross-origin";
-        if (isShort) listenForShortEnd(player);
+        listenForVideoEnd(player);
         modalFrame.appendChild(player);
 
         modal.hidden = false;
@@ -15753,7 +17246,8 @@
         if (event.key === "Escape" && !modal.hidden) closeVideo();
       });
       window.addEventListener("message", (event) => {
-        if (!activeVideoWasShort || modal.hidden) return;
+        const activePlayer = modalFrame.querySelector("iframe");
+        if (modal.hidden || !activePlayer || event.source !== activePlayer.contentWindow) return;
         if (typeof event.origin === "string" && !event.origin.includes("youtube")) return;
 
         let data = event.data;
@@ -15767,7 +17261,7 @@
 
         const directState = data?.event === "onStateChange" ? data.info : undefined;
         const deliveryState = data?.event === "infoDelivery" ? data.info?.playerState : undefined;
-        if (directState === 0 || deliveryState === 0) finishShortVideo();
+        if (directState === 0 || deliveryState === 0) finishModalVideo();
       });
     }
 
@@ -15856,6 +17350,11 @@
       });
     });
 
+    window.addEventListener("pagehide", rememberVisitSnapshot);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") rememberVisitSnapshot();
+    });
+
     document.getElementById("nextAdventure").addEventListener("click", () => {
       currentAdventure = (currentAdventure + 1) % adventureMissions.length;
       currentStoryChapter = (currentStoryChapter + 1) % storyChapters.length;
@@ -15865,8 +17364,11 @@
     document.getElementById("restartAdventure").addEventListener("click", renderAdventureMission);
 
     setupLearnerPreferences();
+    syncPuzzleSoundButton();
+    setupStore();
     setupLoginProfile();
     buildHeroBoard();
+    setupCoachQuotes();
     setupLessonFlow();
     renderAdventureMission();
     renderMiniBoards();
